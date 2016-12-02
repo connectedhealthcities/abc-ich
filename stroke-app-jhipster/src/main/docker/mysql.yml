@@ -6,8 +6,8 @@ services:
         # volumes:
         #     - ~/volumes/jhipster/StrokeApp/mysql/:/var/lib/mysql/
         environment:
-            - MYSQL_USER=root
-            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_USER=strokeapp
+            - MYSQL_PASSWORD=strokeapp
             - MYSQL_DATABASE=strokeapp
         ports:
             - 3306:3306

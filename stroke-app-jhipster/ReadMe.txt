@@ -1,3 +1,6 @@
+JHIPSTER OPTIONS
+================
+
 This project was created using generator-hipster 3.11.0.
 
 Selected options were as follows:
@@ -15,5 +18,22 @@ Selected options were as follows:
 ? (11/13) Would you like to use the LibSass stylesheet preprocessor for your CSS? No
 ? (12/13) Would you like to enable internationalization support? No
 ? (13/13) Which testing frameworks would you like to use? Protractor
+
+DATABASE SETUP
+==============
+
+1. Create a local mysql user account with username 'strokeapp' and password ‘strokeapp'.
+	
+	This can be done from the command line:
+	
+	  mysql -u root -p
+	        
+	  CREATE USER 'clintouch'@'localhost' IDENTIFIED BY 'clintouch';
+	
+2. Create a mysql database named 'strokeapp' and grant all privileges to user 'strokeapp'
+	
+	  CREATE DATABASE strokeapp;        
+	        
+	  GRANT ALL ON strokeapp.* TO 'strokeapp'@'localhost';
 
 

@@ -1,0 +1,156 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "hospital",
+            "otherEntityName": "hospital",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "patient"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "inrs",
+            "otherEntityName": "inr",
+            "otherEntityRelationshipName": "patient"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "bpManagementEntries",
+            "otherEntityName": "bpManagementEntry",
+            "otherEntityRelationshipName": "patient"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "uniqueId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "initials",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "birthDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "estimatedAge",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "onsetDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "bpStartTreatmentDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "doorDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "appStartDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "gcsScore",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 3,
+            "fieldValidateRulesMax": 15
+        },
+        {
+            "fieldName": "antiCoagulant",
+            "fieldType": "AntiCoagulant",
+            "fieldValues": "UNKNOWN,NONE,WARFARIN,SINTHROME,APIXABAN,DABIGATRAN,RIVO_ROXABAN,EDOXABAN"
+        },
+        {
+            "fieldName": "weightInKg",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "calculatedBeriplexDose",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 750,
+            "fieldValidateRulesMax": 5000
+        },
+        {
+            "fieldName": "actualBeriplexDose",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "isBeriplexAdministered",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "beriplexStartDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "isVitaminkAdministered",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "vitaminkDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "isInfusionInstructionsViewed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "premorbidMrsScore",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 5
+        },
+        {
+            "fieldName": "isPosteriorFossaIch",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "isVentricleObstructed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "ichVolume",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "isReferredToNeurosurgery",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "isForActiveTreatment",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "destination",
+            "fieldType": "Destination",
+            "fieldValues": "ICU,HDU,NEUROSURGERY,STROKEWARD,OTHER"
+        },
+        {
+            "fieldName": "otherDestination",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161207153505",
+    "entityTableName": "patient",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl"
+}

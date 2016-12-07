@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity Patient.
+    -->
+    <changeSet id="20161207153505-1" author="jhipster">
+        <createTable tableName="patient">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="unique_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="initials" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="birth_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="estimated_age" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="onset_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="bp_start_treatment_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="door_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="app_start_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="gcs_score" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="anti_coagulant" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="weight_in_kg" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="calculated_beriplex_dose" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="actual_beriplex_dose" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_beriplex_administered" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="beriplex_start_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_vitamink_administered" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="vitamink_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_infusion_instructions_viewed" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="premorbid_mrs_score" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_posterior_fossa_ich" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_ventricle_obstructed" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="ich_volume" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_referred_to_neurosurgery" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_for_active_treatment" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="destination" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="other_destination" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+                        <column name="hospital_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="patient" columnName="onset_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="bp_start_treatment_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="door_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="app_start_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="beriplex_start_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="vitamink_date_time" columnDataType="datetime"/>
+        
+    </changeSet>
+</databaseChangeLog>

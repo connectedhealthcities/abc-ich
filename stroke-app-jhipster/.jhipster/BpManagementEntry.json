@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "patient",
+            "otherEntityName": "patient",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "systolicBp",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "gtnRate",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "labetalolDose",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20161207153508",
+    "entityTableName": "bp_management_entry",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

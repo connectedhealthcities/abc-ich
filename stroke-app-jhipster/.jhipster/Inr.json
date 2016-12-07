@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "patient",
+            "otherEntityName": "patient",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "value",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "inrType",
+            "fieldType": "InrType",
+            "fieldValues": "POINT_OF_CARE,LABORATORY"
+        },
+        {
+            "fieldName": "measuredDateTime",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20161207153507",
+    "entityTableName": "inr",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

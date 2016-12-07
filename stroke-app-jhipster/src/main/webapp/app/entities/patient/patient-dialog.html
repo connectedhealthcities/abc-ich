@@ -1,0 +1,269 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPatientLabel">Create or edit a Patient</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.patient.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.patient.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_uniqueId">Unique Id</label>
+            <input type="text" class="form-control" name="uniqueId" id="field_uniqueId"
+                    ng-model="vm.patient.uniqueId"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_initials">Initials</label>
+            <input type="text" class="form-control" name="initials" id="field_initials"
+                    ng-model="vm.patient.initials"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_birthDate">Birth Date</label>
+                <div class="input-group">
+                    <input id="field_birthDate" type="text" class="form-control" name="birthDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.patient.birthDate" is-open="vm.datePickerOpenStatus.birthDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('birthDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_estimatedAge">Estimated Age</label>
+            <input type="number" class="form-control" name="estimatedAge" id="field_estimatedAge"
+                    ng-model="vm.patient.estimatedAge"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_onsetDateTime">Onset Date Time</label>
+                <div class="input-group">
+                    <input id="field_onsetDateTime" type="text" class="form-control" name="onsetDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.onsetDateTime" is-open="vm.datePickerOpenStatus.onsetDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('onsetDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_bpStartTreatmentDateTime">Bp Start Treatment Date Time</label>
+                <div class="input-group">
+                    <input id="field_bpStartTreatmentDateTime" type="text" class="form-control" name="bpStartTreatmentDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.bpStartTreatmentDateTime" is-open="vm.datePickerOpenStatus.bpStartTreatmentDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('bpStartTreatmentDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_doorDateTime">Door Date Time</label>
+                <div class="input-group">
+                    <input id="field_doorDateTime" type="text" class="form-control" name="doorDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.doorDateTime" is-open="vm.datePickerOpenStatus.doorDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('doorDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_appStartDateTime">App Start Date Time</label>
+                <div class="input-group">
+                    <input id="field_appStartDateTime" type="text" class="form-control" name="appStartDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.appStartDateTime" is-open="vm.datePickerOpenStatus.appStartDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('appStartDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_gcsScore">Gcs Score</label>
+            <input type="number" class="form-control" name="gcsScore" id="field_gcsScore"
+                    ng-model="vm.patient.gcsScore"
+                    min="3" max="15" />
+            <div ng-show="editForm.gcsScore.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.gcsScore.$error.min" translate-value-min="3">
+                    This field should be more than 3.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.gcsScore.$error.max">
+                    This field cannot be more than 15.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.gcsScore.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_antiCoagulant">Anti Coagulant</label>
+            <select class="form-control" name="antiCoagulant" ng-model="vm.patient.antiCoagulant" id="field_antiCoagulant">
+                <option value="UNKNOWN">UNKNOWN</option>
+                <option value="NONE">NONE</option>
+                <option value="WARFARIN">WARFARIN</option>
+                <option value="SINTHROME">SINTHROME</option>
+                <option value="APIXABAN">APIXABAN</option>
+                <option value="DABIGATRAN">DABIGATRAN</option>
+                <option value="RIVO_ROXABAN" data-translate="strokeApp.AntiCoagulant.RIVO_ROXABAN">RIVO_ROXABAN</option>
+                <option value="EDOXABAN">EDOXABAN</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_weightInKg">Weight In Kg</label>
+            <input type="number" class="form-control" name="weightInKg" id="field_weightInKg"
+                    ng-model="vm.patient.weightInKg"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_calculatedBeriplexDose">Calculated Beriplex Dose</label>
+            <input type="number" class="form-control" name="calculatedBeriplexDose" id="field_calculatedBeriplexDose"
+                    ng-model="vm.patient.calculatedBeriplexDose"
+                    min="750" max="5000" />
+            <div ng-show="editForm.calculatedBeriplexDose.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.calculatedBeriplexDose.$error.min" translate-value-min="750">
+                    This field should be more than 750.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.calculatedBeriplexDose.$error.max">
+                    This field cannot be more than 5000.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.calculatedBeriplexDose.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_actualBeriplexDose">Actual Beriplex Dose</label>
+            <input type="number" class="form-control" name="actualBeriplexDose" id="field_actualBeriplexDose"
+                    ng-model="vm.patient.actualBeriplexDose"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isBeriplexAdministered">Is Beriplex Administered</label>
+            <input type="checkbox" class="form-control" name="isBeriplexAdministered" id="field_isBeriplexAdministered"
+                    ng-model="vm.patient.isBeriplexAdministered"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_beriplexStartDateTime">Beriplex Start Date Time</label>
+                <div class="input-group">
+                    <input id="field_beriplexStartDateTime" type="text" class="form-control" name="beriplexStartDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.beriplexStartDateTime" is-open="vm.datePickerOpenStatus.beriplexStartDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('beriplexStartDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isVitaminkAdministered">Is Vitamink Administered</label>
+            <input type="checkbox" class="form-control" name="isVitaminkAdministered" id="field_isVitaminkAdministered"
+                    ng-model="vm.patient.isVitaminkAdministered"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_vitaminkDateTime">Vitamink Date Time</label>
+                <div class="input-group">
+                    <input id="field_vitaminkDateTime" type="text" class="form-control" name="vitaminkDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.vitaminkDateTime" is-open="vm.datePickerOpenStatus.vitaminkDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('vitaminkDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isInfusionInstructionsViewed">Is Infusion Instructions Viewed</label>
+            <input type="checkbox" class="form-control" name="isInfusionInstructionsViewed" id="field_isInfusionInstructionsViewed"
+                    ng-model="vm.patient.isInfusionInstructionsViewed"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_premorbidMrsScore">Premorbid Mrs Score</label>
+            <input type="number" class="form-control" name="premorbidMrsScore" id="field_premorbidMrsScore"
+                    ng-model="vm.patient.premorbidMrsScore"
+                    min="0" max="5" />
+            <div ng-show="editForm.premorbidMrsScore.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.premorbidMrsScore.$error.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.premorbidMrsScore.$error.max">
+                    This field cannot be more than 5.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.premorbidMrsScore.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isPosteriorFossaIch">Is Posterior Fossa Ich</label>
+            <input type="checkbox" class="form-control" name="isPosteriorFossaIch" id="field_isPosteriorFossaIch"
+                    ng-model="vm.patient.isPosteriorFossaIch"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isVentricleObstructed">Is Ventricle Obstructed</label>
+            <input type="checkbox" class="form-control" name="isVentricleObstructed" id="field_isVentricleObstructed"
+                    ng-model="vm.patient.isVentricleObstructed"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ichVolume">Ich Volume</label>
+            <input type="number" class="form-control" name="ichVolume" id="field_ichVolume"
+                    ng-model="vm.patient.ichVolume"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isReferredToNeurosurgery">Is Referred To Neurosurgery</label>
+            <input type="checkbox" class="form-control" name="isReferredToNeurosurgery" id="field_isReferredToNeurosurgery"
+                    ng-model="vm.patient.isReferredToNeurosurgery"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isForActiveTreatment">Is For Active Treatment</label>
+            <input type="checkbox" class="form-control" name="isForActiveTreatment" id="field_isForActiveTreatment"
+                    ng-model="vm.patient.isForActiveTreatment"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_destination">Destination</label>
+            <select class="form-control" name="destination" ng-model="vm.patient.destination" id="field_destination">
+                <option value="ICU">ICU</option>
+                <option value="HDU">HDU</option>
+                <option value="NEUROSURGERY">NEUROSURGERY</option>
+                <option value="STROKEWARD">STROKEWARD</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_otherDestination">Other Destination</label>
+            <input type="text" class="form-control" name="otherDestination" id="field_otherDestination"
+                    ng-model="vm.patient.otherDestination"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label for="field_hospital">Hospital</label>
+            <select class="form-control" id="field_hospital" name="hospital" ng-model="vm.patient.hospitalId" ng-options="hospital.id as hospital.id for hospital in vm.hospitals | orderBy:'id'">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

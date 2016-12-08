@@ -123,6 +123,7 @@
                                 bpStartTreatmentDateTime: null,
                                 doorDateTime: null,
                                 appStartDateTime: null,
+                                bpTargetReachedDateTime: null,
                                 gcsScore: null,
                                 antiCoagulant: null,
                                 weightInKg: null,

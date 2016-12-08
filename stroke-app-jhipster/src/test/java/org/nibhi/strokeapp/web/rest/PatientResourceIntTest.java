@@ -76,6 +76,10 @@ public class PatientResourceIntTest {
     private static final ZonedDateTime UPDATED_APP_START_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_APP_START_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_APP_START_DATE_TIME);
 
+    private static final ZonedDateTime DEFAULT_BP_TARGET_REACHED_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_BP_TARGET_REACHED_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_BP_TARGET_REACHED_DATE_TIME);
+
     private static final Integer DEFAULT_GCS_SCORE = 3;
     private static final Integer UPDATED_GCS_SCORE = 4;
 
@@ -180,6 +184,7 @@ public class PatientResourceIntTest {
                 .bpStartTreatmentDateTime(DEFAULT_BP_START_TREATMENT_DATE_TIME)
                 .doorDateTime(DEFAULT_DOOR_DATE_TIME)
                 .appStartDateTime(DEFAULT_APP_START_DATE_TIME)
+                .bpTargetReachedDateTime(DEFAULT_BP_TARGET_REACHED_DATE_TIME)
                 .gcsScore(DEFAULT_GCS_SCORE)
                 .antiCoagulant(DEFAULT_ANTI_COAGULANT)
                 .weightInKg(DEFAULT_WEIGHT_IN_KG)
@@ -231,6 +236,7 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getBpStartTreatmentDateTime()).isEqualTo(DEFAULT_BP_START_TREATMENT_DATE_TIME);
         assertThat(testPatient.getDoorDateTime()).isEqualTo(DEFAULT_DOOR_DATE_TIME);
         assertThat(testPatient.getAppStartDateTime()).isEqualTo(DEFAULT_APP_START_DATE_TIME);
+        assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(DEFAULT_BP_TARGET_REACHED_DATE_TIME);
         assertThat(testPatient.getGcsScore()).isEqualTo(DEFAULT_GCS_SCORE);
         assertThat(testPatient.getAntiCoagulant()).isEqualTo(DEFAULT_ANTI_COAGULANT);
         assertThat(testPatient.getWeightInKg()).isEqualTo(DEFAULT_WEIGHT_IN_KG);
@@ -270,6 +276,7 @@ public class PatientResourceIntTest {
                 .andExpect(jsonPath("$.[*].bpStartTreatmentDateTime").value(hasItem(DEFAULT_BP_START_TREATMENT_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].doorDateTime").value(hasItem(DEFAULT_DOOR_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].appStartDateTime").value(hasItem(DEFAULT_APP_START_DATE_TIME_STR)))
+                .andExpect(jsonPath("$.[*].bpTargetReachedDateTime").value(hasItem(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].gcsScore").value(hasItem(DEFAULT_GCS_SCORE)))
                 .andExpect(jsonPath("$.[*].antiCoagulant").value(hasItem(DEFAULT_ANTI_COAGULANT.toString())))
                 .andExpect(jsonPath("$.[*].weightInKg").value(hasItem(DEFAULT_WEIGHT_IN_KG.doubleValue())))
@@ -309,6 +316,7 @@ public class PatientResourceIntTest {
             .andExpect(jsonPath("$.bpStartTreatmentDateTime").value(DEFAULT_BP_START_TREATMENT_DATE_TIME_STR))
             .andExpect(jsonPath("$.doorDateTime").value(DEFAULT_DOOR_DATE_TIME_STR))
             .andExpect(jsonPath("$.appStartDateTime").value(DEFAULT_APP_START_DATE_TIME_STR))
+            .andExpect(jsonPath("$.bpTargetReachedDateTime").value(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR))
             .andExpect(jsonPath("$.gcsScore").value(DEFAULT_GCS_SCORE))
             .andExpect(jsonPath("$.antiCoagulant").value(DEFAULT_ANTI_COAGULANT.toString()))
             .andExpect(jsonPath("$.weightInKg").value(DEFAULT_WEIGHT_IN_KG.doubleValue()))
@@ -355,6 +363,7 @@ public class PatientResourceIntTest {
                 .bpStartTreatmentDateTime(UPDATED_BP_START_TREATMENT_DATE_TIME)
                 .doorDateTime(UPDATED_DOOR_DATE_TIME)
                 .appStartDateTime(UPDATED_APP_START_DATE_TIME)
+                .bpTargetReachedDateTime(UPDATED_BP_TARGET_REACHED_DATE_TIME)
                 .gcsScore(UPDATED_GCS_SCORE)
                 .antiCoagulant(UPDATED_ANTI_COAGULANT)
                 .weightInKg(UPDATED_WEIGHT_IN_KG)
@@ -392,6 +401,7 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getBpStartTreatmentDateTime()).isEqualTo(UPDATED_BP_START_TREATMENT_DATE_TIME);
         assertThat(testPatient.getDoorDateTime()).isEqualTo(UPDATED_DOOR_DATE_TIME);
         assertThat(testPatient.getAppStartDateTime()).isEqualTo(UPDATED_APP_START_DATE_TIME);
+        assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(UPDATED_BP_TARGET_REACHED_DATE_TIME);
         assertThat(testPatient.getGcsScore()).isEqualTo(UPDATED_GCS_SCORE);
         assertThat(testPatient.getAntiCoagulant()).isEqualTo(UPDATED_ANTI_COAGULANT);
         assertThat(testPatient.getWeightInKg()).isEqualTo(UPDATED_WEIGHT_IN_KG);

@@ -34,6 +34,8 @@ public class PatientDTO implements Serializable {
 
     private ZonedDateTime appStartDateTime;
 
+    private ZonedDateTime bpTargetReachedDateTime;
+
     @Min(value = 3)
     @Max(value = 15)
     private Integer gcsScore;
@@ -141,6 +143,13 @@ public class PatientDTO implements Serializable {
 
     public void setAppStartDateTime(ZonedDateTime appStartDateTime) {
         this.appStartDateTime = appStartDateTime;
+    }
+    public ZonedDateTime getBpTargetReachedDateTime() {
+        return bpTargetReachedDateTime;
+    }
+
+    public void setBpTargetReachedDateTime(ZonedDateTime bpTargetReachedDateTime) {
+        this.bpTargetReachedDateTime = bpTargetReachedDateTime;
     }
     public Integer getGcsScore() {
         return gcsScore;
@@ -310,6 +319,7 @@ public class PatientDTO implements Serializable {
             ", bpStartTreatmentDateTime='" + bpStartTreatmentDateTime + "'" +
             ", doorDateTime='" + doorDateTime + "'" +
             ", appStartDateTime='" + appStartDateTime + "'" +
+            ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", gcsScore='" + gcsScore + "'" +
             ", antiCoagulant='" + antiCoagulant + "'" +
             ", weightInKg='" + weightInKg + "'" +

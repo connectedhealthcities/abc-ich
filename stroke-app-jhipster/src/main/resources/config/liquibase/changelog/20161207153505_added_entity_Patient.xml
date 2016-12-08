@@ -53,6 +53,10 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="bp_target_reached_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="gcs_score" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -133,6 +137,7 @@
         <dropDefaultValue tableName="patient" columnName="bp_start_treatment_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="door_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="app_start_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="bp_target_reached_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="beriplex_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="vitamink_date_time" columnDataType="datetime"/>
         

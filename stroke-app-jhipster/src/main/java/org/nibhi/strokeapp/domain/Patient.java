@@ -52,6 +52,9 @@ public class Patient implements Serializable {
     @Column(name = "app_start_date_time")
     private ZonedDateTime appStartDateTime;
 
+    @Column(name = "bp_target_reached_date_time")
+    private ZonedDateTime bpTargetReachedDateTime;
+
     @Min(value = 3)
     @Max(value = 15)
     @Column(name = "gcs_score")
@@ -236,6 +239,19 @@ public class Patient implements Serializable {
 
     public void setAppStartDateTime(ZonedDateTime appStartDateTime) {
         this.appStartDateTime = appStartDateTime;
+    }
+
+    public ZonedDateTime getBpTargetReachedDateTime() {
+        return bpTargetReachedDateTime;
+    }
+
+    public Patient bpTargetReachedDateTime(ZonedDateTime bpTargetReachedDateTime) {
+        this.bpTargetReachedDateTime = bpTargetReachedDateTime;
+        return this;
+    }
+
+    public void setBpTargetReachedDateTime(ZonedDateTime bpTargetReachedDateTime) {
+        this.bpTargetReachedDateTime = bpTargetReachedDateTime;
     }
 
     public Integer getGcsScore() {
@@ -567,6 +583,7 @@ public class Patient implements Serializable {
             ", bpStartTreatmentDateTime='" + bpStartTreatmentDateTime + "'" +
             ", doorDateTime='" + doorDateTime + "'" +
             ", appStartDateTime='" + appStartDateTime + "'" +
+            ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", gcsScore='" + gcsScore + "'" +
             ", antiCoagulant='" + antiCoagulant + "'" +
             ", weightInKg='" + weightInKg + "'" +

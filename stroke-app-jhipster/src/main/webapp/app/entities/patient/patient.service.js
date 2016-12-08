@@ -21,6 +21,7 @@
                         data.bpStartTreatmentDateTime = DateUtils.convertDateTimeFromServer(data.bpStartTreatmentDateTime);
                         data.doorDateTime = DateUtils.convertDateTimeFromServer(data.doorDateTime);
                         data.appStartDateTime = DateUtils.convertDateTimeFromServer(data.appStartDateTime);
+                        data.bpTargetReachedDateTime = DateUtils.convertDateTimeFromServer(data.bpTargetReachedDateTime);
                         data.beriplexStartDateTime = DateUtils.convertDateTimeFromServer(data.beriplexStartDateTime);
                         data.vitaminkDateTime = DateUtils.convertDateTimeFromServer(data.vitaminkDateTime);
                     }

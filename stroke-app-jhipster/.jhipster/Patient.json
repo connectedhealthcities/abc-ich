@@ -2,14 +2,6 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "relationshipName": "hospital",
-            "otherEntityName": "hospital",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "patient"
-        },
-        {
             "relationshipType": "one-to-many",
             "relationshipName": "inrs",
             "otherEntityName": "inr",
@@ -20,6 +12,12 @@
             "relationshipName": "bpManagementEntries",
             "otherEntityName": "bpManagementEntry",
             "otherEntityRelationshipName": "patient"
+        },
+        {
+            "relationshipName": "hospital",
+            "otherEntityName": "hospital",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "uniqueId"
         }
     ],
     "fields": [
@@ -71,7 +69,7 @@
             "fieldValues": "UNKNOWN,NONE,WARFARIN,SINTHROME,APIXABAN,DABIGATRAN,RIVO_ROXABAN,EDOXABAN"
         },
         {
-            "fieldName": "weightInKg",
+            "fieldName": "estimatedWeightInKg",
             "fieldType": "Float"
         },
         {
@@ -89,24 +87,12 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "isBeriplexAdministered",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "beriplexStartDateTime",
             "fieldType": "ZonedDateTime"
         },
         {
-            "fieldName": "isVitaminkAdministered",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "vitaminkDateTime",
             "fieldType": "ZonedDateTime"
-        },
-        {
-            "fieldName": "isInfusionInstructionsViewed",
-            "fieldType": "Boolean"
         },
         {
             "fieldName": "premorbidMrsScore",
@@ -119,24 +105,8 @@
             "fieldValidateRulesMax": 5
         },
         {
-            "fieldName": "isPosteriorFossaIch",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "isVentricleObstructed",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "ichVolume",
             "fieldType": "Float"
-        },
-        {
-            "fieldName": "isReferredToNeurosurgery",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "isForActiveTreatment",
-            "fieldType": "Boolean"
         },
         {
             "fieldName": "destination",
@@ -152,7 +122,43 @@
             "fieldType": "ZonedDateTime"
         },
         {
-            "fieldName": "isExternalScan",
+            "fieldName": "beriplexAdministered",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "vitaminkAdministered",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "infusionInstructionsViewed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "posteriorFossaIch",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "ventricleObstructed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "referredToNeurosurgery",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "forActiveTreatment",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "externalScan",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "lastSeenWellOnset",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "bestEstimateOnset",
             "fieldType": "Boolean"
         }
     ],

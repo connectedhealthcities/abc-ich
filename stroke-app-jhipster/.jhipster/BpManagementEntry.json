@@ -24,11 +24,15 @@
         {
             "fieldName": "labetalolDose",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "heartRate",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20161207153508",
-    "entityTableName": "bp_management_entry",
     "dto": "mapstruct",
-    "pagination": "no",
-    "service": "serviceImpl"
+    "service": "serviceImpl",
+    "entityTableName": "bp_management_entry",
+    "pagination": "no"
 }

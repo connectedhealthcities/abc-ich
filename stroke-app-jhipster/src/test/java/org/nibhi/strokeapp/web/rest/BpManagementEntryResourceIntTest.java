@@ -58,6 +58,9 @@ public class BpManagementEntryResourceIntTest {
     private static final Integer DEFAULT_LABETALOL_DOSE = 1;
     private static final Integer UPDATED_LABETALOL_DOSE = 2;
 
+    private static final Integer DEFAULT_HEART_RATE = 1;
+    private static final Integer UPDATED_HEART_RATE = 2;
+
     @Inject
     private BpManagementEntryRepository bpManagementEntryRepository;
 
@@ -101,7 +104,8 @@ public class BpManagementEntryResourceIntTest {
                 .dateTime(DEFAULT_DATE_TIME)
                 .systolicBp(DEFAULT_SYSTOLIC_BP)
                 .gtnRate(DEFAULT_GTN_RATE)
-                .labetalolDose(DEFAULT_LABETALOL_DOSE);
+                .labetalolDose(DEFAULT_LABETALOL_DOSE)
+                .heartRate(DEFAULT_HEART_RATE);
         return bpManagementEntry;
     }
 
@@ -131,6 +135,7 @@ public class BpManagementEntryResourceIntTest {
         assertThat(testBpManagementEntry.getSystolicBp()).isEqualTo(DEFAULT_SYSTOLIC_BP);
         assertThat(testBpManagementEntry.getGtnRate()).isEqualTo(DEFAULT_GTN_RATE);
         assertThat(testBpManagementEntry.getLabetalolDose()).isEqualTo(DEFAULT_LABETALOL_DOSE);
+        assertThat(testBpManagementEntry.getHeartRate()).isEqualTo(DEFAULT_HEART_RATE);
     }
 
     @Test
@@ -147,7 +152,8 @@ public class BpManagementEntryResourceIntTest {
                 .andExpect(jsonPath("$.[*].dateTime").value(hasItem(DEFAULT_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].systolicBp").value(hasItem(DEFAULT_SYSTOLIC_BP)))
                 .andExpect(jsonPath("$.[*].gtnRate").value(hasItem(DEFAULT_GTN_RATE.doubleValue())))
-                .andExpect(jsonPath("$.[*].labetalolDose").value(hasItem(DEFAULT_LABETALOL_DOSE)));
+                .andExpect(jsonPath("$.[*].labetalolDose").value(hasItem(DEFAULT_LABETALOL_DOSE)))
+                .andExpect(jsonPath("$.[*].heartRate").value(hasItem(DEFAULT_HEART_RATE)));
     }
 
     @Test
@@ -164,7 +170,8 @@ public class BpManagementEntryResourceIntTest {
             .andExpect(jsonPath("$.dateTime").value(DEFAULT_DATE_TIME_STR))
             .andExpect(jsonPath("$.systolicBp").value(DEFAULT_SYSTOLIC_BP))
             .andExpect(jsonPath("$.gtnRate").value(DEFAULT_GTN_RATE.doubleValue()))
-            .andExpect(jsonPath("$.labetalolDose").value(DEFAULT_LABETALOL_DOSE));
+            .andExpect(jsonPath("$.labetalolDose").value(DEFAULT_LABETALOL_DOSE))
+            .andExpect(jsonPath("$.heartRate").value(DEFAULT_HEART_RATE));
     }
 
     @Test
@@ -188,7 +195,8 @@ public class BpManagementEntryResourceIntTest {
                 .dateTime(UPDATED_DATE_TIME)
                 .systolicBp(UPDATED_SYSTOLIC_BP)
                 .gtnRate(UPDATED_GTN_RATE)
-                .labetalolDose(UPDATED_LABETALOL_DOSE);
+                .labetalolDose(UPDATED_LABETALOL_DOSE)
+                .heartRate(UPDATED_HEART_RATE);
         BpManagementEntryDTO bpManagementEntryDTO = bpManagementEntryMapper.bpManagementEntryToBpManagementEntryDTO(updatedBpManagementEntry);
 
         restBpManagementEntryMockMvc.perform(put("/api/bp-management-entries")
@@ -204,6 +212,7 @@ public class BpManagementEntryResourceIntTest {
         assertThat(testBpManagementEntry.getSystolicBp()).isEqualTo(UPDATED_SYSTOLIC_BP);
         assertThat(testBpManagementEntry.getGtnRate()).isEqualTo(UPDATED_GTN_RATE);
         assertThat(testBpManagementEntry.getLabetalolDose()).isEqualTo(UPDATED_LABETALOL_DOSE);
+        assertThat(testBpManagementEntry.getHeartRate()).isEqualTo(UPDATED_HEART_RATE);
     }
 
     @Test

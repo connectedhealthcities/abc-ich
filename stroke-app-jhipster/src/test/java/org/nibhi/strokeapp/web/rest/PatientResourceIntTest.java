@@ -82,8 +82,8 @@ public class PatientResourceIntTest {
     private static final AntiCoagulant DEFAULT_ANTI_COAGULANT = AntiCoagulant.UNKNOWN;
     private static final AntiCoagulant UPDATED_ANTI_COAGULANT = AntiCoagulant.NONE;
 
-    private static final Float DEFAULT_WEIGHT_IN_KG = 1F;
-    private static final Float UPDATED_WEIGHT_IN_KG = 2F;
+    private static final Float DEFAULT_ESTIMATED_WEIGHT_IN_KG = 1F;
+    private static final Float UPDATED_ESTIMATED_WEIGHT_IN_KG = 2F;
 
     private static final Integer DEFAULT_CALCULATED_BERIPLEX_DOSE = 750;
     private static final Integer UPDATED_CALCULATED_BERIPLEX_DOSE = 751;
@@ -91,40 +91,19 @@ public class PatientResourceIntTest {
     private static final Integer DEFAULT_ACTUAL_BERIPLEX_DOSE = 1;
     private static final Integer UPDATED_ACTUAL_BERIPLEX_DOSE = 2;
 
-    private static final Boolean DEFAULT_IS_BERIPLEX_ADMINISTERED = false;
-    private static final Boolean UPDATED_IS_BERIPLEX_ADMINISTERED = true;
-
     private static final ZonedDateTime DEFAULT_BERIPLEX_START_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_BERIPLEX_START_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_BERIPLEX_START_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_BERIPLEX_START_DATE_TIME);
-
-    private static final Boolean DEFAULT_IS_VITAMINK_ADMINISTERED = false;
-    private static final Boolean UPDATED_IS_VITAMINK_ADMINISTERED = true;
 
     private static final ZonedDateTime DEFAULT_VITAMINK_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_VITAMINK_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_VITAMINK_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_VITAMINK_DATE_TIME);
 
-    private static final Boolean DEFAULT_IS_INFUSION_INSTRUCTIONS_VIEWED = false;
-    private static final Boolean UPDATED_IS_INFUSION_INSTRUCTIONS_VIEWED = true;
-
     private static final Integer DEFAULT_PREMORBID_MRS_SCORE = 0;
     private static final Integer UPDATED_PREMORBID_MRS_SCORE = 1;
 
-    private static final Boolean DEFAULT_IS_POSTERIOR_FOSSA_ICH = false;
-    private static final Boolean UPDATED_IS_POSTERIOR_FOSSA_ICH = true;
-
-    private static final Boolean DEFAULT_IS_VENTRICLE_OBSTRUCTED = false;
-    private static final Boolean UPDATED_IS_VENTRICLE_OBSTRUCTED = true;
-
     private static final Float DEFAULT_ICH_VOLUME = 1F;
     private static final Float UPDATED_ICH_VOLUME = 2F;
-
-    private static final Boolean DEFAULT_IS_REFERRED_TO_NEUROSURGERY = false;
-    private static final Boolean UPDATED_IS_REFERRED_TO_NEUROSURGERY = true;
-
-    private static final Boolean DEFAULT_IS_FOR_ACTIVE_TREATMENT = false;
-    private static final Boolean UPDATED_IS_FOR_ACTIVE_TREATMENT = true;
 
     private static final Destination DEFAULT_DESTINATION = Destination.ICU;
     private static final Destination UPDATED_DESTINATION = Destination.HDU;
@@ -136,8 +115,35 @@ public class PatientResourceIntTest {
     private static final ZonedDateTime UPDATED_SCAN_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_SCAN_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_SCAN_DATE_TIME);
 
-    private static final Boolean DEFAULT_IS_EXTERNAL_SCAN = false;
-    private static final Boolean UPDATED_IS_EXTERNAL_SCAN = true;
+    private static final Boolean DEFAULT_BERIPLEX_ADMINISTERED = false;
+    private static final Boolean UPDATED_BERIPLEX_ADMINISTERED = true;
+
+    private static final Boolean DEFAULT_VITAMINK_ADMINISTERED = false;
+    private static final Boolean UPDATED_VITAMINK_ADMINISTERED = true;
+
+    private static final Boolean DEFAULT_INFUSION_INSTRUCTIONS_VIEWED = false;
+    private static final Boolean UPDATED_INFUSION_INSTRUCTIONS_VIEWED = true;
+
+    private static final Boolean DEFAULT_POSTERIOR_FOSSA_ICH = false;
+    private static final Boolean UPDATED_POSTERIOR_FOSSA_ICH = true;
+
+    private static final Boolean DEFAULT_VENTRICLE_OBSTRUCTED = false;
+    private static final Boolean UPDATED_VENTRICLE_OBSTRUCTED = true;
+
+    private static final Boolean DEFAULT_REFERRED_TO_NEUROSURGERY = false;
+    private static final Boolean UPDATED_REFERRED_TO_NEUROSURGERY = true;
+
+    private static final Boolean DEFAULT_FOR_ACTIVE_TREATMENT = false;
+    private static final Boolean UPDATED_FOR_ACTIVE_TREATMENT = true;
+
+    private static final Boolean DEFAULT_EXTERNAL_SCAN = false;
+    private static final Boolean UPDATED_EXTERNAL_SCAN = true;
+
+    private static final Boolean DEFAULT_LAST_SEEN_WELL_ONSET = false;
+    private static final Boolean UPDATED_LAST_SEEN_WELL_ONSET = true;
+
+    private static final Boolean DEFAULT_BEST_ESTIMATE_ONSET = false;
+    private static final Boolean UPDATED_BEST_ESTIMATE_ONSET = true;
 
     @Inject
     private PatientRepository patientRepository;
@@ -189,24 +195,26 @@ public class PatientResourceIntTest {
                 .bpTargetReachedDateTime(DEFAULT_BP_TARGET_REACHED_DATE_TIME)
                 .gcsScore(DEFAULT_GCS_SCORE)
                 .antiCoagulant(DEFAULT_ANTI_COAGULANT)
-                .weightInKg(DEFAULT_WEIGHT_IN_KG)
+                .estimatedWeightInKg(DEFAULT_ESTIMATED_WEIGHT_IN_KG)
                 .calculatedBeriplexDose(DEFAULT_CALCULATED_BERIPLEX_DOSE)
                 .actualBeriplexDose(DEFAULT_ACTUAL_BERIPLEX_DOSE)
-                .isBeriplexAdministered(DEFAULT_IS_BERIPLEX_ADMINISTERED)
                 .beriplexStartDateTime(DEFAULT_BERIPLEX_START_DATE_TIME)
-                .isVitaminkAdministered(DEFAULT_IS_VITAMINK_ADMINISTERED)
                 .vitaminkDateTime(DEFAULT_VITAMINK_DATE_TIME)
-                .isInfusionInstructionsViewed(DEFAULT_IS_INFUSION_INSTRUCTIONS_VIEWED)
                 .premorbidMrsScore(DEFAULT_PREMORBID_MRS_SCORE)
-                .isPosteriorFossaIch(DEFAULT_IS_POSTERIOR_FOSSA_ICH)
-                .isVentricleObstructed(DEFAULT_IS_VENTRICLE_OBSTRUCTED)
                 .ichVolume(DEFAULT_ICH_VOLUME)
-                .isReferredToNeurosurgery(DEFAULT_IS_REFERRED_TO_NEUROSURGERY)
-                .isForActiveTreatment(DEFAULT_IS_FOR_ACTIVE_TREATMENT)
                 .destination(DEFAULT_DESTINATION)
                 .otherDestination(DEFAULT_OTHER_DESTINATION)
                 .scanDateTime(DEFAULT_SCAN_DATE_TIME)
-                .isExternalScan(DEFAULT_IS_EXTERNAL_SCAN);
+                .beriplexAdministered(DEFAULT_BERIPLEX_ADMINISTERED)
+                .vitaminkAdministered(DEFAULT_VITAMINK_ADMINISTERED)
+                .infusionInstructionsViewed(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED)
+                .posteriorFossaIch(DEFAULT_POSTERIOR_FOSSA_ICH)
+                .ventricleObstructed(DEFAULT_VENTRICLE_OBSTRUCTED)
+                .referredToNeurosurgery(DEFAULT_REFERRED_TO_NEUROSURGERY)
+                .forActiveTreatment(DEFAULT_FOR_ACTIVE_TREATMENT)
+                .externalScan(DEFAULT_EXTERNAL_SCAN)
+                .lastSeenWellOnset(DEFAULT_LAST_SEEN_WELL_ONSET)
+                .bestEstimateOnset(DEFAULT_BEST_ESTIMATE_ONSET);
         return patient;
     }
 
@@ -242,24 +250,26 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(DEFAULT_BP_TARGET_REACHED_DATE_TIME);
         assertThat(testPatient.getGcsScore()).isEqualTo(DEFAULT_GCS_SCORE);
         assertThat(testPatient.getAntiCoagulant()).isEqualTo(DEFAULT_ANTI_COAGULANT);
-        assertThat(testPatient.getWeightInKg()).isEqualTo(DEFAULT_WEIGHT_IN_KG);
+        assertThat(testPatient.getEstimatedWeightInKg()).isEqualTo(DEFAULT_ESTIMATED_WEIGHT_IN_KG);
         assertThat(testPatient.getCalculatedBeriplexDose()).isEqualTo(DEFAULT_CALCULATED_BERIPLEX_DOSE);
         assertThat(testPatient.getActualBeriplexDose()).isEqualTo(DEFAULT_ACTUAL_BERIPLEX_DOSE);
-        assertThat(testPatient.isIsBeriplexAdministered()).isEqualTo(DEFAULT_IS_BERIPLEX_ADMINISTERED);
         assertThat(testPatient.getBeriplexStartDateTime()).isEqualTo(DEFAULT_BERIPLEX_START_DATE_TIME);
-        assertThat(testPatient.isIsVitaminkAdministered()).isEqualTo(DEFAULT_IS_VITAMINK_ADMINISTERED);
         assertThat(testPatient.getVitaminkDateTime()).isEqualTo(DEFAULT_VITAMINK_DATE_TIME);
-        assertThat(testPatient.isIsInfusionInstructionsViewed()).isEqualTo(DEFAULT_IS_INFUSION_INSTRUCTIONS_VIEWED);
         assertThat(testPatient.getPremorbidMrsScore()).isEqualTo(DEFAULT_PREMORBID_MRS_SCORE);
-        assertThat(testPatient.isIsPosteriorFossaIch()).isEqualTo(DEFAULT_IS_POSTERIOR_FOSSA_ICH);
-        assertThat(testPatient.isIsVentricleObstructed()).isEqualTo(DEFAULT_IS_VENTRICLE_OBSTRUCTED);
         assertThat(testPatient.getIchVolume()).isEqualTo(DEFAULT_ICH_VOLUME);
-        assertThat(testPatient.isIsReferredToNeurosurgery()).isEqualTo(DEFAULT_IS_REFERRED_TO_NEUROSURGERY);
-        assertThat(testPatient.isIsForActiveTreatment()).isEqualTo(DEFAULT_IS_FOR_ACTIVE_TREATMENT);
         assertThat(testPatient.getDestination()).isEqualTo(DEFAULT_DESTINATION);
         assertThat(testPatient.getOtherDestination()).isEqualTo(DEFAULT_OTHER_DESTINATION);
         assertThat(testPatient.getScanDateTime()).isEqualTo(DEFAULT_SCAN_DATE_TIME);
-        assertThat(testPatient.isIsExternalScan()).isEqualTo(DEFAULT_IS_EXTERNAL_SCAN);
+        assertThat(testPatient.isBeriplexAdministered()).isEqualTo(DEFAULT_BERIPLEX_ADMINISTERED);
+        assertThat(testPatient.isVitaminkAdministered()).isEqualTo(DEFAULT_VITAMINK_ADMINISTERED);
+        assertThat(testPatient.isInfusionInstructionsViewed()).isEqualTo(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED);
+        assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(DEFAULT_POSTERIOR_FOSSA_ICH);
+        assertThat(testPatient.isVentricleObstructed()).isEqualTo(DEFAULT_VENTRICLE_OBSTRUCTED);
+        assertThat(testPatient.isReferredToNeurosurgery()).isEqualTo(DEFAULT_REFERRED_TO_NEUROSURGERY);
+        assertThat(testPatient.isForActiveTreatment()).isEqualTo(DEFAULT_FOR_ACTIVE_TREATMENT);
+        assertThat(testPatient.isExternalScan()).isEqualTo(DEFAULT_EXTERNAL_SCAN);
+        assertThat(testPatient.isLastSeenWellOnset()).isEqualTo(DEFAULT_LAST_SEEN_WELL_ONSET);
+        assertThat(testPatient.isBestEstimateOnset()).isEqualTo(DEFAULT_BEST_ESTIMATE_ONSET);
     }
 
     @Test
@@ -283,24 +293,26 @@ public class PatientResourceIntTest {
                 .andExpect(jsonPath("$.[*].bpTargetReachedDateTime").value(hasItem(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].gcsScore").value(hasItem(DEFAULT_GCS_SCORE)))
                 .andExpect(jsonPath("$.[*].antiCoagulant").value(hasItem(DEFAULT_ANTI_COAGULANT.toString())))
-                .andExpect(jsonPath("$.[*].weightInKg").value(hasItem(DEFAULT_WEIGHT_IN_KG.doubleValue())))
+                .andExpect(jsonPath("$.[*].estimatedWeightInKg").value(hasItem(DEFAULT_ESTIMATED_WEIGHT_IN_KG.doubleValue())))
                 .andExpect(jsonPath("$.[*].calculatedBeriplexDose").value(hasItem(DEFAULT_CALCULATED_BERIPLEX_DOSE)))
                 .andExpect(jsonPath("$.[*].actualBeriplexDose").value(hasItem(DEFAULT_ACTUAL_BERIPLEX_DOSE)))
-                .andExpect(jsonPath("$.[*].isBeriplexAdministered").value(hasItem(DEFAULT_IS_BERIPLEX_ADMINISTERED.booleanValue())))
                 .andExpect(jsonPath("$.[*].beriplexStartDateTime").value(hasItem(DEFAULT_BERIPLEX_START_DATE_TIME_STR)))
-                .andExpect(jsonPath("$.[*].isVitaminkAdministered").value(hasItem(DEFAULT_IS_VITAMINK_ADMINISTERED.booleanValue())))
                 .andExpect(jsonPath("$.[*].vitaminkDateTime").value(hasItem(DEFAULT_VITAMINK_DATE_TIME_STR)))
-                .andExpect(jsonPath("$.[*].isInfusionInstructionsViewed").value(hasItem(DEFAULT_IS_INFUSION_INSTRUCTIONS_VIEWED.booleanValue())))
                 .andExpect(jsonPath("$.[*].premorbidMrsScore").value(hasItem(DEFAULT_PREMORBID_MRS_SCORE)))
-                .andExpect(jsonPath("$.[*].isPosteriorFossaIch").value(hasItem(DEFAULT_IS_POSTERIOR_FOSSA_ICH.booleanValue())))
-                .andExpect(jsonPath("$.[*].isVentricleObstructed").value(hasItem(DEFAULT_IS_VENTRICLE_OBSTRUCTED.booleanValue())))
                 .andExpect(jsonPath("$.[*].ichVolume").value(hasItem(DEFAULT_ICH_VOLUME.doubleValue())))
-                .andExpect(jsonPath("$.[*].isReferredToNeurosurgery").value(hasItem(DEFAULT_IS_REFERRED_TO_NEUROSURGERY.booleanValue())))
-                .andExpect(jsonPath("$.[*].isForActiveTreatment").value(hasItem(DEFAULT_IS_FOR_ACTIVE_TREATMENT.booleanValue())))
                 .andExpect(jsonPath("$.[*].destination").value(hasItem(DEFAULT_DESTINATION.toString())))
                 .andExpect(jsonPath("$.[*].otherDestination").value(hasItem(DEFAULT_OTHER_DESTINATION.toString())))
                 .andExpect(jsonPath("$.[*].scanDateTime").value(hasItem(DEFAULT_SCAN_DATE_TIME_STR)))
-                .andExpect(jsonPath("$.[*].isExternalScan").value(hasItem(DEFAULT_IS_EXTERNAL_SCAN.booleanValue())));
+                .andExpect(jsonPath("$.[*].beriplexAdministered").value(hasItem(DEFAULT_BERIPLEX_ADMINISTERED.booleanValue())))
+                .andExpect(jsonPath("$.[*].vitaminkAdministered").value(hasItem(DEFAULT_VITAMINK_ADMINISTERED.booleanValue())))
+                .andExpect(jsonPath("$.[*].infusionInstructionsViewed").value(hasItem(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED.booleanValue())))
+                .andExpect(jsonPath("$.[*].posteriorFossaIch").value(hasItem(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue())))
+                .andExpect(jsonPath("$.[*].ventricleObstructed").value(hasItem(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue())))
+                .andExpect(jsonPath("$.[*].referredToNeurosurgery").value(hasItem(DEFAULT_REFERRED_TO_NEUROSURGERY.booleanValue())))
+                .andExpect(jsonPath("$.[*].forActiveTreatment").value(hasItem(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue())))
+                .andExpect(jsonPath("$.[*].externalScan").value(hasItem(DEFAULT_EXTERNAL_SCAN.booleanValue())))
+                .andExpect(jsonPath("$.[*].lastSeenWellOnset").value(hasItem(DEFAULT_LAST_SEEN_WELL_ONSET.booleanValue())))
+                .andExpect(jsonPath("$.[*].bestEstimateOnset").value(hasItem(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue())));
     }
 
     @Test
@@ -324,24 +336,26 @@ public class PatientResourceIntTest {
             .andExpect(jsonPath("$.bpTargetReachedDateTime").value(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR))
             .andExpect(jsonPath("$.gcsScore").value(DEFAULT_GCS_SCORE))
             .andExpect(jsonPath("$.antiCoagulant").value(DEFAULT_ANTI_COAGULANT.toString()))
-            .andExpect(jsonPath("$.weightInKg").value(DEFAULT_WEIGHT_IN_KG.doubleValue()))
+            .andExpect(jsonPath("$.estimatedWeightInKg").value(DEFAULT_ESTIMATED_WEIGHT_IN_KG.doubleValue()))
             .andExpect(jsonPath("$.calculatedBeriplexDose").value(DEFAULT_CALCULATED_BERIPLEX_DOSE))
             .andExpect(jsonPath("$.actualBeriplexDose").value(DEFAULT_ACTUAL_BERIPLEX_DOSE))
-            .andExpect(jsonPath("$.isBeriplexAdministered").value(DEFAULT_IS_BERIPLEX_ADMINISTERED.booleanValue()))
             .andExpect(jsonPath("$.beriplexStartDateTime").value(DEFAULT_BERIPLEX_START_DATE_TIME_STR))
-            .andExpect(jsonPath("$.isVitaminkAdministered").value(DEFAULT_IS_VITAMINK_ADMINISTERED.booleanValue()))
             .andExpect(jsonPath("$.vitaminkDateTime").value(DEFAULT_VITAMINK_DATE_TIME_STR))
-            .andExpect(jsonPath("$.isInfusionInstructionsViewed").value(DEFAULT_IS_INFUSION_INSTRUCTIONS_VIEWED.booleanValue()))
             .andExpect(jsonPath("$.premorbidMrsScore").value(DEFAULT_PREMORBID_MRS_SCORE))
-            .andExpect(jsonPath("$.isPosteriorFossaIch").value(DEFAULT_IS_POSTERIOR_FOSSA_ICH.booleanValue()))
-            .andExpect(jsonPath("$.isVentricleObstructed").value(DEFAULT_IS_VENTRICLE_OBSTRUCTED.booleanValue()))
             .andExpect(jsonPath("$.ichVolume").value(DEFAULT_ICH_VOLUME.doubleValue()))
-            .andExpect(jsonPath("$.isReferredToNeurosurgery").value(DEFAULT_IS_REFERRED_TO_NEUROSURGERY.booleanValue()))
-            .andExpect(jsonPath("$.isForActiveTreatment").value(DEFAULT_IS_FOR_ACTIVE_TREATMENT.booleanValue()))
             .andExpect(jsonPath("$.destination").value(DEFAULT_DESTINATION.toString()))
             .andExpect(jsonPath("$.otherDestination").value(DEFAULT_OTHER_DESTINATION.toString()))
             .andExpect(jsonPath("$.scanDateTime").value(DEFAULT_SCAN_DATE_TIME_STR))
-            .andExpect(jsonPath("$.isExternalScan").value(DEFAULT_IS_EXTERNAL_SCAN.booleanValue()));
+            .andExpect(jsonPath("$.beriplexAdministered").value(DEFAULT_BERIPLEX_ADMINISTERED.booleanValue()))
+            .andExpect(jsonPath("$.vitaminkAdministered").value(DEFAULT_VITAMINK_ADMINISTERED.booleanValue()))
+            .andExpect(jsonPath("$.infusionInstructionsViewed").value(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED.booleanValue()))
+            .andExpect(jsonPath("$.posteriorFossaIch").value(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue()))
+            .andExpect(jsonPath("$.ventricleObstructed").value(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue()))
+            .andExpect(jsonPath("$.referredToNeurosurgery").value(DEFAULT_REFERRED_TO_NEUROSURGERY.booleanValue()))
+            .andExpect(jsonPath("$.forActiveTreatment").value(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue()))
+            .andExpect(jsonPath("$.externalScan").value(DEFAULT_EXTERNAL_SCAN.booleanValue()))
+            .andExpect(jsonPath("$.lastSeenWellOnset").value(DEFAULT_LAST_SEEN_WELL_ONSET.booleanValue()))
+            .andExpect(jsonPath("$.bestEstimateOnset").value(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue()));
     }
 
     @Test
@@ -372,24 +386,26 @@ public class PatientResourceIntTest {
                 .bpTargetReachedDateTime(UPDATED_BP_TARGET_REACHED_DATE_TIME)
                 .gcsScore(UPDATED_GCS_SCORE)
                 .antiCoagulant(UPDATED_ANTI_COAGULANT)
-                .weightInKg(UPDATED_WEIGHT_IN_KG)
+                .estimatedWeightInKg(UPDATED_ESTIMATED_WEIGHT_IN_KG)
                 .calculatedBeriplexDose(UPDATED_CALCULATED_BERIPLEX_DOSE)
                 .actualBeriplexDose(UPDATED_ACTUAL_BERIPLEX_DOSE)
-                .isBeriplexAdministered(UPDATED_IS_BERIPLEX_ADMINISTERED)
                 .beriplexStartDateTime(UPDATED_BERIPLEX_START_DATE_TIME)
-                .isVitaminkAdministered(UPDATED_IS_VITAMINK_ADMINISTERED)
                 .vitaminkDateTime(UPDATED_VITAMINK_DATE_TIME)
-                .isInfusionInstructionsViewed(UPDATED_IS_INFUSION_INSTRUCTIONS_VIEWED)
                 .premorbidMrsScore(UPDATED_PREMORBID_MRS_SCORE)
-                .isPosteriorFossaIch(UPDATED_IS_POSTERIOR_FOSSA_ICH)
-                .isVentricleObstructed(UPDATED_IS_VENTRICLE_OBSTRUCTED)
                 .ichVolume(UPDATED_ICH_VOLUME)
-                .isReferredToNeurosurgery(UPDATED_IS_REFERRED_TO_NEUROSURGERY)
-                .isForActiveTreatment(UPDATED_IS_FOR_ACTIVE_TREATMENT)
                 .destination(UPDATED_DESTINATION)
                 .otherDestination(UPDATED_OTHER_DESTINATION)
                 .scanDateTime(UPDATED_SCAN_DATE_TIME)
-                .isExternalScan(UPDATED_IS_EXTERNAL_SCAN);
+                .beriplexAdministered(UPDATED_BERIPLEX_ADMINISTERED)
+                .vitaminkAdministered(UPDATED_VITAMINK_ADMINISTERED)
+                .infusionInstructionsViewed(UPDATED_INFUSION_INSTRUCTIONS_VIEWED)
+                .posteriorFossaIch(UPDATED_POSTERIOR_FOSSA_ICH)
+                .ventricleObstructed(UPDATED_VENTRICLE_OBSTRUCTED)
+                .referredToNeurosurgery(UPDATED_REFERRED_TO_NEUROSURGERY)
+                .forActiveTreatment(UPDATED_FOR_ACTIVE_TREATMENT)
+                .externalScan(UPDATED_EXTERNAL_SCAN)
+                .lastSeenWellOnset(UPDATED_LAST_SEEN_WELL_ONSET)
+                .bestEstimateOnset(UPDATED_BEST_ESTIMATE_ONSET);
         PatientDTO patientDTO = patientMapper.patientToPatientDTO(updatedPatient);
 
         restPatientMockMvc.perform(put("/api/patients")
@@ -411,24 +427,26 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(UPDATED_BP_TARGET_REACHED_DATE_TIME);
         assertThat(testPatient.getGcsScore()).isEqualTo(UPDATED_GCS_SCORE);
         assertThat(testPatient.getAntiCoagulant()).isEqualTo(UPDATED_ANTI_COAGULANT);
-        assertThat(testPatient.getWeightInKg()).isEqualTo(UPDATED_WEIGHT_IN_KG);
+        assertThat(testPatient.getEstimatedWeightInKg()).isEqualTo(UPDATED_ESTIMATED_WEIGHT_IN_KG);
         assertThat(testPatient.getCalculatedBeriplexDose()).isEqualTo(UPDATED_CALCULATED_BERIPLEX_DOSE);
         assertThat(testPatient.getActualBeriplexDose()).isEqualTo(UPDATED_ACTUAL_BERIPLEX_DOSE);
-        assertThat(testPatient.isIsBeriplexAdministered()).isEqualTo(UPDATED_IS_BERIPLEX_ADMINISTERED);
         assertThat(testPatient.getBeriplexStartDateTime()).isEqualTo(UPDATED_BERIPLEX_START_DATE_TIME);
-        assertThat(testPatient.isIsVitaminkAdministered()).isEqualTo(UPDATED_IS_VITAMINK_ADMINISTERED);
         assertThat(testPatient.getVitaminkDateTime()).isEqualTo(UPDATED_VITAMINK_DATE_TIME);
-        assertThat(testPatient.isIsInfusionInstructionsViewed()).isEqualTo(UPDATED_IS_INFUSION_INSTRUCTIONS_VIEWED);
         assertThat(testPatient.getPremorbidMrsScore()).isEqualTo(UPDATED_PREMORBID_MRS_SCORE);
-        assertThat(testPatient.isIsPosteriorFossaIch()).isEqualTo(UPDATED_IS_POSTERIOR_FOSSA_ICH);
-        assertThat(testPatient.isIsVentricleObstructed()).isEqualTo(UPDATED_IS_VENTRICLE_OBSTRUCTED);
         assertThat(testPatient.getIchVolume()).isEqualTo(UPDATED_ICH_VOLUME);
-        assertThat(testPatient.isIsReferredToNeurosurgery()).isEqualTo(UPDATED_IS_REFERRED_TO_NEUROSURGERY);
-        assertThat(testPatient.isIsForActiveTreatment()).isEqualTo(UPDATED_IS_FOR_ACTIVE_TREATMENT);
         assertThat(testPatient.getDestination()).isEqualTo(UPDATED_DESTINATION);
         assertThat(testPatient.getOtherDestination()).isEqualTo(UPDATED_OTHER_DESTINATION);
         assertThat(testPatient.getScanDateTime()).isEqualTo(UPDATED_SCAN_DATE_TIME);
-        assertThat(testPatient.isIsExternalScan()).isEqualTo(UPDATED_IS_EXTERNAL_SCAN);
+        assertThat(testPatient.isBeriplexAdministered()).isEqualTo(UPDATED_BERIPLEX_ADMINISTERED);
+        assertThat(testPatient.isVitaminkAdministered()).isEqualTo(UPDATED_VITAMINK_ADMINISTERED);
+        assertThat(testPatient.isInfusionInstructionsViewed()).isEqualTo(UPDATED_INFUSION_INSTRUCTIONS_VIEWED);
+        assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(UPDATED_POSTERIOR_FOSSA_ICH);
+        assertThat(testPatient.isVentricleObstructed()).isEqualTo(UPDATED_VENTRICLE_OBSTRUCTED);
+        assertThat(testPatient.isReferredToNeurosurgery()).isEqualTo(UPDATED_REFERRED_TO_NEUROSURGERY);
+        assertThat(testPatient.isForActiveTreatment()).isEqualTo(UPDATED_FOR_ACTIVE_TREATMENT);
+        assertThat(testPatient.isExternalScan()).isEqualTo(UPDATED_EXTERNAL_SCAN);
+        assertThat(testPatient.isLastSeenWellOnset()).isEqualTo(UPDATED_LAST_SEEN_WELL_ONSET);
+        assertThat(testPatient.isBestEstimateOnset()).isEqualTo(UPDATED_BEST_ESTIMATE_ONSET);
     }
 
     @Test

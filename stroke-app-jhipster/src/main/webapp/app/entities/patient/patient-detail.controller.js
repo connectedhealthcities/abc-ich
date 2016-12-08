@@ -5,9 +5,9 @@
         .module('strokeApp')
         .controller('PatientDetailController', PatientDetailController);
 
-    PatientDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Patient', 'Hospital', 'Inr', 'BpManagementEntry'];
+    PatientDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Patient', 'Inr', 'BpManagementEntry', 'Hospital'];
 
-    function PatientDetailController($scope, $rootScope, $stateParams, previousState, entity, Patient, Hospital, Inr, BpManagementEntry) {
+    function PatientDetailController($scope, $rootScope, $stateParams, previousState, entity, Patient, Inr, BpManagementEntry, Hospital) {
         var vm = this;
 
         vm.patient = entity;

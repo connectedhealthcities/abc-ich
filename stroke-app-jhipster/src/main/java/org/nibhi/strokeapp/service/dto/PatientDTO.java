@@ -40,7 +40,7 @@ public class PatientDTO implements Serializable {
 
     private AntiCoagulant antiCoagulant;
 
-    private Float weightInKg;
+    private Float estimatedWeightInKg;
 
     @Min(value = 750)
     @Max(value = 5000)
@@ -48,29 +48,15 @@ public class PatientDTO implements Serializable {
 
     private Integer actualBeriplexDose;
 
-    private Boolean isBeriplexAdministered;
-
     private ZonedDateTime beriplexStartDateTime;
 
-    private Boolean isVitaminkAdministered;
-
     private ZonedDateTime vitaminkDateTime;
-
-    private Boolean isInfusionInstructionsViewed;
 
     @Min(value = 0)
     @Max(value = 5)
     private Integer premorbidMrsScore;
 
-    private Boolean isPosteriorFossaIch;
-
-    private Boolean isVentricleObstructed;
-
     private Float ichVolume;
-
-    private Boolean isReferredToNeurosurgery;
-
-    private Boolean isForActiveTreatment;
 
     private Destination destination;
 
@@ -78,11 +64,32 @@ public class PatientDTO implements Serializable {
 
     private ZonedDateTime scanDateTime;
 
-    private Boolean isExternalScan;
+    private Boolean beriplexAdministered;
+
+    private Boolean vitaminkAdministered;
+
+    private Boolean infusionInstructionsViewed;
+
+    private Boolean posteriorFossaIch;
+
+    private Boolean ventricleObstructed;
+
+    private Boolean referredToNeurosurgery;
+
+    private Boolean forActiveTreatment;
+
+    private Boolean externalScan;
+
+    private Boolean lastSeenWellOnset;
+
+    private Boolean bestEstimateOnset;
 
 
     private Long hospitalId;
     
+
+    private String hospitalUniqueId;
+
     public Long getId() {
         return id;
     }
@@ -160,12 +167,12 @@ public class PatientDTO implements Serializable {
     public void setAntiCoagulant(AntiCoagulant antiCoagulant) {
         this.antiCoagulant = antiCoagulant;
     }
-    public Float getWeightInKg() {
-        return weightInKg;
+    public Float getEstimatedWeightInKg() {
+        return estimatedWeightInKg;
     }
 
-    public void setWeightInKg(Float weightInKg) {
-        this.weightInKg = weightInKg;
+    public void setEstimatedWeightInKg(Float estimatedWeightInKg) {
+        this.estimatedWeightInKg = estimatedWeightInKg;
     }
     public Integer getCalculatedBeriplexDose() {
         return calculatedBeriplexDose;
@@ -181,26 +188,12 @@ public class PatientDTO implements Serializable {
     public void setActualBeriplexDose(Integer actualBeriplexDose) {
         this.actualBeriplexDose = actualBeriplexDose;
     }
-    public Boolean getIsBeriplexAdministered() {
-        return isBeriplexAdministered;
-    }
-
-    public void setIsBeriplexAdministered(Boolean isBeriplexAdministered) {
-        this.isBeriplexAdministered = isBeriplexAdministered;
-    }
     public ZonedDateTime getBeriplexStartDateTime() {
         return beriplexStartDateTime;
     }
 
     public void setBeriplexStartDateTime(ZonedDateTime beriplexStartDateTime) {
         this.beriplexStartDateTime = beriplexStartDateTime;
-    }
-    public Boolean getIsVitaminkAdministered() {
-        return isVitaminkAdministered;
-    }
-
-    public void setIsVitaminkAdministered(Boolean isVitaminkAdministered) {
-        this.isVitaminkAdministered = isVitaminkAdministered;
     }
     public ZonedDateTime getVitaminkDateTime() {
         return vitaminkDateTime;
@@ -209,13 +202,6 @@ public class PatientDTO implements Serializable {
     public void setVitaminkDateTime(ZonedDateTime vitaminkDateTime) {
         this.vitaminkDateTime = vitaminkDateTime;
     }
-    public Boolean getIsInfusionInstructionsViewed() {
-        return isInfusionInstructionsViewed;
-    }
-
-    public void setIsInfusionInstructionsViewed(Boolean isInfusionInstructionsViewed) {
-        this.isInfusionInstructionsViewed = isInfusionInstructionsViewed;
-    }
     public Integer getPremorbidMrsScore() {
         return premorbidMrsScore;
     }
@@ -223,40 +209,12 @@ public class PatientDTO implements Serializable {
     public void setPremorbidMrsScore(Integer premorbidMrsScore) {
         this.premorbidMrsScore = premorbidMrsScore;
     }
-    public Boolean getIsPosteriorFossaIch() {
-        return isPosteriorFossaIch;
-    }
-
-    public void setIsPosteriorFossaIch(Boolean isPosteriorFossaIch) {
-        this.isPosteriorFossaIch = isPosteriorFossaIch;
-    }
-    public Boolean getIsVentricleObstructed() {
-        return isVentricleObstructed;
-    }
-
-    public void setIsVentricleObstructed(Boolean isVentricleObstructed) {
-        this.isVentricleObstructed = isVentricleObstructed;
-    }
     public Float getIchVolume() {
         return ichVolume;
     }
 
     public void setIchVolume(Float ichVolume) {
         this.ichVolume = ichVolume;
-    }
-    public Boolean getIsReferredToNeurosurgery() {
-        return isReferredToNeurosurgery;
-    }
-
-    public void setIsReferredToNeurosurgery(Boolean isReferredToNeurosurgery) {
-        this.isReferredToNeurosurgery = isReferredToNeurosurgery;
-    }
-    public Boolean getIsForActiveTreatment() {
-        return isForActiveTreatment;
-    }
-
-    public void setIsForActiveTreatment(Boolean isForActiveTreatment) {
-        this.isForActiveTreatment = isForActiveTreatment;
     }
     public Destination getDestination() {
         return destination;
@@ -279,12 +237,75 @@ public class PatientDTO implements Serializable {
     public void setScanDateTime(ZonedDateTime scanDateTime) {
         this.scanDateTime = scanDateTime;
     }
-    public Boolean getIsExternalScan() {
-        return isExternalScan;
+    public Boolean getBeriplexAdministered() {
+        return beriplexAdministered;
     }
 
-    public void setIsExternalScan(Boolean isExternalScan) {
-        this.isExternalScan = isExternalScan;
+    public void setBeriplexAdministered(Boolean beriplexAdministered) {
+        this.beriplexAdministered = beriplexAdministered;
+    }
+    public Boolean getVitaminkAdministered() {
+        return vitaminkAdministered;
+    }
+
+    public void setVitaminkAdministered(Boolean vitaminkAdministered) {
+        this.vitaminkAdministered = vitaminkAdministered;
+    }
+    public Boolean getInfusionInstructionsViewed() {
+        return infusionInstructionsViewed;
+    }
+
+    public void setInfusionInstructionsViewed(Boolean infusionInstructionsViewed) {
+        this.infusionInstructionsViewed = infusionInstructionsViewed;
+    }
+    public Boolean getPosteriorFossaIch() {
+        return posteriorFossaIch;
+    }
+
+    public void setPosteriorFossaIch(Boolean posteriorFossaIch) {
+        this.posteriorFossaIch = posteriorFossaIch;
+    }
+    public Boolean getVentricleObstructed() {
+        return ventricleObstructed;
+    }
+
+    public void setVentricleObstructed(Boolean ventricleObstructed) {
+        this.ventricleObstructed = ventricleObstructed;
+    }
+    public Boolean getReferredToNeurosurgery() {
+        return referredToNeurosurgery;
+    }
+
+    public void setReferredToNeurosurgery(Boolean referredToNeurosurgery) {
+        this.referredToNeurosurgery = referredToNeurosurgery;
+    }
+    public Boolean getForActiveTreatment() {
+        return forActiveTreatment;
+    }
+
+    public void setForActiveTreatment(Boolean forActiveTreatment) {
+        this.forActiveTreatment = forActiveTreatment;
+    }
+    public Boolean getExternalScan() {
+        return externalScan;
+    }
+
+    public void setExternalScan(Boolean externalScan) {
+        this.externalScan = externalScan;
+    }
+    public Boolean getLastSeenWellOnset() {
+        return lastSeenWellOnset;
+    }
+
+    public void setLastSeenWellOnset(Boolean lastSeenWellOnset) {
+        this.lastSeenWellOnset = lastSeenWellOnset;
+    }
+    public Boolean getBestEstimateOnset() {
+        return bestEstimateOnset;
+    }
+
+    public void setBestEstimateOnset(Boolean bestEstimateOnset) {
+        this.bestEstimateOnset = bestEstimateOnset;
     }
 
     public Long getHospitalId() {
@@ -293,6 +314,15 @@ public class PatientDTO implements Serializable {
 
     public void setHospitalId(Long hospitalId) {
         this.hospitalId = hospitalId;
+    }
+
+
+    public String getHospitalUniqueId() {
+        return hospitalUniqueId;
+    }
+
+    public void setHospitalUniqueId(String hospitalUniqueId) {
+        this.hospitalUniqueId = hospitalUniqueId;
     }
 
     @Override
@@ -330,24 +360,26 @@ public class PatientDTO implements Serializable {
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", gcsScore='" + gcsScore + "'" +
             ", antiCoagulant='" + antiCoagulant + "'" +
-            ", weightInKg='" + weightInKg + "'" +
+            ", estimatedWeightInKg='" + estimatedWeightInKg + "'" +
             ", calculatedBeriplexDose='" + calculatedBeriplexDose + "'" +
             ", actualBeriplexDose='" + actualBeriplexDose + "'" +
-            ", isBeriplexAdministered='" + isBeriplexAdministered + "'" +
             ", beriplexStartDateTime='" + beriplexStartDateTime + "'" +
-            ", isVitaminkAdministered='" + isVitaminkAdministered + "'" +
             ", vitaminkDateTime='" + vitaminkDateTime + "'" +
-            ", isInfusionInstructionsViewed='" + isInfusionInstructionsViewed + "'" +
             ", premorbidMrsScore='" + premorbidMrsScore + "'" +
-            ", isPosteriorFossaIch='" + isPosteriorFossaIch + "'" +
-            ", isVentricleObstructed='" + isVentricleObstructed + "'" +
             ", ichVolume='" + ichVolume + "'" +
-            ", isReferredToNeurosurgery='" + isReferredToNeurosurgery + "'" +
-            ", isForActiveTreatment='" + isForActiveTreatment + "'" +
             ", destination='" + destination + "'" +
             ", otherDestination='" + otherDestination + "'" +
             ", scanDateTime='" + scanDateTime + "'" +
-            ", isExternalScan='" + isExternalScan + "'" +
+            ", beriplexAdministered='" + beriplexAdministered + "'" +
+            ", vitaminkAdministered='" + vitaminkAdministered + "'" +
+            ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
+            ", posteriorFossaIch='" + posteriorFossaIch + "'" +
+            ", ventricleObstructed='" + ventricleObstructed + "'" +
+            ", referredToNeurosurgery='" + referredToNeurosurgery + "'" +
+            ", forActiveTreatment='" + forActiveTreatment + "'" +
+            ", externalScan='" + externalScan + "'" +
+            ", lastSeenWellOnset='" + lastSeenWellOnset + "'" +
+            ", bestEstimateOnset='" + bestEstimateOnset + "'" +
             '}';
     }
 }

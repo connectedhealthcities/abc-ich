@@ -18,7 +18,7 @@ public class Hospital implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "unique_id")
+    @Column(name = "unique_id", unique=true)
     private String uniqueId;
 
     @Column(name = "email")

@@ -28,7 +28,7 @@ public class Patient implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "unique_id")
+    @Column(name = "unique_id", unique=true)
     private String uniqueId;
 
     @Column(name = "initials")
@@ -61,8 +61,8 @@ public class Patient implements Serializable {
     @Column(name = "anti_coagulant")
     private AntiCoagulant antiCoagulant;
 
-    @Column(name = "weight_in_kg")
-    private Float weightInKg;
+    @Column(name = "estimated_weight_in_kg")
+    private Float estimatedWeightInKg;
 
     @Min(value = 750)
     @Max(value = 5000)
@@ -72,40 +72,19 @@ public class Patient implements Serializable {
     @Column(name = "actual_beriplex_dose")
     private Integer actualBeriplexDose;
 
-    @Column(name = "is_beriplex_administered")
-    private Boolean isBeriplexAdministered;
-
     @Column(name = "beriplex_start_date_time")
     private ZonedDateTime beriplexStartDateTime;
 
-    @Column(name = "is_vitamink_administered")
-    private Boolean isVitaminkAdministered;
-
     @Column(name = "vitamink_date_time")
     private ZonedDateTime vitaminkDateTime;
-
-    @Column(name = "is_infusion_instructions_viewed")
-    private Boolean isInfusionInstructionsViewed;
 
     @Min(value = 0)
     @Max(value = 5)
     @Column(name = "premorbid_mrs_score")
     private Integer premorbidMrsScore;
 
-    @Column(name = "is_posterior_fossa_ich")
-    private Boolean isPosteriorFossaIch;
-
-    @Column(name = "is_ventricle_obstructed")
-    private Boolean isVentricleObstructed;
-
     @Column(name = "ich_volume")
     private Float ichVolume;
-
-    @Column(name = "is_referred_to_neurosurgery")
-    private Boolean isReferredToNeurosurgery;
-
-    @Column(name = "is_for_active_treatment")
-    private Boolean isForActiveTreatment;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "destination")
@@ -117,12 +96,35 @@ public class Patient implements Serializable {
     @Column(name = "scan_date_time")
     private ZonedDateTime scanDateTime;
 
-    @Column(name = "is_external_scan")
-    private Boolean isExternalScan;
+    @Column(name = "beriplex_administered")
+    private Boolean beriplexAdministered;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Hospital hospital;
+    @Column(name = "vitamink_administered")
+    private Boolean vitaminkAdministered;
+
+    @Column(name = "infusion_instructions_viewed")
+    private Boolean infusionInstructionsViewed;
+
+    @Column(name = "posterior_fossa_ich")
+    private Boolean posteriorFossaIch;
+
+    @Column(name = "ventricle_obstructed")
+    private Boolean ventricleObstructed;
+
+    @Column(name = "referred_to_neurosurgery")
+    private Boolean referredToNeurosurgery;
+
+    @Column(name = "for_active_treatment")
+    private Boolean forActiveTreatment;
+
+    @Column(name = "external_scan")
+    private Boolean externalScan;
+
+    @Column(name = "last_seen_well_onset")
+    private Boolean lastSeenWellOnset;
+
+    @Column(name = "best_estimate_onset")
+    private Boolean bestEstimateOnset;
 
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
@@ -131,6 +133,9 @@ public class Patient implements Serializable {
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     private Set<BpManagementEntry> bpManagementEntries = new HashSet<>();
+
+    @ManyToOne
+    private Hospital hospital;
 
     public Long getId() {
         return id;
@@ -270,17 +275,17 @@ public class Patient implements Serializable {
         this.antiCoagulant = antiCoagulant;
     }
 
-    public Float getWeightInKg() {
-        return weightInKg;
+    public Float getEstimatedWeightInKg() {
+        return estimatedWeightInKg;
     }
 
-    public Patient weightInKg(Float weightInKg) {
-        this.weightInKg = weightInKg;
+    public Patient estimatedWeightInKg(Float estimatedWeightInKg) {
+        this.estimatedWeightInKg = estimatedWeightInKg;
         return this;
     }
 
-    public void setWeightInKg(Float weightInKg) {
-        this.weightInKg = weightInKg;
+    public void setEstimatedWeightInKg(Float estimatedWeightInKg) {
+        this.estimatedWeightInKg = estimatedWeightInKg;
     }
 
     public Integer getCalculatedBeriplexDose() {
@@ -309,19 +314,6 @@ public class Patient implements Serializable {
         this.actualBeriplexDose = actualBeriplexDose;
     }
 
-    public Boolean isIsBeriplexAdministered() {
-        return isBeriplexAdministered;
-    }
-
-    public Patient isBeriplexAdministered(Boolean isBeriplexAdministered) {
-        this.isBeriplexAdministered = isBeriplexAdministered;
-        return this;
-    }
-
-    public void setIsBeriplexAdministered(Boolean isBeriplexAdministered) {
-        this.isBeriplexAdministered = isBeriplexAdministered;
-    }
-
     public ZonedDateTime getBeriplexStartDateTime() {
         return beriplexStartDateTime;
     }
@@ -333,19 +325,6 @@ public class Patient implements Serializable {
 
     public void setBeriplexStartDateTime(ZonedDateTime beriplexStartDateTime) {
         this.beriplexStartDateTime = beriplexStartDateTime;
-    }
-
-    public Boolean isIsVitaminkAdministered() {
-        return isVitaminkAdministered;
-    }
-
-    public Patient isVitaminkAdministered(Boolean isVitaminkAdministered) {
-        this.isVitaminkAdministered = isVitaminkAdministered;
-        return this;
-    }
-
-    public void setIsVitaminkAdministered(Boolean isVitaminkAdministered) {
-        this.isVitaminkAdministered = isVitaminkAdministered;
     }
 
     public ZonedDateTime getVitaminkDateTime() {
@@ -361,19 +340,6 @@ public class Patient implements Serializable {
         this.vitaminkDateTime = vitaminkDateTime;
     }
 
-    public Boolean isIsInfusionInstructionsViewed() {
-        return isInfusionInstructionsViewed;
-    }
-
-    public Patient isInfusionInstructionsViewed(Boolean isInfusionInstructionsViewed) {
-        this.isInfusionInstructionsViewed = isInfusionInstructionsViewed;
-        return this;
-    }
-
-    public void setIsInfusionInstructionsViewed(Boolean isInfusionInstructionsViewed) {
-        this.isInfusionInstructionsViewed = isInfusionInstructionsViewed;
-    }
-
     public Integer getPremorbidMrsScore() {
         return premorbidMrsScore;
     }
@@ -387,32 +353,6 @@ public class Patient implements Serializable {
         this.premorbidMrsScore = premorbidMrsScore;
     }
 
-    public Boolean isIsPosteriorFossaIch() {
-        return isPosteriorFossaIch;
-    }
-
-    public Patient isPosteriorFossaIch(Boolean isPosteriorFossaIch) {
-        this.isPosteriorFossaIch = isPosteriorFossaIch;
-        return this;
-    }
-
-    public void setIsPosteriorFossaIch(Boolean isPosteriorFossaIch) {
-        this.isPosteriorFossaIch = isPosteriorFossaIch;
-    }
-
-    public Boolean isIsVentricleObstructed() {
-        return isVentricleObstructed;
-    }
-
-    public Patient isVentricleObstructed(Boolean isVentricleObstructed) {
-        this.isVentricleObstructed = isVentricleObstructed;
-        return this;
-    }
-
-    public void setIsVentricleObstructed(Boolean isVentricleObstructed) {
-        this.isVentricleObstructed = isVentricleObstructed;
-    }
-
     public Float getIchVolume() {
         return ichVolume;
     }
@@ -424,32 +364,6 @@ public class Patient implements Serializable {
 
     public void setIchVolume(Float ichVolume) {
         this.ichVolume = ichVolume;
-    }
-
-    public Boolean isIsReferredToNeurosurgery() {
-        return isReferredToNeurosurgery;
-    }
-
-    public Patient isReferredToNeurosurgery(Boolean isReferredToNeurosurgery) {
-        this.isReferredToNeurosurgery = isReferredToNeurosurgery;
-        return this;
-    }
-
-    public void setIsReferredToNeurosurgery(Boolean isReferredToNeurosurgery) {
-        this.isReferredToNeurosurgery = isReferredToNeurosurgery;
-    }
-
-    public Boolean isIsForActiveTreatment() {
-        return isForActiveTreatment;
-    }
-
-    public Patient isForActiveTreatment(Boolean isForActiveTreatment) {
-        this.isForActiveTreatment = isForActiveTreatment;
-        return this;
-    }
-
-    public void setIsForActiveTreatment(Boolean isForActiveTreatment) {
-        this.isForActiveTreatment = isForActiveTreatment;
     }
 
     public Destination getDestination() {
@@ -491,30 +405,134 @@ public class Patient implements Serializable {
         this.scanDateTime = scanDateTime;
     }
 
-    public Boolean isIsExternalScan() {
-        return isExternalScan;
+    public Boolean isBeriplexAdministered() {
+        return beriplexAdministered;
     }
 
-    public Patient isExternalScan(Boolean isExternalScan) {
-        this.isExternalScan = isExternalScan;
+    public Patient beriplexAdministered(Boolean beriplexAdministered) {
+        this.beriplexAdministered = beriplexAdministered;
         return this;
     }
 
-    public void setIsExternalScan(Boolean isExternalScan) {
-        this.isExternalScan = isExternalScan;
+    public void setBeriplexAdministered(Boolean beriplexAdministered) {
+        this.beriplexAdministered = beriplexAdministered;
     }
 
-    public Hospital getHospital() {
-        return hospital;
+    public Boolean isVitaminkAdministered() {
+        return vitaminkAdministered;
     }
 
-    public Patient hospital(Hospital hospital) {
-        this.hospital = hospital;
+    public Patient vitaminkAdministered(Boolean vitaminkAdministered) {
+        this.vitaminkAdministered = vitaminkAdministered;
         return this;
     }
 
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
+    public void setVitaminkAdministered(Boolean vitaminkAdministered) {
+        this.vitaminkAdministered = vitaminkAdministered;
+    }
+
+    public Boolean isInfusionInstructionsViewed() {
+        return infusionInstructionsViewed;
+    }
+
+    public Patient infusionInstructionsViewed(Boolean infusionInstructionsViewed) {
+        this.infusionInstructionsViewed = infusionInstructionsViewed;
+        return this;
+    }
+
+    public void setInfusionInstructionsViewed(Boolean infusionInstructionsViewed) {
+        this.infusionInstructionsViewed = infusionInstructionsViewed;
+    }
+
+    public Boolean isPosteriorFossaIch() {
+        return posteriorFossaIch;
+    }
+
+    public Patient posteriorFossaIch(Boolean posteriorFossaIch) {
+        this.posteriorFossaIch = posteriorFossaIch;
+        return this;
+    }
+
+    public void setPosteriorFossaIch(Boolean posteriorFossaIch) {
+        this.posteriorFossaIch = posteriorFossaIch;
+    }
+
+    public Boolean isVentricleObstructed() {
+        return ventricleObstructed;
+    }
+
+    public Patient ventricleObstructed(Boolean ventricleObstructed) {
+        this.ventricleObstructed = ventricleObstructed;
+        return this;
+    }
+
+    public void setVentricleObstructed(Boolean ventricleObstructed) {
+        this.ventricleObstructed = ventricleObstructed;
+    }
+
+    public Boolean isReferredToNeurosurgery() {
+        return referredToNeurosurgery;
+    }
+
+    public Patient referredToNeurosurgery(Boolean referredToNeurosurgery) {
+        this.referredToNeurosurgery = referredToNeurosurgery;
+        return this;
+    }
+
+    public void setReferredToNeurosurgery(Boolean referredToNeurosurgery) {
+        this.referredToNeurosurgery = referredToNeurosurgery;
+    }
+
+    public Boolean isForActiveTreatment() {
+        return forActiveTreatment;
+    }
+
+    public Patient forActiveTreatment(Boolean forActiveTreatment) {
+        this.forActiveTreatment = forActiveTreatment;
+        return this;
+    }
+
+    public void setForActiveTreatment(Boolean forActiveTreatment) {
+        this.forActiveTreatment = forActiveTreatment;
+    }
+
+    public Boolean isExternalScan() {
+        return externalScan;
+    }
+
+    public Patient externalScan(Boolean externalScan) {
+        this.externalScan = externalScan;
+        return this;
+    }
+
+    public void setExternalScan(Boolean externalScan) {
+        this.externalScan = externalScan;
+    }
+
+    public Boolean isLastSeenWellOnset() {
+        return lastSeenWellOnset;
+    }
+
+    public Patient lastSeenWellOnset(Boolean lastSeenWellOnset) {
+        this.lastSeenWellOnset = lastSeenWellOnset;
+        return this;
+    }
+
+    public void setLastSeenWellOnset(Boolean lastSeenWellOnset) {
+        this.lastSeenWellOnset = lastSeenWellOnset;
+    }
+
+    public Boolean isBestEstimateOnset() {
+        return bestEstimateOnset;
+    }
+
+    public Patient bestEstimateOnset(Boolean bestEstimateOnset) {
+        this.bestEstimateOnset = bestEstimateOnset;
+        return this;
+    }
+
+    public void setBestEstimateOnset(Boolean bestEstimateOnset) {
+        this.bestEstimateOnset = bestEstimateOnset;
     }
 
     public Set<Inr> getInrs() {
@@ -567,6 +585,19 @@ public class Patient implements Serializable {
         this.bpManagementEntries = bpManagementEntries;
     }
 
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public Patient hospital(Hospital hospital) {
+        this.hospital = hospital;
+        return this;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -601,24 +632,26 @@ public class Patient implements Serializable {
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", gcsScore='" + gcsScore + "'" +
             ", antiCoagulant='" + antiCoagulant + "'" +
-            ", weightInKg='" + weightInKg + "'" +
+            ", estimatedWeightInKg='" + estimatedWeightInKg + "'" +
             ", calculatedBeriplexDose='" + calculatedBeriplexDose + "'" +
             ", actualBeriplexDose='" + actualBeriplexDose + "'" +
-            ", isBeriplexAdministered='" + isBeriplexAdministered + "'" +
             ", beriplexStartDateTime='" + beriplexStartDateTime + "'" +
-            ", isVitaminkAdministered='" + isVitaminkAdministered + "'" +
             ", vitaminkDateTime='" + vitaminkDateTime + "'" +
-            ", isInfusionInstructionsViewed='" + isInfusionInstructionsViewed + "'" +
             ", premorbidMrsScore='" + premorbidMrsScore + "'" +
-            ", isPosteriorFossaIch='" + isPosteriorFossaIch + "'" +
-            ", isVentricleObstructed='" + isVentricleObstructed + "'" +
             ", ichVolume='" + ichVolume + "'" +
-            ", isReferredToNeurosurgery='" + isReferredToNeurosurgery + "'" +
-            ", isForActiveTreatment='" + isForActiveTreatment + "'" +
             ", destination='" + destination + "'" +
             ", otherDestination='" + otherDestination + "'" +
             ", scanDateTime='" + scanDateTime + "'" +
-            ", isExternalScan='" + isExternalScan + "'" +
+            ", beriplexAdministered='" + beriplexAdministered + "'" +
+            ", vitaminkAdministered='" + vitaminkAdministered + "'" +
+            ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
+            ", posteriorFossaIch='" + posteriorFossaIch + "'" +
+            ", ventricleObstructed='" + ventricleObstructed + "'" +
+            ", referredToNeurosurgery='" + referredToNeurosurgery + "'" +
+            ", forActiveTreatment='" + forActiveTreatment + "'" +
+            ", externalScan='" + externalScan + "'" +
+            ", lastSeenWellOnset='" + lastSeenWellOnset + "'" +
+            ", bestEstimateOnset='" + bestEstimateOnset + "'" +
             '}';
     }
 }

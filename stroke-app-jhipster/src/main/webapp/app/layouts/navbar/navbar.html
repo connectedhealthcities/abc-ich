@@ -156,6 +156,23 @@
                         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                     </ul>
                 </li>
+                <li ng-class="{active: vm.$state.includes('test')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" uib-dropdown class="dropdown pointer">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="test-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            <span class="hidden-sm">Test</span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active">
+                            <a href="" ng-click="vm.addTestData()">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                <span>Add test data</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

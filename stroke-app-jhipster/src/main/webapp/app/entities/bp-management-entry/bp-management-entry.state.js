@@ -99,6 +99,7 @@
                                 systolicBp: null,
                                 gtnRate: null,
                                 labetalolDose: null,
+                                heartRate: null,
                                 id: null
                             };
                         }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="mdehscda (generated)" id="1481533786675-1">
+        <addUniqueConstraint columnNames="unique_id" constraintName="UC_HOSPITALUNIQUE_ID_COL" tableName="hospital"/>
+    </changeSet>
+    <changeSet author="mdehscda (generated)" id="1481533786675-2">
+        <addUniqueConstraint columnNames="unique_id" constraintName="UC_PATIENTUNIQUE_ID_COL" tableName="patient"/>
+    </changeSet>
+</databaseChangeLog>

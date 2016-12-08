@@ -29,25 +29,27 @@
                     <th jh-sort-by="bpTargetReachedDateTime"><span>Bp Target Reached Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="gcsScore"><span>Gcs Score</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="antiCoagulant"><span>Anti Coagulant</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="weightInKg"><span>Weight In Kg</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="estimatedWeightInKg"><span>Estimated Weight In Kg</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="calculatedBeriplexDose"><span>Calculated Beriplex Dose</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="actualBeriplexDose"><span>Actual Beriplex Dose</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isBeriplexAdministered"><span>Is Beriplex Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="beriplexStartDateTime"><span>Beriplex Start Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isVitaminkAdministered"><span>Is Vitamink Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="vitaminkDateTime"><span>Vitamink Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isInfusionInstructionsViewed"><span>Is Infusion Instructions Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="premorbidMrsScore"><span>Premorbid Mrs Score</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isPosteriorFossaIch"><span>Is Posterior Fossa Ich</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isVentricleObstructed"><span>Is Ventricle Obstructed</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="ichVolume"><span>Ich Volume</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isReferredToNeurosurgery"><span>Is Referred To Neurosurgery</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isForActiveTreatment"><span>Is For Active Treatment</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="destination"><span>Destination</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="otherDestination"><span>Other Destination</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="scanDateTime"><span>Scan Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isExternalScan"><span>Is External Scan</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="hospitalId"><span>Hospital</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="beriplexAdministered"><span>Beriplex Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="vitaminkAdministered"><span>Vitamink Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="infusionInstructionsViewed"><span>Infusion Instructions Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="posteriorFossaIch"><span>Posterior Fossa Ich</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="ventricleObstructed"><span>Ventricle Obstructed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="referredToNeurosurgery"><span>Referred To Neurosurgery</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="forActiveTreatment"><span>For Active Treatment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="externalScan"><span>External Scan</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="lastSeenWellOnset"><span>Last Seen Well Onset</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="bestEstimateOnset"><span>Best Estimate Onset</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="hospitalUniqueId"><span>Hospital</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -64,26 +66,28 @@
                     <td>{{patient.bpTargetReachedDateTime | date:'medium'}}</td>
                     <td>{{patient.gcsScore}}</td>
                     <td>{{patient.antiCoagulant}}</td>
-                    <td>{{patient.weightInKg}}</td>
+                    <td>{{patient.estimatedWeightInKg}}</td>
                     <td>{{patient.calculatedBeriplexDose}}</td>
                     <td>{{patient.actualBeriplexDose}}</td>
-                    <td>{{patient.isBeriplexAdministered}}</td>
                     <td>{{patient.beriplexStartDateTime | date:'medium'}}</td>
-                    <td>{{patient.isVitaminkAdministered}}</td>
                     <td>{{patient.vitaminkDateTime | date:'medium'}}</td>
-                    <td>{{patient.isInfusionInstructionsViewed}}</td>
                     <td>{{patient.premorbidMrsScore}}</td>
-                    <td>{{patient.isPosteriorFossaIch}}</td>
-                    <td>{{patient.isVentricleObstructed}}</td>
                     <td>{{patient.ichVolume}}</td>
-                    <td>{{patient.isReferredToNeurosurgery}}</td>
-                    <td>{{patient.isForActiveTreatment}}</td>
                     <td>{{patient.destination}}</td>
                     <td>{{patient.otherDestination}}</td>
                     <td>{{patient.scanDateTime | date:'medium'}}</td>
-                    <td>{{patient.isExternalScan}}</td>
+                    <td>{{patient.beriplexAdministered}}</td>
+                    <td>{{patient.vitaminkAdministered}}</td>
+                    <td>{{patient.infusionInstructionsViewed}}</td>
+                    <td>{{patient.posteriorFossaIch}}</td>
+                    <td>{{patient.ventricleObstructed}}</td>
+                    <td>{{patient.referredToNeurosurgery}}</td>
+                    <td>{{patient.forActiveTreatment}}</td>
+                    <td>{{patient.externalScan}}</td>
+                    <td>{{patient.lastSeenWellOnset}}</td>
+                    <td>{{patient.bestEstimateOnset}}</td>
                     <td>
-                        <a ui-sref="hospital-detail({id:patient.hospitalId})">{{patient.hospitalId}}</a>
+                        <a ui-sref="hospital-detail({id:patient.hospitalId})">{{patient.hospitalUniqueId}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

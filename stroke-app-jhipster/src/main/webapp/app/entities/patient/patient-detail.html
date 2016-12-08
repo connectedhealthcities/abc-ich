@@ -44,9 +44,9 @@
         <dd>
             <span>{{vm.patient.antiCoagulant}}</span>
         </dd>
-        <dt><span>Weight In Kg</span></dt>
+        <dt><span>Estimated Weight In Kg</span></dt>
         <dd>
-            <span>{{vm.patient.weightInKg}}</span>
+            <span>{{vm.patient.estimatedWeightInKg}}</span>
         </dd>
         <dt><span>Calculated Beriplex Dose</span></dt>
         <dd>
@@ -56,49 +56,21 @@
         <dd>
             <span>{{vm.patient.actualBeriplexDose}}</span>
         </dd>
-        <dt><span>Is Beriplex Administered</span></dt>
-        <dd>
-            <span>{{vm.patient.isBeriplexAdministered}}</span>
-        </dd>
         <dt><span>Beriplex Start Date Time</span></dt>
         <dd>
             <span>{{vm.patient.beriplexStartDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Is Vitamink Administered</span></dt>
-        <dd>
-            <span>{{vm.patient.isVitaminkAdministered}}</span>
         </dd>
         <dt><span>Vitamink Date Time</span></dt>
         <dd>
             <span>{{vm.patient.vitaminkDateTime | date:'medium'}}</span>
         </dd>
-        <dt><span>Is Infusion Instructions Viewed</span></dt>
-        <dd>
-            <span>{{vm.patient.isInfusionInstructionsViewed}}</span>
-        </dd>
         <dt><span>Premorbid Mrs Score</span></dt>
         <dd>
             <span>{{vm.patient.premorbidMrsScore}}</span>
         </dd>
-        <dt><span>Is Posterior Fossa Ich</span></dt>
-        <dd>
-            <span>{{vm.patient.isPosteriorFossaIch}}</span>
-        </dd>
-        <dt><span>Is Ventricle Obstructed</span></dt>
-        <dd>
-            <span>{{vm.patient.isVentricleObstructed}}</span>
-        </dd>
         <dt><span>Ich Volume</span></dt>
         <dd>
             <span>{{vm.patient.ichVolume}}</span>
-        </dd>
-        <dt><span>Is Referred To Neurosurgery</span></dt>
-        <dd>
-            <span>{{vm.patient.isReferredToNeurosurgery}}</span>
-        </dd>
-        <dt><span>Is For Active Treatment</span></dt>
-        <dd>
-            <span>{{vm.patient.isForActiveTreatment}}</span>
         </dd>
         <dt><span>Destination</span></dt>
         <dd>
@@ -112,13 +84,49 @@
         <dd>
             <span>{{vm.patient.scanDateTime | date:'medium'}}</span>
         </dd>
-        <dt><span>Is External Scan</span></dt>
+        <dt><span>Beriplex Administered</span></dt>
         <dd>
-            <span>{{vm.patient.isExternalScan}}</span>
+            <span>{{vm.patient.beriplexAdministered}}</span>
+        </dd>
+        <dt><span>Vitamink Administered</span></dt>
+        <dd>
+            <span>{{vm.patient.vitaminkAdministered}}</span>
+        </dd>
+        <dt><span>Infusion Instructions Viewed</span></dt>
+        <dd>
+            <span>{{vm.patient.infusionInstructionsViewed}}</span>
+        </dd>
+        <dt><span>Posterior Fossa Ich</span></dt>
+        <dd>
+            <span>{{vm.patient.posteriorFossaIch}}</span>
+        </dd>
+        <dt><span>Ventricle Obstructed</span></dt>
+        <dd>
+            <span>{{vm.patient.ventricleObstructed}}</span>
+        </dd>
+        <dt><span>Referred To Neurosurgery</span></dt>
+        <dd>
+            <span>{{vm.patient.referredToNeurosurgery}}</span>
+        </dd>
+        <dt><span>For Active Treatment</span></dt>
+        <dd>
+            <span>{{vm.patient.forActiveTreatment}}</span>
+        </dd>
+        <dt><span>External Scan</span></dt>
+        <dd>
+            <span>{{vm.patient.externalScan}}</span>
+        </dd>
+        <dt><span>Last Seen Well Onset</span></dt>
+        <dd>
+            <span>{{vm.patient.lastSeenWellOnset}}</span>
+        </dd>
+        <dt><span>Best Estimate Onset</span></dt>
+        <dd>
+            <span>{{vm.patient.bestEstimateOnset}}</span>
         </dd>
         <dt><span>Hospital</span></dt>
         <dd>
-            <a ui-sref="hospital-detail({id:vm.patient.hospitalId})">{{vm.patient.hospitalId}}</a>
+            <a ui-sref="hospital-detail({id:vm.patient.hospitalId})">{{vm.patient.hospitalUniqueId}}</a>
         </dd>
     </dl>
 

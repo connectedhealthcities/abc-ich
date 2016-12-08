@@ -13,13 +13,14 @@ import java.util.List;
 public interface PatientMapper {
 
     @Mapping(source = "hospital.id", target = "hospitalId")
+    @Mapping(source = "hospital.uniqueId", target = "hospitalUniqueId")
     PatientDTO patientToPatientDTO(Patient patient);
 
     List<PatientDTO> patientsToPatientDTOs(List<Patient> patients);
 
-    @Mapping(source = "hospitalId", target = "hospital")
     @Mapping(target = "inrs", ignore = true)
     @Mapping(target = "bpManagementEntries", ignore = true)
+    @Mapping(source = "hospitalId", target = "hospital")
     Patient patientDTOToPatient(PatientDTO patientDTO);
 
     List<Patient> patientDTOsToPatients(List<PatientDTO> patientDTOs);

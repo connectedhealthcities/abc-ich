@@ -5,9 +5,9 @@
         .module('strokeApp')
         .controller('PatientDialogController', PatientDialogController);
 
-    PatientDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Patient', 'Hospital', 'Inr', 'BpManagementEntry'];
+    PatientDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Patient', 'Inr', 'BpManagementEntry', 'Hospital'];
 
-    function PatientDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Patient, Hospital, Inr, BpManagementEntry) {
+    function PatientDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Patient, Inr, BpManagementEntry, Hospital) {
         var vm = this;
 
         vm.patient = entity;
@@ -15,17 +15,9 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.hospitals = Hospital.query({filter: 'patient-is-null'});
-        $q.all([vm.patient.$promise, vm.hospitals.$promise]).then(function() {
-            if (!vm.patient.hospitalId) {
-                return $q.reject();
-            }
-            return Hospital.get({id : vm.patient.hospitalId}).$promise;
-        }).then(function(hospital) {
-            vm.hospitals.push(hospital);
-        });
         vm.inrs = Inr.query();
         vm.bpmanagemententries = BpManagementEntry.query();
+        vm.hospitals = Hospital.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

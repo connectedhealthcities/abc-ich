@@ -22,6 +22,8 @@ public class BpManagementEntryDTO implements Serializable {
 
     private Integer labetalolDose;
 
+    private Integer heartRate;
+
 
     private Long patientId;
     
@@ -59,6 +61,13 @@ public class BpManagementEntryDTO implements Serializable {
 
     public void setLabetalolDose(Integer labetalolDose) {
         this.labetalolDose = labetalolDose;
+    }
+    public Integer getHeartRate() {
+        return heartRate;
+    }
+
+    public void setHeartRate(Integer heartRate) {
+        this.heartRate = heartRate;
     }
 
     public Long getPatientId() {
@@ -98,6 +107,7 @@ public class BpManagementEntryDTO implements Serializable {
             ", systolicBp='" + systolicBp + "'" +
             ", gtnRate='" + gtnRate + "'" +
             ", labetalolDose='" + labetalolDose + "'" +
+            ", heartRate='" + heartRate + "'" +
             '}';
     }
 }

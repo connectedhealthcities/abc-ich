@@ -115,9 +115,9 @@
             </select>
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_weightInKg">Weight In Kg</label>
-            <input type="number" class="form-control" name="weightInKg" id="field_weightInKg"
-                    ng-model="vm.patient.weightInKg"
+            <label class="control-label" for="field_estimatedWeightInKg">Estimated Weight In Kg</label>
+            <input type="number" class="form-control" name="estimatedWeightInKg" id="field_estimatedWeightInKg"
+                    ng-model="vm.patient.estimatedWeightInKg"
                      />
         </div>
         <div class="form-group">
@@ -147,12 +147,6 @@
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_isBeriplexAdministered">Is Beriplex Administered</label>
-            <input type="checkbox" class="form-control" name="isBeriplexAdministered" id="field_isBeriplexAdministered"
-                    ng-model="vm.patient.isBeriplexAdministered"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" for="field_beriplexStartDateTime">Beriplex Start Date Time</label>
                 <div class="input-group">
                     <input id="field_beriplexStartDateTime" type="text" class="form-control" name="beriplexStartDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.beriplexStartDateTime" is-open="vm.datePickerOpenStatus.beriplexStartDateTime"
@@ -163,12 +157,6 @@
                 </div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_isVitaminkAdministered">Is Vitamink Administered</label>
-            <input type="checkbox" class="form-control" name="isVitaminkAdministered" id="field_isVitaminkAdministered"
-                    ng-model="vm.patient.isVitaminkAdministered"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" for="field_vitaminkDateTime">Vitamink Date Time</label>
                 <div class="input-group">
                     <input id="field_vitaminkDateTime" type="text" class="form-control" name="vitaminkDateTime" datetime-picker="{{dateformat}}" ng-model="vm.patient.vitaminkDateTime" is-open="vm.datePickerOpenStatus.vitaminkDateTime"
@@ -177,12 +165,6 @@
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('vitaminkDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_isInfusionInstructionsViewed">Is Infusion Instructions Viewed</label>
-            <input type="checkbox" class="form-control" name="isInfusionInstructionsViewed" id="field_isInfusionInstructionsViewed"
-                    ng-model="vm.patient.isInfusionInstructionsViewed"
-                     />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_premorbidMrsScore">Premorbid Mrs Score</label>
@@ -205,33 +187,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_isPosteriorFossaIch">Is Posterior Fossa Ich</label>
-            <input type="checkbox" class="form-control" name="isPosteriorFossaIch" id="field_isPosteriorFossaIch"
-                    ng-model="vm.patient.isPosteriorFossaIch"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_isVentricleObstructed">Is Ventricle Obstructed</label>
-            <input type="checkbox" class="form-control" name="isVentricleObstructed" id="field_isVentricleObstructed"
-                    ng-model="vm.patient.isVentricleObstructed"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" for="field_ichVolume">Ich Volume</label>
             <input type="number" class="form-control" name="ichVolume" id="field_ichVolume"
                     ng-model="vm.patient.ichVolume"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_isReferredToNeurosurgery">Is Referred To Neurosurgery</label>
-            <input type="checkbox" class="form-control" name="isReferredToNeurosurgery" id="field_isReferredToNeurosurgery"
-                    ng-model="vm.patient.isReferredToNeurosurgery"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_isForActiveTreatment">Is For Active Treatment</label>
-            <input type="checkbox" class="form-control" name="isForActiveTreatment" id="field_isForActiveTreatment"
-                    ng-model="vm.patient.isForActiveTreatment"
                      />
         </div>
         <div class="form-group">
@@ -261,15 +219,69 @@
                 </div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_isExternalScan">Is External Scan</label>
-            <input type="checkbox" class="form-control" name="isExternalScan" id="field_isExternalScan"
-                    ng-model="vm.patient.isExternalScan"
+            <label class="control-label" for="field_beriplexAdministered">Beriplex Administered</label>
+            <input type="checkbox" class="form-control" name="beriplexAdministered" id="field_beriplexAdministered"
+                    ng-model="vm.patient.beriplexAdministered"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_vitaminkAdministered">Vitamink Administered</label>
+            <input type="checkbox" class="form-control" name="vitaminkAdministered" id="field_vitaminkAdministered"
+                    ng-model="vm.patient.vitaminkAdministered"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_infusionInstructionsViewed">Infusion Instructions Viewed</label>
+            <input type="checkbox" class="form-control" name="infusionInstructionsViewed" id="field_infusionInstructionsViewed"
+                    ng-model="vm.patient.infusionInstructionsViewed"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_posteriorFossaIch">Posterior Fossa Ich</label>
+            <input type="checkbox" class="form-control" name="posteriorFossaIch" id="field_posteriorFossaIch"
+                    ng-model="vm.patient.posteriorFossaIch"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ventricleObstructed">Ventricle Obstructed</label>
+            <input type="checkbox" class="form-control" name="ventricleObstructed" id="field_ventricleObstructed"
+                    ng-model="vm.patient.ventricleObstructed"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_referredToNeurosurgery">Referred To Neurosurgery</label>
+            <input type="checkbox" class="form-control" name="referredToNeurosurgery" id="field_referredToNeurosurgery"
+                    ng-model="vm.patient.referredToNeurosurgery"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_forActiveTreatment">For Active Treatment</label>
+            <input type="checkbox" class="form-control" name="forActiveTreatment" id="field_forActiveTreatment"
+                    ng-model="vm.patient.forActiveTreatment"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_externalScan">External Scan</label>
+            <input type="checkbox" class="form-control" name="externalScan" id="field_externalScan"
+                    ng-model="vm.patient.externalScan"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_lastSeenWellOnset">Last Seen Well Onset</label>
+            <input type="checkbox" class="form-control" name="lastSeenWellOnset" id="field_lastSeenWellOnset"
+                    ng-model="vm.patient.lastSeenWellOnset"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_bestEstimateOnset">Best Estimate Onset</label>
+            <input type="checkbox" class="form-control" name="bestEstimateOnset" id="field_bestEstimateOnset"
+                    ng-model="vm.patient.bestEstimateOnset"
                      />
         </div>
 
         <div class="form-group">
             <label for="field_hospital">Hospital</label>
-            <select class="form-control" id="field_hospital" name="hospital" ng-model="vm.patient.hospitalId" ng-options="hospital.id as hospital.id for hospital in vm.hospitals | orderBy:'id'">
+            <select class="form-control" id="field_hospital" name="hospital" ng-model="vm.patient.hospitalId" ng-options="hospital.id as hospital.uniqueId for hospital in vm.hospitals"            >
                 <option value=""></option>
             </select>
         </div>

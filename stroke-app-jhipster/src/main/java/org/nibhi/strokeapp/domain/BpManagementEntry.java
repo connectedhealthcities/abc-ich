@@ -31,6 +31,9 @@ public class BpManagementEntry implements Serializable {
     @Column(name = "labetalol_dose")
     private Integer labetalolDose;
 
+    @Column(name = "heart_rate")
+    private Integer heartRate;
+
     @ManyToOne
     private Patient patient;
 
@@ -94,6 +97,19 @@ public class BpManagementEntry implements Serializable {
         this.labetalolDose = labetalolDose;
     }
 
+    public Integer getHeartRate() {
+        return heartRate;
+    }
+
+    public BpManagementEntry heartRate(Integer heartRate) {
+        this.heartRate = heartRate;
+        return this;
+    }
+
+    public void setHeartRate(Integer heartRate) {
+        this.heartRate = heartRate;
+    }
+
     public Patient getPatient() {
         return patient;
     }
@@ -135,6 +151,7 @@ public class BpManagementEntry implements Serializable {
             ", systolicBp='" + systolicBp + "'" +
             ", gtnRate='" + gtnRate + "'" +
             ", labetalolDose='" + labetalolDose + "'" +
+            ", heartRate='" + heartRate + "'" +
             '}';
     }
 }

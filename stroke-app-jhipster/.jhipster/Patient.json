@@ -44,10 +44,6 @@
             "fieldType": "ZonedDateTime"
         },
         {
-            "fieldName": "bpStartTreatmentDateTime",
-            "fieldType": "ZonedDateTime"
-        },
-        {
             "fieldName": "doorDateTime",
             "fieldType": "ZonedDateTime"
         },
@@ -150,11 +146,19 @@
         {
             "fieldName": "otherDestination",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "scanDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "isExternalScan",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20161207153505",
-    "entityTableName": "patient",
     "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl"
+    "service": "serviceImpl",
+    "entityTableName": "patient",
+    "pagination": "pagination"
 }

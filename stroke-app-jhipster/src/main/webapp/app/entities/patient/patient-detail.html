@@ -24,10 +24,6 @@
         <dd>
             <span>{{vm.patient.onsetDateTime | date:'medium'}}</span>
         </dd>
-        <dt><span>Bp Start Treatment Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.bpStartTreatmentDateTime | date:'medium'}}</span>
-        </dd>
         <dt><span>Door Date Time</span></dt>
         <dd>
             <span>{{vm.patient.doorDateTime | date:'medium'}}</span>
@@ -111,6 +107,14 @@
         <dt><span>Other Destination</span></dt>
         <dd>
             <span>{{vm.patient.otherDestination}}</span>
+        </dd>
+        <dt><span>Scan Date Time</span></dt>
+        <dd>
+            <span>{{vm.patient.scanDateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Is External Scan</span></dt>
+        <dd>
+            <span>{{vm.patient.isExternalScan}}</span>
         </dd>
         <dt><span>Hospital</span></dt>
         <dd>

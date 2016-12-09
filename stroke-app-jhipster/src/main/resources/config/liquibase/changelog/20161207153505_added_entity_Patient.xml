@@ -41,10 +41,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="bp_start_treatment_date_time" type="timestamp">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="door_date_time" type="timestamp">
                 <constraints nullable="true" />
             </column>
@@ -128,18 +124,26 @@
             <column name="other_destination" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            
+            <column name="scan_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="is_external_scan" type="bit">
+                <constraints nullable="true" />
+            </column>
                         <column name="hospital_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="patient" columnName="onset_date_time" columnDataType="datetime"/>
-        <dropDefaultValue tableName="patient" columnName="bp_start_treatment_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="door_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="app_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="bp_target_reached_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="beriplex_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="vitamink_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="scan_date_time" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

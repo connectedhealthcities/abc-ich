@@ -24,7 +24,6 @@
                     <th jh-sort-by="birthDate"><span>Birth Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="estimatedAge"><span>Estimated Age</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="onsetDateTime"><span>Onset Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="bpStartTreatmentDateTime"><span>Bp Start Treatment Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="doorDateTime"><span>Door Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="appStartDateTime"><span>App Start Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="bpTargetReachedDateTime"><span>Bp Target Reached Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -46,6 +45,8 @@
                     <th jh-sort-by="isForActiveTreatment"><span>Is For Active Treatment</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="destination"><span>Destination</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="otherDestination"><span>Other Destination</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="scanDateTime"><span>Scan Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isExternalScan"><span>Is External Scan</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="hospitalId"><span>Hospital</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -58,7 +59,6 @@
                         <td>{{patient.birthDate | date:'mediumDate'}}</td>
                     <td>{{patient.estimatedAge}}</td>
                     <td>{{patient.onsetDateTime | date:'medium'}}</td>
-                    <td>{{patient.bpStartTreatmentDateTime | date:'medium'}}</td>
                     <td>{{patient.doorDateTime | date:'medium'}}</td>
                     <td>{{patient.appStartDateTime | date:'medium'}}</td>
                     <td>{{patient.bpTargetReachedDateTime | date:'medium'}}</td>
@@ -80,6 +80,8 @@
                     <td>{{patient.isForActiveTreatment}}</td>
                     <td>{{patient.destination}}</td>
                     <td>{{patient.otherDestination}}</td>
+                    <td>{{patient.scanDateTime | date:'medium'}}</td>
+                    <td>{{patient.isExternalScan}}</td>
                     <td>
                         <a ui-sref="hospital-detail({id:patient.hospitalId})">{{patient.hospitalId}}</a>
                     </td>

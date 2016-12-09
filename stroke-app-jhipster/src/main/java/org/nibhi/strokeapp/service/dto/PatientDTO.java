@@ -28,8 +28,6 @@ public class PatientDTO implements Serializable {
 
     private ZonedDateTime onsetDateTime;
 
-    private ZonedDateTime bpStartTreatmentDateTime;
-
     private ZonedDateTime doorDateTime;
 
     private ZonedDateTime appStartDateTime;
@@ -78,6 +76,10 @@ public class PatientDTO implements Serializable {
 
     private String otherDestination;
 
+    private ZonedDateTime scanDateTime;
+
+    private Boolean isExternalScan;
+
 
     private Long hospitalId;
     
@@ -122,13 +124,6 @@ public class PatientDTO implements Serializable {
 
     public void setOnsetDateTime(ZonedDateTime onsetDateTime) {
         this.onsetDateTime = onsetDateTime;
-    }
-    public ZonedDateTime getBpStartTreatmentDateTime() {
-        return bpStartTreatmentDateTime;
-    }
-
-    public void setBpStartTreatmentDateTime(ZonedDateTime bpStartTreatmentDateTime) {
-        this.bpStartTreatmentDateTime = bpStartTreatmentDateTime;
     }
     public ZonedDateTime getDoorDateTime() {
         return doorDateTime;
@@ -277,6 +272,20 @@ public class PatientDTO implements Serializable {
     public void setOtherDestination(String otherDestination) {
         this.otherDestination = otherDestination;
     }
+    public ZonedDateTime getScanDateTime() {
+        return scanDateTime;
+    }
+
+    public void setScanDateTime(ZonedDateTime scanDateTime) {
+        this.scanDateTime = scanDateTime;
+    }
+    public Boolean getIsExternalScan() {
+        return isExternalScan;
+    }
+
+    public void setIsExternalScan(Boolean isExternalScan) {
+        this.isExternalScan = isExternalScan;
+    }
 
     public Long getHospitalId() {
         return hospitalId;
@@ -316,7 +325,6 @@ public class PatientDTO implements Serializable {
             ", birthDate='" + birthDate + "'" +
             ", estimatedAge='" + estimatedAge + "'" +
             ", onsetDateTime='" + onsetDateTime + "'" +
-            ", bpStartTreatmentDateTime='" + bpStartTreatmentDateTime + "'" +
             ", doorDateTime='" + doorDateTime + "'" +
             ", appStartDateTime='" + appStartDateTime + "'" +
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
@@ -338,6 +346,8 @@ public class PatientDTO implements Serializable {
             ", isForActiveTreatment='" + isForActiveTreatment + "'" +
             ", destination='" + destination + "'" +
             ", otherDestination='" + otherDestination + "'" +
+            ", scanDateTime='" + scanDateTime + "'" +
+            ", isExternalScan='" + isExternalScan + "'" +
             '}';
     }
 }

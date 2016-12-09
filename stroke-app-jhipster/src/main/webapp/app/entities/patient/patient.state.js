@@ -120,7 +120,6 @@
                                 birthDate: null,
                                 estimatedAge: null,
                                 onsetDateTime: null,
-                                bpStartTreatmentDateTime: null,
                                 doorDateTime: null,
                                 appStartDateTime: null,
                                 bpTargetReachedDateTime: null,
@@ -142,6 +141,8 @@
                                 isForActiveTreatment: null,
                                 destination: null,
                                 otherDestination: null,
+                                scanDateTime: null,
+                                isExternalScan: null,
                                 id: null
                             };
                         }

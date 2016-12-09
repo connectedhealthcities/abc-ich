@@ -64,10 +64,6 @@ public class PatientResourceIntTest {
     private static final ZonedDateTime UPDATED_ONSET_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_ONSET_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_ONSET_DATE_TIME);
 
-    private static final ZonedDateTime DEFAULT_BP_START_TREATMENT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_BP_START_TREATMENT_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_BP_START_TREATMENT_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_BP_START_TREATMENT_DATE_TIME);
-
     private static final ZonedDateTime DEFAULT_DOOR_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_DOOR_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DOOR_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_DOOR_DATE_TIME);
@@ -136,6 +132,13 @@ public class PatientResourceIntTest {
     private static final String DEFAULT_OTHER_DESTINATION = "AAAAAAAAAA";
     private static final String UPDATED_OTHER_DESTINATION = "BBBBBBBBBB";
 
+    private static final ZonedDateTime DEFAULT_SCAN_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_SCAN_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_SCAN_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_SCAN_DATE_TIME);
+
+    private static final Boolean DEFAULT_IS_EXTERNAL_SCAN = false;
+    private static final Boolean UPDATED_IS_EXTERNAL_SCAN = true;
+
     @Inject
     private PatientRepository patientRepository;
 
@@ -181,7 +184,6 @@ public class PatientResourceIntTest {
                 .birthDate(DEFAULT_BIRTH_DATE)
                 .estimatedAge(DEFAULT_ESTIMATED_AGE)
                 .onsetDateTime(DEFAULT_ONSET_DATE_TIME)
-                .bpStartTreatmentDateTime(DEFAULT_BP_START_TREATMENT_DATE_TIME)
                 .doorDateTime(DEFAULT_DOOR_DATE_TIME)
                 .appStartDateTime(DEFAULT_APP_START_DATE_TIME)
                 .bpTargetReachedDateTime(DEFAULT_BP_TARGET_REACHED_DATE_TIME)
@@ -202,7 +204,9 @@ public class PatientResourceIntTest {
                 .isReferredToNeurosurgery(DEFAULT_IS_REFERRED_TO_NEUROSURGERY)
                 .isForActiveTreatment(DEFAULT_IS_FOR_ACTIVE_TREATMENT)
                 .destination(DEFAULT_DESTINATION)
-                .otherDestination(DEFAULT_OTHER_DESTINATION);
+                .otherDestination(DEFAULT_OTHER_DESTINATION)
+                .scanDateTime(DEFAULT_SCAN_DATE_TIME)
+                .isExternalScan(DEFAULT_IS_EXTERNAL_SCAN);
         return patient;
     }
 
@@ -233,7 +237,6 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getBirthDate()).isEqualTo(DEFAULT_BIRTH_DATE);
         assertThat(testPatient.getEstimatedAge()).isEqualTo(DEFAULT_ESTIMATED_AGE);
         assertThat(testPatient.getOnsetDateTime()).isEqualTo(DEFAULT_ONSET_DATE_TIME);
-        assertThat(testPatient.getBpStartTreatmentDateTime()).isEqualTo(DEFAULT_BP_START_TREATMENT_DATE_TIME);
         assertThat(testPatient.getDoorDateTime()).isEqualTo(DEFAULT_DOOR_DATE_TIME);
         assertThat(testPatient.getAppStartDateTime()).isEqualTo(DEFAULT_APP_START_DATE_TIME);
         assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(DEFAULT_BP_TARGET_REACHED_DATE_TIME);
@@ -255,6 +258,8 @@ public class PatientResourceIntTest {
         assertThat(testPatient.isIsForActiveTreatment()).isEqualTo(DEFAULT_IS_FOR_ACTIVE_TREATMENT);
         assertThat(testPatient.getDestination()).isEqualTo(DEFAULT_DESTINATION);
         assertThat(testPatient.getOtherDestination()).isEqualTo(DEFAULT_OTHER_DESTINATION);
+        assertThat(testPatient.getScanDateTime()).isEqualTo(DEFAULT_SCAN_DATE_TIME);
+        assertThat(testPatient.isIsExternalScan()).isEqualTo(DEFAULT_IS_EXTERNAL_SCAN);
     }
 
     @Test
@@ -273,7 +278,6 @@ public class PatientResourceIntTest {
                 .andExpect(jsonPath("$.[*].birthDate").value(hasItem(DEFAULT_BIRTH_DATE.toString())))
                 .andExpect(jsonPath("$.[*].estimatedAge").value(hasItem(DEFAULT_ESTIMATED_AGE)))
                 .andExpect(jsonPath("$.[*].onsetDateTime").value(hasItem(DEFAULT_ONSET_DATE_TIME_STR)))
-                .andExpect(jsonPath("$.[*].bpStartTreatmentDateTime").value(hasItem(DEFAULT_BP_START_TREATMENT_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].doorDateTime").value(hasItem(DEFAULT_DOOR_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].appStartDateTime").value(hasItem(DEFAULT_APP_START_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].bpTargetReachedDateTime").value(hasItem(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR)))
@@ -294,7 +298,9 @@ public class PatientResourceIntTest {
                 .andExpect(jsonPath("$.[*].isReferredToNeurosurgery").value(hasItem(DEFAULT_IS_REFERRED_TO_NEUROSURGERY.booleanValue())))
                 .andExpect(jsonPath("$.[*].isForActiveTreatment").value(hasItem(DEFAULT_IS_FOR_ACTIVE_TREATMENT.booleanValue())))
                 .andExpect(jsonPath("$.[*].destination").value(hasItem(DEFAULT_DESTINATION.toString())))
-                .andExpect(jsonPath("$.[*].otherDestination").value(hasItem(DEFAULT_OTHER_DESTINATION.toString())));
+                .andExpect(jsonPath("$.[*].otherDestination").value(hasItem(DEFAULT_OTHER_DESTINATION.toString())))
+                .andExpect(jsonPath("$.[*].scanDateTime").value(hasItem(DEFAULT_SCAN_DATE_TIME_STR)))
+                .andExpect(jsonPath("$.[*].isExternalScan").value(hasItem(DEFAULT_IS_EXTERNAL_SCAN.booleanValue())));
     }
 
     @Test
@@ -313,7 +319,6 @@ public class PatientResourceIntTest {
             .andExpect(jsonPath("$.birthDate").value(DEFAULT_BIRTH_DATE.toString()))
             .andExpect(jsonPath("$.estimatedAge").value(DEFAULT_ESTIMATED_AGE))
             .andExpect(jsonPath("$.onsetDateTime").value(DEFAULT_ONSET_DATE_TIME_STR))
-            .andExpect(jsonPath("$.bpStartTreatmentDateTime").value(DEFAULT_BP_START_TREATMENT_DATE_TIME_STR))
             .andExpect(jsonPath("$.doorDateTime").value(DEFAULT_DOOR_DATE_TIME_STR))
             .andExpect(jsonPath("$.appStartDateTime").value(DEFAULT_APP_START_DATE_TIME_STR))
             .andExpect(jsonPath("$.bpTargetReachedDateTime").value(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR))
@@ -334,7 +339,9 @@ public class PatientResourceIntTest {
             .andExpect(jsonPath("$.isReferredToNeurosurgery").value(DEFAULT_IS_REFERRED_TO_NEUROSURGERY.booleanValue()))
             .andExpect(jsonPath("$.isForActiveTreatment").value(DEFAULT_IS_FOR_ACTIVE_TREATMENT.booleanValue()))
             .andExpect(jsonPath("$.destination").value(DEFAULT_DESTINATION.toString()))
-            .andExpect(jsonPath("$.otherDestination").value(DEFAULT_OTHER_DESTINATION.toString()));
+            .andExpect(jsonPath("$.otherDestination").value(DEFAULT_OTHER_DESTINATION.toString()))
+            .andExpect(jsonPath("$.scanDateTime").value(DEFAULT_SCAN_DATE_TIME_STR))
+            .andExpect(jsonPath("$.isExternalScan").value(DEFAULT_IS_EXTERNAL_SCAN.booleanValue()));
     }
 
     @Test
@@ -360,7 +367,6 @@ public class PatientResourceIntTest {
                 .birthDate(UPDATED_BIRTH_DATE)
                 .estimatedAge(UPDATED_ESTIMATED_AGE)
                 .onsetDateTime(UPDATED_ONSET_DATE_TIME)
-                .bpStartTreatmentDateTime(UPDATED_BP_START_TREATMENT_DATE_TIME)
                 .doorDateTime(UPDATED_DOOR_DATE_TIME)
                 .appStartDateTime(UPDATED_APP_START_DATE_TIME)
                 .bpTargetReachedDateTime(UPDATED_BP_TARGET_REACHED_DATE_TIME)
@@ -381,7 +387,9 @@ public class PatientResourceIntTest {
                 .isReferredToNeurosurgery(UPDATED_IS_REFERRED_TO_NEUROSURGERY)
                 .isForActiveTreatment(UPDATED_IS_FOR_ACTIVE_TREATMENT)
                 .destination(UPDATED_DESTINATION)
-                .otherDestination(UPDATED_OTHER_DESTINATION);
+                .otherDestination(UPDATED_OTHER_DESTINATION)
+                .scanDateTime(UPDATED_SCAN_DATE_TIME)
+                .isExternalScan(UPDATED_IS_EXTERNAL_SCAN);
         PatientDTO patientDTO = patientMapper.patientToPatientDTO(updatedPatient);
 
         restPatientMockMvc.perform(put("/api/patients")
@@ -398,7 +406,6 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getBirthDate()).isEqualTo(UPDATED_BIRTH_DATE);
         assertThat(testPatient.getEstimatedAge()).isEqualTo(UPDATED_ESTIMATED_AGE);
         assertThat(testPatient.getOnsetDateTime()).isEqualTo(UPDATED_ONSET_DATE_TIME);
-        assertThat(testPatient.getBpStartTreatmentDateTime()).isEqualTo(UPDATED_BP_START_TREATMENT_DATE_TIME);
         assertThat(testPatient.getDoorDateTime()).isEqualTo(UPDATED_DOOR_DATE_TIME);
         assertThat(testPatient.getAppStartDateTime()).isEqualTo(UPDATED_APP_START_DATE_TIME);
         assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(UPDATED_BP_TARGET_REACHED_DATE_TIME);
@@ -420,6 +427,8 @@ public class PatientResourceIntTest {
         assertThat(testPatient.isIsForActiveTreatment()).isEqualTo(UPDATED_IS_FOR_ACTIVE_TREATMENT);
         assertThat(testPatient.getDestination()).isEqualTo(UPDATED_DESTINATION);
         assertThat(testPatient.getOtherDestination()).isEqualTo(UPDATED_OTHER_DESTINATION);
+        assertThat(testPatient.getScanDateTime()).isEqualTo(UPDATED_SCAN_DATE_TIME);
+        assertThat(testPatient.isIsExternalScan()).isEqualTo(UPDATED_IS_EXTERNAL_SCAN);
     }
 
     @Test

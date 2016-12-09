@@ -43,9 +43,6 @@ public class Patient implements Serializable {
     @Column(name = "onset_date_time")
     private ZonedDateTime onsetDateTime;
 
-    @Column(name = "bp_start_treatment_date_time")
-    private ZonedDateTime bpStartTreatmentDateTime;
-
     @Column(name = "door_date_time")
     private ZonedDateTime doorDateTime;
 
@@ -116,6 +113,12 @@ public class Patient implements Serializable {
 
     @Column(name = "other_destination")
     private String otherDestination;
+
+    @Column(name = "scan_date_time")
+    private ZonedDateTime scanDateTime;
+
+    @Column(name = "is_external_scan")
+    private Boolean isExternalScan;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -200,19 +203,6 @@ public class Patient implements Serializable {
 
     public void setOnsetDateTime(ZonedDateTime onsetDateTime) {
         this.onsetDateTime = onsetDateTime;
-    }
-
-    public ZonedDateTime getBpStartTreatmentDateTime() {
-        return bpStartTreatmentDateTime;
-    }
-
-    public Patient bpStartTreatmentDateTime(ZonedDateTime bpStartTreatmentDateTime) {
-        this.bpStartTreatmentDateTime = bpStartTreatmentDateTime;
-        return this;
-    }
-
-    public void setBpStartTreatmentDateTime(ZonedDateTime bpStartTreatmentDateTime) {
-        this.bpStartTreatmentDateTime = bpStartTreatmentDateTime;
     }
 
     public ZonedDateTime getDoorDateTime() {
@@ -488,6 +478,32 @@ public class Patient implements Serializable {
         this.otherDestination = otherDestination;
     }
 
+    public ZonedDateTime getScanDateTime() {
+        return scanDateTime;
+    }
+
+    public Patient scanDateTime(ZonedDateTime scanDateTime) {
+        this.scanDateTime = scanDateTime;
+        return this;
+    }
+
+    public void setScanDateTime(ZonedDateTime scanDateTime) {
+        this.scanDateTime = scanDateTime;
+    }
+
+    public Boolean isIsExternalScan() {
+        return isExternalScan;
+    }
+
+    public Patient isExternalScan(Boolean isExternalScan) {
+        this.isExternalScan = isExternalScan;
+        return this;
+    }
+
+    public void setIsExternalScan(Boolean isExternalScan) {
+        this.isExternalScan = isExternalScan;
+    }
+
     public Hospital getHospital() {
         return hospital;
     }
@@ -580,7 +596,6 @@ public class Patient implements Serializable {
             ", birthDate='" + birthDate + "'" +
             ", estimatedAge='" + estimatedAge + "'" +
             ", onsetDateTime='" + onsetDateTime + "'" +
-            ", bpStartTreatmentDateTime='" + bpStartTreatmentDateTime + "'" +
             ", doorDateTime='" + doorDateTime + "'" +
             ", appStartDateTime='" + appStartDateTime + "'" +
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
@@ -602,6 +617,8 @@ public class Patient implements Serializable {
             ", isForActiveTreatment='" + isForActiveTreatment + "'" +
             ", destination='" + destination + "'" +
             ", otherDestination='" + otherDestination + "'" +
+            ", scanDateTime='" + scanDateTime + "'" +
+            ", isExternalScan='" + isExternalScan + "'" +
             '}';
     }
 }

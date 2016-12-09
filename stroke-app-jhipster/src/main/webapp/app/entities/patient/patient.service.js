@@ -18,12 +18,12 @@
                         data = angular.fromJson(data);
                         data.birthDate = DateUtils.convertLocalDateFromServer(data.birthDate);
                         data.onsetDateTime = DateUtils.convertDateTimeFromServer(data.onsetDateTime);
-                        data.bpStartTreatmentDateTime = DateUtils.convertDateTimeFromServer(data.bpStartTreatmentDateTime);
                         data.doorDateTime = DateUtils.convertDateTimeFromServer(data.doorDateTime);
                         data.appStartDateTime = DateUtils.convertDateTimeFromServer(data.appStartDateTime);
                         data.bpTargetReachedDateTime = DateUtils.convertDateTimeFromServer(data.bpTargetReachedDateTime);
                         data.beriplexStartDateTime = DateUtils.convertDateTimeFromServer(data.beriplexStartDateTime);
                         data.vitaminkDateTime = DateUtils.convertDateTimeFromServer(data.vitaminkDateTime);
+                        data.scanDateTime = DateUtils.convertDateTimeFromServer(data.scanDateTime);
                     }
                     return data;
                 }

@@ -56,12 +56,12 @@
 
         vm.datePickerOpenStatus.birthDate = false;
         vm.datePickerOpenStatus.onsetDateTime = false;
-        vm.datePickerOpenStatus.bpStartTreatmentDateTime = false;
         vm.datePickerOpenStatus.doorDateTime = false;
         vm.datePickerOpenStatus.appStartDateTime = false;
         vm.datePickerOpenStatus.bpTargetReachedDateTime = false;
         vm.datePickerOpenStatus.beriplexStartDateTime = false;
         vm.datePickerOpenStatus.vitaminkDateTime = false;
+        vm.datePickerOpenStatus.scanDateTime = false;
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;

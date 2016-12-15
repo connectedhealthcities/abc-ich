@@ -1,0 +1,6 @@
+/* ========================
+Prevent text truncation
+========================= */
+.dl-horizontal dt {
+    white-space: normal;
+}

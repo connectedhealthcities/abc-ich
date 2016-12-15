@@ -21,6 +21,11 @@
                     return data;
                 }
             },
+            'getByPatient': {
+            	url: 'api/inrs/patient/:patientId',
+                method: 'GET',
+                isArray: true
+            },
             'update': { method:'PUT' }
         });
     }

@@ -1,7 +1,7 @@
 package org.nibhi.strokeapp.repository;
 
 import org.nibhi.strokeapp.domain.Inr;
-
+import org.nibhi.strokeapp.domain.Patient;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface InrRepository extends JpaRepository<Inr,Long> {
 
+	  List<Inr> findByPatient(Patient patient);
 }

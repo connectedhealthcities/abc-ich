@@ -21,6 +21,11 @@
                     return data;
                 }
             },
+            'getByPatient': {
+            	url: 'api/bp-management-entries/patient/:patientId',
+                method: 'GET',
+                isArray: true
+            },
             'update': { method:'PUT' }
         });
     }

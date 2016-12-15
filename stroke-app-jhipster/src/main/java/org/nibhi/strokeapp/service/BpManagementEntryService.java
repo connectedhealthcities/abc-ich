@@ -26,6 +26,13 @@ public interface BpManagementEntryService {
     List<BpManagementEntryDTO> findAll();
 
     /**
+     *  Get the bpManagementEntries for a patient.
+     *  
+     *  @return the list of entities
+     */
+    List<BpManagementEntryDTO> findByPatient(long patientId);
+
+    /**
      *  Get the "id" bpManagementEntry.
      *
      *  @param id the id of the entity

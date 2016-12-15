@@ -86,6 +86,18 @@ public class InrResource {
     }
 
     /**
+     * GET  /inrs/patient/:patientId : get the inrs for a patient.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of inrs in body
+     */
+    @GetMapping("/inrs/patient/{patientId}")
+    @Timed
+    public List<InrDTO> getInrsByPatient(@PathVariable Long patientId) {
+        log.debug("REST request to get Inrs for patient : {}", patientId);
+        return inrService.findByPatient(patientId);
+    }
+
+    /**
      * GET  /inrs/:id : get the "id" inr.
      *
      * @param id the id of the inrDTO to retrieve

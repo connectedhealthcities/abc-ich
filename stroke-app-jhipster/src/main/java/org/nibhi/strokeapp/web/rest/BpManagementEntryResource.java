@@ -86,6 +86,18 @@ public class BpManagementEntryResource {
     }
 
     /**
+     * GET  /inrs/patient/:patientId : get the bpManagementEntries for a patient.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of inrs in body
+     */
+    @GetMapping("/bp-management-entries/patient/{patientId}")
+    @Timed
+    public List<BpManagementEntryDTO> getBpManagementEntriesByPatient(@PathVariable Long patientId) {
+        log.debug("REST request to get BpManagementEntries for patient : {}", patientId);
+        return bpManagementEntryService.findByPatient(patientId);
+    }
+
+    /**
      * GET  /bp-management-entries/:id : get the "id" bpManagementEntry.
      *
      * @param id the id of the bpManagementEntryDTO to retrieve

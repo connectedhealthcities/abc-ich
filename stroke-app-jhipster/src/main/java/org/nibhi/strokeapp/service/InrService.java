@@ -26,13 +26,6 @@ public interface InrService {
     List<InrDTO> findAll();
 
     /**
-     *  Get the inrs for a patient.
-     *  
-     *  @return the list of entities
-     */
-    List<InrDTO> findByPatient(long patientId);
-
-    /**
      *  Get the "id" inr.
      *
      *  @param id the id of the entity

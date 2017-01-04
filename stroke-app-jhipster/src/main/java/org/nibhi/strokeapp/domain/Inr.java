@@ -31,9 +31,6 @@ public class Inr implements Serializable {
     @Column(name = "measured_date_time")
     private ZonedDateTime measuredDateTime;
 
-    @ManyToOne
-    private Patient patient;
-
     public Long getId() {
         return id;
     }
@@ -79,19 +76,6 @@ public class Inr implements Serializable {
 
     public void setMeasuredDateTime(ZonedDateTime measuredDateTime) {
         this.measuredDateTime = measuredDateTime;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public Inr patient(Patient patient) {
-        this.patient = patient;
-        return this;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     @Override

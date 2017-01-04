@@ -64,9 +64,6 @@
                 entity: ['$stateParams', 'Patient', function($stateParams, Patient) {
                     return Patient.get({id : $stateParams.id}).$promise;
                 }],
-                inrs: ['$stateParams', 'Inr', function($stateParams, Inr) {
-                    return Inr.getByPatient({patientId : $stateParams.id}).$promise;
-                }],                
                 bpManagementEntries: ['$stateParams', 'BpManagementEntry', function($stateParams, BpManagementEntry) {
                     return BpManagementEntry.getByPatient({patientId : $stateParams.id}).$promise;
                 }],                

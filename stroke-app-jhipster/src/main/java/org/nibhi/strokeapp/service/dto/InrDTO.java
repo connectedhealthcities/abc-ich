@@ -2,8 +2,6 @@ package org.nibhi.strokeapp.service.dto;
 
 import java.time.ZonedDateTime;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import org.nibhi.strokeapp.domain.enumeration.InrType;
@@ -22,8 +20,6 @@ public class InrDTO implements Serializable {
     private ZonedDateTime measuredDateTime;
 
 
-    private Long patientId;
-    
     public Long getId() {
         return id;
     }
@@ -51,14 +47,6 @@ public class InrDTO implements Serializable {
 
     public void setMeasuredDateTime(ZonedDateTime measuredDateTime) {
         this.measuredDateTime = measuredDateTime;
-    }
-
-    public Long getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
     }
 
     @Override

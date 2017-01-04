@@ -153,12 +153,16 @@ public class TestDataServiceImpl implements TestDataService{
         patient.setDestination(Destination.NEUROSURGERY);
         // patient.setOtherDestination("otherDestination");
         patient.setHospital(hospital);
+        
+    	Inr inr = new Inr();
+      	inr.setInrType(InrType.POINT_OF_CARE);
+      	inr.setValue(6.1f);
+      	inr.setMeasuredDateTime(getInrDateTime(appStartDateTime));
+      	inrRepository.save(inr);
+ 
+      	patient.setInr(inr);
 
         patient = patientRepository.save(patient);
-
-      	for (int i = 0; i < 2; i++) {
-      		addInr(i, patient, appStartDateTime);
-      	}
 
       	for (int i = 0; i < 12; i++) {
       		addBpManagementEntry(i, patient, vitaminkDateTime);
@@ -206,11 +210,9 @@ public class TestDataServiceImpl implements TestDataService{
 		return addIntervalToDateTime(beriplexStartDateTime, MILLISECONDS_PER_MINUTE);
 	}
 
-	private ZonedDateTime getInrDateTime(ZonedDateTime appStartDateTime, int index) {
+	private ZonedDateTime getInrDateTime(ZonedDateTime appStartDateTime) {
 		
-		long MILLISECONDS_PER_31_MINUTES = 31 * MILLISECONDS_PER_MINUTE;
-		long interval = index == 0 ? MILLISECONDS_PER_MINUTE: MILLISECONDS_PER_31_MINUTES;				
-		return addIntervalToDateTime(appStartDateTime, interval);
+		return addIntervalToDateTime(appStartDateTime, MILLISECONDS_PER_MINUTE);
 	}
 
 	private ZonedDateTime getBpDateTime(ZonedDateTime vitaminkDateTime, int index) {
@@ -229,22 +231,6 @@ public class TestDataServiceImpl implements TestDataService{
 		// Generate a random date-time up to 300 minutes after the vitamink date-time
 		long MILLISECONDS_PER_300_MINUTES = 300 * MILLISECONDS_PER_MINUTE;
 		return getFutureRandomDateTimeWithinAnIntervalOfReferenceDateTime(vitaminkDateTime, MILLISECONDS_PER_300_MINUTES);
-	}
-
-	private float getInrValue(int index) {
-		
-		return index == 0 ? 6.1f : 4.3f;
-	}
-
-	private void addInr(int index, Patient patient, ZonedDateTime appStartDateTime) {
-		
-    	Inr inr = new Inr();
-      	inr.setPatient(patient);
-      	inr.setInrType(InrType.POINT_OF_CARE);
-      	inr.setValue(getInrValue(index));
-      	inr.setMeasuredDateTime(getInrDateTime(appStartDateTime, index));
-  	
-      	inrRepository.save(inr);
 	}
 
 	private Integer getSbp(int index) {

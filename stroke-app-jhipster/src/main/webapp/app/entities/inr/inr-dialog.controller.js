@@ -5,9 +5,9 @@
         .module('strokeApp')
         .controller('InrDialogController', InrDialogController);
 
-    InrDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Inr', 'Patient'];
+    InrDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Inr'];
 
-    function InrDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Inr, Patient) {
+    function InrDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Inr) {
         var vm = this;
 
         vm.inr = entity;
@@ -15,7 +15,6 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.patients = Patient.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

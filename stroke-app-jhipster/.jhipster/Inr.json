@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipName": "patient",
-            "otherEntityName": "patient",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "value",
@@ -24,8 +17,8 @@
         }
     ],
     "changelogDate": "20161207153507",
-    "entityTableName": "inr",
     "dto": "mapstruct",
-    "pagination": "no",
-    "service": "serviceImpl"
+    "service": "serviceImpl",
+    "entityTableName": "inr",
+    "pagination": "no"
 }

@@ -50,6 +50,7 @@
                     <th jh-sort-by="lastSeenWellOnset"><span>Last Seen Well Onset</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="bestEstimateOnset"><span>Best Estimate Onset</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="hospitalUniqueId"><span>Hospital</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="inrId"><span>Inr</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -88,6 +89,9 @@
                     <td>{{patient.bestEstimateOnset}}</td>
                     <td>
                         <a ui-sref="hospital-detail({id:patient.hospitalId})">{{patient.hospitalUniqueId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="inr-detail({id:patient.inrId})">{{patient.inrId}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

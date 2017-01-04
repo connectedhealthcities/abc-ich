@@ -3,12 +3,6 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "inrs",
-            "otherEntityName": "inr",
-            "otherEntityRelationshipName": "patient"
-        },
-        {
-            "relationshipType": "one-to-many",
             "relationshipName": "bpManagementEntries",
             "otherEntityName": "bpManagementEntry",
             "otherEntityRelationshipName": "patient"
@@ -18,6 +12,14 @@
             "otherEntityName": "hospital",
             "relationshipType": "many-to-one",
             "otherEntityField": "uniqueId"
+        },
+        {
+            "relationshipName": "inr",
+            "otherEntityName": "inr",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "patient"
         }
     ],
     "fields": [

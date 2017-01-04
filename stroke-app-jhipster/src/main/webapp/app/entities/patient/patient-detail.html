@@ -128,30 +128,11 @@
         <dd>
             <a ui-sref="hospital-detail({id:vm.patient.hospitalId})">{{vm.patient.hospitalUniqueId}}</a>
         </dd>
+        <dt><span>Inr</span></dt>
+        <dd>
+            <a ui-sref="inr-detail({id:vm.patient.inrId})">{{vm.patient.inrId}}</a>
+        </dd>
     </dl>
-
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-  			<caption>INR Readings</caption>
-            <thead>
-                <tr>
-                    <th><span>Measured Date</span></th>
-                    <th><span>Measured Time</span></th>
-                    <th><span>Value</span></th>
-                    <th><span>Inr Type</span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="inr in vm.inrs track by inr.id">
-                    <td>{{inr.measuredDateTime | date:'mediumDate'}}</td>
-                    <td>{{inr.measuredDateTime | date:'shortTime'}}</td>
-                    <td>{{inr.value}}</td>
-                    <td>{{inr.inrType}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 
     <div class="table-responsive">
         <table class="jh-table table table-striped">

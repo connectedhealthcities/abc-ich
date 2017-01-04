@@ -144,7 +144,9 @@
             <column name="hospital_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-
+            <column name="inr_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="patient" columnName="onset_date_time" columnDataType="datetime"/>

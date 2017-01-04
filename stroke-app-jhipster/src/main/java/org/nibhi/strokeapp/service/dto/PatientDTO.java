@@ -90,6 +90,8 @@ public class PatientDTO implements Serializable {
 
     private String hospitalUniqueId;
 
+    private Long inrId;
+    
     public Long getId() {
         return id;
     }
@@ -323,6 +325,14 @@ public class PatientDTO implements Serializable {
 
     public void setHospitalUniqueId(String hospitalUniqueId) {
         this.hospitalUniqueId = hospitalUniqueId;
+    }
+
+    public Long getInrId() {
+        return inrId;
+    }
+
+    public void setInrId(Long inrId) {
+        this.inrId = inrId;
     }
 
     @Override

@@ -5,9 +5,9 @@
         .module('strokeApp')
         .controller('InrDetailController', InrDetailController);
 
-    InrDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Inr', 'Patient'];
+    InrDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Inr'];
 
-    function InrDetailController($scope, $rootScope, $stateParams, previousState, entity, Inr, Patient) {
+    function InrDetailController($scope, $rootScope, $stateParams, previousState, entity, Inr) {
         var vm = this;
 
         vm.inr = entity;

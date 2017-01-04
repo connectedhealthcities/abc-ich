@@ -2,9 +2,7 @@ package org.nibhi.strokeapp.service.impl;
 
 import org.nibhi.strokeapp.service.InrService;
 import org.nibhi.strokeapp.domain.Inr;
-import org.nibhi.strokeapp.domain.Patient;
 import org.nibhi.strokeapp.repository.InrRepository;
-import org.nibhi.strokeapp.repository.PatientRepository;
 import org.nibhi.strokeapp.service.dto.InrDTO;
 import org.nibhi.strokeapp.service.mapper.InrMapper;
 import org.slf4j.Logger;
@@ -28,9 +26,6 @@ public class InrServiceImpl implements InrService{
     
     @Inject
     private InrRepository inrRepository;
-
-    @Inject
-    private PatientRepository patientRepository;
 
     @Inject
     private InrMapper inrMapper;
@@ -58,23 +53,6 @@ public class InrServiceImpl implements InrService{
     public List<InrDTO> findAll() {
         log.debug("Request to get all Inrs");
         List<InrDTO> result = inrRepository.findAll().stream()
-            .map(inrMapper::inrToInrDTO)
-            .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
-    }
-
-    /**
-     *  Get the inrs for a patient.
-     *  
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<InrDTO> findByPatient(long patientId) {
-        log.debug("Request to get inrs for a patient with id : {}", patientId);
-        
-        Patient patient = patientRepository.findOne(patientId);
-        List<InrDTO> result = inrRepository.findByPatient(patient).stream()
             .map(inrMapper::inrToInrDTO)
             .collect(Collectors.toCollection(LinkedList::new));
 

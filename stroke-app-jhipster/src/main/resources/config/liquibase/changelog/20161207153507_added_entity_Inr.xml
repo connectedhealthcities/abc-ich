@@ -33,10 +33,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="patient_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="inr" columnName="measured_date_time" columnDataType="datetime"/>

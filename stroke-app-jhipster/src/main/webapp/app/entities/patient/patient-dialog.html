@@ -285,6 +285,12 @@
                 <option value=""></option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="field_inr">Inr</label>
+            <select class="form-control" id="field_inr" name="inr" ng-model="vm.patient.inrId" ng-options="inr.id as inr.id for inr in vm.inrs | orderBy:'id'">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

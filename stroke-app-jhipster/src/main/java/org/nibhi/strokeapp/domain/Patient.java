@@ -128,14 +128,14 @@ public class Patient implements Serializable {
 
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
-    private Set<Inr> inrs = new HashSet<>();
-
-    @OneToMany(mappedBy = "patient")
-    @JsonIgnore
     private Set<BpManagementEntry> bpManagementEntries = new HashSet<>();
 
     @ManyToOne
     private Hospital hospital;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Inr inr;
 
     public Long getId() {
         return id;
@@ -535,31 +535,6 @@ public class Patient implements Serializable {
         this.bestEstimateOnset = bestEstimateOnset;
     }
 
-    public Set<Inr> getInrs() {
-        return inrs;
-    }
-
-    public Patient inrs(Set<Inr> inrs) {
-        this.inrs = inrs;
-        return this;
-    }
-
-    public Patient addInrs(Inr inr) {
-        inrs.add(inr);
-        inr.setPatient(this);
-        return this;
-    }
-
-    public Patient removeInrs(Inr inr) {
-        inrs.remove(inr);
-        inr.setPatient(null);
-        return this;
-    }
-
-    public void setInrs(Set<Inr> inrs) {
-        this.inrs = inrs;
-    }
-
     public Set<BpManagementEntry> getBpManagementEntries() {
         return bpManagementEntries;
     }
@@ -596,6 +571,19 @@ public class Patient implements Serializable {
 
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
+    }
+
+    public Inr getInr() {
+        return inr;
+    }
+
+    public Patient inr(Inr inr) {
+        this.inr = inr;
+        return this;
+    }
+
+    public void setInr(Inr inr) {
+        this.inr = inr;
     }
 
     @Override

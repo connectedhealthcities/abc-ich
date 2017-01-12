@@ -11,6 +11,11 @@
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'queryAll': {
+            	url: 'api/patients-all',
+                method: 'GET',
+                isArray: true
+            },
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

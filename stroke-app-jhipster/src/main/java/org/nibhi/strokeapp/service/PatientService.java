@@ -29,6 +29,13 @@ public interface PatientService {
     Page<PatientDTO> findAll(Pageable pageable);
 
     /**
+     *  Get all the patients.
+     *  
+     *  @return the list of entities
+     */
+    List<PatientDTO> findAll();
+
+    /**
      *  Get the "id" patient.
      *
      *  @param id the id of the entity

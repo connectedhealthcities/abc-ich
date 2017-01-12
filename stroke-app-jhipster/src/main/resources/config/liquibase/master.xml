@@ -11,7 +11,6 @@
     <include file="classpath:config/liquibase/changelog/20161207153508_added_entity_BpManagementEntry.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20161207153505_added_entity_constraints_Patient.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20161207153507_added_entity_constraints_Inr.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161207153508_added_entity_constraints_BpManagementEntry.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161212090941_added_unique_costraints.xml" relativeToChangelogFile="false"/>    
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

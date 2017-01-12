@@ -4,3 +4,12 @@ Prevent text truncation
 .dl-horizontal dt {
     white-space: normal;
 }
+
+.c3-ygrid-line.color-red line {
+    stroke: red;
+    stroke-width: 1;
+}
+
+.c3-ygrid-line.color-red text {
+    fill:red;
+}

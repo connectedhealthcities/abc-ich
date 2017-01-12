@@ -95,6 +95,18 @@ public class PatientResource {
     }
 
     /**
+     * GET  /patients-all : get all the patients.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of patients in body
+     */
+    @GetMapping("/patients-all")
+    @Timed
+    public List<PatientDTO> getAllPatients() {
+        log.debug("REST request to get all Patients");
+        return patientService.findAll();
+    }
+
+    /**
      * GET  /patients/:id : get the "id" patient.
      *
      * @param id the id of the patientDTO to retrieve

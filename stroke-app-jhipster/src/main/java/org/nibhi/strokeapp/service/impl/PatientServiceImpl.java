@@ -60,6 +60,21 @@ public class PatientServiceImpl implements PatientService{
     }
 
     /**
+     *  Get all the patients.
+     *  
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<PatientDTO> findAll() {
+        log.debug("Request to get all Patients");
+        List<PatientDTO> result = patientRepository.findAll().stream()
+            .map(patientMapper::patientToPatientDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
+    }
+
+    /**
      *  Get one patient by id.
      *
      *  @param id the id of the entity

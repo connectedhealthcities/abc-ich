@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Patient Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockPatient, MockBpManagementEntry, MockHospital, MockInr;
+        var MockEntity, MockPreviousState, MockPatient, MockBpManagementEntries, MockHospital, MockInr;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,7 +13,7 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockPatient = jasmine.createSpy('MockPatient');
-            MockBpManagementEntry = jasmine.createSpy('MockBpManagementEntry');
+            MockBpManagementEntries = jasmine.createSpy('MockBpManagementEntries');
             MockHospital = jasmine.createSpy('MockHospital');
             MockInr = jasmine.createSpy('MockInr');
             
@@ -24,7 +24,7 @@ describe('Controller Tests', function() {
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
                 'Patient': MockPatient,
-                'BpManagementEntry': MockBpManagementEntry,
+                'bpManagementEntries': MockBpManagementEntries,
                 'Hospital': MockHospital,
                 'Inr': MockInr
             };

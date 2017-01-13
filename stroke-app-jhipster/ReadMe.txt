@@ -35,5 +35,24 @@ DATABASE SETUP
 	  CREATE DATABASE strokeapp;        
 	        
 	  GRANT ALL ON strokeapp.* TO 'strokeapp'@'localhost';
+	  
+
+Generating a WAR file
+=====================
+
+see https://jhipster.github.io/production/
+
+To package the application as a “production” WAR, type:
+
+./mvnw -Pprod package
+
+This will generate two files:
+
+target/stroke-app-0.0.1-SNAPSHOT.war
+target/stroke-app-0.0.1-SNAPSHOT.war.original
+
+Simply copy the .original file into the Tomcat "webapps" folder
+and rename by removing the .original extension.
+
 
 

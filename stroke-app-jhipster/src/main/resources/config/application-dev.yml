@@ -43,10 +43,14 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        # see https://jhipster.github.io/tips/011_tip_configuring_email_in_jhipster.html
+        # https://mailtrap.io/
+        # email: colin.fficol@gmail.com
+        # password: password        
+        host: mailtrap.io
+        port: 2525
+        username: 457860deaa64aee1b
+        password: 291472e29466a5
     messages:
         cache-seconds: 1
     thymeleaf:

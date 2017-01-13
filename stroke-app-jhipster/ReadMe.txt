@@ -1,9 +1,15 @@
-JHIPSTER OPTIONS
-================
+Jhipster documentation
+======================
+see https://jhipster.github.io/
+
+Project options
+===============
 
 This project was created using generator-hipster 3.11.0.
 
 Selected options were as follows:
+
+see https://jhipster.github.io/creating-an-app/
 
 ? (1/13) Which *type* of application would you like to create? Monolithic application (recommended for simple projects)
 ? (2/13) What is the base name of your application? StrokeApp
@@ -19,7 +25,7 @@ Selected options were as follows:
 ? (12/13) Would you like to enable internationalization support? No
 ? (13/13) Which testing frameworks would you like to use? Protractor
 
-DATABASE SETUP
+Database setup
 ==============
 
 1. Create a local mysql user account with username 'strokeapp' and password ‘strokeapp'.
@@ -28,7 +34,7 @@ DATABASE SETUP
 	
 	  mysql -u root -p
 	        
-	  CREATE USER 'clintouch'@'localhost' IDENTIFIED BY 'clintouch';
+	  CREATE USER 'strokeapp'@'localhost' IDENTIFIED BY 'strokeapp';
 	
 2. Create a mysql database named 'strokeapp' and grant all privileges to user 'strokeapp'
 	
@@ -55,4 +61,9 @@ Simply copy the .original file into the Tomcat "webapps" folder
 and rename by removing the .original extension.
 
 
-
+Email configuration
+===================
+Jhipster supports 2 profiles: Development and Production.
+Email is configured separately for each profile in the following files:
+	src\main\resources\config\application-dev.yml
+	src\main\resources\config\application-prod.yml

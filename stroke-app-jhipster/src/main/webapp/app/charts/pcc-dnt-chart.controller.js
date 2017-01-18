@@ -1,15 +1,15 @@
 (function() {
     'use strict';
 
-    // BP: Blood Pressure
-    // DTT: Door to Target Time
+    // PCC: Prothrombin Complex Concentrate e.g. Beriplex
+    // DNT: Door to Needle Time
     angular
         .module('strokeApp')
-        .controller('BpDttChartController', BpDttChartController);
+        .controller('PccDntChartController', PccDntChartController);
 
-    BpDttChartController.$inject = ['$state', 'Patient', 'DateUtils', 'ControlChartService'];
+    PccDntChartController.$inject = ['$state', 'Patient', 'DateUtils', 'ControlChartService'];
 
-    function BpDttChartController ($state, Patient, DateUtils, ControlChartService) {
+    function PccDntChartController ($state, Patient, DateUtils, ControlChartService) {
         var vm = this;
         vm.patients = [];
         vm.chart = null;
@@ -26,22 +26,22 @@
                 var sd = ControlChartService.getStandardDeviation(values, mean);
                 var lcl = ControlChartService.getLowerControlLimit(mean, sd);                
                 var ucl = ControlChartService.getUpperControlLimit(mean, sd);
-                var yMax = ControlChartService.getYMax(values, ucl, goal);
-
+                 var yMax = ControlChartService.getYMax(values, ucl, goal);
+                
                 generateChart(chartDataPoints, mean, lcl, ucl, yMax, goal);
             });
         }
 
         function generateChart(chartDataPoints, mean, lcl, ucl, yMax, goal) {
             vm.chart = c3.generate({
-                bindto: "#bp-dtt-chart",
+                bindto: "#pcc-dnt-chart",
                 size: {
                     height: 400
                 },
                 data: {
                 	json: chartDataPoints,
                 	keys: { x: "x", value: ["value"] },
-                	names: { value: "BP Door-to-Target time" },
+                	names: { value: "PCC Door-to-Needle time" },
                 	onclick: chartDataSelectHandler
                 },
                 axis: {
@@ -55,7 +55,7 @@
                         height: 70
                     },
                     y: {
-                       	min: 0,
+                    	min: 0,
                     	max: yMax,
                         label: {
                             text: "Minutes",
@@ -72,7 +72,7 @@
                         lines: [
                             {
                             	value: goal, 
-                              	text: 'goal < '+ goal + ' min',
+                              	text: 'goal < ' + goal + ' min',
                               	class: 'color-red'
                             },
                             {
@@ -99,7 +99,7 @@
         	
         	for(i = 0; i < patients.length; i++) {
         		patient = patients[i];
-        		chartDataPoints.push({x:getTimeSeriesValue(patient), value:getDttValue(patient)});
+        		chartDataPoints.push({x:getTimeSeriesValue(patient), value:getDntValue(patient)});
         	}
         	
         	return chartDataPoints;
@@ -112,16 +112,16 @@
         	return timeSeriesValue;
         }
 
-        function getDttValue(patient) {
+        function getDntValue(patient) {
         	
         	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
-        	var bpTargetReachedDate = DateUtils.convertDateTimeFromServer(patient.bpTargetReachedDateTime);
+        	var beriplexStartDateTime = DateUtils.convertDateTimeFromServer(patient.beriplexStartDateTime);
 
-        	var diffMs = Math.abs(bpTargetReachedDate - doorDate);
+        	var diffMs = Math.abs(beriplexStartDateTime - doorDate);
         	var minutes = Math.floor((diffMs/1000)/60);
         	return minutes;
         }
-
+        
         function getChartValues(chartDataPoints) {
         	
         	var i, chartDataPoint, values = [];
@@ -136,7 +136,7 @@
 
         function chartDataSelectHandler(d, element) {
 
-        	var patient = vm.patients[d.index];            
+            var patient = vm.patients[d.index];            
             $state.go('patient-detail', { 'id':patient.id });
         }
 

@@ -1,164 +1,196 @@
 
 <div>
-    <h2><span>Patient</span> {{vm.patient.id}}</h2>
+    <h2><span>Patient:</span> {{vm.patient.uniqueId}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span>Unique Id</span></dt>
-        <dd>
-            <span>{{vm.patient.uniqueId}}</span>
-        </dd>
-        <dt><span>Initials</span></dt>
-        <dd>
-            <span>{{vm.patient.initials}}</span>
-        </dd>
-        <dt><span>Birth Date</span></dt>
-        <dd>
-            <span>{{vm.patient.birthDate | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span>Estimated Age</span></dt>
-        <dd>
-            <span>{{vm.patient.estimatedAge}}</span>
-        </dd>
-        <dt><span>Onset Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.onsetDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Door Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.doorDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>App Start Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.appStartDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Bp Target Reached Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.bpTargetReachedDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Gcs Score</span></dt>
-        <dd>
-            <span>{{vm.patient.gcsScore}}</span>
-        </dd>
-        <dt><span>Anti Coagulant</span></dt>
-        <dd>
-            <span>{{vm.patient.antiCoagulant}}</span>
-        </dd>
-        <dt><span>Estimated Weight In Kg</span></dt>
-        <dd>
-            <span>{{vm.patient.estimatedWeightInKg}}</span>
-        </dd>
-        <dt><span>Calculated Beriplex Dose</span></dt>
-        <dd>
-            <span>{{vm.patient.calculatedBeriplexDose}}</span>
-        </dd>
-        <dt><span>Actual Beriplex Dose</span></dt>
-        <dd>
-            <span>{{vm.patient.actualBeriplexDose}}</span>
-        </dd>
-        <dt><span>Beriplex Start Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.beriplexStartDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Vitamink Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.vitaminkDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Premorbid Mrs Score</span></dt>
-        <dd>
-            <span>{{vm.patient.premorbidMrsScore}}</span>
-        </dd>
-        <dt><span>Ich Volume</span></dt>
-        <dd>
-            <span>{{vm.patient.ichVolume}}</span>
-        </dd>
-        <dt><span>Destination</span></dt>
-        <dd>
-            <span>{{vm.patient.destination}}</span>
-        </dd>
-        <dt><span>Other Destination</span></dt>
-        <dd>
-            <span>{{vm.patient.otherDestination}}</span>
-        </dd>
-        <dt><span>Scan Date Time</span></dt>
-        <dd>
-            <span>{{vm.patient.scanDateTime | date:'medium'}}</span>
-        </dd>
-        <dt><span>Beriplex Administered</span></dt>
-        <dd>
-            <span>{{vm.patient.beriplexAdministered}}</span>
-        </dd>
-        <dt><span>Vitamink Administered</span></dt>
-        <dd>
-            <span>{{vm.patient.vitaminkAdministered}}</span>
-        </dd>
-        <dt><span>Infusion Instructions Viewed</span></dt>
-        <dd>
-            <span>{{vm.patient.infusionInstructionsViewed}}</span>
-        </dd>
-        <dt><span>Posterior Fossa Ich</span></dt>
-        <dd>
-            <span>{{vm.patient.posteriorFossaIch}}</span>
-        </dd>
-        <dt><span>Ventricle Obstructed</span></dt>
-        <dd>
-            <span>{{vm.patient.ventricleObstructed}}</span>
-        </dd>
-        <dt><span>Referred To Neurosurgery</span></dt>
-        <dd>
-            <span>{{vm.patient.referredToNeurosurgery}}</span>
-        </dd>
-        <dt><span>For Active Treatment</span></dt>
-        <dd>
-            <span>{{vm.patient.forActiveTreatment}}</span>
-        </dd>
-        <dt><span>External Scan</span></dt>
-        <dd>
-            <span>{{vm.patient.externalScan}}</span>
-        </dd>
-        <dt><span>Last Seen Well Onset</span></dt>
-        <dd>
-            <span>{{vm.patient.lastSeenWellOnset}}</span>
-        </dd>
-        <dt><span>Best Estimate Onset</span></dt>
-        <dd>
-            <span>{{vm.patient.bestEstimateOnset}}</span>
-        </dd>
-        <dt><span>Hospital</span></dt>
-        <dd>
-            <a ui-sref="hospital-detail({id:vm.patient.hospitalId})">{{vm.patient.hospitalUniqueId}}</a>
-        </dd>
-        <dt><span>Inr</span></dt>
-        <dd>
-            <a ui-sref="inr-detail({id:vm.patient.inrId})">{{vm.patient.inrId}}</a>
-        </dd>
-    </dl>
+    
+    <uib-tabset>
 
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-  			<caption>BP Management Entries</caption>
-            <thead>
-                <tr>
-                    <th><span>Date</span></th>
-                    <th><span>Time</span></th>
-                    <th><span>Systolic Bp</span></th>
-                    <th><span>Gtn Rate</span></th>
-                    <th><span>Labetalol Dose</span></th>
-                    <th><span>Heart Rate</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="bpManagementEntry in vm.bpManagementEntries track by bpManagementEntry.id">
-                    <td>{{bpManagementEntry.dateTime | date:'mediumDate'}}</td>
-                    <td>{{bpManagementEntry.dateTime | date:'shortTime'}}</td>
-                    <td>{{bpManagementEntry.systolicBp}}</td>
-                    <td>{{bpManagementEntry.gtnRate}}</td>
-                    <td>{{bpManagementEntry.labetalolDose}}</td>
-                    <td>{{bpManagementEntry.heartRate}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    	<uib-tab heading="General" active="tabState[0]" select="setTab(0)">
+		    <dl class="dl-horizontal jh-entity-details">
+		    
+		        <dt><span>Initials</span></dt>
+		        <dd>
+		            <span>{{vm.patient.initials}}</span>
+		        </dd>
+		        <dt><span>Birth Date</span></dt>
+		        <dd>
+		            <span>{{vm.patient.birthDate | date:'mediumDate'}}</span>
+		        </dd>
+		        <dt><span>Estimated Age</span></dt>
+		        <dd>
+		            <span>{{vm.patient.estimatedAge}}</span>
+		        </dd>
+		        <dt><span>Door Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.doorDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>App Start Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.appStartDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>Scan Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.scanDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>External Scan</span></dt>
+		        <dd>
+		            <span>{{vm.patient.externalScan}}</span>
+		        </dd>
+		        <dt><span>Hospital</span></dt>
+		        <dd>
+		            <a ui-sref="hospital-detail({id:vm.patient.hospitalId})">{{vm.patient.hospitalUniqueId}}</a>
+		        </dd>
+		    </dl>
+        </uib-tab>
+
+        <uib-tab heading="Anticoag Reversal" active="tabState[1]" select="setTab(1)">
+        	<div>
+		    <dl class="dl-horizontal jh-entity-details">
+
+		        <dt><span>Anti Coagulant</span></dt>
+		        <dd>
+		            <span>{{vm.patient.antiCoagulant}}</span>
+		        </dd>
+		        <dt><span>Estimated Weight In Kg</span></dt>
+		        <dd>
+		            <span>{{vm.patient.estimatedWeightInKg}}</span>
+		        </dd>
+		        <dt><span>Calculated Beriplex Dose</span></dt>
+		        <dd>
+		            <span>{{vm.patient.calculatedBeriplexDose}}</span>
+		        </dd>
+		        <dt><span>Actual Beriplex Dose</span></dt>
+		        <dd>
+		            <span>{{vm.patient.actualBeriplexDose}}</span>
+		        </dd>
+		        <dt><span>Beriplex Administered</span></dt>
+		        <dd>
+		            <span>{{vm.patient.beriplexAdministered}}</span>
+		        </dd>
+		        <dt><span>Beriplex Start Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.beriplexStartDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>Vitamink Administered</span></dt>
+		        <dd>
+		            <span>{{vm.patient.vitaminkAdministered}}</span>
+		        </dd>
+		        <dt><span>Vitamink Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.vitaminkDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>Infusion Instructions Viewed</span></dt>
+		        <dd>
+		            <span>{{vm.patient.infusionInstructionsViewed}}</span>
+		        </dd>
+        		<dt><span>Inr</span></dt>
+        		<dd>
+            		<a ui-sref="inr-detail({id:vm.patient.inrId})">{{vm.patient.inrId}}</a>
+        		</dd>
+		    </dl>
+		    </div>
+        </uib-tab>
+
+        <uib-tab heading="BP Protocol" active="tabState[2]" select="setTab(2)" ng-click="vm.bpTabClicked()">
+		    <dl class="dl-horizontal jh-entity-details">
+
+		        <dt><span>Onset Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.onsetDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>Last Seen Well Onset</span></dt>
+		        <dd>
+		            <span>{{vm.patient.lastSeenWellOnset}}</span>
+		        </dd>
+		        <dt><span>Best Estimate Onset</span></dt>
+		        <dd>
+		            <span>{{vm.patient.bestEstimateOnset}}</span>
+		        </dd>
+		        <dt><span>Bp Target Reached Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.bpTargetReachedDateTime | date:'medium'}}</span>
+		        </dd>
+		    </dl>
+
+	<h4>BP Management Entries</h4>
+
+	<div class="table-responsive">
+		<table class="jh-table table table-striped">
+			<thead>
+		    	<tr>
+					<th><span>Date</span></th>
+					<th><span>Time</span></th>
+		            <th><span>Systolic Bp</span></th>
+		            <th><span>Gtn Rate</span></th>
+		            <th><span>Labetalol Dose</span></th>
+		            <th><span>Heart Rate</span></th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr ng-repeat="bpManagementEntry in vm.bpManagementEntries track by bpManagementEntry.id">
+		            <td>{{bpManagementEntry.dateTime | date:'mediumDate'}}</td>
+		            <td>{{bpManagementEntry.dateTime | date:'shortTime'}}</td>
+		            <td>{{bpManagementEntry.systolicBp}}</td>
+		            <td>{{bpManagementEntry.gtnRate}}</td>
+		            <td>{{bpManagementEntry.labetalolDose}}</td>
+		            <td>{{bpManagementEntry.heartRate}}</td>
+		        </tr>
+		    </tbody>
+		</table>
+		
+	</div>
+	
+			<div id="bp-management-chart"></div>     
+	
+        </uib-tab>
+
+        <uib-tab heading="Care Pathway" active="tabState[3]" select="setTab(3)">
+		    <dl class="dl-horizontal jh-entity-details">
+
+		        <dt><span>Gcs Score</span></dt>
+		        <dd>
+		            <span>{{vm.patient.gcsScore}}</span>
+		        </dd>
+		        <dt><span>Premorbid Mrs Score</span></dt>
+		        <dd>
+		            <span>{{vm.patient.premorbidMrsScore}}</span>
+		        </dd>
+		        <dt><span>Ich Volume</span></dt>
+		        <dd>
+		            <span>{{vm.patient.ichVolume}}</span>
+		        </dd>
+		        <dt><span>Destination</span></dt>
+		        <dd>
+		            <span>{{vm.patient.destination}}</span>
+		        </dd>
+		        <dt><span>Other Destination</span></dt>
+		        <dd>
+		            <span>{{vm.patient.otherDestination}}</span>
+		        </dd>
+		        <dt><span>Posterior Fossa Ich</span></dt>
+		        <dd>
+		            <span>{{vm.patient.posteriorFossaIch}}</span>
+		        </dd>
+		        <dt><span>Ventricle Obstructed</span></dt>
+		        <dd>
+		            <span>{{vm.patient.ventricleObstructed}}</span>
+		        </dd>
+		        <dt><span>Referred To Neurosurgery</span></dt>
+		        <dd>
+		            <span>{{vm.patient.referredToNeurosurgery}}</span>
+		        </dd>
+		        <dt><span>For Active Treatment</span></dt>
+		        <dd>
+		            <span>{{vm.patient.forActiveTreatment}}</span>
+		        </dd>
+		    </dl>
+        </uib-tab>
+
+    </uib-tabset>
+    
+
+
 
     <button type="submit"
             ui-sref="{{ vm.previousState }}"

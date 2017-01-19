@@ -13,3 +13,7 @@ Prevent text truncation
 .c3-ygrid-line.color-red text {
     fill:red;
 }
+
+.tab-content {
+    padding-top: 20px;
+}

@@ -21,7 +21,7 @@
         	Patient.queryAll(function(result) {
                 vm.patients = result;
                 var chartDataPoints = getChartDataPoints(vm.patients);
-                var values = getChartValues(chartDataPoints);
+                var values = ControlChartService.getChartValues(chartDataPoints);
                 var mean = ControlChartService.getMeanValue(values);
                 var sd = ControlChartService.getStandardDeviation(values, mean);
                 var lcl = ControlChartService.getLowerControlLimit(mean, sd);                
@@ -32,6 +32,18 @@
             });
         }
 
+        function getChartDataPoints(patients) {
+        	
+        	var i, patient, chartDataPoints = [];
+        	
+        	for(i = 0; i < patients.length; i++) {
+        		patient = patients[i];
+        		chartDataPoints.push({x:getTimeSeriesValue(patient), value:getDntValue(patient)});
+        	}
+        	
+        	return chartDataPoints;
+        }
+        
         function generateChart(chartDataPoints, mean, lcl, ucl, yMax, goal) {
             vm.chart = c3.generate({
                 bindto: "#pcc-dnt-chart",
@@ -93,18 +105,6 @@
             });
         }
        
-        function getChartDataPoints(patients) {
-        	
-        	var i, patient, chartDataPoints = [];
-        	
-        	for(i = 0; i < patients.length; i++) {
-        		patient = patients[i];
-        		chartDataPoints.push({x:getTimeSeriesValue(patient), value:getDntValue(patient)});
-        	}
-        	
-        	return chartDataPoints;
-        }
-        
         function getTimeSeriesValue(patient) {
         	
         	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
@@ -122,18 +122,6 @@
         	return minutes;
         }
         
-        function getChartValues(chartDataPoints) {
-        	
-        	var i, chartDataPoint, values = [];
-        	
-        	for(i = 0; i < chartDataPoints.length; i++) {
-        		chartDataPoint = chartDataPoints[i];
-        		values.push(chartDataPoint.value);
-        	}
-        	
-        	return values;
-        }
-
         function chartDataSelectHandler(d, element) {
 
             var patient = vm.patients[d.index];            

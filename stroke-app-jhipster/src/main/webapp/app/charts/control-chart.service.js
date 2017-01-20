@@ -10,6 +10,7 @@
     function ControlChartService () {
 
         var service = {
+            getChartValues: getChartValues,        	
         	getMeanValue: getMeanValue,
         	getStandardDeviation: getStandardDeviation,
         	getLowerControlLimit: getLowerControlLimit,
@@ -18,6 +19,18 @@
         };
 
         return service;
+
+        function getChartValues(chartDataPoints) {
+        	
+        	var i, chartDataPoint, values = [];
+        	
+        	for(i = 0; i < chartDataPoints.length; i++) {
+        		chartDataPoint = chartDataPoints[i];
+        		values.push(chartDataPoint.value);
+        	}
+        	
+        	return values;
+        }
 
         function getMeanValue(values) {
         	
@@ -60,10 +73,17 @@
         	var ucl = mean + (3 * sd);
         	return ucl;        	
         }
-        
+
+        // The "goal" value represents the desired result.
+        // The parameter is optional here to allow for the use of
+        // this function for both charts that do, and do not have a goal line.
         function getYMax(values, ucl, goal) {
+        	        	
+        	var i, value, max = ucl;
         	
-        	var i, value, max = ucl > goal ? ucl : goal;
+        	if (goal !== undefined && goal > max) {
+        		max = goal;
+        	}
         	
         	for(i = 0; i < values.length; i++) {
         		value = values[i];

@@ -136,7 +136,7 @@ public class TestDataServiceImpl implements TestDataService{
         // patient.setBirthDate(birthDate);
         patient.setEstimatedAge(70);
         patient.setExternalScan(false);
-        patient.setGcsScore(12);
+        patient.setGcsScore(ThreadLocalRandom.current().nextInt(3, 15 + 1));
         patient.setAntiCoagulant(AntiCoagulant.WARFARIN);
         patient.setEstimatedWeightInKg(75.0f);
         patient.setCalculatedBeriplexDose(3500);
@@ -144,11 +144,11 @@ public class TestDataServiceImpl implements TestDataService{
         patient.setBeriplexAdministered(true);
         patient.setVitaminkAdministered(true);
         patient.setInfusionInstructionsViewed(true);
-        patient.setPremorbidMrsScore(2);
-        patient.setPosteriorFossaIch(false);
-        patient.setVentricleObstructed(false);
-        patient.setIchVolume(35.4f);
-        patient.setReferredToNeurosurgery(true);
+        patient.setPremorbidMrsScore(ThreadLocalRandom.current().nextInt(0, 5 + 1));
+        patient.setPosteriorFossaIch(ThreadLocalRandom.current().nextBoolean());
+        patient.setVentricleObstructed(ThreadLocalRandom.current().nextBoolean());
+        patient.setIchVolume(ThreadLocalRandom.current().nextInt(20, 40 + 1) * 1.0f);
+        patient.setReferredToNeurosurgery(ThreadLocalRandom.current().nextBoolean());
         // patient.setIsForActiveTreatment(true);
         patient.setDestination(Destination.NEUROSURGERY);
         // patient.setOtherDestination("otherDestination");

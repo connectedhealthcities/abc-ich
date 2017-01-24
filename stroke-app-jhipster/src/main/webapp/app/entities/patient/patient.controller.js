@@ -5,9 +5,9 @@
         .module('strokeApp')
         .controller('PatientController', PatientController);
 
-    PatientController.$inject = ['$scope', '$state', 'Patient', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    PatientController.$inject = ['$scope', '$state', 'Patient', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', '_', 'DateUtils'];
 
-    function PatientController ($scope, $state, Patient, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function PatientController ($scope, $state, Patient, ParseLinks, AlertService, pagingParams, paginationConstants, _, DateUtils) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -35,14 +35,34 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.patients = data;
+                vm.patients = addCalculatedFields(data);
                 vm.page = pagingParams.page;
             }
             function onError(error) {
                 AlertService.error(error.data.message);
             }
         }
+        
+        function addCalculatedFields(patients) {
+        	
+        	_.forEach(patients, function(patient) {
+            	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
+            	
+            	var bpTargetReachedDate = DateUtils.convertDateTimeFromServer(patient.bpTargetReachedDateTime);
+            	var dttDiffMs = Math.abs(bpTargetReachedDate - doorDate);
+            	var dttMinutes = Math.floor((dttDiffMs/1000)/60);
+            	patient.dtt = dttMinutes;
+            	
+            	var beriplexStartDateTime = DateUtils.convertDateTimeFromServer(patient.beriplexStartDateTime);
+            	var dntDiffMs = Math.abs(beriplexStartDateTime - doorDate);
+            	var dntMinutes = Math.floor((dntDiffMs/1000)/60);
+            	patient.dnt = dntMinutes;
 
+            });
+        	
+        	return patients;
+        }
+        
         function loadPage (page) {
             vm.page = page;
             vm.transition();

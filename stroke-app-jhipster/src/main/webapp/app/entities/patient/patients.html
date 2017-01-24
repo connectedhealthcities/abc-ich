@@ -1,116 +1,48 @@
 <div>
     <h2>Patients</h2>
     <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="patient.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Patient
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
     <br/>
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="uniqueId"><span>Unique Id</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="initials"><span>Initials</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="birthDate"><span>Birth Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="estimatedAge"><span>Estimated Age</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="onsetDateTime"><span>Onset Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="doorDateTime"><span>Door Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="appStartDateTime"><span>App Start Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="bpTargetReachedDateTime"><span>Bp Target Reached Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="gcsScore"><span>Gcs Score</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="antiCoagulant"><span>Anti Coagulant</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="estimatedWeightInKg"><span>Estimated Weight In Kg</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="calculatedBeriplexDose"><span>Calculated Beriplex Dose</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="actualBeriplexDose"><span>Actual Beriplex Dose</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="beriplexStartDateTime"><span>Beriplex Start Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="vitaminkDateTime"><span>Vitamink Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="premorbidMrsScore"><span>Premorbid Mrs Score</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="ichVolume"><span>Ich Volume</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="destination"><span>Destination</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="otherDestination"><span>Other Destination</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="scanDateTime"><span>Scan Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="beriplexAdministered"><span>Beriplex Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>PCC DNT (Minutes)</span></th>
                     <th jh-sort-by="vitaminkAdministered"><span>Vitamink Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="infusionInstructionsViewed"><span>Infusion Instructions Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
+	                <th><span>BP DTT (Minutes)</span></th>
+                    <th jh-sort-by="gcsScore"><span>GCS</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="premorbidMrsScore"><span>mRS</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="posteriorFossaIch"><span>Posterior Fossa Ich</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="ventricleObstructed"><span>Ventricle Obstructed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="ichVolume"><span>Ich Volume</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="referredToNeurosurgery"><span>Referred To Neurosurgery</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="forActiveTreatment"><span>For Active Treatment</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="externalScan"><span>External Scan</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="lastSeenWellOnset"><span>Last Seen Well Onset</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="bestEstimateOnset"><span>Best Estimate Onset</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="hospitalUniqueId"><span>Hospital</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="inrId"><span>Inr</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="patient in vm.patients track by patient.id">
-                    <td><a ui-sref="patient-detail({id:patient.id})">{{patient.id}}</a></td>
+                <tr ng-repeat="patient in vm.patients track by patient.uniqueId">
                     <td>{{patient.uniqueId}}</td>
-                    <td>{{patient.initials}}</td>
-                        <td>{{patient.birthDate | date:'mediumDate'}}</td>
-                    <td>{{patient.estimatedAge}}</td>
-                    <td>{{patient.onsetDateTime | date:'medium'}}</td>
-                    <td>{{patient.doorDateTime | date:'medium'}}</td>
-                    <td>{{patient.appStartDateTime | date:'medium'}}</td>
-                    <td>{{patient.bpTargetReachedDateTime | date:'medium'}}</td>
-                    <td>{{patient.gcsScore}}</td>
+                    <td>{{patient.doorDateTime | date:'medium'}}</td>                    
                     <td>{{patient.antiCoagulant}}</td>
-                    <td>{{patient.estimatedWeightInKg}}</td>
-                    <td>{{patient.calculatedBeriplexDose}}</td>
-                    <td>{{patient.actualBeriplexDose}}</td>
-                    <td>{{patient.beriplexStartDateTime | date:'medium'}}</td>
-                    <td>{{patient.vitaminkDateTime | date:'medium'}}</td>
-                    <td>{{patient.premorbidMrsScore}}</td>
-                    <td>{{patient.ichVolume}}</td>
-                    <td>{{patient.destination}}</td>
-                    <td>{{patient.otherDestination}}</td>
-                    <td>{{patient.scanDateTime | date:'medium'}}</td>
                     <td>{{patient.beriplexAdministered}}</td>
+ 	                <td>{{patient.dnt}}</td>   
                     <td>{{patient.vitaminkAdministered}}</td>
-                    <td>{{patient.infusionInstructionsViewed}}</td>
+ 	                <td>{{patient.dtt}}</td>   
+                    <td>{{patient.gcsScore}}</td>
+                    <td>{{patient.premorbidMrsScore}}</td>
                     <td>{{patient.posteriorFossaIch}}</td>
                     <td>{{patient.ventricleObstructed}}</td>
+                    <td>{{patient.ichVolume}}</td>
                     <td>{{patient.referredToNeurosurgery}}</td>
-                    <td>{{patient.forActiveTreatment}}</td>
-                    <td>{{patient.externalScan}}</td>
-                    <td>{{patient.lastSeenWellOnset}}</td>
-                    <td>{{patient.bestEstimateOnset}}</td>
-                    <td>
-                        <a ui-sref="hospital-detail({id:patient.hospitalId})">{{patient.hospitalUniqueId}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="inr-detail({id:patient.inrId})">{{patient.inrId}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="patient-detail({id:patient.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="patient.edit({id:patient.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="patient.delete({id:patient.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm"></span>
                             </button>
                         </div>

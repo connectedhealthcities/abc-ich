@@ -10,20 +10,6 @@ import java.util.List;
  */
 public interface BpManagementEntryService {
 
-    /**
-     * Save a bpManagementEntry.
-     *
-     * @param bpManagementEntryDTO the entity to save
-     * @return the persisted entity
-     */
-    BpManagementEntryDTO save(BpManagementEntryDTO bpManagementEntryDTO);
-
-    /**
-     *  Get all the bpManagementEntries.
-     *  
-     *  @return the list of entities
-     */
-    List<BpManagementEntryDTO> findAll();
 
     /**
      *  Get the bpManagementEntries for a patient.
@@ -32,18 +18,4 @@ public interface BpManagementEntryService {
      */
     List<BpManagementEntryDTO> findByPatient(long patientId);
 
-    /**
-     *  Get the "id" bpManagementEntry.
-     *
-     *  @param id the id of the entity
-     *  @return the entity
-     */
-    BpManagementEntryDTO findOne(Long id);
-
-    /**
-     *  Delete the "id" bpManagementEntry.
-     *
-     *  @param id the id of the entity
-     */
-    void delete(Long id);
 }

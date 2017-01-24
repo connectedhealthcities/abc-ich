@@ -32,60 +32,6 @@ public class InrResource {
     private InrService inrService;
 
     /**
-     * POST  /inrs : Create a new inr.
-     *
-     * @param inrDTO the inrDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new inrDTO, or with status 400 (Bad Request) if the inr has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PostMapping("/inrs")
-    @Timed
-    public ResponseEntity<InrDTO> createInr(@RequestBody InrDTO inrDTO) throws URISyntaxException {
-        log.debug("REST request to save Inr : {}", inrDTO);
-        if (inrDTO.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("inr", "idexists", "A new inr cannot already have an ID")).body(null);
-        }
-        InrDTO result = inrService.save(inrDTO);
-        return ResponseEntity.created(new URI("/api/inrs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("inr", result.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * PUT  /inrs : Updates an existing inr.
-     *
-     * @param inrDTO the inrDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated inrDTO,
-     * or with status 400 (Bad Request) if the inrDTO is not valid,
-     * or with status 500 (Internal Server Error) if the inrDTO couldnt be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PutMapping("/inrs")
-    @Timed
-    public ResponseEntity<InrDTO> updateInr(@RequestBody InrDTO inrDTO) throws URISyntaxException {
-        log.debug("REST request to update Inr : {}", inrDTO);
-        if (inrDTO.getId() == null) {
-            return createInr(inrDTO);
-        }
-        InrDTO result = inrService.save(inrDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("inr", inrDTO.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * GET  /inrs : get all the inrs.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of inrs in body
-     */
-    @GetMapping("/inrs")
-    @Timed
-    public List<InrDTO> getAllInrs() {
-        log.debug("REST request to get all Inrs");
-        return inrService.findAll();
-    }
-
-    /**
      * GET  /inrs/:id : get the "id" inr.
      *
      * @param id the id of the inrDTO to retrieve
@@ -101,20 +47,6 @@ public class InrResource {
                 result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    /**
-     * DELETE  /inrs/:id : delete the "id" inr.
-     *
-     * @param id the id of the inrDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/inrs/{id}")
-    @Timed
-    public ResponseEntity<Void> deleteInr(@PathVariable Long id) {
-        log.debug("REST request to delete Inr : {}", id);
-        inrService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("inr", id.toString())).build();
     }
 
 }

@@ -68,7 +68,7 @@
 
         	var numerator, denominator, percentage, roundedPercentage, chartDataPoints = [];
 
-        	_.each(numeratorGroups, function(value, key) {
+        	_.forEach(numeratorGroups, function(value, key) {
         		numerator = value.length;
             	denominator = denominatorGroups[key].length;
             	percentage =  numerator / denominator * 100;

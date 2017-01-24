@@ -4,29 +4,16 @@
         .module('strokeApp')
         .factory('BpManagementEntry', BpManagementEntry);
 
-    BpManagementEntry.$inject = ['$resource', 'DateUtils'];
+    BpManagementEntry.$inject = ['$resource'];
 
-    function BpManagementEntry ($resource, DateUtils) {
-        var resourceUrl =  'api/bp-management-entries/:id';
+    function BpManagementEntry ($resource) {
+        var resourceUrl =  'api/bp-management-entries/patient/:patientId';
 
         return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
-            'get': {
-                method: 'GET',
-                transformResponse: function (data) {
-                    if (data) {
-                        data = angular.fromJson(data);
-                        data.dateTime = DateUtils.convertDateTimeFromServer(data.dateTime);
-                    }
-                    return data;
-                }
-            },
             'getByPatient': {
-            	url: 'api/bp-management-entries/patient/:patientId',
                 method: 'GET',
                 isArray: true
-            },
-            'update': { method:'PUT' }
+            }
         });
     }
 })();

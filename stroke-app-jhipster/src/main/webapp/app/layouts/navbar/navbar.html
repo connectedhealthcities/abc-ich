@@ -33,85 +33,36 @@
                     <ul class="dropdown-menu" uib-dropdown-menu>
                         <li ui-sref-active="active">
                             <a ui-sref="bp-dtt-chart" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span class="glyphicon glyphicon-stats"></span>&nbsp;
                                 <span >BP DTT Chart</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
                             <a ui-sref="pcc-dnt-chart" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span class="glyphicon glyphicon-stats"></span>&nbsp;
                                 <span >PCC DNT Chart</span>
                             </a>
                         </li>
 						<li ui-sref-active="active">
                             <a ui-sref="incorrect-referrals-chart" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span class="glyphicon glyphicon-stats"></span>&nbsp;
                                 <span >Incorrect Referrals Chart</span>
                             </a>
                         </li>
 						<li ui-sref-active="active">
                             <a ui-sref="missing-referrals-chart" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span class="glyphicon glyphicon-stats"></span>&nbsp;
                                 <span >Missing Referrals Chart</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li ui-sref-active="active">
+                <li ui-sref-active="active" ng-switch-when="true">
                     <a ui-sref="patient" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-list"></span>
                         <span class="hidden-sm">Patients</span>
                     </a>
                 </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="hospital" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-list"></span>
-                        <span class="hidden-sm">Hospitals</span>
-                    </a>
-                </li>
-                
-                <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-<!--
-                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">
-                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
-                        <span>
-                            <span class="glyphicon glyphicon-th-list"></span>
-                            <span class="hidden-sm">
-                                Entities
-                            </span>
-                            <b class="caret"></b>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li ui-sref-active="active">
-                            <a ui-sref="patient" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Patient</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="hospital" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Hospital</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="inr" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Inr</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="bp-management-entry" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Bp Management Entry</span>
-                            </a>
-                        </li>
-
-                        
-                    </ul>
-                </li>
--->                
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
                         <span>
@@ -170,6 +121,12 @@
                                 <span>User management</span>
                             </a>
                         </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="hospital" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-list"></span>&nbsp;
+                                <span>Hospital management</span>
+                            </a>
+                        </li>                                               
                         <li ui-sref-active="active">
                             <a ui-sref="jhi-metrics" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-dashboard"></span>&nbsp;

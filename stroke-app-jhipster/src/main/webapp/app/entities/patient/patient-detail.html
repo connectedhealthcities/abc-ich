@@ -39,7 +39,7 @@
 		        </dd>
 		        <dt><span>Hospital</span></dt>
 		        <dd>
-		            <a ui-sref="hospital-detail({id:vm.patient.hospitalId})">{{vm.patient.hospitalUniqueId}}</a>
+		            <span>{{vm.patient.hospitalUniqueId}}</span>
 		        </dd>
 		    </dl>
         </uib-tab>
@@ -84,10 +84,18 @@
 		        <dd>
 		            <span>{{vm.patient.infusionInstructionsViewed}}</span>
 		        </dd>
-        		<dt><span>Inr</span></dt>
+        		<dt><span>Inr Value</span></dt>
         		<dd>
-            		<a ui-sref="inr-detail({id:vm.patient.inrId})">{{vm.patient.inrId}}</a>
+            		<span>{{vm.inr.value}}</span>
         		</dd>
+        		<dt><span>Inr Type</span></dt>
+        		<dd>
+            		<span>{{vm.inr.inrType}}</span>
+        		</dd>
+        		<dt><span>Inr Date Time</span></dt>
+        		<dd>
+            		<span>{{vm.inr.measuredDateTime | date:'medium'}}</span>
+        		</dd>        		
 		    </dl>
 		    </div>
         </uib-tab>
@@ -189,17 +197,9 @@
 
     </uib-tabset>
     
-
-
-
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
-
-    <button type="button" ui-sref="patient-detail.edit({id:vm.patient.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-xs hidden-sm"> Edit</span>
     </button>
 </div>

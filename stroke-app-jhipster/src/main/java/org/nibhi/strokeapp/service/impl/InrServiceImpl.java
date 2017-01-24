@@ -31,35 +31,6 @@ public class InrServiceImpl implements InrService{
     private InrMapper inrMapper;
 
     /**
-     * Save a inr.
-     *
-     * @param inrDTO the entity to save
-     * @return the persisted entity
-     */
-    public InrDTO save(InrDTO inrDTO) {
-        log.debug("Request to save Inr : {}", inrDTO);
-        Inr inr = inrMapper.inrDTOToInr(inrDTO);
-        inr = inrRepository.save(inr);
-        InrDTO result = inrMapper.inrToInrDTO(inr);
-        return result;
-    }
-
-    /**
-     *  Get all the inrs.
-     *  
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<InrDTO> findAll() {
-        log.debug("Request to get all Inrs");
-        List<InrDTO> result = inrRepository.findAll().stream()
-            .map(inrMapper::inrToInrDTO)
-            .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
-    }
-
-    /**
      *  Get one inr by id.
      *
      *  @param id the id of the entity
@@ -71,15 +42,5 @@ public class InrServiceImpl implements InrService{
         Inr inr = inrRepository.findOne(id);
         InrDTO inrDTO = inrMapper.inrToInrDTO(inr);
         return inrDTO;
-    }
-
-    /**
-     *  Delete the  inr by id.
-     *
-     *  @param id the id of the entity
-     */
-    public void delete(Long id) {
-        log.debug("Request to delete Inr : {}", id);
-        inrRepository.delete(id);
     }
 }

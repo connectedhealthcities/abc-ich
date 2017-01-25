@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class HospitalResource {
 
     private final Logger log = LoggerFactory.getLogger(HospitalResource.class);

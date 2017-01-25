@@ -13,7 +13,7 @@ describe('account', function () {
     });
 
     it('should fail to login with bad password', function () {
-        expect(element.all(by.css('h1')).first().getText()).toMatch(/Welcome, Java Hipster!/);
+        expect(element.all(by.css('h1')).first().getText()).toMatch(/Welcome/);
         accountMenu.click();
         login.click();
 

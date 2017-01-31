@@ -1,0 +1,66 @@
+<ion-view title="Register patient part 2" hide-back-button="true" id="page4" class="color-primary-0">
+  <ion-content padding="true" class="has-header">
+    <div id="registerPatientPart2-container9">
+      <div id="registerPatientPart2-container11">
+        <div id="registerPatientPart2-markdown1" style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+          <p style="font-size:18px;">
+            <strong>Patient Id:</strong> 12152016-emt</p>
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="list card" id="registerPatientPart2-card213">
+      <form id="registerPatientPart2-form38" class="list">
+        <ion-item class="item-icon-left  card-header card-header-green" id="registerPatientPart2-list-item35">
+          <i class="icon ion-ionic"></i>Door</ion-item>
+        <label class="item item-input" id="registerPatientPart2-input34">
+          <span class="input-label">Date</span>
+          <input type="date" placeholder="">
+        </label>
+        <label class="item item-input" id="registerPatientPart2-input33">
+          <span class="input-label">Time</span>
+          <input type="time" placeholder="">
+        </label>
+      </form>
+    </div>
+    <div class="list card" id="registerPatientPart2-card214">
+      <form id="registerPatientPart2-form27" class="list">
+        <ion-item class="item-icon-left  card-header card-header-green" id="registerPatientPart2-list-item21">
+          <i class="icon ion-ionic"></i>Onset</ion-item>
+        <label class="item item-input" id="registerPatientPart2-input30" ng-hide="registrationPart2.onsetUnknown">
+          <span class="input-label">Date</span>
+          <input type="date" placeholder="" ng-model="registrationPart2.onsetTime">
+        </label>
+        <label class="item item-input" id="registerPatientPart2-input31" ng-hide="registrationPart2.onsetUnknown">
+          <span class="input-label">Time</span>
+          <input type="time" placeholder="" ng-model="registrationPart2.onsetDate">
+        </label>
+        <ion-item class="item-icon-left" id="registerPatientPart2-list-item18">
+          <i class="icon ion-information-circled"></i>It has been 1day 3 hours and 28 minutes since onset</ion-item>
+        <ion-item class="item-divider" id="registerPatientPart2-list-item-divider23"> Scan is</ion-item>
+        <ion-checkbox id="registerPatientPart2-checkbox9">Last seen well</ion-checkbox>
+        <ion-checkbox id="registerPatientPart2-checkbox10">Best estimate</ion-checkbox>
+      </form>
+    </div>
+    <div id="registerPatientPart2-container57" class="row">
+      <div id="registerPatientPart2-container58" class="col-40">
+        <a ui-sref="registerPatient" id="registerPatientPart2-button7" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
+      </div>
+      <div id="registerPatientPart2-container59" class="col-20 creator-container"></div>
+      <div id="registerPatientPart2-container60" class="col-40">
+        <a ui-sref="glasgowComaScore" id="registerPatientPart2-button8" class="button button-calm  button-block icon-right ion-chevron-right">Next</a>
+      </div>
+    </div>
+    <div id="registerPatientPart2-container14">
+      <div id="registerPatientPart2-markdown7" class="show-list-numbers-and-dots">
+        <p style="color:#FF0000;">
+          <strong>DATA CAPTURED ON THIS PAGE:</strong>
+        </p>
+
+        <p style="color:#FF0000;">door date, door time</p>
+
+        <p style="color:#FF0000;">onset date, onset time, onset type</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

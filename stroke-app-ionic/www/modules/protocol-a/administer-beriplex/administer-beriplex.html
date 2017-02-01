@@ -1,0 +1,80 @@
+<ion-view title="Prescribe and administer" id="page12">
+  <ion-content padding="true" class="has-header">
+    <div>
+      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+        <p style="font-size:18px;">
+          <strong>Patient Id:</strong> 12152016-emt</p>
+      </div>
+      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+        <p style="font-size:18px;">
+          <strong>App start time:</strong> {{appStartDisplay}}</p>
+      </div>
+      <hr>
+    </div>
+    <div id="prescribeAndAdminister-container121">
+      <h1 id="prescribeAndAdminister-heading22" style="color:#6F49FF;text-align:center;">Treat as quickly as possible</h1>
+      <h2 id="prescribeAndAdminister-heading10" style="color:#6F49FF;text-align:center;">Target door to needle time is less than 90 minutes!</h2>
+    </div>
+    <hr>
+    <div id="prescribeAndAdminister-markdown16" style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+      <p style="font-size:31px;">Dose is: 1000</p>
+    </div>
+    <div class="spacer" style="width: 748px; height: 29px;"></div>
+    <div class="list card" id="prescribeAndAdminister-card229">
+      <ion-item class="item-icon-left  card-header card-header-green" id="prescribeAndAdminister-list-item67">
+        <i class="icon ion-ionic"></i>Anti-coagulant treatment</ion-item>
+      <ion-item class="item-divider card-header-green" id="prescribeAndAdminister-list-item-divider9"> 1.
+        <b>Prescribe Beriplex</b> complete a separate line for each bottle</ion-item>
+      <ion-item class="item-divider card-header-green" id="prescribeAndAdminister-list-item-divider10"> 2.
+        <b>Collect Beriplex</b>
+      </ion-item>
+      <div id="prescribeAndAdminister-container124" class="row">
+        <div id="prescribeAndAdminister-container123" class="col-60 creator-container"></div>
+        <div id="prescribeAndAdminister-container125" class="col-40">
+          <a ui-sref="howToDrawUpBeriplex" id="prescribeAndAdminister-button21" class="button button-positive  button-block icon-left ion-information-circled review-btn button">How to draw up Beriplex</a>
+        </div>
+      </div>
+      <ion-item class="item-divider card-header-green" id="prescribeAndAdminister-list-item-divider11"> 3.
+        <b>Draw up Beriplex</b> and then administer at 8 ml/min</ion-item>
+      <div id="prescribeAndAdminister-container126" class="row">
+        <form id="prescribeAndAdminister-form20" class="list">
+          <label class="item item-input" id="prescribeAndAdminister-input14">
+            <span class="input-label">Beriplex administered time</span>
+            <input type="time" placeholder="">
+          </label>
+        </form>
+        <button id="prescribeAndAdminister-button22" style="border-radius:0px 4px 4px 0px;" class="button button-positive">Set time to now</button>
+      </div>
+      <ion-item class="item-divider card-header-green" id="prescribeAndAdminister-list-item-divider12"> 4.
+        <b>Give Vitamin K</b> at 10 mg IV once Beriplex has commenced</ion-item>
+      <div id="prescribeAndAdminister-container127" class="row">
+        <form id="prescribeAndAdminister-form12" class="list">
+          <label class="item item-input" id="prescribeAndAdminister-input16">
+            <span class="input-label">Vitamin K administered time</span>
+            <input type="time" placeholder="">
+          </label>
+        </form>
+        <button id="prescribeAndAdminister-button27" style="border-radius:0px 4px 4px 0px;" class="button button-positive">Set time to now</button>
+      </div>
+    </div>
+    <div class="spacer" style="width: 748px; height: 34px;"></div>
+    <div id="prescribeAndAdminister-container137" class="row">
+      <div id="prescribeAndAdminister-container138" class="col-40">
+        <a ui-sref="tabsController.iNRDosing({})" id="prescribeAndAdminister-button24" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
+      </div>
+      <div id="prescribeAndAdminister-container139" class="col-20 creator-container"></div>
+      <div id="prescribeAndAdminister-container140" class="col-40">
+        <a ng-click="vm.onNext()" id="prescribeAndAdminister-button25" class="button button-calm  button-block icon-right ion-chevron-right">Next</a>
+      </div>
+    </div>
+    <div id="prescribeAndAdminister-markdown12" class="show-list-numbers-and-dots">
+      <p style="color:#FF0000;">
+        <strong>DATA CAPTURED ON THIS PAGE</strong>
+      </p>
+
+      <p style="color:#FF0000;">Manufacturers instructions viewed?</p>
+
+      <p style="color:#FF0000;">Beriplex administered time, Vitamin K administered time, is Beriplex administered, is vitamin k administered</p>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,105 @@
+<ion-view title="INR &amp; dosing" id="page10">
+  <ion-content padding="true" class="has-header">
+    <div>
+      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+        <p style="font-size:18px;">
+          <strong>Patient Id:</strong> 12152016-emt</p>
+      </div>
+      <hr>
+    </div>
+    <h1 id="iNRDosing-heading30" style="color:#6F49FF;text-align:center;">Treat as quickly as possible</h1>
+    <h2 id="iNRDosing-heading31" style="color:#6F49FF;text-align:center;">Target door to needle time is less than 90 minutes!</h2>
+    <hr>
+    <div class="list card" id="iNRDosing-card231">
+      <form id="iNRDosing-form51" class="list">
+        <ion-item class="item-icon-left  card-header card-header-green" id="iNRDosing-list-item75">
+          <i class="icon ion-ionic"></i>INR</ion-item>
+        <label class="item item-input" id="iNRDosing-input9">
+          <span class="input-label">Reading</span>
+          <input type="text" placeholder="">
+        </label>
+        <label class="item item-select" id="iNRDosing-select8">
+          <span class="input-label">Type</span>
+          <select>
+            <option>-</option>
+            <option>Point of care</option>
+            <option>Lab</option>
+          </select>
+        </label>
+        <div id="iNRDosing-container466" class="row">
+          <div id="iNRDosing-container467" class="col-80">
+            <form id="iNRDosing-form57" class="list">
+              <label class="item item-input" id="iNRDosing-input20">
+                <span class="input-label">Date</span>
+                <input type="date" placeholder="">
+              </label>
+            </form>
+          </div>
+          <div id="iNRDosing-container468" class="col-20">
+            <button id="iNRDosing-button120" class="button button-positive  button-block">Now </button>
+          </div>
+        </div>
+        <div id="iNRDosing-container471" class="row">
+          <div id="iNRDosing-container469" class="col-80">
+            <form id="iNRDosing-form58" class="list">
+              <label class="item item-input" id="iNRDosing-input27">
+                <span class="input-label">Time</span>
+                <input type="time" placeholder="">
+              </label>
+            </form>
+          </div>
+          <div id="iNRDosing-container470" class="col-20">
+            <button id="iNRDosing-button121" class="button button-positive  button-block">Tap me!</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="list card" id="iNRDosing-card235">
+      <form id="iNRDosing-form9" class="list">
+        <ion-item class="item-icon-left  card-header card-header-green" id="iNRDosing-list-item27">
+          <i class="icon ion-ionic"></i>Estimated weight</ion-item>
+        <label class="item item-input" id="iNRDosing-input22">
+          <span class="input-label">kg</span>
+          <input type="text" placeholder="">
+        </label>
+        <label class="item item-input" id="iNRDosing-input23">
+          <span class="input-label">stones</span>
+          <input type="text" placeholder="">
+        </label>
+      </form>
+    </div>
+    <div id="iNRDosing-container48">
+      <form id="iNRDosing-form29" class="list">
+        <div class="spacer" style="width: 748px; height: 31px;"></div>
+        <div id="iNRDosing-container116" class="row">
+          <div id="iNRDosing-container115" class="col-60 creator-container"></div>
+          <a ui-sref="confirmDose" id="iNRDosing-button45" class="button button-positive  button-block icon-right ion-calculator col-40">Calculate dose</a>
+        </div>
+        <div id="iNRDosing-markdown113" class="show-list-numbers-and-dots nhs-blue">
+          <p style="font-size:31px;">
+            <strong>Dose is:</strong> {{dose}}</p>
+        </div>
+      </form>
+    </div>
+    <div id="iNRDosing-container117" class="row">
+      <div id="iNRDosing-container118" class="col-40">
+        <a ui-sref="tabsController.antiCoagulant({})" id="iNRDosing-button20" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
+      </div>
+      <div id="iNRDosing-container119" class="col-20 creator-container"></div>
+      <div id="iNRDosing-container120" class="col-40">
+        <button ng-click="vm.onNext()" id="iNRDosing-button19" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+        <button id="iNRDosing-button112" class="button button-assertive  button-block icon-right ion-chevron-right">INR &gt; 1.2</button>
+        <a ui-sref="tabsController.nEWPOPUPP8" id="iNRDosing-button113" class="button button-assertive  button-block icon-right ion-chevron-right">INR &lt;= 1.2</a>
+      </div>
+    </div>
+    <div id="iNRDosing-markdown13" class="show-list-numbers-and-dots">
+      <p style="color:#FF0000;">
+        <strong>DATA CAPTURED ON THIS PAGE</strong>
+      </p>
+
+      <p style="color:#FF0000;">INR value, IRN type, INR time</p>
+
+      <p style="color:#FF0000;">Weight (captured as stone or kg, persisted as kg)</p>
+    </div>
+  </ion-content>
+</ion-view>

@@ -2,9 +2,9 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralCriteriaController', NeurosurgeryReferralCriteriaController);
 
-NeurosurgeryReferralCriteriaController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+NeurosurgeryReferralCriteriaController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function NeurosurgeryReferralCriteriaController($state, PatientCacheService) { // , $stateParams
+function NeurosurgeryReferralCriteriaController($state, PatientCacheService, TabStateCacheService) {
 
     var vm = this; // S12
 
@@ -13,10 +13,11 @@ function NeurosurgeryReferralCriteriaController($state, PatientCacheService) { /
     function onNext() {
 
         if (isNeuroReferralNotRequired()) {
-            $state.go('patient-end'); // S14
+            $state.go('patient-end');
         }
         else {
-            $state.go('tabs.neurosurgery-referral-summary'); // S13
+            TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-summary');
+            $state.go('tabs.neurosurgery-referral-summary');
         }
     }
 
@@ -26,16 +27,12 @@ function NeurosurgeryReferralCriteriaController($state, PatientCacheService) { /
 
         if (   PatientCacheService.getGcsScore() >= 9 
             && PatientCacheService.getIchVolume() <= 30 
-            && !PatientCacheService.getPosteriorFossaIch()
-            && !PatientCacheService.getVentricleObstructed()) {
+            && !PatientCacheService.getIsPosteriorFossaIch()
+            && !PatientCacheService.getIsVentricleObstructed()) {
 
              isNeuroReferrelNotRequired = true;   
         }
 
         return isNeuroReferrelNotRequired;
     }
-
-// ichVolume	Float
-// posteriorFossaIch	Boolean
-// ventricleObstructed	Boolean
 }

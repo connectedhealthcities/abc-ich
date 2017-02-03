@@ -1,23 +1,18 @@
 'use strict';
 
-angular.module('app.general').controller('RegisterPatient2Controller', RegisterPatient2Controller);
+angular.module('app.general').controller('PatientDetailsController', PatientDetailsController);
 
-RegisterPatient2Controller.$inject = ['$state', '$stateParams']; // , 'DateTimeService'
+PatientDetailsController.$inject = ['$state', '$stateParams']; // , 'DateTimeService'
 
-function RegisterPatient2Controller($state, $stateParams) { // , DateTimeService
+function PatientDetailsController($state, $stateParams) { // , DateTimeService
  
     var vm = this; // S2
 
     vm.onNext = onNext;
 
     function onNext() {
-        $state.go('gcs-entry'); // S3
+        $state.go('gcs-entry');
     }
- 
-// doorDateTime	ZonedDateTime
-// onsetDateTime	ZonedDateTime
-// lastSeenWellOnset	Boolean
-// bestEstimateOnset	Boolean
 
     // $scope.registrationPart2 = {};
 

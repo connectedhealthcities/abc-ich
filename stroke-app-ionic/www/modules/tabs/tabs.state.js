@@ -9,7 +9,9 @@ function TabsState($stateProvider, $urlRouterProvider) {
   $stateProvider.state('tabs', {
     url: '/tabs',
     abstract: true,
-    templateUrl: 'modules/tabs/tabs.html'
+    templateUrl: 'modules/tabs/tabs.html',
+    controller: 'TabsController',
+    controllerAs: 'vm'
   });
 
 }

@@ -3,7 +3,7 @@
 describe('CriticalCareReferralController', function() {
 
     var vm;
-    var patientCacheService, state;
+    var patientCacheService, tabStateCacheService, state;
 
     beforeEach(function() {
 
@@ -16,19 +16,23 @@ describe('CriticalCareReferralController', function() {
 			patientCacheService = {
 				getGcsScore: function() {}
 			};			
+			tabStateCacheService = {
+				getStateTabC: function() {}
+			};			
 
-			vm = $controller('CriticalCareReferralController', {'PatientCacheService': patientCacheService});				
+			vm = $controller('CriticalCareReferralController', {'PatientCacheService': patientCacheService, 'TabStateCacheService': tabStateCacheService});				
 		});
      });
 
-	it("should go to state 'mrs-entry' on 'Next' button click", function() {
+	it("should go to state 'current state tab C' on 'Next' button click", function() {
 			
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
+		spyOn(tabStateCacheService, 'getStateTabC').and.returnValue('current-state-tab-c');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('tabs.mrs-entry');		
+	    expect(state.go).toHaveBeenCalledWith('current-state-tab-c');		
     });
 
 	it("should go to state 'patient-end' on 'Next' button click", function() {

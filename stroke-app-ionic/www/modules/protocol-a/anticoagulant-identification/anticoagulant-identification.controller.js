@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AnticoagulantIdentificationController', AnticoagulantIdentificationController);
 
-AnticoagulantIdentificationController.$inject = ['$state', 'PatientCacheService'];
+AnticoagulantIdentificationController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function AnticoagulantIdentificationController($state, PatientCacheService) { 
+function AnticoagulantIdentificationController($state, PatientCacheService, TabStateCacheService) { 
  
     var vm = this; // S6
 
@@ -12,16 +12,15 @@ function AnticoagulantIdentificationController($state, PatientCacheService) {
 
     function onNext() {
 
-        if (PatientCacheService.getAnticogulantType() === "DOAC") {
+        if (PatientCacheService.getAnticoagulantType() === "DOAC") {
+            TabStateCacheService.setStateTabA('tabs.doac-reversal-agent-details');
             $state.go('tabs.doac-reversal-agent-details'); // S7
         }
         else {
+            TabStateCacheService.setStateTabA('tabs.calculate-beriplex-dose');
             $state.go('tabs.calculate-beriplex-dose'); // S9
         }
     }
-
-// anticoagulantType	enum AnticoagulantType[DOAC, VITK, NO, UNKNOWN]
-// antiCoagulant	String
 
     // $scope.antiCoag={};
     // $scope.selected = "";

@@ -2,17 +2,16 @@
 
 angular.module('app.protocolA').controller('ConfirmBeriplexDoseController', ConfirmBeriplexDoseController);
 
-ConfirmBeriplexDoseController.$inject = ['$state']; // , '$stateParams'
+ConfirmBeriplexDoseController.$inject = ['$state', 'TabStateCacheService'];
 
-function ConfirmBeriplexDoseController($state) { // , $stateParams
+function ConfirmBeriplexDoseController($state, TabStateCacheService) {
  
     var vm = this; //S8
 
     vm.onNext = onNext;
 
     function onNext() {
-        $state.go('tabs.administer-beriplex'); // S11
+        TabStateCacheService.setStateTabA('tabs.administer-beriplex');
+        $state.go('tabs.administer-beriplex');
     }
-
-// actualBeriplexDose	Integer
 }

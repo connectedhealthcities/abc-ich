@@ -3,7 +3,7 @@
 describe('AnticoagulantIdentificationController', function() {
 
     var vm;
-    var patientCacheService, state;
+    var patientCacheService, tabStateCacheService, state;
 
     beforeEach(function() {
 
@@ -14,30 +14,37 @@ describe('AnticoagulantIdentificationController', function() {
 
 			state = _$state_;
 			patientCacheService = {
-				getAnticogulantType: function() {}
+				getAnticoagulantType: function() {}
+			};			
+			tabStateCacheService = {
+				setStateTabA: function() {}
 			};			
 
-			vm = $controller('AnticoagulantIdentificationController', {'PatientCacheService': patientCacheService});				
+			vm = $controller('AnticoagulantIdentificationController', {'PatientCacheService': patientCacheService, 'TabStateCacheService': tabStateCacheService});				
 		});
      });
 
 	it("should go to state 'doac-reversal-agent-details' on 'Next' button click", function() {
 			
-		spyOn(patientCacheService, 'getAnticogulantType').and.returnValue("DOAC");
+		spyOn(patientCacheService, 'getAnticoagulantType').and.returnValue("DOAC");
+		spyOn(tabStateCacheService, 'setStateTabA');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
+	    expect(tabStateCacheService.setStateTabA).toHaveBeenCalledWith('tabs.doac-reversal-agent-details');		
 	    expect(state.go).toHaveBeenCalledWith('tabs.doac-reversal-agent-details');		
     });
 
 	it("should go to state 'calculate-beriplex-dose' on 'Next' button click", function() {
 			
-		spyOn(patientCacheService, 'getAnticogulantType').and.returnValue("VITK");
+		spyOn(patientCacheService, 'getAnticoagulantType').and.returnValue("VITK");
+		spyOn(tabStateCacheService, 'setStateTabA');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
+	    expect(tabStateCacheService.setStateTabA).toHaveBeenCalledWith('tabs.calculate-beriplex-dose');		
 	    expect(state.go).toHaveBeenCalledWith('tabs.calculate-beriplex-dose');		
     });
 });

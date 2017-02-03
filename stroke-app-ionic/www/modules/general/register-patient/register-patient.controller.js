@@ -1,28 +1,20 @@
 'use strict';
 
-angular.module('app.general').controller('RegisterPatient1Controller', RegisterPatient1Controller);
+angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatient1Controller.$inject = ['$state']; // , '$stateParams', 'ConfigService', 'DateTimeService'
+RegisterPatientController.$inject = ['$state']; // , 'ConfigService', 'DateTimeService'
 
-function RegisterPatient1Controller($state) { // , $stateParams, ConfigService, DateTimeService
+function RegisterPatientController($state) { // , ConfigService, DateTimeService
 
     var vm = this; // S1
 
     vm.onNext = onNext;
 
     function onNext() {
-        $state.go('register-patient-2'); // S2
-    }
- 
-// uniqueId	String
-// initials	String
-// birthDate	LocalDate
-// estimatedAge	Integer
-// externalScan	Boolean
-// externalScanHospitalName	String
-// scanDateTime	ZonedDateTime
-// hospitalUniqueId	String
 
+        //cjd need to handle case when matching patient is detected
+        $state.go('patient-details');
+    }
 
     // $scope.registrationPart1 = {};
     

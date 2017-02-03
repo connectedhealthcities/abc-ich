@@ -57,24 +57,11 @@
         <button id="prescribeAndAdminister-button27" style="border-radius:0px 4px 4px 0px;" class="button button-positive">Set time to now</button>
       </div>
     </div>
-    <div class="spacer" style="width: 748px; height: 34px;"></div>
-    <div id="prescribeAndAdminister-container137" class="row">
-      <div id="prescribeAndAdminister-container138" class="col-40">
-        <a ui-sref="tabsController.iNRDosing({})" id="prescribeAndAdminister-button24" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
-      </div>
-      <div id="prescribeAndAdminister-container139" class="col-20 creator-container"></div>
-      <div id="prescribeAndAdminister-container140" class="col-40">
-        <a ng-click="vm.onNext()" id="prescribeAndAdminister-button25" class="button button-calm  button-block icon-right ion-chevron-right">Next</a>
-      </div>
-    </div>
-    <div id="prescribeAndAdminister-markdown12" class="show-list-numbers-and-dots">
-      <p style="color:#FF0000;">
-        <strong>DATA CAPTURED ON THIS PAGE</strong>
-      </p>
 
-      <p style="color:#FF0000;">Manufacturers instructions viewed?</p>
-
-      <p style="color:#FF0000;">Beriplex administered time, Vitamin K administered time, is Beriplex administered, is vitamin k administered</p>
+    <!--Next button-->
+    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <div class="col-offset-50 col-50">
+      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

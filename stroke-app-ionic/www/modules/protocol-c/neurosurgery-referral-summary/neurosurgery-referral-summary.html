@@ -30,24 +30,11 @@
         <ion-checkbox id="neurosurgeryReferralSummary-checkbox8">Patient is for active treatment?</ion-checkbox>
       </form>
     </div>
+
+    <!--Next button-->
     <div class="spacer" style="width: 748.182px; height: 40px;"></div>
-    <div id="neurosurgeryReferralSummary-container334" class="row">
-      <div id="neurosurgeryReferralSummary-container335" class="col-40">
-        <a ui-sref="tabsController.referralToNeurosurgery" id="neurosurgeryReferralSummary-button70" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
-      </div>
-      <div id="neurosurgeryReferralSummary-container336" class="col-20 creator-container"></div>
-      <div id="neurosurgeryReferralSummary-container337" class="col-40">
-        <a ng-click="vm.onNext()" id="neurosurgeryReferralSummary-button71" class="button button-calm  button-block icon-right ion-chevron-right">Next </a>
-      </div>
-    </div>
-    <div id="neurosurgeryReferralSummary-markdown132" class="show-list-numbers-and-dots">
-      <p style="color:#FF0000;">
-        <strong>DATA CAPTURED ON THIS PAGE</strong>
-      </p>
-
-      <p style="color:#FF0000;">Patient reffered to neurosurgery</p>
-
-      <p style="color:#FF0000;">Patient is for active treatment</p>
+    <div class="col-offset-50 col-50">
+      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

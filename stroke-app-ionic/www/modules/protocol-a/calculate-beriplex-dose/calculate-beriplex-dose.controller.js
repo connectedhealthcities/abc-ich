@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('CalculateBeriplexDoseController', CalculateBeriplexDoseController);
 
-CalculateBeriplexDoseController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+CalculateBeriplexDoseController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function CalculateBeriplexDoseController($state, PatientCacheService) { // , $stateParams
+function CalculateBeriplexDoseController($state, PatientCacheService, TabStateCacheService) {
  
     var vm = this; // S9
 
@@ -12,24 +12,39 @@ function CalculateBeriplexDoseController($state, PatientCacheService) { // , $st
 
     function onNext() {
         
-        if (PatientCacheService.getInrValue() < 1.2) {
+        if (PatientCacheService.getInrValue() < 1.3) {
             if (PatientCacheService.getGcsScore() < 9) {
-                $state.go('tabs.mrs-entry'); // S5
+                var state = TabStateCacheService.getStateTabC();
+                $state.go(state);
             }
             else {
-                $state.go('tabs.bp-management'); // S10
+                var state = TabStateCacheService.getStateTabB();
+                $state.go(state);
             }
         }
         else {
-            $state.go('tabs.confirm-beriplex-dose'); // S8
+            if (PatientCacheService.getAnticoagulantType() === "VITK") {
+                TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
+                $state.go('tabs.confirm-beriplex-dose');
+            }
+            else if (PatientCacheService.getAnticoagulantType() === "UNKNOWN") {
+                if (PatientCacheService.getShouldAdministerBeriplexWhenAnticoagulatUnknown()) {
+                    TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
+                    $state.go('tabs.confirm-beriplex-dose');
+                }
+                else {
+                    if (PatientCacheService.getGcsScore() < 9) {
+                        var state = TabStateCacheService.getStateTabC();
+                        $state.go(state);
+                    }
+                    else {
+                        var state = TabStateCacheService.getStateTabB();
+                        $state.go(state);
+                    }
+                }
+            }
         }
-    }
- 
-// estimatedWeightInKg	Float
-// calculatedBeriplexDose	Integer
-// inr-value	Float
-// inr-type	enum InrType [POINT_OF_CARE,LABORATORY]
-// inr-measurementDateTime	ZonedDateTime
+   }
 
     // $scope.dose ="";
 

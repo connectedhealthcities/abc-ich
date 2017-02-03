@@ -2,16 +2,17 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$state']; // , '$stateParams'
+PatientStartController.$inject = ['$state', 'TabStateCacheService'];
 
-function PatientStartController($state) { // , $stateParams
+function PatientStartController($state, TabStateCacheService) {
  
     var vm = this; // S17
 
-    vm.onNext = onNext;
+    vm.onNewPatient = onNewPatient;
 
-    function onNext() {
-        $state.go('register-patient-1'); // S1
+    function onNewPatient() {
+        TabStateCacheService.clearAll();
+        $state.go('register-patient');
     }
 
 // appStartDateTime	ZonedDateTime

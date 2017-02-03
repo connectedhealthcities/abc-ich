@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('DoacReversalAgentDetailsController', DoacReversalAgentDetailsController);
 
-DoacReversalAgentDetailsController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+DoacReversalAgentDetailsController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function DoacReversalAgentDetailsController($state, PatientCacheService) { // , $stateParams
+function DoacReversalAgentDetailsController($state, PatientCacheService, TabStateCacheService) {
 
     var vm = this; // S7
 
@@ -13,13 +13,12 @@ function DoacReversalAgentDetailsController($state, PatientCacheService) { // , 
     function onNext() {
  
         if (PatientCacheService.getGcsScore() < 9) {
-            $state.go('tabs.mrs-entry'); // S5
+            var state = TabStateCacheService.getStateTabC();
+            $state.go(state);
         }
         else {
-            $state.go('tabs.bp-management'); // S10
+            var state = TabStateCacheService.getStateTabB();
+            $state.go(state);
         }
     }
-
-// doacReveralAgent	enum [None, idarucizumab, PCC]
-// doacReveralAgentDateTime	ZonedDateTime
 }

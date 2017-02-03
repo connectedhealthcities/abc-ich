@@ -2,9 +2,9 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralSummaryController', NeurosurgeryReferralSummaryController);
 
-NeurosurgeryReferralSummaryController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+NeurosurgeryReferralSummaryController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function NeurosurgeryReferralSummaryController($state, PatientCacheService) { // , $stateParams
+function NeurosurgeryReferralSummaryController($state, PatientCacheService, TabStateCacheService) {
 
     var vm = this; // S13
 
@@ -13,16 +13,11 @@ function NeurosurgeryReferralSummaryController($state, PatientCacheService) { //
     function onNext() {
  
         if (PatientCacheService.getGcsScore() < 9) {
-            $state.go('tabs.bp-management'); // S10
+            var state = TabStateCacheService.getStateTabB();
+            $state.go(state);
         }
         else {
-            $state.go('patient-end'); // S14
+            $state.go('patient-end');
         }
    }
-
-// referredToNeurosurgery	Boolean
-// referralToNeurosurgeryDateTime	ZonedDateTime
-// neurosurgeonName	String
-// referralToNeurosurgeryAccepted	Boolean
-// forActiveTreatment	Boolean
 }

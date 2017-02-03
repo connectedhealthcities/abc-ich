@@ -2,19 +2,18 @@
 
 angular.module('app.protocolC').controller('MrsEntryController', MrsEntryController);
 
-MrsEntryController.$inject = ['$state']; // , '$stateParams'
+MrsEntryController.$inject = ['$state', 'TabStateCacheService'];
 
-function MrsEntryController($state) { // , $stateParams
+function MrsEntryController($state, TabStateCacheService) {
  
     var vm = this; // S5
 
     vm.onNext = onNext;
 
     function onNext() {
-        $state.go('tabs.neurosurgery-referral-criteria'); // S12
+        TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-criteria');
+        $state.go('tabs.neurosurgery-referral-criteria');
     }
-
-// premorbidMrsScore	Integer
 
  //   $scope.default = -1;
 }

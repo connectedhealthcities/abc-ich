@@ -21,8 +21,8 @@ module.exports = function(config) {
       '../www/modules/app/app.modules.js',
 
       '../www/modules/general/patient-start/patient-start.controller.js',
-      '../www/modules/general/register-patient-1/register-patient-1.controller.js',
-      '../www/modules/general/register-patient-2/register-patient-2.controller.js',
+      '../www/modules/general/register-patient/register-patient.controller.js',
+      '../www/modules/general/patient-details/patient-details.controller.js',
       '../www/modules/general/gcs-entry/gcs-entry.controller.js',
       '../www/modules/general/patient-end/patient-end.controller.js',
 

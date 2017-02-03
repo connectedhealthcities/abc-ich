@@ -3,7 +3,7 @@
 describe('NeurosurgeryReferralSummaryController', function() {
 
     var vm;
-    var patientCacheService, state;
+    var patientCacheService, tabStateCacheService, state;
 
     beforeEach(function() {
 
@@ -16,8 +16,11 @@ describe('NeurosurgeryReferralSummaryController', function() {
 			patientCacheService = {
 				getGcsScore: function() {}
 			};			
+			tabStateCacheService = {
+				getStateTabB: function() {}
+			};			
 
-			vm = $controller('NeurosurgeryReferralSummaryController', {'PatientCacheService': patientCacheService});				
+			vm = $controller('NeurosurgeryReferralSummaryController', {'PatientCacheService': patientCacheService, 'TabStateCacheService': tabStateCacheService});				
 		});
      });
 
@@ -31,13 +34,14 @@ describe('NeurosurgeryReferralSummaryController', function() {
 	    expect(state.go).toHaveBeenCalledWith('patient-end');		
     });
 
-	it("should go to state 'bp-management' on 'Next' button click", function() {
+	it("should go to state 'current state tab B' on 'Next' button click", function() {
 			
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(8);
+		spyOn(tabStateCacheService, 'getStateTabB').and.returnValue('current-state-tab-b');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('tabs.bp-management');		
+	    expect(state.go).toHaveBeenCalledWith('current-state-tab-b');		
     });
 });

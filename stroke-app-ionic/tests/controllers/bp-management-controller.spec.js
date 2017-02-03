@@ -3,7 +3,7 @@
 describe('BpManagementController', function() {
 
     var vm;
-    var patientCacheService, state;
+    var patientCacheService, tabStateCacheService, state;
 
     beforeEach(function() {
 
@@ -17,18 +17,24 @@ describe('BpManagementController', function() {
 				getGcsScore: function() {},
 				getBpTargetReachedDateTime: function() {}
 			};			
+			tabStateCacheService = {
+				setStateTabB: function() {},
+				getStateTabC: function() {}
+			};			
 
-			vm = $controller('BpManagementController', {'PatientCacheService': patientCacheService});				
+			vm = $controller('BpManagementController', {'PatientCacheService': patientCacheService, 'TabStateCacheService': tabStateCacheService});				
 		});
      });
 
 	it("should go to state 'critical-care-referral' on 'Next' button click", function() {
 			
 		spyOn(patientCacheService, 'getBpTargetReachedDateTime').and.returnValue(null);
+		spyOn(tabStateCacheService, 'setStateTabB');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
+	    expect(tabStateCacheService.setStateTabB).toHaveBeenCalledWith('tabs.critical-care-referral');		
 	    expect(state.go).toHaveBeenCalledWith('tabs.critical-care-referral');		
     });
 
@@ -43,14 +49,15 @@ describe('BpManagementController', function() {
 	    expect(state.go).toHaveBeenCalledWith('patient-end');		
     });
 
-	it("should go to state 'mrs-entry' on 'Next' button click", function() {
+	it("should go to state 'current state tab C' on 'Next' button click", function() {
 			
 		spyOn(patientCacheService, 'getBpTargetReachedDateTime').and.returnValue("NOT NULL");
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
+		spyOn(tabStateCacheService, 'getStateTabC').and.returnValue('current-state-tab-c');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('tabs.mrs-entry');		
+	    expect(state.go).toHaveBeenCalledWith('current-state-tab-c');		
     });
 });

@@ -2,9 +2,9 @@
 
 angular.module('app.protocolB').controller('BpManagementController', BpManagementController);
 
-BpManagementController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+BpManagementController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function BpManagementController($state, PatientCacheService) { // , $stateParams
+function BpManagementController($state, PatientCacheService, TabStateCacheService) {
  
     var vm = this; // S10
     vm.onNext = onNext;
@@ -13,20 +13,17 @@ function BpManagementController($state, PatientCacheService) { // , $stateParams
 
         if (PatientCacheService.getBpTargetReachedDateTime() != null) {
             if (PatientCacheService.getGcsScore() < 9) {
-                $state.go('patient-end'); // S14
+                $state.go('patient-end');
             }
             else {
-                $state.go('tabs.mrs-entry'); // S5
+                var state = TabStateCacheService.getStateTabC();
+                $state.go(state);
             }
         }
         else {
-            $state.go('tabs.critical-care-referral'); // S4
+            TabStateCacheService.setStateTabB('tabs.critical-care-referral');
+            $state.go('tabs.critical-care-referral');
         }
 
     }
-
-// bpTargetReachedDateTime	ZonedDateTime
-// bpTreatmentThreshold	Integer
-// bpTarget	Integer
-// collection of BP Measurement entries
 }

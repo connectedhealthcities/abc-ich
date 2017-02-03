@@ -280,26 +280,11 @@
         </div>
       </form>
     </div>
-    <div id="acuteBloodPressureManagement-container574" class="row">
-      <div id="acuteBloodPressureManagement-container571" class="col-40">
-        <a ui-sref="tabsController.prescribeAndAdminister" id="acuteBloodPressureManagement-button41" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
-      </div>
-      <div id="acuteBloodPressureManagement-container572" class="col-20 creator-container"></div>
-      <div id="acuteBloodPressureManagement-container573" class="col-40">
-        <button ng-click="vm.onNext()" id="acuteBloodPressureManagement-button42" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
-        <a ui-sref="tabsController.repeatBloodPressure" id="acuteBloodPressureManagement-button48" class="button button-assertive  button-block icon-right ion-alert">Simulate repeat blood pressure</a>
-        <a ui-sref="targetAchieved" id="acuteBloodPressureManagement-button46" class="button button-assertive  button-block icon-right ion-alert">Simulate blood pressure achieved</a>
-        <a ui-sref="tabsController.nEWPOPUPP13" id="acuteBloodPressureManagement-button114" class="button button-assertive  button-block icon-right ion-alert">Simulate blood pressure not achieved</a>
-        <a ui-sref="tabsController.nEWPOPUPP13" id="acuteBloodPressureManagement-button116" class="button button-assertive  button-block icon-right ion-alert">Simulate every 5 minutes</a>
-        <a ui-sref="tabsController.patientReferal" id="acuteBloodPressureManagement-button117" class="button button-assertive  button-block icon-right ion-alert">Simulate blood pressure &gt; threshold</a>
-      </div>
-    </div>
-    <div id="acuteBloodPressureManagement-markdown110" class="show-list-numbers-and-dots">
-      <p style="color:#FF0000;">
-        <strong>DATA CAPTURED ON THIS PAGE</strong>
-      </p>
 
-      <p style="color:#FF0000;">Blood preasure measurements: time, SBP IV GTN and labetalol dose</p>
+    <!--Next button-->
+    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <div class="col-offset-50 col-50">
+      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('RegisterPatient2Controller', function() {
+describe('PatientDetailsController', function() {
 
     var vm;
     var state;
@@ -13,7 +13,7 @@ describe('RegisterPatient2Controller', function() {
 		angular.mock.inject(function($controller, _$state_) {
 
 			state = _$state_;
-			vm = $controller('RegisterPatient2Controller', {});				
+			vm = $controller('PatientDetailsController', {});				
 		});
      });
 

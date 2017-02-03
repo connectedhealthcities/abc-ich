@@ -38,26 +38,11 @@
         <ion-radio id="antiCoagulant-radio19" class="input-blue">Edoxaban</ion-radio>
       </ion-list>
     </div>
-    <div id="antiCoagulant-container37" class="row">
-      <div id="antiCoagulant-container38" class="col-40">
-        <a ui-sref="tabsController.gCSSelection" id="antiCoagulant-button12" class="button button-positive  button-block icon-left ion-chevron-left">Back</a>
-        <div id="antiCoagulant-markdown21" class="show-list-numbers-and-dots">
-          <p style="color:#FF0000;">
-            <strong>DATE CAPTURED ON THIS PAGE</strong>
-          </p>
 
-          <p style="color:#FF0000;">Patient is taking Anti-coagulent?</p>
-
-          <p style="color:#FF0000;">Drug name</p>
-        </div>
-      </div>
-      <div id="antiCoagulant-container39" class="col-20 creator-container"></div>
-      <div id="antiCoagulant-container41" class="col-40">
-        <button ng-click="vm.onNext()" id="antiCoagulant-button11" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>tabs.calculate-beriplex-dose
-        <a ui-sref="tabsController.antiCoagulentUnknown" id="antiCoagulant-button26" class="button button-assertive  button-block">ANTI COAG UNKOWN</a>
-        <a ui-sref="tabsController.contactHaematology" id="antiCoagulant-button15" class="button button-assertive  button-block">DOAC PATH</a>
-        <a ui-sref="tabsController.iNRDosing({})" id="antiCoagulant-button16" class="button button-assertive  button-block">VIT K PATH</a>
-      </div>
+    <!--Next button-->
+    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <div class="col-offset-50 col-50">
+      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

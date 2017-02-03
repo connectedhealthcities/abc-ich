@@ -2,11 +2,15 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$stateParams'];
+PatientEndController.$inject = ['$state'];
 
-function PatientEndController($stateParams) {
+function PatientEndController($state) {
  
-    var vm = this;
+    var vm = this; // S14
+    vm.onFinish = onFinish;
 
-// summaryEmailAddress	String
+    function onFinish() {
+        $state.go('patient-start');
+    }
+
 }

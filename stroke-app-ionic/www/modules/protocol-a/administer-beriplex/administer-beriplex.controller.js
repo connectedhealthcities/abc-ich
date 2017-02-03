@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
 
-AdministerBeriplexController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+AdministerBeriplexController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function AdministerBeriplexController($state, PatientCacheService) { // , $stateParams
+function AdministerBeriplexController($state, PatientCacheService, TabStateCacheService) {
 
     var vm = this; // S11
 
@@ -13,18 +13,14 @@ function AdministerBeriplexController($state, PatientCacheService) { // , $state
     function onNext() {
 
         if (PatientCacheService.getGcsScore() < 9) {
-            $state.go('tabs.mrs-entry'); // S5
+            var state = TabStateCacheService.getStateTabC();
+            $state.go(state);
         }
         else {
-            $state.go('tabs.bp-management'); // S10
+            var state = TabStateCacheService.getStateTabB();
+            $state.go(state);
         }
     }
-
-// beriplexStartDateTime	ZonedDateTime
-// vitaminkDateTime	ZonedDateTime
-// beriplexAdministered	Boolean
-// vitaminkAdministered	Boolean
-// infusionInstructionsViewed	Boolean
 }
 
  

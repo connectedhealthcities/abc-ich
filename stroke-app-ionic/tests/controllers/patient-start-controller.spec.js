@@ -3,7 +3,7 @@
 describe('PatientStartController', function() {
 
     var vm;
-    var state;
+    var tabStateCacheService, state;
 
     beforeEach(function() {
 
@@ -13,16 +13,22 @@ describe('PatientStartController', function() {
 		angular.mock.inject(function($controller, _$state_) {
 
 			state = _$state_;
-			vm = $controller('PatientStartController', {});				
+			tabStateCacheService = {
+				clearAll: function() {}
+			};
+
+			vm = $controller('PatientStartController', {'TabStateCacheService': tabStateCacheService});				
 		});
      });
 
-	it("should go to state 'register-patient-1' on 'Next' button click", function() {
+	it("should go to state 'register-patient' on 'Next' button click", function() {
 			
+		spyOn(tabStateCacheService, 'clearAll');
 		spyOn(state, 'go');
 
-		vm.onNext(); // call the click handler
+		vm.onNewPatient(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('register-patient-1');		
+	    expect(tabStateCacheService.clearAll).toHaveBeenCalled();		
+	    expect(state.go).toHaveBeenCalledWith('register-patient');		
     });
 });

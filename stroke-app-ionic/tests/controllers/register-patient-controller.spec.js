@@ -1,6 +1,6 @@
 'use strict';
 
-describe('RegisterPatient1Controller', function() {
+describe('RegisterPatientController', function() {
 
     var vm;
     var state;
@@ -13,16 +13,16 @@ describe('RegisterPatient1Controller', function() {
 		angular.mock.inject(function($controller, _$state_) {
 
 			state = _$state_;
-			vm = $controller('RegisterPatient1Controller', {});				
+			vm = $controller('RegisterPatientController', {});				
 		});
      });
 
-	it("should go to state 'register-patient-2' on 'Next' button click", function() {
+	it("should go to state 'patient-details' on 'Next' button click", function() {
 			
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('register-patient-2');		
+	    expect(state.go).toHaveBeenCalledWith('patient-details');		
     });
 });

@@ -3,7 +3,7 @@
 describe('DoacReversalAgentDetailsController', function() {
 
     var vm;
-    var patientCacheService, state;
+    var patientCacheService, tabStateCacheService, state;
 
     beforeEach(function() {
 
@@ -16,28 +16,34 @@ describe('DoacReversalAgentDetailsController', function() {
 			patientCacheService = {
 				getGcsScore: function() {}
 			};			
+			tabStateCacheService = {
+				getStateTabB: function() {},
+				getStateTabC: function() {}
+			};			
 
-			vm = $controller('DoacReversalAgentDetailsController', {'PatientCacheService': patientCacheService});				
+			vm = $controller('DoacReversalAgentDetailsController', {'PatientCacheService': patientCacheService, 'TabStateCacheService': tabStateCacheService});				
 		});
      });
 
-	it("should go to state 'bp-management' on 'Next' button click", function() {
+	it("should go to state 'current state tab B' on 'Next' button click", function() {
 			
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
+		spyOn(tabStateCacheService, 'getStateTabB').and.returnValue('current-state-tab-b');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('tabs.bp-management');		
+	    expect(state.go).toHaveBeenCalledWith('current-state-tab-b');		
     });
 
-	it("should go to state 'mrs-entry' on 'Next' button click", function() {
+	it("should go to state 'current state tab C' on 'Next' button click", function() {
 			
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(8);
+		spyOn(tabStateCacheService, 'getStateTabC').and.returnValue('current-state-tab-c');
 		spyOn(state, 'go');
 
 		vm.onNext(); // call the click handler
 
-	    expect(state.go).toHaveBeenCalledWith('tabs.mrs-entry');		
+	    expect(state.go).toHaveBeenCalledWith('current-state-tab-c');		
     });
 });

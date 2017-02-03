@@ -2,9 +2,9 @@
 
 angular.module('app.protocolB') .controller('CriticalCareReferralController', CriticalCareReferralController);
 
-CriticalCareReferralController.$inject = ['$state', 'PatientCacheService']; // , '$stateParams'
+CriticalCareReferralController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
 
-function CriticalCareReferralController($state, PatientCacheService) { // , $stateParams
+function CriticalCareReferralController($state, PatientCacheService, TabStateCacheService) {
  
     var vm = this; // S4
 
@@ -13,14 +13,12 @@ function CriticalCareReferralController($state, PatientCacheService) { // , $sta
     function onNext() {
 
         if (PatientCacheService.getGcsScore() < 9) {
-            $state.go('patient-end'); // S14
+            $state.go('patient-end');
         }
         else {
-            $state.go('tabs.mrs-entry'); // S5
+            var state = TabStateCacheService.getStateTabC();
+            $state.go(state);
         }
 
     }
-
-// destination	enum Destination [ICU,HDU,NEUROSURGERY,STROKEWARD,OTHER]
-// otherDestination	String
 }

@@ -1,0 +1,403 @@
+Stroke Mobile Application Specification
+=======================================
+
+This is a list of features for the Stroke Mobile application.
+The features follow the Behaviour Driven Development (BDD) model and are written in a semi-formal format.
+
+Template
+========
+<Story> [ A clear and explicit title]								**REQUIRED**
+	<Scenario> #1: [The name of the scenario] 						**REQUIRED**
+		Given: [the initial context for the scenario]				**REQUIRED - 1 ONLY**
+		And: [optional additional context information]				**ZERO OR MORE**
+		When: [an event occurs that will trigger this scenario]		**REQUIRED - 1 ONLY**
+		Then: [ the outcome that should happen]						**REQUIRED - 1 ONLY**
+		And: [ optional additional outcome that should happen]		**ZERO OR MORE**
+	</Scenario>    
+</Story>
+
+<Story> View Navigation via view buttons
+
+	<Note> #1 Data validation popup
+		A data validatuon popup is displayed whenever the user leaves any view (except the "BP Management" view) by selecting the Next button.
+		It summarises the data entered in that view and offers 2 possible actions:
+			1. Ok - confirms that data entered is correct and allows navigation to proceed
+			2. Cancel - Prevents navigation away from the view allowing the user to change the data entered.
+	</Note>
+	<Note> #2 
+		It is assumed in all the navigation scenarios listed below that Ok is selected for the Data validation Popup and
+		that the view navigation does not happen until all popups have been dismissed.
+	</Note>
+
+	<!-- Patient Start view --> 
+	<Scenario> #1: Patient Start view - User selects "New Patient"   
+		Given: the user is viewing the "Patient Start" view
+		When: they select the "New Patient" button
+		Then: the "Register Patient" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>
+	<Scenario> #2: Patient Start view - User selects "Resume Patient"   
+		Given: the user is viewing the "Patient Start" view
+		When: they select the "Resume Patient" button
+		Then: ToDo - need to decide what should happen here //cjd
+	</Scenario>    
+	<!-- Register Patient view --> 
+	<Note> #3
+		The server will respond with "matching patient detected" when a patient already exists with identical values for the following criteria:
+		ToDo - list all properties used here when known //cjd
+	</Note>
+	<Scenario> #3: Register Patient view - no matching patient is detected
+		Given: the user has entered valid data on the "Register Patient" view
+		And: no matching patient is already registered
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+		      - "Enter patient id in notes" popup
+		And: the "Patient Details" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<Scenario> #4: Register Patient view - matching patient is detected 
+		Given: the user has entered valid data on the "Register Patient" view
+		And: a matching patient is already registered
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "Patient already registered" popup
+	</Scenario>    
+	<Scenario> #5: Patient already registered popup - Confirm registration selected
+		Given: the user is viewing the "Patient already registered" popup
+		When: they select the "Confirm" button
+		Then: they should see the "Enter patient id in notes" popup
+		And: the "Patient Details" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<Scenario> #6: Patient already registered popup - Cancel registration selected
+		Given: the user is viewing the "Patient already registered" popup
+		When: they select the "Cancel" button
+		Then: the "Patient Start" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<!-- Patient Details view --> 
+	<Scenario> #7: Patient Details view
+		Given: the user has entered valid data on the "Patient Details" view
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "GCS entry" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<!-- GCS entry view --> 
+	<Scenario> #8: GCS entry view - (GCS >= 9) 
+		Given: the user has entered valid data on the "GCS entry" view
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Anticoagulant Identification" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>
+	<Scenario> #9: GCS entry view - (GCS < 9) 
+		Given: the user has entered valid data on the "GCS entry" view
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "Stabilise patient" popup
+		And: the "Anticoagulant Identification" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario> 
+	<!-- Anticoagulant Identification view --> 
+	<Scenario> #10: Anticoagulant Identification view - Vit K antagonist selected
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: the selected anticoagulant is a Vit K antagonist
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Calculate Beriplex Dose" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
+	<Scenario> #11: Anticoagulant Identification view - Unknown selected 
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: Unknown has been selected
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "Anticoagulant Unknown" popup
+		And: the "Calculate Beriplex Dose" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
+	<Scenario> #12: Anticoagulant Identification view - DOAC selected 
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: the selected anticoagulant is a DOAC
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "Contact Haematology" popup
+		And: the "DOAC Reversal Agent details" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
+	<!-- DOAC Reversal Agent details view --> 
+	<Scenario> #13: DOAC Reversal Agent details view - (GCS >= 9) 
+		Given: the user has entered valid data on the "DOAC Reversal Agent details" view
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab B view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>    
+	<Scenario> #14: DOAC Reversal Agent details view - (GCS < 9) 
+		Given: the user has entered valid data on the "DOAC Reversal Agent details" view
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab C view view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>
+	<!-- Calculate Beriplex Dose view --> 
+	<Scenario> #15: Calculate Beriplex Dose view - (INR < 1.3) - (GCS >= 9) 
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the INR value < 1.3
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "INR below treatment range" popup
+		And: the current tab B view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>    
+	<Scenario> #16: Calculate Beriplex Dose view - (INR < 1.3) - (GCS < 9) 
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the INR value < 1.3
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "INR below treatment range" popup
+		And: the current tab C view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<Scenario> #17: Calculate Beriplex Dose view - (INR >= 1.3) - Vit K antagonist
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the INR value >= 1.3
+		And: the selected anticoagulant is a Vit K antagonist
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Confirm Beriplex Dose" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
+	<Scenario> #18: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has selected "Administer Beriplex"
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the INR value >= 1.3
+		And: the antagonist is Unknown
+		And: the user has selected "Administer Beriplex"
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Confirm Beriplex Dose" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
+	<Scenario> #19: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has not selected "Administer Beriplex - (GCS >= 9)"
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the INR value >= 1.3
+		And: the antagonist is Unknown
+		And: the user has not selected "Administer Beriplex"
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab B view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>    
+	<Scenario> #20: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has not selected "Administer Beriplex - (GCS < 9)"
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the INR value >= 1.3
+		And: the antagonist is Unknown
+		And: the user has not selected "Administer Beriplex"
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab C view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<!-- Confirm Beriplex Dose view --> 
+	<Scenario> #21: Confirm Beriplex Dose view
+		Given: the user has entered valid data on the "Confirm Beriplex Dose" view
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Administer Beriplex" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
+	<!-- Administer Beriplex view --> 
+	<Scenario> #22: Administer Beriplex view - (GCS >= 9)
+		Given: the user has entered valid data on the "Administer Beriplex" view
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab B view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>    
+	<Scenario> #23: Administer Beriplex view - (GCS < 9)
+		Given: the user has entered valid data on the "Administer Beriplex" view
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab C view view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<!-- BP Management view --> 
+	<Scenario> #24: BP Management view - Target not reached
+		Given: the user has entered valid data on the "BP Management" view
+		And: the target has not been reached
+		When: they select the "Next" button
+		Then: the "Refer to Critical Care" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>    
+	<Scenario> #25: BP Management view - Target reached (GCS >= 9)
+		Given: the user has entered valid data on the "BP Management" view
+		And: the target has been reached
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: the current tab C view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<Scenario> #26: BP Management view - Target reached (GCS < 9)
+		Given: the user has entered valid data on the "BP Management" view
+		And: the target has been reached
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: the "Patient End" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<!-- Refer to Critical Care view --> 
+	<Scenario> #27: Refer to Critical Care view - (GCS >= 9)
+		Given: the user has entered valid data on the "Refer to Critical Care" view
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: the current tab C view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<Scenario> #28: Refer to Critical Care view - (GCS < 9)
+		Given: the user has entered valid data on the "Refer to Critical Care" view
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: the "Patient End" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<!-- mRS selection view --> 
+	<Scenario> #29: mRS selection view
+		Given: the user has entered valid data on the "mRS selection" view
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Neurosurgery referral criteria" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<!-- Neurosurgery referral criteria view -->
+	<Note> #4
+		Referral criteria:
+			- ichVolume > 30 ml
+			- Posterior fossa ICH
+			- Obstruction of the third and/or fourth ventricle
+
+		Referral to neurosurgery is not required
+		======================================== 
+		GCS >= 9 and none of the Referral criteria are true:
+
+		Referral to nerosurgery is required
+		=================================== 
+		(GCS >= 9) AND (any of the Referral criteria are true) AND (mRS < 3)
+		OR
+		(GCS < 9) AND (mRS < 3)
+
+		Referral to neurosugery should be considered
+		============================================
+		(GCS >= 9) AND (any of the Referral criteria are true) AND (mRS >= 3)
+		OR
+		(GCS < 9) AND (mRS >= 3)
+
+	</Note>
+	<Scenario> #30: Neurosurgery Referral Criteria view - referral not required
+		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
+		And: referral is not required (see note above)
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Patient End" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<Scenario> #31: Neurosurgery Referral Criteria view - referral is required
+		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
+		And: referral is required (see note above)
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "Refer to neurosurgery" popup
+		And: the "Neurosurgery Referral Summary" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<Scenario> #32: Neurosurgery Referral Criteria view - referral should be considered
+		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
+		And: referral should be considered (see note above)
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+			  - "Consider referral to neurosurgery" popup
+		And: the "Neurosurgery Referral Summary" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
+	<!-- Neurosurgery Referral Summary view -->
+	<Scenario> #33: Neurosurgery Referral Summary view - (GCS >= 9)
+		Given: the user has entered valid data on the "Neurosurgery Referral Summary" view
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Patient End" view is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>    
+	<Scenario> #34: Neurosurgery Referral Summary view - (GCS < 9)
+		Given: the user has entered valid data on the "Neurosurgery Referral Summary" view
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab B view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>     
+</Story>
+
+<Story> View Navigation via Tab selection
+	<Note> #5
+		Default views for each tab are as follows:
+		- Tab A: Anticoagulant Identification view
+		- Tab B: BP Management view
+		- Tab C: mRS selection view
+	</Note>
+	<Scenario> #1: Default view for Tab
+		Given: the tabs are being displayed
+		And: the user has not navigated away from the default view for that tab using a view button
+		When: the user selects the tab
+		Then: the default view for that tab should be displayed
+	</Scenario>     
+	<Scenario> #1: High watermark view for Tab
+		Given: the tabs are being displayed
+		And: the user has navigated away from the default view for that tab using a view button
+		When: the user selects the tab
+		Then: the last selected view for that tab should be displayed
+	</Scenario>     
+
+</Story>	 

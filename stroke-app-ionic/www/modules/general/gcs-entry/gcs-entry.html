@@ -120,7 +120,7 @@
     <!--Next button-->
     <div class="spacer" style="width: 748.182px; height: 40px;"></div>
     <div class="col-offset-50 col-50">
-      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+      <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

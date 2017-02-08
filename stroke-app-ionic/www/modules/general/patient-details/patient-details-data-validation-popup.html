@@ -1,0 +1,38 @@
+<ion-list> 
+    <ion-item>
+        <div class="row">
+          <div class="col-80">Door date:</div>
+          <div class="col-20 text-right">{{vm.doorDate | date: 'dd MMM yyyy'}}</div>
+        </div>
+    </ion-item>
+    <ion-item>
+         <div class="row">
+          <div class="col-80">Door time:</div>
+          <div class="col-20 text-right">{{vm.doorTime | date: 'HH:mm'}}</div>
+        </div>    
+    </ion-item>
+    <ion-item>
+        <div class="row">
+          <div class="col-80">Onset date:</div>
+          <div class="col-20 text-right">{{vm.onsetDate | date: 'dd MMM yyyy'}}</div>
+        </div>      
+    </ion-item>
+    <ion-item>
+        <div class="row">
+          <div class="col-80">Onset time:</div>
+          <div class="col-20 text-right">{{vm.onsetTime | date: 'HH:mm'}}</div>
+        </div>
+    </ion-item>
+    <ion-item>
+         <div class="row">
+          <div class="col-80">Onset is last seen well:</div>
+          <div class="col-20 text-right">{{vm.isOnsetLastSeenWell}}</div>
+        </div>    
+    </ion-item>
+    <ion-item>
+        <div class="row">
+          <div class="col-80">Onset is best estimate:</div>
+          <div class="col-20 text-right">{{vm.isOnsetBestEstimate}}</div>
+        </div>      
+    </ion-item>
+</ion-list>

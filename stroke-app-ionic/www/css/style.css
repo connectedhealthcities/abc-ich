@@ -2,3 +2,7 @@
 .gcs-total{
 	font-size: 38px;
 }
+
+.wide-popup .popup { 
+        width: 60% !important;
+}

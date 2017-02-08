@@ -54,7 +54,7 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService) {
 
     function showDataValidationPopup(okHandler) {
         var popupTemplate = {
-            templateUrl: 'modules/general/gcs-entry/data-validation-popup.html',
+            templateUrl: 'modules/general/gcs-entry/gcs-entry-data-validation-popup.html',
             title: 'Data validation',
             subTitle: 'Please confirm data entered is correct',
             scope: $scope

@@ -8,7 +8,23 @@ function PatientDetailsController($state, $stateParams) { // , DateTimeService
  
     var vm = this; // S2
 
+    vm.doorDate = null;
+    vm.doorTime = null;
+    vm.onsetDate = null;
+    vm.onsetTime = null;
+    vm.isOnsetLastSeenWell = null;
+    vm.isOnsetBestEstimate = null;
+
+    vm.isNextButtonEnabled = isNextButtonEnabled;
     vm.onNext = onNext;
+
+    function isNextButtonEnabled() {
+        var isEnabled = false;
+        if(vm.doorDate && vm.doorTime && vm.onsetDate && vm.onsetTime && isOnsetLastSeenWell != null && isOnsetBestEstimate != null){
+    		isEnabled = true;
+    	}
+        return isEnabled;
+    }
 
     function onNext() {
         $state.go('gcs-entry');

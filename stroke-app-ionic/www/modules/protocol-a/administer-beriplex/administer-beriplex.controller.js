@@ -8,6 +8,8 @@ function AdministerBeriplexController($state, PatientCacheService, TabStateCache
 
     var vm = this; // S11
 
+    TabStateCacheService.setStateTabA('tabs.administer-beriplex');
+
     vm.onNext = onNext;
 
     function onNext() {

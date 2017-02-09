@@ -8,6 +8,8 @@ function NeurosurgeryReferralCriteriaController($state, PatientCacheService, Tab
 
     var vm = this; // S12
 
+    TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-criteria');
+
     vm.onNext = onNext;
 
     function onNext() {
@@ -16,7 +18,6 @@ function NeurosurgeryReferralCriteriaController($state, PatientCacheService, Tab
             $state.go('patient-end');
         }
         else {
-            TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-summary');
             $state.go('tabs.neurosurgery-referral-summary');
         }
     }

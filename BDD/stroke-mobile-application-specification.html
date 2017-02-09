@@ -138,8 +138,28 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is A
 	</Scenario>    
+	<Scenario> #13: Anticoagulant Identification view - None selected - (GCS >= 9) 
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: the selected anticoagulant is None
+		And: the GCS value is >= 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab B view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is B
+	</Scenario>
+	<Scenario> #14: Anticoagulant Identification view - None selected - (GCS < 9) 
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: the selected anticoagulant is None
+		And: the GCS value is < 9
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the current tab C view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is C
+	</Scenario>    
 	<!-- DOAC Reversal Agent details view --> 
-	<Scenario> #13: DOAC Reversal Agent details view - (GCS >= 9) 
+	<Scenario> #15: DOAC Reversal Agent details view - (GCS >= 9) 
 		Given: the user has entered valid data on the "DOAC Reversal Agent details" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -148,7 +168,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #14: DOAC Reversal Agent details view - (GCS < 9) 
+	<Scenario> #16: DOAC Reversal Agent details view - (GCS < 9) 
 		Given: the user has entered valid data on the "DOAC Reversal Agent details" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -158,7 +178,7 @@ Template
 		And: the selected tab is C
 	</Scenario>
 	<!-- Calculate Beriplex Dose view --> 
-	<Scenario> #15: Calculate Beriplex Dose view - (INR < 1.3) - (GCS >= 9) 
+	<Scenario> #17: Calculate Beriplex Dose view - (INR < 1.3) - (GCS >= 9) 
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value < 1.3
 		And: the GCS value is >= 9
@@ -170,7 +190,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #16: Calculate Beriplex Dose view - (INR < 1.3) - (GCS < 9) 
+	<Scenario> #18: Calculate Beriplex Dose view - (INR < 1.3) - (GCS < 9) 
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value < 1.3
 		And: the GCS value is < 9
@@ -182,7 +202,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #17: Calculate Beriplex Dose view - (INR >= 1.3) - Vit K antagonist
+	<Scenario> #19: Calculate Beriplex Dose view - (INR >= 1.3) - Vit K antagonist
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value >= 1.3
 		And: the selected anticoagulant is a Vit K antagonist
@@ -192,7 +212,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is A
 	</Scenario>    
-	<Scenario> #18: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has selected "Administer Beriplex"
+	<Scenario> #20: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has selected "Administer Beriplex"
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value >= 1.3
 		And: the antagonist is Unknown
@@ -203,7 +223,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is A
 	</Scenario>    
-	<Scenario> #19: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has not selected "Administer Beriplex - (GCS >= 9)"
+	<Scenario> #21: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has not selected "Administer Beriplex - (GCS >= 9)"
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value >= 1.3
 		And: the antagonist is Unknown
@@ -215,7 +235,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #20: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has not selected "Administer Beriplex - (GCS < 9)"
+	<Scenario> #22: Calculate Beriplex Dose view - (INR >= 1.3) - antagonist Unknown - User has not selected "Administer Beriplex - (GCS < 9)"
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value >= 1.3
 		And: the antagonist is Unknown
@@ -228,7 +248,7 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<!-- Confirm Beriplex Dose view --> 
-	<Scenario> #21: Confirm Beriplex Dose view
+	<Scenario> #23: Confirm Beriplex Dose view
 		Given: the user has entered valid data on the "Confirm Beriplex Dose" view
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -237,7 +257,7 @@ Template
 		And: the selected tab is A
 	</Scenario>    
 	<!-- Administer Beriplex view --> 
-	<Scenario> #22: Administer Beriplex view - (GCS >= 9)
+	<Scenario> #24: Administer Beriplex view - (GCS >= 9)
 		Given: the user has entered valid data on the "Administer Beriplex" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -246,7 +266,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #23: Administer Beriplex view - (GCS < 9)
+	<Scenario> #25: Administer Beriplex view - (GCS < 9)
 		Given: the user has entered valid data on the "Administer Beriplex" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -256,7 +276,7 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<!-- BP Management view --> 
-	<Scenario> #24: BP Management view - Target not reached
+	<Scenario> #26: BP Management view - Target not reached
 		Given: the user has entered valid data on the "BP Management" view
 		And: the target has not been reached
 		When: they select the "Next" button
@@ -264,7 +284,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #25: BP Management view - Target reached (GCS >= 9)
+	<Scenario> #27: BP Management view - Target reached (GCS >= 9)
 		Given: the user has entered valid data on the "BP Management" view
 		And: the target has been reached
 		And: the GCS value is >= 9
@@ -273,7 +293,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #26: BP Management view - Target reached (GCS < 9)
+	<Scenario> #28: BP Management view - Target reached (GCS < 9)
 		Given: the user has entered valid data on the "BP Management" view
 		And: the target has been reached
 		And: the GCS value is < 9
@@ -282,7 +302,7 @@ Template
 		And: the ABC tabs are not displayed
 	</Scenario>    
 	<!-- Refer to Critical Care view --> 
-	<Scenario> #27: Refer to Critical Care view - (GCS >= 9)
+	<Scenario> #29: Refer to Critical Care view - (GCS >= 9)
 		Given: the user has entered valid data on the "Refer to Critical Care" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -290,7 +310,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #28: Refer to Critical Care view - (GCS < 9)
+	<Scenario> #30: Refer to Critical Care view - (GCS < 9)
 		Given: the user has entered valid data on the "Refer to Critical Care" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -298,7 +318,7 @@ Template
 		And: the ABC tabs are not displayed
 	</Scenario>    
 	<!-- mRS selection view --> 
-	<Scenario> #29: mRS selection view
+	<Scenario> #31: mRS selection view
 		Given: the user has entered valid data on the "mRS selection" view
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -330,7 +350,7 @@ Template
 		(GCS < 9) AND (mRS >= 3)
 
 	</Note>
-	<Scenario> #30: Neurosurgery Referral Criteria view - referral not required
+	<Scenario> #32: Neurosurgery Referral Criteria view - referral not required
 		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
 		And: referral is not required (see note above)
 		When: they select the "Next" button
@@ -338,7 +358,7 @@ Template
 		And: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>    
-	<Scenario> #31: Neurosurgery Referral Criteria view - referral is required
+	<Scenario> #33: Neurosurgery Referral Criteria view - referral is required
 		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
 		And: referral is required (see note above)
 		When: they select the "Next" button
@@ -349,7 +369,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #32: Neurosurgery Referral Criteria view - referral should be considered
+	<Scenario> #34: Neurosurgery Referral Criteria view - referral should be considered
 		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
 		And: referral should be considered (see note above)
 		When: they select the "Next" button
@@ -361,7 +381,7 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<!-- Neurosurgery Referral Summary view -->
-	<Scenario> #33: Neurosurgery Referral Summary view - (GCS >= 9)
+	<Scenario> #35: Neurosurgery Referral Summary view - (GCS >= 9)
 		Given: the user has entered valid data on the "Neurosurgery Referral Summary" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -369,7 +389,7 @@ Template
 		And: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>    
-	<Scenario> #34: Neurosurgery Referral Summary view - (GCS < 9)
+	<Scenario> #36: Neurosurgery Referral Summary view - (GCS < 9)
 		Given: the user has entered valid data on the "Neurosurgery Referral Summary" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -393,7 +413,7 @@ Template
 		When: the user selects the tab
 		Then: the default view for that tab should be displayed
 	</Scenario>     
-	<Scenario> #1: High watermark view for Tab
+	<Scenario> #2: High watermark view for Tab
 		Given: the tabs are being displayed
 		And: the user has navigated away from the default view for that tab using a view button
 		When: the user selects the tab

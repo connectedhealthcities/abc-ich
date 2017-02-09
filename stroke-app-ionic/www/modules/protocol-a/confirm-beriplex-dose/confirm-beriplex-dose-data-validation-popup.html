@@ -1,0 +1,14 @@
+<ion-list> 
+    <ion-item>
+         <div class="row">
+          <div class="col-80">Override calculated dose:</div>
+          <div class="col-20 text-right">{{vm.overrideCalculatedDose}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.overrideCalculatedDose">
+        <div class="row">
+          <div class="col-80">Actual dose:</div>
+          <div class="col-20 text-right">{{vm.actualDose}}</div>
+        </div>
+    </ion-item>
+</ion-list>

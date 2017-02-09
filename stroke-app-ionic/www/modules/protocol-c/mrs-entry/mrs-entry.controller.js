@@ -8,10 +8,11 @@ function MrsEntryController($state, TabStateCacheService) {
  
     var vm = this; // S5
 
+    TabStateCacheService.setStateTabC('tabs.mrs-entry');
+
     vm.onNext = onNext;
 
     function onNext() {
-        TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-criteria');
         $state.go('tabs.neurosurgery-referral-criteria');
     }
 

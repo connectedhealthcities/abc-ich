@@ -8,6 +8,8 @@ function NeurosurgeryReferralSummaryController($state, PatientCacheService, TabS
 
     var vm = this; // S13
 
+    TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-summary');
+
     vm.onNext = onNext;
 
     function onNext() {

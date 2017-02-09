@@ -28,6 +28,8 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
     vm.onScanNow = onScanNow;
+    vm.isDateOfBirthKnownChanged = isDateOfBirthKnownChanged;
+    vm.isExternalScanChanged = isExternalScanChanged;
 
     function isNextButtonEnabled() {
         var isEnabled = false;
@@ -102,6 +104,18 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
             var scanDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.scanDate, vm.scanTime);
             PatientCacheService.setScanDateTime(scanDateTime);
         }
+    }
+
+    function isDateOfBirthKnownChanged() {
+        vm.dateOfBirth = null;
+        vm.estimatedAge = null;
+    }
+
+    function isExternalScanChanged() {
+        vm.scanDate = null;
+        vm.scanTime = null;
+        vm.selectedHospital = null;
+        vm.otherHospital = null;
     }
 
     function onScanNow() {

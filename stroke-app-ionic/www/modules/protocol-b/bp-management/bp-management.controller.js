@@ -7,6 +7,9 @@ BpManagementController.$inject = ['$state', 'PatientCacheService', 'TabStateCach
 function BpManagementController($state, PatientCacheService, TabStateCacheService) {
  
     var vm = this; // S10
+
+    TabStateCacheService.setStateTabB('tabs.bp-management');
+
     vm.onNext = onNext;
 
     function onNext() {
@@ -21,7 +24,6 @@ function BpManagementController($state, PatientCacheService, TabStateCacheServic
             }
         }
         else {
-            TabStateCacheService.setStateTabB('tabs.critical-care-referral');
             $state.go('tabs.critical-care-referral');
         }
 

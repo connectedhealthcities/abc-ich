@@ -8,6 +8,8 @@ function DoacReversalAgentDetailsController($state, PatientCacheService, TabStat
 
     var vm = this; // S7
 
+    TabStateCacheService.setStateTabA('tabs.doac-reversal-agent-details');
+
     vm.onNext = onNext;
 
     function onNext() {

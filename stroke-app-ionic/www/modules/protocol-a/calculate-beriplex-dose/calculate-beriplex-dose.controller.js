@@ -8,6 +8,8 @@ function CalculateBeriplexDoseController($state, PatientCacheService, TabStateCa
  
     var vm = this; // S9
 
+    TabStateCacheService.setStateTabA('tabs.calculate-beriplex-dose');
+
     vm.onNext = onNext;
 
     function onNext() {
@@ -24,12 +26,10 @@ function CalculateBeriplexDoseController($state, PatientCacheService, TabStateCa
         }
         else {
             if (PatientCacheService.getAnticoagulantType() === "VITK") {
-                TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
                 $state.go('tabs.confirm-beriplex-dose');
             }
             else if (PatientCacheService.getAnticoagulantType() === "UNKNOWN") {
                 if (PatientCacheService.getShouldAdministerBeriplexWhenAnticoagulatUnknown()) {
-                    TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
                     $state.go('tabs.confirm-beriplex-dose');
                 }
                 else {

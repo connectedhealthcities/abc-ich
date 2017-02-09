@@ -8,6 +8,8 @@ function CriticalCareReferralController($state, PatientCacheService, TabStateCac
  
     var vm = this; // S4
 
+    TabStateCacheService.setStateTabB('tabs.critical-care-referral');
+
     vm.onNext = onNext;
 
     function onNext() {

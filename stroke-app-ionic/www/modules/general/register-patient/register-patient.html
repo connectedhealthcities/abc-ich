@@ -18,9 +18,9 @@
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Date of birth known
         </ion-item>
-        <ion-radio ng-model="vm.isDateOfBirthKnown" name="dob-known" ng-value="true">Yes
+        <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.isDateOfBirthKnownChanged()" name="dob-known" ng-value="true">Yes
         </ion-radio>
-        <ion-radio ng-model="vm.isDateOfBirthKnown" name="dob-known" ng-value="false">No
+        <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.isDateOfBirthKnownChanged()" name="dob-known" ng-value="false">No
         </ion-radio>
       </form>
     </div>
@@ -54,9 +54,9 @@
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Scan performed at external hospital
         </ion-item>
-        <ion-radio ng-model="vm.isExternalScan" name="external-scan" ng-value="true">Yes
+        <ion-radio ng-model="vm.isExternalScan" ng-change="vm.isExternalScanChanged()" name="external-scan" ng-value="true">Yes
         </ion-radio>
-        <ion-radio ng-model="vm.isExternalScan" name="external-scan" ng-value="false">No
+        <ion-radio ng-model="vm.isExternalScan" ng-change="vm.isExternalScanChanged()" name="external-scan" ng-value="false">No
         </ion-radio>
       </form>
     </div>

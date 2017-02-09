@@ -1,0 +1,14 @@
+<ion-list> 
+    <ion-item>
+         <div class="row">
+          <div class="col-80">Anticoagulant type:</div>
+          <div class="col-20 text-right">{{vm.anticoagulantType}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.anticoagulantType === 'VITK' || vm.anticoagulantType === 'DOAC'">
+        <div class="row">
+          <div class="col-80">Anticoagulant name:</div>
+          <div class="col-20 text-right">{{vm.anticoagulantName}}</div>
+        </div>
+    </ion-item>
+</ion-list>

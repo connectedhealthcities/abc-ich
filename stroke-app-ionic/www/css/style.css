@@ -1,8 +1,18 @@
 /* Empty. Add your own CSS if you like */
 .gcs-total{
-	font-size: 38px;
+        font-size: 38px;
 }
 
 .chi-wide-popup .popup { 
         width: 60% !important;
 }
+
+.chi-extra-wide-popup .popup { 
+        width: 80% !important;
+}
+
+.chi-height-400 {
+        min-height: 400px;
+}
+
+

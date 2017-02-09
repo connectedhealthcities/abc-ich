@@ -7,6 +7,7 @@ BpManagementState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function BpManagementState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.bp-management', {
+    cache: false,
     url: '/bp-management',
     views: {
       'tab-b': {

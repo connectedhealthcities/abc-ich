@@ -7,6 +7,7 @@ AnticoagulantIdentificationState.$inject = ['$stateProvider', '$urlRouterProvide
 function AnticoagulantIdentificationState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.anticoagulant-identification', {
+    cache: false,
     url: '/anticoagulant-identification',
     views: {
       'tab-a': {

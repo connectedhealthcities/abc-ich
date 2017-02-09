@@ -252,6 +252,8 @@ function PatientCacheService() {
         getIsForActiveTreatment: getIsForActiveTreatment,
         setIsForActiveTreatment: setIsForActiveTreatment,
 
+        // reset all data to null
+        clearAll: clearAll
     };
 
     return service;
@@ -637,6 +639,54 @@ function PatientCacheService() {
     
     function setIsForActiveTreatment(isForActiveTreatment) {
         _isForActiveTreatment = isForActiveTreatment;
+    }
+
+    function clearAll() {
+
+        _appStartDateTime = null;
+        _uniqueId = null;
+        _initials = null;
+        _birthDate = null;
+        _estimatedAge = null;
+        _externalScanHospitalName = null;
+        _scanDateTime = null;
+        _hospitalUniqueId = null;
+        _doorDateTime = null;
+        _onsetDateTime = null;
+        _isLastSeenWellOnset = null;
+        _isBestEstimateOnset = null;
+        _gcsScore = null;
+        _gcsScoreEye = null;
+        _gcsScoreVerbal = null;
+        _gcsScoreMotor = null;
+        _summaryEmailAddress = null;
+        _anticoagulantType = null;
+        _antiCoagulantName = null;
+        _estimatedWeightInKg = null;
+        _calculatedBeriplexDose = null;
+        _inrValue = null;
+        _inrType = null;
+        _inrDateTime = null;
+        _shouldAdministerBeriplexWhenAnticoagulatUnknown = null;
+        _actualBeriplexDose = null;
+        _beriplexStartDateTime = null;
+        _vitaminkDateTime = null;
+        _isInfusionInstructionsViewed = null;
+        _doacReveralAgentType = null;
+        _doacReveralAgentDateTime = null;
+        _bpTargetReachedDateTime = null;
+        _bpTreatmentThreshold = null;
+        _bpTarget = null;
+        _destination = null;
+        _otherDestination = null;
+        _premorbidMrsScore = null;
+        _ichVolume = null;
+        _isPosteriorFossaIch = null;
+        _isVentricleObstructed = null;
+        _referralToNeurosurgeryDateTime = null;
+        _neurosurgeonName = null;
+        _isReferralToNeurosurgeryAccepted = null;
+        _isForActiveTreatment = null;
     }
 
 }

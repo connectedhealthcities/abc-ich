@@ -7,6 +7,7 @@ CriticalCareReferralState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function CriticalCareReferralState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.critical-care-referral', {
+    cache: false,
     url: '/critical-care-referral',
     views: {
       'tab-b': {

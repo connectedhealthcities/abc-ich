@@ -1,0 +1,44 @@
+<ion-list> 
+    <ion-item>
+         <div class="row">
+          <div class="col-80">Initials:</div>
+          <div class="col-20 text-right">{{vm.initials}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isDateOfBirthKnown">
+        <div class="row">
+          <div class="col-80">Date of birth:</div>
+          <div class="col-20 text-right">{{vm.dateOfBirth | date: 'dd MMM yyyy'}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-show="!vm.isDateOfBirthKnown">
+        <div class="row">
+          <div class="col-80">Estimated age:</div>
+          <div class="col-20 text-right">{{vm.estimatedAge}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-show="!vm.isExternalScan">
+         <div class="row">
+          <div class="col-80">Scan date:</div>
+          <div class="col-20 text-right">{{vm.scanDate | date: 'dd MMM yyyy'}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="!vm.isExternalScan">
+         <div class="row">
+          <div class="col-80">Scan time:</div>
+          <div class="col-20 text-right">{{vm.scanTime | date: 'HH:mm'}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isExternalScan && vm.selectedHospital != 'Other'">
+         <div class="row">
+          <div class="col-80">External hospital:</div>
+          <div class="col-20 text-right">{{vm.selectedHospital}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isExternalScan && vm.selectedHospital == 'Other'">
+         <div class="row">
+          <div class="col-80">External hospital:</div>
+          <div class="col-20 text-right">{{vm.otherHospital}}</div>
+        </div>    
+    </ion-item>
+</ion-list>

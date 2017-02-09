@@ -7,6 +7,7 @@ MrsEntryState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function MrsEntryState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.mrs-entry', {
+    cache: false,
     url: '/mrs-entry',
     views: {
       'tab-c': {

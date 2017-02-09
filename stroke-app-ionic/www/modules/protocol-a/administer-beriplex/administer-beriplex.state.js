@@ -7,6 +7,7 @@ AdministerBeriplexState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function AdministerBeriplexState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.administer-beriplex', {
+    cache: false,
     url: '/administer-beriplex',
     views: {
       'tab-a': {

@@ -7,6 +7,7 @@ RegisterPatientState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function RegisterPatientState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('register-patient', {
+    cache: false,
     url: '/register-patient',
     templateUrl: 'modules/general/register-patient/register-patient.html',
     controller: 'RegisterPatientController',

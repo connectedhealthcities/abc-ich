@@ -76,7 +76,7 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
             templateUrl: 'modules/general/patient-details/patient-details-data-validation-popup.html',
             title: 'Data validation',
             subTitle: 'Please confirm data entered is correct',
-            cssClass: 'wide-popup',
+            cssClass: 'chi-wide-popup',
             scope: $scope
         };       
         var popup = $ionicPopup.confirm(popupTemplate);

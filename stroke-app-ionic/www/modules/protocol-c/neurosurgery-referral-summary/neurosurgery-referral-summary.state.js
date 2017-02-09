@@ -7,6 +7,7 @@ NeurosurgeryReferralSummaryState.$inject = ['$stateProvider', '$urlRouterProvide
 function NeurosurgeryReferralSummaryState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.neurosurgery-referral-summary', {
+    cache: false,
     url: '/neurosurgery-referral-summary',
     views: {
       'tab-c': {

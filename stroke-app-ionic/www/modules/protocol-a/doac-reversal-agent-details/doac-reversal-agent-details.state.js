@@ -7,6 +7,7 @@ DoacReversalAgentDetailsState.$inject = ['$stateProvider', '$urlRouterProvider']
 function DoacReversalAgentDetailsState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.doac-reversal-agent-details', {
+    cache: false,
     url: '/doac-reversal-agent-details',
     views: {
       'tab-a': {

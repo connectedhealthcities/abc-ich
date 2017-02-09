@@ -1,53 +1,102 @@
-<ion-view title="Register patient" id="page3">
+<ion-view title="Register patient">
   <ion-content padding="true" class="has-header">
-    <div class="list card" id="registerPatient-card28">
-      <form id="registerPatient-form17" class="list">
-        <ion-item class="item-icon-left  card-header card-header-green" id="registerPatient-list-item13">
-          <i class="icon ion-ionic"></i>Personal information</ion-item>
-        <label class="item item-input" id="registerPatient-input3">
+
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Personal information
+        </ion-item>
+        <label class="item item-input">
           <span class="input-label">Initials</span>
-          <input type="text" placeholder="">
-        </label>
-        <label class="item item-input" id="registerPatient-input2" ng-hide="false">
-          <span class="input-label">Date of birth</span>
-          <input type="date" placeholder="" ng-model="registrationPart1.dateOfBirth">
-        </label>
-        <label class="item item-input" id="registerPatient-input10" ng-hide="false">
-          <span class="input-label">Date of birth</span>
-          <input type="text" placeholder="dd/mm/yyyy" ng-model="registrationPart1.dateOfBirth">
-        </label>
-        <ion-checkbox id="registerPatient-checkbox3" ng-click="dobUnknownChanged()" ng-model="registrationPart1.dobUnknown">Date of birth unknown</ion-checkbox>
-        <label class="item item-input" id="registerPatient-input7">
-          <span class="input-label">Estimated age</span>
-          <input type="number" placeholder="" ng-model="$scope.registrationPart1.estimatedAge">
+          <input type="text" placeholder="Enter intials here" ng-model="vm.initials">
         </label>
       </form>
     </div>
-    <div class="list card" id="registerPatient-card29">
-      <form id="registerPatient-form25" class="list">
-        <ion-item class="item-icon-left  card-header card-header-green" id="registerPatient-list-item32">
-          <i class="icon ion-ionic"></i>Scan details</ion-item>
-        <label class="item item-input" id="registerPatient-input4">
-          <span class="input-label">Scan date</span>
-          <input type="date" placeholder="" ng-model="registrationPart1.scanDate">
+    
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Date of birth known
+        </ion-item>
+        <ion-radio ng-model="vm.isDateOfBirthKnown" name="dob-known" ng-value="true">Yes
+        </ion-radio>
+        <ion-radio ng-model="vm.isDateOfBirthKnown" name="dob-known" ng-value="false">No
+        </ion-radio>
+      </form>
+    </div>
+ 
+    <div ng-show="vm.isDateOfBirthKnown != null && vm.isDateOfBirthKnown" class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Date of birth
+        </ion-item>
+        <label class="item item-input">
+          <span class="input-label">Date of birth</span>
+          <input type="date" placeholder="" ng-model="vm.dateOfBirth">
         </label>
-        <label class="item item-input" id="registerPatient-input6">
-          <span class="input-label">Scan time</span>
-          <input type="time" placeholder="" ng-model="registrationPart1.scanTime" displayformat="HH:mm">
+      </form>
+    </div>
+
+    <div ng-show="vm.isDateOfBirthKnown != null && !vm.isDateOfBirthKnown" class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Estimated age
+        </ion-item>
+        <label class="item item-input">
+          <span class="input-label">Estimated age</span>
+          <input type="number" placeholder="Enter age here" ng-model="vm.estimatedAge">
         </label>
-        <ion-checkbox id="registerPatient-checkbox1" ng-model="registrationPart1.externalHospital">External Hospital?</ion-checkbox>
-        <label class="item item-select" id="registerPatient-select2">
-          <span class="input-label">What hospital was the scan performed at?</span>
-          <select>
-            <option>Hospital 1</option>
-            <option>hospital 2</option>
-            <option>hospital 3</option>
-            <option>other (enter below)</option>
-          </select>
-        </label>
-        <label class="item item-input" id="registerPatient-input11">
+      </form>
+    </div>
+
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Scan performed at external hospital
+        </ion-item>
+        <ion-radio ng-model="vm.isExternalScan" name="external-scan" ng-value="true">Yes
+        </ion-radio>
+        <ion-radio ng-model="vm.isExternalScan" name="external-scan" ng-value="false">No
+        </ion-radio>
+      </form>
+    </div>
+
+    <div ng-show="vm.isExternalScan != null && !vm.isExternalScan" class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Scan time
+        </ion-item>
+        <div class="row row-center">
+          
+          <div class="col-90">
+            <label class="item item-input">
+              <span class="input-label">Date</span>
+              <input type="date" ng-model="vm.scanDate">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Time</span>
+              <input type="time" step="60" ng-model="vm.scanTime" displayformat="HH:mm">
+            </label>
+          </div>
+
+          <div class="col-10 text-center">
+            <button ng-click="vm.onScanNow()" class="button button-calm">Now</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div ng-show="vm.isExternalScan != null && vm.isExternalScan" class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>External hospital
+        </ion-item>
+        <div class="list-inset" ng-repeat="hospital in vm.hospitals">
+            <ion-radio ng-model="vm.selectedHospital" value="{{hospital.name}}">{{hospital.name}}</ion-radio>
+        </div>
+        <label ng-show="vm.selectedHospital ==='Other'" class="item item-input">
           <span class="input-label">Hospital name</span>
-          <input type="text" placeholder="">
+          <input type="text" placeholder="Enter hospital name here" ng-model="vm.otherHospital">
         </label>
       </form>
     </div>
@@ -55,7 +104,7 @@
     <!--Next button-->
     <div class="spacer" style="width: 748px; height: 27px;"></div>
     <div class="col-offset-50 col-50">
-      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+      <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

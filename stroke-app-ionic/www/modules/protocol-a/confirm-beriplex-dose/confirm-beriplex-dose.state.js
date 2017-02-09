@@ -7,6 +7,7 @@ ConfirmBeriplexDoseState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function ConfirmBeriplexDoseState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.confirm-beriplex-dose', {
+    cache: false,
     url: '/confirm-beriplex-dose',
     views: {
       'tab-a': {

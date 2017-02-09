@@ -7,6 +7,7 @@ CalculateBeriplexDoseState.$inject = ['$stateProvider', '$urlRouterProvider'];
 function CalculateBeriplexDoseState($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tabs.calculate-beriplex-dose', {
+    cache: false,
     url: '/calculate-beriplex-dose',
     views: {
       'tab-a': {

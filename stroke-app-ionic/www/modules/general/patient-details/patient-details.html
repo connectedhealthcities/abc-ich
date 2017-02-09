@@ -22,7 +22,7 @@
             </label>
             <label class="item item-input">
               <span class="input-label">Time</span>
-              <input type="time" step="60" ng-model="vm.doorTime">
+              <input type="time" step="60" ng-model="vm.doorTime" displayformat="HH:mm">
             </label>
           </div>
 
@@ -47,7 +47,7 @@
             </label>
             <label class="item item-input">
               <span class="input-label">Time</span>
-              <input type="time" step="60" ng-model="vm.onsetTime" ng-change="vm.onOnsetChanged()">
+              <input type="time" step="60" ng-model="vm.onsetTime" displayformat="HH:mm" ng-change="vm.onOnsetChanged()">
             </label>
           </div>
 

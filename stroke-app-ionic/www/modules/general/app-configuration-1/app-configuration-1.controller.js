@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('AppConfiguration1Controller', AppConfiguration1Controller);
 
-AppConfiguration1Controller.$inject = ['$scope', '$stateParams', 'API', 'ConfigService', '$ionicPopup', '$timeout', '$window'];
+AppConfiguration1Controller.$inject = ['$scope', '$stateParams', 'API', 'ConfigurationCacheService', '$ionicPopup', '$timeout', '$window'];
 
-function AppConfiguration1Controller($scope, $stateParams, API, ConfigService, $ionicPopup, $timeout, $window) {
+function AppConfiguration1Controller($scope, $stateParams, API, ConfigurationCacheService, $ionicPopup, $timeout, $window) {
 
     var vm = this;
     vm.onCancel = onCancel;
@@ -25,19 +25,19 @@ function AppConfiguration1Controller($scope, $stateParams, API, ConfigService, $
     $scope.dataChanged = false;
     $scope.init = function(){
         $scope.hospitals = API.getHospitalIds();
-        $scope.config = ConfigService.getConfig();
+        $scope.config = ConfigurationCacheService.getConfig();
         $scope.previousConfig = angular.copy($scope.config);
     };
   
     $scope.saveConfig = function(){
         if($scope.dataChanged){
-            $scope.confirmSave(ConfigService.saveConfig);
+            $scope.confirmSave(ConfigurationCacheService.saveConfig);
         }
     };
 
     $scope.cancelUpdate = function(){
         if($scope.dataChanged){
-            ConfigService.saveConfig($scope.config);
+            ConfigurationCacheService.saveConfig($scope.config);
             $scope.confirmCancel($scope.resetConfig);
         } else {
             alert("unimplemented. Will go to 'home' screen")

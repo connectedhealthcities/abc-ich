@@ -57,6 +57,7 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService) {
             templateUrl: 'modules/general/gcs-entry/gcs-entry-data-validation-popup.html',
             title: 'Data validation',
             subTitle: 'Please confirm data entered is correct',
+            cssClass: 'chi-wide-popup',
             scope: $scope
         };       
         var popup = $ionicPopup.confirm(popupTemplate);
@@ -71,7 +72,8 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService) {
     function showStabilisePatientPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/general/gcs-entry/stabilise-patient-popup.html',
-            title: 'Stabilise patient'
+            title: 'Stabilise patient',
+            cssClass: 'chi-wide-popup'
         };
         var popup = $ionicPopup.alert(popupTemplate);
 

@@ -1,14 +1,54 @@
-<ion-view title="NEW SCREEN S7" id="page46">
+<ion-view title="DOAC reversal agent details">
   <ion-content padding="true" class="has-header">
-    <div id="nEWSCREENS7-markdown213" style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-      <p style="font-size:19px;">
-        <strong>Patient Id:</strong> 12152016-emt</p>
+    <div>
+      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+        <p style="font-size:18px;">
+          <strong>Patient Id:</strong> 12152016-emt</p>
+      </div>
+      <hr>
+    </div>
+
+    <div class="spacer" style="width: 748px; height: 32px;"></div>
+ 
+    <div class="list card">
+      <ion-item class="item-icon-left  card-header card-header-green">
+        <i class="icon ion-ionic"></i>Reversal agent administered</ion-item>
+      <ion-list id="antiCoagulant-list8">
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'Idarucizumab'">Idarucizumab</ion-radio>
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'PCC'">PCC</ion-radio>
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">None</ion-radio>
+       </ion-list>
+    </div>
+
+    <div class="list card" ng-show="vm.reversalAgent === 'Idarucizumab' || vm.reversalAgent === 'PCC'">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Reversal time
+        </ion-item>
+        <div class="row row-center">
+          
+          <div class="col-90">
+            <label class="item item-input">
+              <span class="input-label">Date</span>
+              <input type="date" ng-model="vm.reversalDate">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Time</span>
+              <input type="time" step="60" ng-model="vm.reversalTime" displayformat="HH:mm">
+            </label>
+          </div>
+
+          <div class="col-10 text-center">
+            <button ng-click="vm.onReversalNow()" class="button button-calm">Now</button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <!--Next button-->
     <div class="spacer" style="width: 748px; height: 27px;"></div>
     <div class="col-offset-50 col-50">
-      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+      <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

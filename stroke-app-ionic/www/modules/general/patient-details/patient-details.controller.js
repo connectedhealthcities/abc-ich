@@ -24,7 +24,12 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
 
     function isNextButtonEnabled() {
         var isEnabled = false;
-        if(vm.doorDate && vm.doorTime && vm.onsetDate && vm.onsetTime && vm.isOnsetLastSeenWell != null && vm.isOnsetBestEstimate != null){
+        if( vm.doorDate != null &&
+            vm.doorTime != null && 
+            vm.onsetDate != null && 
+            vm.onsetTime != null && 
+            vm.isOnsetLastSeenWell != null 
+            && vm.isOnsetBestEstimate != null) {
     		isEnabled = true;
     	}
         return isEnabled;

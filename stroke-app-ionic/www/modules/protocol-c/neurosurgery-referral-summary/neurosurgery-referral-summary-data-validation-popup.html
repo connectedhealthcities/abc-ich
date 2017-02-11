@@ -1,0 +1,38 @@
+<ion-list> 
+    <ion-item>
+         <div class="row">
+          <div class="col-80">Referred to neurosurgery:</div>
+          <div class="col-20 text-right">{{vm.isReferred}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isReferred">
+         <div class="row">
+          <div class="col-80">Referral date:</div>
+          <div class="col-20 text-right">{{vm.referralDate | date: 'dd MMM yyyy'}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isReferred">
+         <div class="row">
+          <div class="col-80">Referral time:</div>
+          <div class="col-20 text-right">{{vm.referralTime | date: 'HH:mm'}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isReferred">
+         <div class="row">
+          <div class="col-80">Neurosurgeon name:</div>
+          <div class="col-20 text-right">{{vm.neurosurgeonName}}</div>
+        </div>    
+    </ion-item>
+    <ion-item ng-show="vm.isReferred">
+         <div class="row">
+          <div class="col-80">Transfer to neurosurgery accepted:</div>
+          <div class="col-20 text-right">{{vm.isAccepted}}</div>
+        </div>    
+    </ion-item>
+    <ion-item>
+         <div class="row">
+          <div class="col-80">For active treatment:</div>
+          <div class="col-20 text-right">{{vm.isForActiveTreatment}}</div>
+        </div>    
+    </ion-item>
+</ion-list>

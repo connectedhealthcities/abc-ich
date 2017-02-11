@@ -27,12 +27,10 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
         saveData();
 
         if (PatientCacheService.getGcsScore() < 9) {
-            var state = TabStateCacheService.getStateTabC();
-            $state.go(state);
+            TabStateCacheService.goLatestStateTabC();
         }
         else {
-            var state = TabStateCacheService.getStateTabB();
-            $state.go(state);
+            TabStateCacheService.goLatestStateTabB();
         }
      }
 

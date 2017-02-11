@@ -2,9 +2,9 @@
 
 angular.module('utils').service('TabStateCacheService', TabStateCacheService);
 
-TabStateCacheService.$inject = [];
+TabStateCacheService.$inject = ['$state'];
 
-function TabStateCacheService() {
+function TabStateCacheService($state) {
 
     var DEFAULT_STATE_TAB_A = 'tabs.anticoagulant-identification';
     var DEFAULT_STATE_TAB_B = 'tabs.bp-management';
@@ -24,6 +24,10 @@ function TabStateCacheService() {
 
         getStateTabC: getStateTabC,
         setStateTabC: setStateTabC,
+
+        goLatestStateTabA: goLatestStateTabA,
+        goLatestStateTabB: goLatestStateTabB,
+        goLatestStateTabC: goLatestStateTabC,
 
         clearAll: clearAll
     };
@@ -52,6 +56,18 @@ function TabStateCacheService() {
 
     function setStateTabC(stateTabC) {
         _stateTabC = stateTabC;
+    }
+
+    function goLatestStateTabA() {
+        $state.go(_stateTabA);
+    }
+
+    function goLatestStateTabB() {
+        $state.go(_stateTabB);
+    }
+
+    function goLatestStateTabC() {
+        $state.go(_stateTabC);
     }
 
     function clearAll() {

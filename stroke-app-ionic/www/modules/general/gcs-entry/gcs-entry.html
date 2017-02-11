@@ -1,119 +1,125 @@
 <ion-view title="Glasgow coma score">
   <ion-content padding="true" class="has-header">
-    <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-      <p style="font-size:19px;">
-        <strong>Patient Id:</strong> 12152016-emt</p>
+    <div>
+      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+        <p style="font-size:18px;">
+          <strong>Patient Id:</strong> 12152016-emt</p>
+      </div>
+      <hr>
     </div>
+    
     <div class="list card">
       <ion-item class="item-icon-left card-header card-header-green">
         <i class="icon ion-ionic"></i>Eye response</ion-item>
       <ion-radio ng-model="vm.eye" ng-change="vm.gcsValueChanged()" name="eye" ng-value="1">
         <div class="row">
-          <div class="col-80">Does not open eyes</div>
-          <div class="col-10">1</div>
+          <div class="col-90 item-text-wrap">Does not open eyes</div>
+          <div class="col-10 text-right">1</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.eye" ng-change="vm.gcsValueChanged()" name="eye" ng-value="2">
         <div class="row">
-          <div class="col-80">Opens eyes in response to painful stimuli</div>
-          <div class="col-10">2</div>
+          <div class="col-90 item-text-wrap">Opens eyes in response to painful stimuli</div>
+          <div class="col-10 text-right">2</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.eye" ng-change="vm.gcsValueChanged()" name="eye" ng-value="3">
         <div class="row">
-          <div class="col-80">Opens eyes in response to voice</div>
-          <div class="col-10">3</div>
+          <div class="col-90 item-text-wrap">Opens eyes in response to voice</div>
+          <div class="col-10 text-right">3</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.eye" ng-change="vm.gcsValueChanged()" name="eye" ng-value="4">
         <div class="row">
-          <div class="col-80">Opens eyes spontaneously</div>
-          <div class="col-10">4</div>
+          <div class="col-90 item-text-wrap">Opens eyes spontaneously</div>
+          <div class="col-10 text-right">4</div>
         </div>
       </ion-radio>
     </div>
+
     <div class="list card">
       <ion-item class="item-icon-left card-header card-header-green">
         <i class="icon ion-ionic"></i>Verbal response</ion-item>
 
       <ion-radio ng-model="vm.verbal" ng-change="vm.gcsValueChanged()" name="verbal" ng-value="1">
         <div class="row">
-          <div class="col-80">Makes no sounds</div>
-          <div class="col-10">1</div>
+          <div class="col-90 item-text-wrap">Makes no sounds</div>
+          <div class="col-10 text-right">1</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.verbal" ng-change="vm.gcsValueChanged()" name="verbal" ng-value="2">
         <div class="row">
-          <div class="col-80">Incomprehensible sounds</div>
-          <div class="col-10">2</div>
+          <div class="col-90 item-text-wrap">Incomprehensible sounds</div>
+          <div class="col-10 text-right">2</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.verbal" ng-change="vm.gcsValueChanged()" name="verbal" ng-value="3">
         <div class="row">
-          <div class="col-80">Utters incoherent words</div>
-          <div class="col-10">3</div>
+          <div class="col-90 item-text-wrap">Utters incoherent words</div>
+          <div class="col-10 text-right">3</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.verbal" ng-change="vm.gcsValueChanged()" name="verbal" ng-value="4">
         <div class="row">
-          <div class="col-80">Confused, disoriented </div>
-          <div class="col-10">4</div>
+          <div class="col-90 item-text-wrap">Confused, disoriented </div>
+          <div class="col-10 text-right">4</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.verbal" ng-change="vm.gcsValueChanged()" name="verbal" ng-value="5">
         <div class="row">
-          <div class="col-80">Oriented, converses normally</div>
-          <div class="col-10">5</div>
+          <div class="col-90 item-text-wrap">Oriented, converses normally</div>
+          <div class="col-10 text-right">5</div>
         </div>
       </ion-radio>
     </div>
+
     <div class="list card">
       <ion-item class="item-icon-left card-header card-header-green">
         <i class="icon ion-ionic"></i>Motor response</ion-item>
-
       <ion-radio ng-model="vm.motor" ng-change="vm.gcsValueChanged()" name="motor" ng-value="1">
         <div class="row">
-          <div class="col-80">Makes no movements</div>
-          <div class="col-10">1</div>
+          <div class="col-90 item-text-wrap">Makes no movements</div>
+          <div class="col-10 text-right">1</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.motor" ng-change="vm.gcsValueChanged()" name="motor" ng-value="2">
         <div class="row">
-          <div class="col-80">Extension to painful stimuli </div>
-          <div class="col-10">2</div>
+          <div class="col-90 item-text-wrap">Extension to painful stimuli </div>
+          <div class="col-10 text-right">2</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.motor" ng-change="vm.gcsValueChanged()" name="motor" ng-value="3">
         <div class="row">
-          <div class="col-80">Abnormal flexion to painful stimuli </div>
-          <div class="col-10">3</div>
+          <div class="col-90 item-text-wrap">Abnormal flexion to painful stimuli </div>
+          <div class="col-10 text-right">3</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.motor" ng-change="vm.gcsValueChanged()" name="motor" ng-value="4">
         <div class="row">
-          <div class="col-80">Flexion / Withdrawal to painful stimuli</div>
-          <div class="col-10">4</div>
+          <div class="col-90 item-text-wrap">Flexion / Withdrawal to painful stimuli</div>
+          <div class="col-10 text-right">4</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.motor" ng-change="vm.gcsValueChanged()" name="motor" ng-value="5">
         <div class="row">
-          <div class="col-80">Localizes painful stimuli</div>
-          <div class="col-10">5</div>
+          <div class="col-90 item-text-wrap">Localizes painful stimuli</div>
+          <div class="col-10 text-right">5</div>
         </div>
       </ion-radio>
       <ion-radio ng-model="vm.motor" ng-change="vm.gcsValueChanged()" name="motor" ng-value="6">
         <div class="row">
-          <div class="col-80">Obeys commands</div>
-          <div class="col-20">6</div>
+          <div class="col-90 item-text-wrap">Obeys commands</div>
+          <div class="col-10 text-right">6</div>
         </div>
       </ion-radio>
       <div>
       </div>
     </div>
+
     <div class="list card data-display-region">
       <div class="item item-body transparent-header gcs-total">
         <div class="row creator-container">
-          <div class="col-80" style="text-align: right; width: 100%;">Total: {{vm.total}}</div>
+          <div class="col-90" style="text-align: right; width: 100%;">Total: {{vm.total}}</div>
         </div>
       </div>
     </div>

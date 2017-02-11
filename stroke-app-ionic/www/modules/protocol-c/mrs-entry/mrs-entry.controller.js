@@ -2,19 +2,52 @@
 
 angular.module('app.protocolC').controller('MrsEntryController', MrsEntryController);
 
-MrsEntryController.$inject = ['$state', 'TabStateCacheService'];
+MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService'];
 
-function MrsEntryController($state, TabStateCacheService) {
+function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService) {
  
     var vm = this; // S5
 
     TabStateCacheService.setStateTabC('tabs.mrs-entry');
 
+    vm.mrs = null;
+
     vm.onNext = onNext;
+    vm.isNextButtonEnabled = isNextButtonEnabled;
 
     function onNext() {
-        $state.go('tabs.neurosurgery-referral-criteria');
+        showDataValidationPopup(handleDataIsValid); 
     }
 
- //   $scope.default = -1;
+    function handleDataIsValid() {
+        saveData();
+
+        $state.go('tabs.neurosurgery-referral-criteria');
+     }
+
+    function saveData() {
+        PatientCacheService.setPremorbidMrsScore(vm.mrs);
+     }
+
+     function isNextButtonEnabled() {
+          return vm.mrs != null;
+     }
+
+     function showDataValidationPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/mrs-entry/mrs-entry-data-validation-popup.html',
+            title: 'Data validation',
+            subTitle: 'Please confirm data entered is correct',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };       
+        var popup = $ionicPopup.confirm(popupTemplate);
+
+        popup.then(function(res) {
+            if (res) {
+                okHandler();
+            }
+        });
+     }
 }
+

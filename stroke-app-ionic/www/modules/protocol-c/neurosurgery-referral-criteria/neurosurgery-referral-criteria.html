@@ -1,92 +1,97 @@
-<ion-view title="Referral to neurosurgery" id="page28">
+<ion-view title="Neurosurgery referral criteria">
   <ion-content padding="true" class="has-header">
+    
     <div>
       <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
         <p style="font-size:18px;">
           <strong>Patient Id:</strong> 12152016-emt</p>
       </div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>App start time:</strong> {{appStartDisplay}}</p>
-      </div>
       <hr>
     </div>
-    <div class="list card border" id="referralToNeurosurgery-card224">
-      <ion-item class="item-icon-left  card-header card-header-green" id="referralToNeurosurgery-list-item48">
-        <i class="icon ion-ios-information-outline"></i>Neurosurgery referral criteria</ion-item>
-      <div class="item item-body container" id="referralToNeurosurgery-list-item-container8">
-        <div id="referralToNeurosurgery-container311" class="row">
-          <div id="referralToNeurosurgery-container312" class="col-66">
-            <div id="referralToNeurosurgery-container314">
-              <div id="referralToNeurosurgery-container316" class="row">
-                <div id="referralToNeurosurgery-markdown197" class="show-list-numbers-and-dots">
+
+    <div class="list card">
+      <ion-item class="item-icon-left card-header card-header-green">
+        <i class="icon ion-ios-information-outline"></i>Baseline scan info
+      </ion-item>
+
+    <!--<div class="list card border">
+      <ion-item class="item-icon-left  card-header card-header-green">
+        <i class="icon ion-ios-information-outline"></i>Neurosurgery referral criteria
+    </ion-item>-->
+      <div class="item item-body container">
+        <div class="row">
+          <div class="col-66 text-left" style="padding-right: 10px;">
+            <div>
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
                   <p style="color:#000000;">
                     <strong>Refer to Neurosurgery if any of the following criteria are met:</strong>
                   </p>
                 </div>
               </div>
-              <div id="referralToNeurosurgery-container317" class="row">
-                <div id="referralToNeurosurgery-markdown198" class="show-list-numbers-and-dots">
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
                   <p style="color:#000000;">i.
                     <strong>Posterior fossa ICH</strong> (brainstem or cerebellum)</p>
                 </div>
               </div>
-              <div id="referralToNeurosurgery-container318" class="row">
-                <div id="referralToNeurosurgery-markdown199" class="show-list-numbers-and-dots">
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
                   <p style="color:#000000;">ii.
                     <strong>Obstruction of the third and/or fourth ventricle</strong> by intraventricular haemorrhage or by external compression</p>
                 </div>
               </div>
-              <div id="referralToNeurosurgery-container319" class="row">
-                <div id="referralToNeurosurgery-markdown200" class="show-list-numbers-and-dots">
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
                   <p style="color:#000000;">iii.
                     <strong>ICH volume greater than 30 ml</strong>, as measured by ABC/2 method</p>
                 </div>
               </div>
-              <div id="referralToNeurosurgery-container320" class="row">
-                <div id="referralToNeurosurgery-markdown201" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;">Shared care on Neuro HDU (NHDU) may be appropriate for these patients —discuss with Neurosurgery and NHDU team on a case-by-case basis</p>
-                </div>
-              </div>
             </div>
           </div>
-          <div id="referralToNeurosurgery-container313" class="col-33">
+          <div class="col-33 text-center">
             <div class="border" style="margin-left: -10px; width: calc(100% + 20px);">
-              <img src="img/MwXmIQnSKSQ4jLmk93SA_ICH_volume.jpg" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
-            </div>
+              <img src="img/ich-volume.jpg" style="max-width: 100%; height: auto;">
+             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="show-list-numbers-and-dots">
+            <p style="color:#000000;">Shared care on Neuro HDU (NHDU) may be appropriate for these patients —discuss with Neurosurgery and NHDU team on a case-by-case basis</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="list card" id="referralToNeurosurgery-card21">
-      <form id="referralToNeurosurgery-form52" class="list">
-        <ion-item class="item-icon-left  card-header card-header-green" id="referralToNeurosurgery-list-item20">
+
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-calculator"></i>ICH volume calculation</ion-item>
-        <label class="item item-input" id="referralToNeurosurgery-input17">
+        <label class="item item-input">
           <span class="input-label">Longest axis</span>
           <input type="number" placeholder="">
         </label>
-        <label class="item item-input" id="referralToNeurosurgery-input18">
+        <label class="item item-input">
           <span class="input-label">Longest axis perpendicular to</span>
           <input type="number" placeholder="">
         </label>
-        <label class="item item-input" id="referralToNeurosurgery-input19">
+        <label class="item item-input">
           <span class="input-label">Number of slices showing heamatoma</span>
           <input type="number" placeholder="">
         </label>
-        <label class="item item-input" id="referralToNeurosurgery-input26">
-          <span class="input-label">Slice through thickness</span>
+        <label class="item item-input">
+          <span class="input-label">Slice thickness</span>
           <input type="number" placeholder="">
         </label>
-        <div id="referralToNeurosurgery-container283" class="row">
-          <div id="referralToNeurosurgery-container284" class="col-60 creator-container"></div>
-          <div id="referralToNeurosurgery-container289" class="col-40">
-            <button id="referralToNeurosurgery-button64" class="button button-positive  button-block icon-left ion-calculator">Calculate</button>
+        <div class="row">
+          <div class="col-60 creator-container"></div>
+          <div class="col-40">
+            <button class="button button-positive  button-block icon-left ion-calculator">Calculate</button>
           </div>
         </div>
       </form>
-      <div class="item item-body" id="referralToNeurosurgery-list-item-container11">
-        <div id="referralToNeurosurgery-markdown112" class="show-list-numbers-and-dots">
+      <div class="item item-body">
+        <div class="show-list-numbers-and-dots">
           <p style="margin-top:0px;color:#000000;">
             <strong>ICH volume:</strong> 30ml</p>
         </div>

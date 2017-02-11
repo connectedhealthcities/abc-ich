@@ -16,12 +16,10 @@ function CalculateBeriplexDoseController($state, PatientCacheService, TabStateCa
         
         if (PatientCacheService.getInrValue() < 1.3) {
             if (PatientCacheService.getGcsScore() < 9) {
-                var state = TabStateCacheService.getStateTabC();
-                $state.go(state);
+                TabStateCacheService.goLatestStateTabC();
             }
             else {
-                var state = TabStateCacheService.getStateTabB();
-                $state.go(state);
+                TabStateCacheService.goLatestStateTabB();
             }
         }
         else {
@@ -34,12 +32,10 @@ function CalculateBeriplexDoseController($state, PatientCacheService, TabStateCa
                 }
                 else {
                     if (PatientCacheService.getGcsScore() < 9) {
-                        var state = TabStateCacheService.getStateTabC();
-                        $state.go(state);
+                        TabStateCacheService.goLatestStateTabC();
                     }
                     else {
-                        var state = TabStateCacheService.getStateTabB();
-                        $state.go(state);
+                        TabStateCacheService.goLatestStateTabB();
                     }
                 }
             }

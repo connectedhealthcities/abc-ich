@@ -45,17 +45,13 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
     }
 
     function onDoorNow() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.doorDate = now;
         vm.doorTime = now;
     }
 
     function onOnsetNow() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.onsetDate = now;
         vm.onsetTime = now;
         onOnsetChanged();

@@ -65,6 +65,7 @@ function PatientCacheService() {
     var _bpTargetReachedDateTime = "NOT NULL"; //cjd
     var _bpTreatmentThreshold = null;
     var _bpTarget = null;
+    var _bpBpMeasurementEntries = [];
     // critical-care-referral
     var _destination = null;
     var _otherDestination = null;
@@ -213,7 +214,8 @@ function PatientCacheService() {
         getBpTarget: getBpTarget,
         setBpTarget: setBpTarget,
 
-        //cjd ToDo - collection of BP Measurement entries
+        getBpMeasurementEntries: getBpMeasurementEntries,
+        addBpMeasurementEntry: addBpMeasurementEntry,
 
         // critical-care-referral
         getDestination: getDestination,
@@ -552,6 +554,14 @@ function PatientCacheService() {
     
     function setBpTarget(bpTarget) {
         _bpTarget = bpTarget;
+    }
+
+    function getBpMeasurementEntries() {
+        return _bpBpMeasurementEntries;
+    }
+
+    function addBpMeasurementEntry(bpMeasurementEntry) {
+        _bpBpMeasurementEntries.push(bpMeasurementEntry);
     }
     
     // critical-care-referral

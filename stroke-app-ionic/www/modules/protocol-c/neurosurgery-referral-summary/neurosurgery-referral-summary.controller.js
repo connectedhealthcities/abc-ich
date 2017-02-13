@@ -81,9 +81,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
     }
 
     function onReferralNow() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.referralDate = now;
         vm.referralTime = now;
     }

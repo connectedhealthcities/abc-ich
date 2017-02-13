@@ -64,9 +64,7 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
      }
 
      function onReversalNow() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.reversalDate = now;
         vm.reversalTime = now;
      }

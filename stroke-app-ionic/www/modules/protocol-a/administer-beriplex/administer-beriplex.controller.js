@@ -71,17 +71,13 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     }
 
     function onBeriplexNow() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.beriplexDate = now;
         vm.beriplexTime = now;
     }
 
     function onVitkNow() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.vitkDate = now;
         vm.vitkTime = now;
     }

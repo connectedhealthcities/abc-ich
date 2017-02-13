@@ -1,17 +1,172 @@
-<ion-view title="Acute blood pressure management" id="page20">
+<ion-view title="BP management">
   <ion-content padding="true" class="has-header">
-    <div id="acuteBloodPressureManagement-markdown68" style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
+
+    <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
       <p style="font-size:19px;">
         <strong>Patient Id:</strong> 12152016-emt</p>
     </div>
-    <div id="acuteBloodPressureManagement-markdown69" style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-      <p style="font-size:19px;">
-        <strong>Onset time:</strong> 12:00 - Less than six hours ago</p>
-    </div>
     <hr>
-    <div class="list card data-display-region" id="acuteBloodPressureManagement-card27">
-      <ion-item class="item-icon-left  card-header transparent-header" id="acuteBloodPressureManagement-list-item22">
-        <i class="icon ion-android-radio-button-on"></i>Acute treatment target</ion-item>
+
+    <div class="list card data-display-region">
+      <ion-item class="item-icon-left card-header transparent-header">
+        <i class="icon ion-android-radio-button-on"></i>Acute treatment target
+      </ion-item>
+      <!--<div class="item item-body container transparent-header">-->
+        <div class="row">
+            <div>
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
+                  <p style="color:#000000; font-size:16px;">
+                    Onset time is {{vm.onsetTimeText}} six hours ago
+                 </div>
+              </div>
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
+                  <p style="color:#000000; font-size:16px;">
+                    Start treatment if SBP greater than: <strong>{{vm.treatmentThreshold}}</strong>
+                </div>
+              </div>
+              <div class="row">
+                <div class="show-list-numbers-and-dots">
+                  <p style="color:#000000; font-size:16px;">
+                    Lower SBP to: <strong>{{vm.treatmentTarget}}</strong>
+                 </div>
+              </div>
+          </div>
+        </div>
+      <!--</div>-->
+        <!--<div class="row">
+          <div class="col text-center">
+            <p style="color:#000000; font-size:16px;">
+            BP Monitoring: every 15 min for 1 h, then hourly up to 24 h
+          </div>
+        </div>-->
+    </div>
+
+    <!--<div class="spacer" style="width: 748px; height: 32px;"></div>-->
+
+    <div class="row">
+      <div class="col-33 text-left">
+        <button ng-click="vm.showGtnProtocolPopup()" class="button button-energized  button-block icon-left ion-information-circled">GTN protocol</button>
+      </div>
+      <div class="col-33 col-offset-33 text-right">
+        <button ng-click="vm.showLabetalolProtocolPopup()" class="button button-energized  button-block icon-left ion-information-circled">Labetalol protocol</button>
+      </div>
+    </div>
+
+    <div class="spacer" style="width: 748px; height: 32px;"></div>
+
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-heart"></i>Measurement
+        </ion-item>
+        <div class="row row-center">
+          
+          <div class="col-90">
+            <label class="item item-input">
+              <span class="input-label">Date</span>
+              <input type="date" ng-model="vm.entryDate">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Time</span>
+              <input type="time" step="60" ng-model="vm.entryTime" displayformat="HH:mm">
+            </label>
+          </div>
+
+          <div class="col-10 text-center">
+            <button ng-click="vm.onEntryNow()" class="button button-calm">Now</button>
+          </div>
+        </div>
+        <label class="item item-input">
+          <span class="input-label">Systolic blood preasure (mmHg)</span>
+          <input type="number" placeholder="" ng-model="vm.entrySbp">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">IV GTN rate (ml/h)</span>
+          <input type="number" placeholder="" ng-model="vm.entryGtn">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Labetalol dose (mg)</span>
+          <input type="number" placeholder="" ng-model="vm.entryLabetalol">
+        </label>
+        <div class="spacer" style="width: 748px; height: 1px;"></div>
+      </form>
+    </div>
+
+      <div>
+      <form class="list">
+        <div class="row">
+
+          <div class="col-33 col-offset-67 text-right">
+            <button ng-disabled="!vm.isAddEntryButtonEnabled()" ng-click="vm.addEntry()" style="border-radius:4px 4px 4px 4px;" class="button button-positive  button-block icon-right ion-clipboard">Add entry</button>
+          </div>
+        </div>
+
+        <div class="spacer" style="width: 748px; height: 11px;"></div>
+        <div class="list card data-display-region">
+          <ion-item class="item-icon-left  card-header transparent-header" id="acuteBloodPressureManagement-list-item17">
+            <i class="icon ion-ios-pulse-strong"></i>Previous measurements
+          </ion-item>
+          
+          <div class="row">
+            <div class="col table-header">
+              <h4 style="color:#000000;font-weight:300;text-align:center;">Time</h4>
+            </div>
+            <div class="col table-header">
+              <h4 style="color:#000000;font-weight:300;text-align:center;">SBP (mmhg)</h4>
+            </div>
+            <div class="col table-header">
+              <h4 style="color:#000000;font-weight:300;text-align:center;">IV GTN rate (ml/h)</h4>
+            </div>
+            <div class="col table-header">
+              <h4 style="color:#000000;font-weight:300;text-align:center;">Labetalol dose (mg)</h4>
+            </div>
+          </div>
+
+          <ion-scroll class="scroller">
+            <div class="row" ng-repeat="entry in vm.entries">
+              <div class="col table-cell-botto">
+                <div style="text-align:center;" class="show-list-numbers-and-dots">
+                  {{entry.dateTime | date: 'HH:mm'}}
+                </div>
+              </div>
+              <div class="col table-cell-botto">
+                <div style="text-align:center;" class="show-list-numbers-and-dots">
+                  {{entry.systolicBp}}
+                </div>
+              </div>
+              <div class="col table-cell-botto">
+                <div style="text-align:center;" class="show-list-numbers-and-dots">
+                  {{entry.gtnRate}}
+                </div>
+              </div>
+              <div class="col">
+                <div style="text-align:center;" class="show-list-numbers-and-dots">
+                   {{entry.labetalolDose}}
+               </div>
+              </div>
+            </div>
+          </ion-scroll>
+
+        </div>
+      </form>
+    </div>
+
+    <!--Next button-->
+    <!--<div class="spacer" style="width: 748px; height: 27px;"></div>-->
+    <div class="col-offset-50 col-50">
+      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+    </div>
+  </ion-content>
+</ion-view>
+
+
+
+    <!--<div class="list card data-display-region">
+      <ion-item class="item-icon-left  card-header transparent-header">
+        <i class="icon ion-android-radio-button-on"></i>Acute treatment target
+      </ion-item>
       <div>
         <div class="row">
           <div class="col creator-container"></div>
@@ -67,224 +222,4 @@
           <div class="col creator-container"></div>
         </div>
       </div>
-    </div>
-    <div class="list card" id="acuteBloodPressureManagement-card22">
-      <form id="acuteBloodPressureManagement-form15" class="list">
-        <ion-item class="item-icon-left  card-header card-header-green" id="acuteBloodPressureManagement-list-item16">
-          <i class="icon ion-heart"></i>Measurement</ion-item>
-        <label class="item item-input" id="acuteBloodPressureManagement-input21">
-          <span class="input-label">Time</span>
-          <input type="time" placeholder="">
-        </label>
-        <label class="item item-input" id="acuteBloodPressureManagement-input24">
-          <span class="input-label">Systolic blood preasure (mmHg)</span>
-          <input type="number" placeholder="">
-        </label>
-        <label class="item item-input" id="acuteBloodPressureManagement-input25">
-          <span class="input-label">IV GTN rate (ml/h)</span>
-          <input type="number" placeholder="">
-        </label>
-        <label class="item item-input" id="acuteBloodPressureManagement-input28">
-          <span class="input-label">Labetalol dose (mg)</span>
-          <input type="number" placeholder="">
-        </label>
-        <div class="spacer" style="width: 748px; height: 1px;"></div>
-      </form>
-    </div>
-    <div id="acuteBloodPressureManagement-container570">
-      <form id="acuteBloodPressureManagement-form16" class="list">
-        <div id="acuteBloodPressureManagement-container528" class="row">
-          <div id="acuteBloodPressureManagement-container525" class="col-33">
-            <a ui-sref="tabsController.nEWPOPUPP10" id="acuteBloodPressureManagement-button39" class="button button-light  button-block icon-right ion-alert-circled review-btn button">Review BP protocol</a>
-            <a ui-sref="tabsController.nEWPOPUPP11" id="acuteBloodPressureManagement-button115" class="button button-light  button-block icon-right ion-alert-circled review-btn button">Review BP protocol</a>
-          </div>
-          <div id="acuteBloodPressureManagement-container526" class="col-33 creator-container"></div>
-          <div id="acuteBloodPressureManagement-container527" class="col-33">
-            <button id="acuteBloodPressureManagement-button40" style="border-radius:4px 4px 4px 4px;" class="button button-positive  button-block icon-right ion-clipboard">Add record</button>
-          </div>
-        </div>
-        <div class="spacer" style="width: 748px; height: 11px;"></div>
-        <div class="list card data-display-region" id="acuteBloodPressureManagement-card23">
-          <ion-item class="item-icon-left  card-header transparent-header" id="acuteBloodPressureManagement-list-item17">
-            <i class="icon ion-ios-pulse-strong"></i>Previous measurements</ion-item>
-          <div id="acuteBloodPressureManagement-container533" class="row">
-            <div id="acuteBloodPressureManagement-container529" class="col table-header">
-              <h4 id="acuteBloodPressureManagement-heading43" style="color:#000000;font-weight:300;text-align:center;">Time</h4>
-            </div>
-            <div id="acuteBloodPressureManagement-container530" class="col table-header">
-              <h4 id="acuteBloodPressureManagement-heading44" style="color:#000000;font-weight:300;text-align:center;">SBP (mmhg)</h4>
-            </div>
-            <div id="acuteBloodPressureManagement-container531" class="col table-header">
-              <h4 id="acuteBloodPressureManagement-heading45" style="color:#000000;font-weight:300;text-align:center;">IV GTN rate (ml/h)</h4>
-            </div>
-            <div id="acuteBloodPressureManagement-container532" class="col table-header">
-              <h4 id="acuteBloodPressureManagement-heading46" style="color:#000000;font-weight:300;text-align:center;">Labetalol dose (mg)</h4>
-            </div>
-          </div>
-          <ion-scroll id="acuteBloodPressureManagement-container569" class="scroller">
-            <div id="acuteBloodPressureManagement-container538" class="row">
-              <div id="acuteBloodPressureManagement-container534" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown74" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">14:00</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container535" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown75" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">130</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container536" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown76" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">4.5</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container537" class="col">
-                <div id="acuteBloodPressureManagement-markdown77" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">10</p>
-                </div>
-              </div>
-            </div>
-            <div id="acuteBloodPressureManagement-container543" class="row">
-              <div id="acuteBloodPressureManagement-container539" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown78" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">13:55</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container540" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown79" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">133</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container541" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown84" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">4</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container542" class="col">
-                <div id="acuteBloodPressureManagement-markdown89" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">-</p>
-                </div>
-              </div>
-            </div>
-            <div id="acuteBloodPressureManagement-container548" class="row">
-              <div id="acuteBloodPressureManagement-container544" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown90" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">13:50</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container545" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown91" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">135</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container546" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown92" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">3.5</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container547" class="col">
-                <div id="acuteBloodPressureManagement-markdown93" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">-</p>
-                </div>
-              </div>
-            </div>
-            <div id="acuteBloodPressureManagement-container553" class="row">
-              <div id="acuteBloodPressureManagement-container549" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown94" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">13:45</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container550" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown95" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">136</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container551" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown96" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">3</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container552" class="col">
-                <div id="acuteBloodPressureManagement-markdown97" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">-</p>
-                </div>
-              </div>
-            </div>
-            <div id="acuteBloodPressureManagement-container558" class="row">
-              <div id="acuteBloodPressureManagement-container554" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown98" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">13:40</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container555" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown99" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">136</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container556" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown100" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">2.5</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container557" class="col">
-                <div id="acuteBloodPressureManagement-markdown101" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">-</p>
-                </div>
-              </div>
-            </div>
-            <div id="acuteBloodPressureManagement-container563" class="row">
-              <div id="acuteBloodPressureManagement-container559" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown102" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">13:35</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container560" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown103" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">140</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container561" class="col table-cell-botto">
-                <div id="acuteBloodPressureManagement-markdown104" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">2</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container562" class="col">
-                <div id="acuteBloodPressureManagement-markdown105" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#000000;font-size:16px;">-</p>
-                </div>
-              </div>
-            </div>
-            <div id="acuteBloodPressureManagement-container568" class="row">
-              <div id="acuteBloodPressureManagement-container564" class="col table-cel">
-                <div id="acuteBloodPressureManagement-markdown106" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#524D4D;font-size:16px;">13:30</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container565" class="col table-cel">
-                <div id="acuteBloodPressureManagement-markdown107" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#524D4D;font-size:16px;">140</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container566" class="col table-cel">
-                <div id="acuteBloodPressureManagement-markdown108" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#524D4D;font-size:16px;">1.5</p>
-                </div>
-              </div>
-              <div id="acuteBloodPressureManagement-container567" class="col table-cell-edg">
-                <div id="acuteBloodPressureManagement-markdown109" style="text-align:center;" class="show-list-numbers-and-dots">
-                  <p style="color:#524D4D;font-size:16px;">-</p>
-                </div>
-              </div>
-            </div>
-          </ion-scroll>
-        </div>
-      </form>
-    </div>
-
-    <!--Next button-->
-    <div class="spacer" style="width: 748px; height: 27px;"></div>
-    <div class="col-offset-50 col-50">
-      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
-    </div>
-  </ion-content>
-</ion-view>
+    </div>-->

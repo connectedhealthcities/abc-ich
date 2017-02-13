@@ -7,38 +7,18 @@ DateTimeService.$inject = [];
 function DateTimeService() {
 
     var service = {
-
-        dateTimeToShortTime: dateTimeToShortTime,
-        getDateTimeStringFromDate: getDateTimeStringFromDate,
-        getTimeStringFromDate: getTimeStringFromDate,
-        getDateStringFromDate: getDateStringFromDate,
+        getNowWithZeroSeconds: getNowWithZeroSeconds,
         getTimeSinceOnsetText: getTimeSinceOnsetText,
         getDateTimeFromDateAndTime: getDateTimeFromDateAndTime
     };
 
     return service;
 
-    function dateTimeToShortTime(dateTime) {
-        var shortTime = dateTime.toTimeString().split(' ')[0].split(":");
-        var d = new Date(); // creates a Date Object using the clients current time
-        d.setHours  (+shortTime[0]); // set Time accordingly, using implicit type coercion
-        d.setMinutes( shortTime[1]); // you can pass Number or String, it doesn't matter
-        return  d;
-    }
-
-    function getDateTimeStringFromDate(date) {
-        var dateTimeString = this.getDateStringFromDate(date) + " " + this.getTimeStringFromDate(date);
-        return dateTimeString;
-    }
-
-    function getDateStringFromDate(date) {
-        var dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-        return dateString;
-    }
-
-    function getTimeStringFromDate(date) {
-        var timeString = date.getHours() + ":" + date.getMinutes();
-        return timeString;
+    function getNowWithZeroSeconds() {
+        var now = new Date();
+        now.setSeconds(0);
+        now.setMilliseconds(0);
+        return now;
     }
  
     function getTimeSinceOnsetText(now, onsetDate, onsetTime) {

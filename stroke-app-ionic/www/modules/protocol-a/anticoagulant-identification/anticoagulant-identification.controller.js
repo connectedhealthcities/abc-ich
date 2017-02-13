@@ -45,7 +45,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
     vm.anticoagulantTypeChanged = anticoagulantTypeChanged;
-    vm.showViewDoacsPopup = showViewDoacsPopup;
+    vm.showDoacExamplesPopup = showDoacExamplesPopup;
 
     function onNext() {
         showDataValidationPopup(handleDataIsValid);
@@ -155,7 +155,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         popup.then(okHandler);
     }
 
-    function showViewDoacsPopup() {
+    function showDoacExamplesPopup() {
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/view-doacs-popup.html',
             title: 'ICH on DOAC',

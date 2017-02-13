@@ -152,6 +152,7 @@ function PatientCacheService() {
         //
 
         // anticoagulant-identification
+        //DOAC, VITK, UNKNOWN, NONE
         getAnticoagulantType: getAnticoagulantType,
         setAnticoagulantType: setAnticoagulantType,
 

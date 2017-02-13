@@ -1,0 +1,44 @@
+<ion-list>
+    <ion-item>
+        <div class="row">
+            <div class="col-90">INR value:</div>
+            <div class="col-10">{{vm.inrValue}}</div>
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="row">
+            <div class="col-90">INR type:</div>
+            <div class="col-10">{{vm.inrType}}</div>
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="row">
+            <div class="col-90">INR date:</div>
+            <div class="col-10">{{vm.inrDate | date: 'dd MMM yyyy'}}</div>
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="row">
+            <div class="col-90">INR time:</div>
+            <div class="col-10">{{vm.inrTime | date: 'HH:mm'}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-hide="!vm.weightGivenInKg">
+        <div class="row">
+            <div class="col-90">Estimated weight in kg:</div>
+            <div class="col-10">{{vm.estimatedWeightInKg}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-hide="vm.weightGivenInKg">
+        <div class="row">
+            <div class="col-90">Estimated weight in stones:</div>
+            <div class="col-10">{{vm.estimatedWeightInStones}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-hide="!vm.showBeriplexAdministrationOverride()">
+        <div class="row">
+            <div class="col-90 item-text-wrap">Should administer beriplex when anticoagulat unknown and INR is greater than 1.2:</div>
+            <div class="col-10">{{vm.forceAdministerWhenUnknown}}</div>
+        </div>
+    </ion-item>
+</ion-list>

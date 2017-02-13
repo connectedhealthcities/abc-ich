@@ -1,23 +1,19 @@
-<ion-view title="Refer to critical care" id="page23">
+<ion-view title="Refer to critical care">
   <ion-content padding="true" class="has-header">
     <div>
       <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
         <p style="font-size:18px;">
           <strong>Patient Id:</strong> 12152016-emt</p>
       </div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>App start time:</strong> {{appStartDisplay}}</p>
-      </div>
       <hr>
     </div>
-    <div class="list card" id="referToCriticalCare-card217">
-      <ion-item id="referToCriticalCare-list-item14">Critical Care—after 60 min</ion-item>
+    <div class="list card">
+      <ion-item>Critical Care—after 60 min</ion-item>
       <div class="spacer" style="width: 748.182px; height: 0.999998px;"></div>
-      <div id="referToCriticalCare-container207" class="row">
-        <div id="referToCriticalCare-container204" class="col">
+      <div class="row">
+        <div class="col">
           <div class="spacer" style="width: 0px; height: 0px;"></div>
-          <div id="referToCriticalCare-markdown127" class="show-list-numbers-and-dots">
+          <div class="show-list-numbers-and-dots">
             <ol>
               <li>
                 <p style="color:#000000;font-size:15px;">If target not achieved with GTN/Labetalol, refer to critical care</p>
@@ -28,48 +24,49 @@
             </ol>
           </div>
         </div>
-        <div id="referToCriticalCare-container205" class="col-10 creator-container"></div>
-        <div id="referToCriticalCare-container206" class="col-33">
-          <div id="referToCriticalCare-markdown130" style="text-align:center;" class="show-list-numbers-and-dots border">
+        <div class="col-10 creator-container"></div>
+        <div class="col-33">
+          <div style="text-align:center;" class="show-list-numbers-and-dots border">
             <p style="color:#000000;font-size:20px;">
               <strong>Critical Care</strong>
             </p>
 
-            <p style="color:#000000;font-size:20px;">NHDU specialist trainee 68756</p>
+            <p style="color:#000000;font-size:20px;">Contact NHDU specialist trainee</p>
 
-            <p style="color:#000000;font-size:20px;">ICU specialist trainee 68751</p>
+            <p style="color:#000000;font-size:20px;">Contact ICU specialist trainee</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="list card" id="referToCriticalCare-card221">
-      <form id="referToCriticalCare-form11" class="list">
-        <div id="referToCriticalCare-container224">
-          <form id="referToCriticalCare-form13" class="list">
-            <ion-item class="item-icon-left  card-header card-header-green" id="referToCriticalCare-list-item36">
-              <i class="icon ion-information-circled"></i>Patient refferal</ion-item>
-            <label class="item item-select" id="referToCriticalCare-select4">
-              <span class="input-label">Referred to</span>
-              <select>
-                <option>Critical care</option>
-                <option>Intensive care unit</option>
-                <option>High dependency unit</option>
-                <option>None of the above (please provide below)</option>
-              </select>
-            </label>
-            <label class="item item-input" id="referToCriticalCare-input13">
-              <span class="input-label">Other</span>
-              <input type="text" placeholder="">
-            </label>
-          </form>
-        </div>
-      </form>
-    </div>
 
+
+    <div class="list card">
+        <form class="list">
+            <ion-item class="item-icon-left  card-header card-header-green">
+                <i class="icon ion-ionic"></i>Patient refferal
+            </ion-item>
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Critical care'">
+                Critical care
+            </ion-radio>
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Intensive care unit'">
+                Intensive care unit
+            </ion-radio>
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'High dependency unit'">
+                High dependency unit
+            </ion-radio>
+            <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'Other'">
+                None of the above (please provide below)
+            </ion-radio>
+            <label ng-hide="vm.destination !== 'Other'" class="item item-input">
+                <span class="input-label">Other</span>
+                <input type="text" ng-model="vm.destinationOther" placeholder="Please specify">
+            </label>
+        </form>
+    </div>
     <!--Next button-->
     <div class="spacer" style="width: 748px; height: 27px;"></div>
     <div class="col-offset-50 col-50">
-      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+      <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

@@ -2,26 +2,21 @@
 
 angular.module('app.protocolA').service('CalculateBeriplexDoseControllerService', CalculateBeriplexDoseControllerService);
 
-CalculateBeriplexDoseControllerService.$inject = [];
+CalculateBeriplexDoseControllerService.$inject = ['INR_THRESHOLD'];
 
-function CalculateBeriplexDoseControllerService() {
-    var _INR_TREATMENT_THRESHOLD_ = 1.2;
-    var service = {
+function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
+ 
+     var service = {
         showBeriplexAdministrationOverride: showBeriplexAdministrationOverride,
         calculateStonesToKg: calculateStonesToKg,
         calculateKgToStones: calculateKgToStones,
-        isNextButtonEnabled: isNextButtonEnabled,
-        getInrTreatmentTreshold: getInrTreatmentTreshold
+        isNextButtonEnabled: isNextButtonEnabled
     };
 
     return service
 
-    function getInrTreatmentTreshold() {
-        return _INR_TREATMENT_THRESHOLD_;
-    }
-
     function showBeriplexAdministrationOverride(anticoagulantType, inrValue) {
-        if (anticoagulantType === "UNKNOWN" && inrValue > _INR_TREATMENT_THRESHOLD_) {
+        if (anticoagulantType === "UNKNOWN" && inrValue > INR_THRESHOLD) {
             return true;
         }
         return false
@@ -45,11 +40,11 @@ function CalculateBeriplexDoseControllerService() {
         var isEnabled = false;
 
         if (anticoagulantType === "UNKNOWN") {
-            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue <= _INR_TREATMENT_THRESHOLD_) {
+            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue <= INR_THRESHOLD) {
                 isEnabled = true;
             }
 
-            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue > _INR_TREATMENT_THRESHOLD_) {
+            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue > INR_THRESHOLD) {
                 if (forceAdministerWhenUnknown !== null) {
                     isEnabled = true;
                 }

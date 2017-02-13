@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('DoacReversalAgentDetailsController', DoacReversalAgentDetailsController);
 
-DoacReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService'];
+DoacReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD'];
 
-function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService) {
+function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD) {
 
     var vm = this; // S7
 
@@ -26,7 +26,7 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
     function handleDataIsValid() {
         saveData();
 
-        if (PatientCacheService.getGcsScore() < 9) {
+        if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
             TabStateCacheService.goLatestStateTabC();
         }
         else {

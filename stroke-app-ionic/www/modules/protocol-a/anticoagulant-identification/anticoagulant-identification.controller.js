@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AnticoagulantIdentificationController', AnticoagulantIdentificationController);
 
-AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService'];
+AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD'];
 
-function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService) { 
+function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD) { 
  
     var vm = this; // S6
 
@@ -45,7 +45,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
     vm.anticoagulantTypeChanged = anticoagulantTypeChanged;
-    vm.onViewDoacs = onViewDoacs;
+    vm.showViewDoacsPopup = showViewDoacsPopup;
 
     function onNext() {
         showDataValidationPopup(handleDataIsValid);
@@ -108,16 +108,12 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     }
 
     function goNextStateWhenNone() {
-        if (PatientCacheService.getGcsScore() < 9) {
+        if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
             TabStateCacheService.goLatestStateTabC();
         }
         else {
             TabStateCacheService.goLatestStateTabB();
         }
-    }
-
-    function onViewDoacs() {
-        showViewDoacsPopup(function() {});
     }
 
     function showDataValidationPopup(okHandler) {
@@ -159,16 +155,14 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         popup.then(okHandler);
     }
 
-    function showViewDoacsPopup(okHandler) {
+    function showViewDoacsPopup() {
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/view-doacs-popup.html',
             title: 'ICH on DOAC',
             cssClass: 'chi-extra-wide-popup',
             scope: $scope
         };
-        var popup = $ionicPopup.alert(popupTemplate);
-
-        popup.then(okHandler);
+        $ionicPopup.alert(popupTemplate);
     }
 
 }

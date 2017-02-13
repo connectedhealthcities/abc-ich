@@ -2,12 +2,11 @@
 
 angular.module('app.protocolA').controller('CalculateBeriplexDoseController', CalculateBeriplexDoseController);
 
-CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService'];
+CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService', 'INR_THRESHOLD', 'GCS_THRESHOLD'];
 
-function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService) {
+function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService, INR_THRESHOLD, GCS_THRESHOLD) {
  
     var vm = this; // S9
-    var _INR_TREATMENT_THRESHOLD_ = CalculateBeriplexDoseControllerService.getInrTreatmentTreshold();
 
     TabStateCacheService.setStateTabA('tabs.calculate-beriplex-dose');
 
@@ -20,7 +19,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     vm.estimatedWeightInStones;
     vm.weightGivenInKg;
 
-    vm.forceAdministerWhenUnknown = null; //only appears when anti-coag is unknown and INR > 1.2    
+    vm.forceAdministerWhenUnknown = null; //only appears when anti-coag is unknown and INR > INR_THRESHOLD    
     vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
 
     vm.onNext = onNext;
@@ -67,7 +66,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
 
     function dataValid() {
         saveData();
-        if (vm.inrValue <= _INR_TREATMENT_THRESHOLD_) {
+        if (vm.inrValue <= INR_THRESHOLD) {
             showInrBelowTreamentRangePopup(goNextState);
         } else {
             goNextState();
@@ -76,8 +75,8 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
 
     function goNextState() {
         
-        if (PatientCacheService.getInrValue() <= _INR_TREATMENT_THRESHOLD_) {
-            if (PatientCacheService.getGcsScore() < 9) {
+        if (PatientCacheService.getInrValue() <= INR_THRESHOLD) {
+            if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
                 TabStateCacheService.goLatestStateTabC();
             }
             else {
@@ -95,7 +94,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
                     $state.go('tabs.confirm-beriplex-dose');
                 }
                 else {
-                    if (PatientCacheService.getGcsScore() < 9) {
+                    if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
                         TabStateCacheService.goLatestStateTabC();
                     }
                     else {
@@ -113,7 +112,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         PatientCacheService.getInrDateTime(beriplexAdministeredDateTime);
         PatientCacheService.setEstimatedWeightInKg(vm.estimatedWeightInKg);
 
-        if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > _INR_TREATMENT_THRESHOLD_) {
+        if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
             PatientCacheService.setShouldAdministerBeriplexWhenAnticoagulatUnknown(vm.forceAdministerWhenUnknown);
         }
     }

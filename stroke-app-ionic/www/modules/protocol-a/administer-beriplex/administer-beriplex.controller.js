@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
 
-AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService'];
+AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD'];
 
-function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService) {
+function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD) {
 
     var vm = this; // S11
 
@@ -32,7 +32,7 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     function handleDataIsValid() {
         saveData();
 
-        if (PatientCacheService.getGcsScore() < 9) {
+        if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
             TabStateCacheService.goLatestStateTabC();
          }
         else {

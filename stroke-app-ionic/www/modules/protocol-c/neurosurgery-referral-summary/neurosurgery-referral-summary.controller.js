@@ -2,9 +2,9 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralSummaryController', NeurosurgeryReferralSummaryController);
 
-NeurosurgeryReferralSummaryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService','DateTimeService'];
+NeurosurgeryReferralSummaryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService','DateTimeService', 'GCS_THRESHOLD'];
 
-function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService) {
+function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD) {
 
     var vm = this; // S13
 
@@ -62,7 +62,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
     function handleDataIsValid() {
         saveData();
 
-         if (PatientCacheService.getGcsScore() < 9) {
+         if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
             TabStateCacheService.goLatestStateTabB();
         }
         else {

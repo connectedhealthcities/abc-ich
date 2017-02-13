@@ -9,18 +9,12 @@
       <hr>
     </div>
 
-    <div class="list card">
-      <ion-item class="item-icon-left card-header card-header-green">
+    <div class="list card data-display-region">
+      <ion-item class="item-icon-left card-header transparent-header">
         <i class="icon ion-ios-information-outline"></i>Baseline scan info
       </ion-item>
-
-    <!--<div class="list card border">
-      <ion-item class="item-icon-left  card-header card-header-green">
-        <i class="icon ion-ios-information-outline"></i>Neurosurgery referral criteria
-    </ion-item>-->
-      <div class="item item-body container">
+      <div class="item item-body container transparent-header" style="margin-top:-25px;">
         <div class="row">
-          <div class="col-66 text-left" style="padding-right: 10px;">
             <div>
               <div class="row">
                 <div class="show-list-numbers-and-dots">
@@ -47,61 +41,89 @@
                     <strong>ICH volume greater than 30 ml</strong>, as measured by ABC/2 method</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-33 text-center">
-            <div class="border" style="margin-left: -10px; width: calc(100% + 20px);">
-              <img src="img/ich-volume.jpg" style="max-width: 100%; height: auto;">
-             </div>
           </div>
         </div>
         <div class="row">
-          <div class="show-list-numbers-and-dots">
+          <div class="show-list-numbers-and-dots text-center">
             <p style="color:#000000;">Shared care on Neuro HDU (NHDU) may be appropriate for these patients —discuss with Neurosurgery and NHDU team on a case-by-case basis</p>
           </div>
         </div>
       </div>
     </div>
 
+   <div class="spacer" style="width: 748px; height: 32px;"></div>
+
     <div class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-calculator"></i>ICH volume calculation</ion-item>
-        <label class="item item-input">
-          <span class="input-label">Longest axis</span>
-          <input type="number" placeholder="">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Longest axis perpendicular to</span>
-          <input type="number" placeholder="">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Number of slices showing heamatoma</span>
-          <input type="number" placeholder="">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Slice thickness</span>
-          <input type="number" placeholder="">
-        </label>
-        <div class="row">
-          <div class="col-60 creator-container"></div>
-          <div class="col-40">
-            <button class="button button-positive  button-block icon-left ion-calculator">Calculate</button>
-          </div>
-        </div>
+          <i class="icon ion-ionic"></i>Posterior fossa ICH
+        </ion-item>
+        <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="true">Yes
+        </ion-radio>
+        <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="false">No
+        </ion-radio>
       </form>
-      <div class="item item-body">
-        <div class="show-list-numbers-and-dots">
-          <p style="margin-top:0px;color:#000000;">
-            <strong>ICH volume:</strong> 30ml</p>
-        </div>
+    </div>
+
+    <div class="spacer" style="width: 748px; height: 32px;"></div>
+
+    <div class="row">
+      <div class="col-33 col-offset-67 text-right">
+        <button ng-click="vm.showObstructionPopup()" class="button button-energized  button-block icon-left ion-information-circled">View obstruction</button>
       </div>
+    </div>
+
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-ionic"></i>Obstruction of the third and/or fourth ventricle
+        </ion-item>
+        <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="true">Yes
+        </ion-radio>
+        <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="false">No
+        </ion-radio>
+      </form>
+    </div>
+
+    <div class="spacer" style="width: 748px; height: 32px;"></div>
+
+    <div class="row">
+      <div class="col-33 col-offset-67 text-right">
+        <button ng-click="vm.showVolumeMeasurementPopup()" class="button button-energized  button-block icon-left ion-information-circled">View volume measurement</button>
+      </div>
+    </div>
+
+    <div class="list card">
+      <form class="list">
+        <ion-item class="item-icon-left  card-header card-header-green">
+          <i class="icon ion-calculator"></i>ICH volume calculation
+        </ion-item>
+        <label class="item item-input">
+          <span class="input-label">Longest axis - A (cm):</span>
+          <input type="number" min="0" step=".01" placeholder="" ng-model="vm.longestAxis" ng-change="vm.calculateVolume()">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Longest axis perpendicular to A (cm):</span>
+          <input type="number" min="0" step=".01" placeholder="" ng-model="vm.perpendicularAxis" ng-change="vm.calculateVolume()">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Number of slices:</span>
+          <input type="number" min="0" step="1" placeholder="" ng-model="vm.numSlices" ng-change="vm.calculateVolume()">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Slice thickness (cm):</span>
+          <input type="number" min="0" step=".0001" placeholder="" ng-model="vm.sliceThickness" ng-change="vm.calculateVolume()">
+        </label>
+      </form>
+      <ion-item class="item-icon-left data-display-region" ng-show="vm.ichVolume">
+        <i class="icon ion-information-circled"></i><strong>ICH volume: </strong>{{vm.ichVolume}} ml
+      </ion-item> 
     </div>
 
     <!--Next button-->
     <div class="spacer" style="width: 748.182px; height: 57px;"></div>
     <div class="col-offset-50 col-50">
-      <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+      <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
   </ion-content>
 </ion-view>

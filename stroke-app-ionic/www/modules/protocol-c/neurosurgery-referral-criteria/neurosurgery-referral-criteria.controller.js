@@ -2,18 +2,61 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralCriteriaController', NeurosurgeryReferralCriteriaController);
 
-NeurosurgeryReferralCriteriaController.$inject = ['$state', 'PatientCacheService', 'TabStateCacheService'];
+NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD'];
 
-function NeurosurgeryReferralCriteriaController($state, PatientCacheService, TabStateCacheService) {
+function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD) {
 
     var vm = this; // S12
 
     TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-criteria');
 
+    vm.isPosteriorFossaIch = null;
+    vm.isObstruction = null;
+    vm.ichVolume = null;
+    vm.longestAxis = null;
+    vm.perpendicularAxis = null;
+    vm.numSlices = null;
+    vm.sliceThickness = null;
+
     vm.onNext = onNext;
-
+    vm.isNextButtonEnabled = isNextButtonEnabled;
+    vm.calculateVolume = calculateVolume;
+    vm.showVolumeMeasurementPopup = showVolumeMeasurementPopup;
+    vm.showObstructionPopup = showObstructionPopup;
+ 
     function onNext() {
+       showDataValidationPopup(handleDataIsValid); 
+    }
 
+    function isNextButtonEnabled() {
+        var isEnabled = false;
+
+        if (vm.ichVolume != null &&
+            vm.isPosteriorFossaIch != null &&
+            vm.isObstruction != null) {
+            isEnabled = true;
+        }
+
+        return isEnabled;
+    }
+
+    function handleDataIsValid() {
+        saveData();
+
+        if (isNeuroReferralNotRequired()) {
+            showReferralNotRequiredPopup(goNextState);
+        }
+        else {
+            if (PatientCacheService.getPremorbidMrsScore() < MRS_THRESHOLD) {
+                showReferToNeurosurgeryPopup(goNextState);
+            }
+            else {
+                showConsiderReferralPopup(goNextState);
+            }
+        }
+    }
+
+    function goNextState() {
         if (isNeuroReferralNotRequired()) {
             $state.go('patient-end');
         }
@@ -22,12 +65,28 @@ function NeurosurgeryReferralCriteriaController($state, PatientCacheService, Tab
         }
     }
 
+    function saveData() {
+        PatientCacheService.setIsPosteriorFossaIch(vm.isPosteriorFossaIch);
+        PatientCacheService.setIsVentricleObstructed(vm.isObstruction);
+        PatientCacheService.setIchVolume(vm.ichVolume);
+    }
+ 
+    function calculateVolume() {
+        if (vm.longestAxis != null &&
+            vm.perpendicularAxis != null &&
+            vm.numSlices != null &&
+            vm.sliceThickness != null) {
+            var volume = vm.longestAxis * vm.perpendicularAxis * vm.numSlices * vm.sliceThickness;
+            vm.ichVolume = parseFloat(volume).toFixed(2);
+        }
+    }
+
     function isNeuroReferralNotRequired() {
 
         var isNeuroReferrelNotRequired = false;
 
-        if (   PatientCacheService.getGcsScore() >= 9 
-            && PatientCacheService.getIchVolume() <= 30 
+        if (   PatientCacheService.getGcsScore() >= GCS_THRESHOLD 
+            && PatientCacheService.getIchVolume() <= ICH_VOLUME_THRESHOLD 
             && !PatientCacheService.getIsPosteriorFossaIch()
             && !PatientCacheService.getIsVentricleObstructed()) {
 
@@ -35,5 +94,78 @@ function NeurosurgeryReferralCriteriaController($state, PatientCacheService, Tab
         }
 
         return isNeuroReferrelNotRequired;
+    }
+
+    function showDataValidationPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria-data-validation-popup.html',
+            title: 'Data validation',
+            subTitle: 'Please confirm data entered is correct',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };       
+        var popup = $ionicPopup.confirm(popupTemplate);
+
+        popup.then(function(res) {
+            if (res) {
+                okHandler();
+            }
+        });
+    }
+
+    function showVolumeMeasurementPopup() {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/volume-measurement-popup.html',
+            title: 'ABC/2 Volume measurement',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        $ionicPopup.alert(popupTemplate);
+    }
+
+    function showObstructionPopup() {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/obstruction-popup.html',
+            title: 'Obstruction of the third and/or fourth ventricle',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        $ionicPopup.alert(popupTemplate);
+    }
+
+    function showReferToNeurosurgeryPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/refer-to-neurosurgery-popup.html',
+            title: 'Refer to neurosurgery',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+
+        popup.then(okHandler);
+    }
+
+    function showConsiderReferralPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/consider-referral-popup.html',
+            title: 'Consider referral to neurosurgery',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+
+        popup.then(okHandler);
+    }
+
+    function showReferralNotRequiredPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/referral-not-required-popup.html',
+            title: 'Referral to neurosurgery not required',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+
+        popup.then(okHandler);
     }
 }

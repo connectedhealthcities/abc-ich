@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('GcsEntryController', GcsEntryController);
 
-GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService'];
+GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'GCS_THRESHOLD'];
 
-function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService) {
+function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, GCS_THRESHOLD) {
 
     var vm = this; // S3
 
@@ -33,7 +33,7 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService) {
 
     function dataValid() {
         saveData();
-        if (vm.total < 9) {
+        if (vm.total < GCS_THRESHOLD) {
             showStabilisePatientPopup(goNextState);
         }
         else {

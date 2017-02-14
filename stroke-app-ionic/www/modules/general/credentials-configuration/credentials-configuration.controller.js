@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('app.general').controller('AppConfiguration1Controller', AppConfiguration1Controller);
+angular.module('app.general').controller('CredentialsConfigurationController', CredentialsConfigurationController);
 
-AppConfiguration1Controller.$inject = ['$scope', '$stateParams', 'API', 'ConfigurationCacheService', '$ionicPopup', '$timeout', '$window'];
+CredentialsConfigurationController.$inject = ['$scope', '$stateParams', 'API', 'AppConfigurationCacheService', '$ionicPopup', '$timeout', '$window'];
 
-function AppConfiguration1Controller($scope, $stateParams, API, ConfigurationCacheService, $ionicPopup, $timeout, $window) {
+function CredentialsConfigurationController($scope, $stateParams, API, AppConfigurationCacheService, $ionicPopup, $timeout, $window) {
 
     var vm = this;
     vm.onCancel = onCancel;

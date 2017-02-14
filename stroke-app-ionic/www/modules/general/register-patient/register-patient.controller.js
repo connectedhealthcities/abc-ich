@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'PatientHttpService', 'ConfigurationCacheService'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, PatientHttpService, ConfigurationCacheService) {
+function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, PatientHttpService, HospitalHttpService) {
 
     var vm = this; // S1
 
-    var hospitals = ConfigurationCacheService.getHospitals();
+    var hospitals = (HospitalHttpService.getHospitals()) ? HospitalHttpService.getHospitals() : [];
     hospitals.push({"name": "Other"});
     vm.hospitals = hospitals;
 

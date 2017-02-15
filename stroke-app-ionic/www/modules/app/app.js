@@ -1,15 +1,41 @@
 'use strict';
 
+angular.module('app').factory('httpInterceptor', httpInterceptor);
+
+httpInterceptor.$inject = ['$injector'];
+
+function httpInterceptor($injector) {
+  return {
+    'request': function(config) {
+        if( (config.url.indexOf('/api/') > -1) && 
+            (config.url.indexOf('/api/authenticate') === -1) ) {
+          // use $injector to prevent circular dependency
+          var authenticationService = $injector.get('AuthenticationService');
+          return authenticationService.authenticate().then(function() {
+            config.headers.Authorization = 'Bearer ' + authenticationService.getJwt();
+            return config;
+          });
+        }
+        else {
+          return config;
+        }
+      }
+  };
+}
+
 angular.module('app').config(AppConfig);
 
-AppConfig.$inject = ['$urlRouterProvider', '$ionicConfigProvider', '$sceDelegateProvider'];
+AppConfig.$inject = ['$urlRouterProvider', '$ionicConfigProvider', '$sceDelegateProvider','$httpProvider'];
 
-function AppConfig($urlRouterProvider, $ionicConfigProvider, $sceDelegateProvider) {
+function AppConfig($urlRouterProvider, $ionicConfigProvider, $sceDelegateProvider, $httpProvider) {
 
   $urlRouterProvider.otherwise("/patient-start");
 
 //cjd - do we need this??
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
+
+  $httpProvider.interceptors.push('httpInterceptor'); 
+
 }
 
 

@@ -2,17 +2,42 @@
 
 angular.module('utils').service('HospitalHttpService', HospitalHttpService);
 
-HospitalHttpService.$inject = ['$timeout'];
+HospitalHttpService.$inject = ['$http', '$q', 'ServerUrlService'];
 
-function HospitalHttpService($timeout) {
-    var _hospitals = [{ id : 1, name: "hspt1" }, { id: 2, name: "hspt2" }, {id: 3, name: "hspt3" }];
+function HospitalHttpService($http, $q, ServerUrlService) {
+
     var service = {
-        getHospitals: getHospitals,
-     };
+        getHospitals: getHospitals
+    };
 
     return service;
 
+//cjd    var _hospitals = null;
+    var _hospitals = [
+        {
+            "uniqueId": "HOSP_2",
+            "name": "Hospital 2"
+        },
+        {
+            "uniqueId": "HOSP_3",
+            "name": "Hospital 3"
+        },
+        {
+            "uniqueId": "HOSP_4",
+            "name": "Hospital 4"
+        }
+    ];
+
 	function getHospitals() {
-	    return _hospitals;
+        if (_hospitals) {
+            return $q.when(_hospitals);
+        }
+        else {
+            var urlPrefix = ServerUrlService.getUrlPrefix();
+            return $http.get(urlPrefix + '/api/hospitals').then(function(response) {
+                _hospitals = response.data;			    			    	
+                return _hospitals;
+            });               
+        }
     }
 }

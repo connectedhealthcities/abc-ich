@@ -1,0 +1,21 @@
+<ion-view title="Email configuration">
+  <ion-content padding="true" class="has-header">
+    <div class="list card">
+        <form class="list">
+            <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input type="email" placeholder="" ng-model="vm.email">
+            </label>
+        </form>
+    </div>
+    <div class="row">
+      <div class="col-40">
+        <button ng-click="vm.onCancel()" class="button button-royal  button-block">Cancel</button>
+      </div>
+      <div class="col-20 creator-container"></div>
+      <div class="col-40">
+        <button ng-click="vm.onSave()" class="button button-calm  button-block">Save</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

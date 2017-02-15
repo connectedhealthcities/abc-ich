@@ -92,7 +92,7 @@
           <i class="icon ion-ionic"></i>External hospital
         </ion-item>
         <div class="list-inset" ng-repeat="hospital in vm.hospitals">
-            <ion-radio ng-model="vm.selectedHospital" value="{{hospital.name}}">{{hospital.name}}</ion-radio>
+            <ion-radio ng-model="vm.selectedHospital" value="{{hospital.uniqueId}}">{{hospital.uniqueId}}</ion-radio>
         </div>
         <label ng-show="vm.selectedHospital ==='Other'" class="item item-input">
           <span class="input-label">Hospital name</span>

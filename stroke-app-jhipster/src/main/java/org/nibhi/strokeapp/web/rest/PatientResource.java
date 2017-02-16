@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 public class PatientResource {
 
     private final Logger log = LoggerFactory.getLogger(PatientResource.class);
@@ -44,6 +46,7 @@ public class PatientResource {
      */
     @PostMapping("/patients")
     @Timed
+    @PreAuthorize("hasRole('ROLE_MOBILE')")
     public ResponseEntity<PatientDTO> createPatient(@Valid @RequestBody PatientDTO patientDTO) throws URISyntaxException {
         log.debug("REST request to save Patient : {}", patientDTO);
         if (patientDTO.getId() != null) {
@@ -66,6 +69,7 @@ public class PatientResource {
      */
     @PutMapping("/patients")
     @Timed
+    @PreAuthorize("hasRole('ROLE_MOBILE')")
     public ResponseEntity<PatientDTO> updatePatient(@Valid @RequestBody PatientDTO patientDTO) throws URISyntaxException {
         log.debug("REST request to update Patient : {}", patientDTO);
         if (patientDTO.getId() == null) {

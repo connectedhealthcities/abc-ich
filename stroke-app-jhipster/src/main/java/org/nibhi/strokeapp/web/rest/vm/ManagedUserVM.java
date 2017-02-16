@@ -28,6 +28,8 @@ public class ManagedUserVM extends UserDTO {
 
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
+    
+    private String hospitalId;
 
     public ManagedUserVM() {
     }
@@ -40,18 +42,20 @@ public class ManagedUserVM extends UserDTO {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.password = null;
+        this.hospitalId = user.getHospitalId();
     }
 
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String langKey, Set<String> authorities,
-                         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate) {
-        super(login, firstName, lastName, email, activated, langKey, authorities);
+                         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, String hospitalId) {
+        super(login, firstName, lastName, email, activated, langKey, authorities, hospitalId);
         this.id = id;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.password = password;
+        this.hospitalId = hospitalId;       
     }
 
     public Long getId() {
@@ -99,6 +103,10 @@ public class ManagedUserVM extends UserDTO {
         return password;
     }
 
+    public String getHospitalId() {
+        return hospitalId;
+    }
+
     @Override
     public String toString() {
         return "ManagedUserVM{" +
@@ -107,6 +115,7 @@ public class ManagedUserVM extends UserDTO {
             ", createdDate=" + createdDate +
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
+            ", hospitalId=" + hospitalId +
             "} " + super.toString();
     }
 }

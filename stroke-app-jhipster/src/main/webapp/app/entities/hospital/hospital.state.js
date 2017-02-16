@@ -96,7 +96,7 @@
                         entity: function () {
                             return {
                                 uniqueId: null,
-                                email: null,
+                                name: null,
                                 id: null
                             };
                         }

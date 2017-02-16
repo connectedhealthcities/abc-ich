@@ -25,12 +25,18 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="email" type="varchar(255)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
-    </changeSet>
+        <loadData encoding="UTF-8"
+    		file="config/liquibase/hospitals.csv"
+        	separator=";"
+        	tableName="hospital"/>
+        
+    </changeSet>        
+    
 </databaseChangeLog>

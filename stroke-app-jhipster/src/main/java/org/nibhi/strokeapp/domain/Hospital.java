@@ -21,8 +21,8 @@ public class Hospital implements Serializable {
     @Column(name = "unique_id", unique=true)
     private String uniqueId;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "name")
+    private String name;
 
     public Long getId() {
         return id;
@@ -45,17 +45,17 @@ public class Hospital implements Serializable {
         this.uniqueId = uniqueId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public Hospital email(String email) {
-        this.email = email;
+    public Hospital name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Hospital implements Serializable {
         return "Hospital{" +
             "id=" + id +
             ", uniqueId='" + uniqueId + "'" +
-            ", email='" + email + "'" +
+            ", name='" + name + "'" +
             '}';
     }
 }

@@ -64,20 +64,10 @@ public class TestDataServiceImpl implements TestDataService{
     public void addTestData() {
         log.debug("Request to add test data");
              
-        Hospital hospital = addHospital();       
+        Hospital hospital = hospitalRepository.findOne((long) 1);       
         addPatients(hospital);        	
     }
-    
-    private Hospital addHospital() {
-    	
-        Hospital hospital = new Hospital();
         
-        hospital.setUniqueId("HOSP_1");
-        hospital.setEmail("test@email.com");
-        
-        return hospitalRepository.save(hospital);
-    }
-    
     private void addPatients(Hospital hospital) {
 
         for (int i = 0; i < 100; i ++) {        	

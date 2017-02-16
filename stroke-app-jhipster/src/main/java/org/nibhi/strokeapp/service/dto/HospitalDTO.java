@@ -13,7 +13,7 @@ public class HospitalDTO implements Serializable {
 
     private String uniqueId;
 
-    private String email;
+    private String name;
 
 
     public Long getId() {
@@ -30,12 +30,12 @@ public class HospitalDTO implements Serializable {
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class HospitalDTO implements Serializable {
         return "HospitalDTO{" +
             "id=" + id +
             ", uniqueId='" + uniqueId + "'" +
-            ", email='" + email + "'" +
+            ", name='" + name + "'" +
             '}';
     }
 }

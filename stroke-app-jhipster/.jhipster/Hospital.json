@@ -7,13 +7,13 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "email",
+            "fieldName": "name",
             "fieldType": "String"
         }
     ],
     "changelogDate": "20161207153506",
-    "entityTableName": "hospital",
     "dto": "mapstruct",
-    "pagination": "no",
-    "service": "serviceImpl"
+    "service": "serviceImpl",
+    "entityTableName": "hospital",
+    "pagination": "no"
 }

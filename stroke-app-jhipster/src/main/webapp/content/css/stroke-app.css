@@ -17,3 +17,5 @@ Prevent text truncation
 .tab-content {
     padding-top: 20px;
 }
+
+select:invalid { color: #999999; }

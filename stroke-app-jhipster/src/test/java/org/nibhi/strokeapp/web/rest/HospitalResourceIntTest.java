@@ -43,8 +43,8 @@ public class HospitalResourceIntTest {
     private static final String DEFAULT_UNIQUE_ID = "AAAAAAAAAA";
     private static final String UPDATED_UNIQUE_ID = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
-    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
 
     @Inject
     private HospitalRepository hospitalRepository;
@@ -87,7 +87,7 @@ public class HospitalResourceIntTest {
     public static Hospital createEntity(EntityManager em) {
         Hospital hospital = new Hospital()
                 .uniqueId(DEFAULT_UNIQUE_ID)
-                .email(DEFAULT_EMAIL);
+                .name(DEFAULT_NAME);
         return hospital;
     }
 
@@ -114,7 +114,7 @@ public class HospitalResourceIntTest {
         assertThat(hospitals).hasSize(databaseSizeBeforeCreate + 1);
         Hospital testHospital = hospitals.get(hospitals.size() - 1);
         assertThat(testHospital.getUniqueId()).isEqualTo(DEFAULT_UNIQUE_ID);
-        assertThat(testHospital.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testHospital.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class HospitalResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(hospital.getId().intValue())))
                 .andExpect(jsonPath("$.[*].uniqueId").value(hasItem(DEFAULT_UNIQUE_ID.toString())))
-                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test
@@ -144,7 +144,7 @@ public class HospitalResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(hospital.getId().intValue()))
             .andExpect(jsonPath("$.uniqueId").value(DEFAULT_UNIQUE_ID.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
 
     @Test
@@ -166,7 +166,7 @@ public class HospitalResourceIntTest {
         Hospital updatedHospital = hospitalRepository.findOne(hospital.getId());
         updatedHospital
                 .uniqueId(UPDATED_UNIQUE_ID)
-                .email(UPDATED_EMAIL);
+                .name(UPDATED_NAME);
         HospitalDTO hospitalDTO = hospitalMapper.hospitalToHospitalDTO(updatedHospital);
 
         restHospitalMockMvc.perform(put("/api/hospitals")
@@ -179,7 +179,7 @@ public class HospitalResourceIntTest {
         assertThat(hospitals).hasSize(databaseSizeBeforeUpdate);
         Hospital testHospital = hospitals.get(hospitals.size() - 1);
         assertThat(testHospital.getUniqueId()).isEqualTo(UPDATED_UNIQUE_ID);
-        assertThat(testHospital.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testHospital.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

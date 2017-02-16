@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
-        String langKey) {
+        String langKey, String hospitalId) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
@@ -98,6 +98,7 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        newUser.setHospitalId(hospitalId);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -126,24 +127,26 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
+        user.setHospitalId(managedUserVM.getHospitalId());
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
     }
 
-    public void updateUser(String firstName, String lastName, String email, String langKey) {
+    public void updateUser(String firstName, String lastName, String email, String langKey, String hospitalId) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
             u.setLangKey(langKey);
+            u.setHospitalId(hospitalId);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }
 
     public void updateUser(Long id, String login, String firstName, String lastName, String email,
-        boolean activated, String langKey, Set<String> authorities) {
+        boolean activated, String langKey, Set<String> authorities, String hospitalId) {
 
         Optional.of(userRepository
             .findOne(id))
@@ -159,6 +162,7 @@ public class UserService {
                 authorities.stream().forEach(
                     authority -> managedAuthorities.add(authorityRepository.findOne(authority))
                 );
+                u.setHospitalId(hospitalId);
                 log.debug("Changed Information for User: {}", u);
             });
     }

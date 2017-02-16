@@ -20,6 +20,7 @@
 
         vm.login = login;
         vm.logout = logout;
+        vm.isAllowedRole = isAllowedRole;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
@@ -34,6 +35,11 @@
             collapseNavbar();
             Auth.logout();
             $state.go('home');
+        }
+
+        function isAllowedRole() {      	
+             var isAllowed = Principal.hasAnyAuthority(["ROLE_ADMIN", "ROLE_USER"]);
+             return isAllowed;
         }
 
         function toggleNavbar() {

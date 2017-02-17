@@ -2,14 +2,15 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, PatientHttpService, HospitalHttpService) {
+function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, PatientHttpService, HospitalHttpService) {
 
     var vm = this; // S1
 
-    vm.hospitals = [];
+    TabStateCacheService.setCurrentState('register-patient');
 
+    vm.hospitals = [];
     HospitalHttpService.getHospitals().then(function(hospitals) {
         for (var i = 0; i < hospitals.length; i++) {
             vm.hospitals.push(hospitals[i]);
@@ -58,16 +59,13 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function onNext() {
-        showDataValidationPopup(handleDataIsValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function handleDataIsValid() {
-        saveData();
-
+    function handleDataValid() {
         PatientHttpService.registerPatient(vm.initials).then(function(response) {
             vm.patientId = response.patientId;
-            PatientCacheService.setUniqueId(response.patientId);
-            if (response.alreadyRegistered) {
+            if (response.isDuplicate) {
                 showPatientAlreadyRegisteredPopup(registerNewPatient, cancelRegisterPatient);
             }
             else {
@@ -77,6 +75,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function registerNewPatient() {
+        saveData();
         showPatientNotesPopup(goNextState);
     }
 
@@ -89,7 +88,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
  
     function saveData() {
-        PatientCacheService.setUniqueId("dummy_unique_id");//cjd
+        PatientCacheService.setUniqueId(vm.patientId);
         PatientCacheService.setInitials(vm.initials);
         if (vm.isDateOfBirthKnown) {
             PatientCacheService.setBirthDate(vm.dateOfBirth);

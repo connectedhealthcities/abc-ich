@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('UserCredentialsConfigurationController', UserCredentialsConfigurationController);
 
-UserCredentialsConfigurationController.$inject = ['$window', 'UserCredentialsCacheService'];
+UserCredentialsConfigurationController.$inject = ['$window', '$ionicPopup', 'UserCredentialsCacheService', 'AuthenticationService'];
 
-function UserCredentialsConfigurationController($window, UserCredentialsCacheService) {
+function UserCredentialsConfigurationController($window, $ionicPopup, UserCredentialsCacheService, AuthenticationService) {
 
     var vm = this;
 
@@ -14,6 +14,8 @@ function UserCredentialsConfigurationController($window, UserCredentialsCacheSer
 
     vm.onCancel = onCancel;
     vm.onSave = onSave;
+    vm.isTestLoginButtonEnabled = isTestLoginButtonEnabled;
+    vm.onTestLogin = onTestLogin;
 
     function onCancel() {
         $window.history.back();
@@ -25,5 +27,29 @@ function UserCredentialsConfigurationController($window, UserCredentialsCacheSer
         $window.history.back();
     }
 
+    function isTestLoginButtonEnabled() {
+        var isEnabled = false;
+
+        if (vm.username && vm.password) {
+            isEnabled = true;
+        }
+
+        return isEnabled;
+    }
+
+    function onTestLogin() {
+        AuthenticationService.testAuthentication(vm.username, vm.password).then(function(response) {
+            showAlert(response);
+        })
+    }
+
+    function showAlert(text) {
+        var popupTemplate = {
+            template: text,
+            title: 'Test login'
+        };
+
+        $ionicPopup.alert(popupTemplate);
+    }
  }
 

@@ -9,7 +9,8 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
  
     var vm = this; // S4
 
-    TabStateCacheService.setStateTabB('tabs.critical-care-referral');
+    TabStateCacheService.setCurrentState('tabs.critical-care-referral');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.destination;
     vm.destinationOther;
@@ -38,7 +39,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     }
 
     function onNext() {
-        showDataValidationPopup(dataValid);
+        showDataValidationPopup(handleDataValid);
     }
 
     function goNextState(){
@@ -52,7 +53,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
 
     }
 
-    function dataValid() {
+    function handleDataValid() {
         saveData();
         goNextState();
     }

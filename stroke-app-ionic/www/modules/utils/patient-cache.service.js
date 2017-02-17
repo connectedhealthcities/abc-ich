@@ -2,89 +2,91 @@
 
 angular.module('utils').service('PatientCacheService', PatientCacheService);
 
-PatientCacheService.$inject = [];
+PatientCacheService.$inject = ['LocalStorageService'];
 
-function PatientCacheService() {
-
+function PatientCacheService(LocalStorageService) {
+ 
     //
     // general
     //
 
     // patient-start 
-    var _appStartDateTime = null;
+    var app_start_date_time_key = "app_start_date_time_key";
     // register-patient
-    var _uniqueId = null;
-    var _initials = null;
-    var _birthDate = null;
-    var _estimatedAge = null;
-    var _externalScanHospitalName = null;
-    var _scanDateTime = null;
-    var _hospitalUniqueId = null;
+    var unique_id_key = "unique_id_key";
+    var initials_key = "initials_key";
+    var birth_date_key = "birth_date_key";
+    var estimated_age_key = "estimated_age_key";
+    var external_scan_hospital_name_key = "external_scan_hospital_name_key";
+    var scan_date_time_key = "scan_date_time_key";
+    var hospital_unique_id_key = "hospital_unique_id_key";
     // patient-details
-    var _doorDateTime = null;
-    var _onsetDateTime = null;
-    var _isLastSeenWellOnset = null;
-    var _isBestEstimateOnset = null;
+    var door_date_time_key = "door_date_time_key";
+    var onset_date_time_key = "onset_date_time_key";
+    var is_last_seen_well_onset_key = "is_last_seen_well_onset_key";
+    var is_best_estimate_onset_key = "is_best_estimate_onset_key";
     // gcs-entry
-    var _gcsScore = 9; //cjd
-    var _gcsScoreEye = null;
-    var _gcsScoreVerbal = null;
-    var _gcsScoreMotor = null;
+    var gcs_score_key = "gcs_score_key";
+    var gcs_score_eye_key = "gcs_score_eye_key";
+    var gcs_score_verbal_key = "gcs_score_verbal_key";
+    var gcs_score_motor_key = "gcs_score_motor_key";
     // patient-end
-    var _summaryEmailAddress = null;
+    var summary_email_address_key = "summary_email_address_key";
 
     //
     // protocol A
     //
 
     // anticoagulant-identification
-    var _anticoagulantType = "VITK"; //cjd
-    var _antiCoagulantName = null;
+    var anticoagulant_type_key = "anticoagulant_type_key";
+    var anticoagulant_name_key = "anticoagulant_name_key";
     // calculate-beriplex-dose
-    var _estimatedWeightInKg = null;
-    var _calculatedBeriplexDose = null;
-    var _inrValue = 1.3; //cjd
-    var _inrType = null;
-    var _inrDateTime = null;
-    var _shouldAdministerBeriplexWhenAnticoagulatUnknown = null;
+    var estimated_weight_in_kg_key = "estimated_weight_in_kg_key";
+    var calculated_beriplex_dose_key = "calculated_beriplex_dose_key";
+    var inr_value_key = "inr_value_key";
+    var inr_type_key = "inr_type_key";
+    var inr_date_time_key = "inr_date_time_key";
+    var administer_beriplex_when_unknown_key = "administer_beriplex_when_unknown_key";
     // confirm-beriplex-dose
-    var _actualBeriplexDose = null;
+    var actual_beriplex_dose_key = "actual_beriplex_dose_key";
     // administer-beriplex
-    var _beriplexStartDateTime = null;
-    var _vitaminkDateTime = null;
-    var _isInfusionInstructionsViewed = null;
+    var beriplex_start_date_time_key = "beriplex_start_date_time_key";
+    var vitamink_date_time_key = "vitamink_date_time_key";
+    var is_infusion_instructions_viewed_key = "is_infusion_instructions_viewed_key";
     // doac-reversal-agent-details
-    var _doacReveralAgentType = null;
-    var _doacReveralAgentDateTime = null;
+    var doac_reversal_agent_type_key = "doac_reversal_agent_type_key";
+    var doac_reversal_agent_date_time_key = "doac_reversal_agent_date_time_key";
+
 
     //
     // protocol B
     //
 
     // bp-management
-    var _bpTargetReachedDateTime = "NOT NULL"; //cjd
-    var _bpTreatmentThreshold = null;
-    var _bpTarget = null;
-    var _bpBpMeasurementEntries = [];
+    var bp_target_reached_date_time_key = "bp_target_reached_date_time_key";
+    var bp_treatment_threshold_key = "bp_treatment_threshold_key";
+    var bp_target_key = "bp_target_key";
+    var bp_measurement_entries_key = "bp_measurement_entries_key";
     // critical-care-referral
-    var _destination = null;
-    var _otherDestination = null;
+    var destination_key = "destination_key";
+    var other_destination_key = "other_destination_key";
+
 
     //
     // protocol C
     //
 
     // mrs-entry
-    var _premorbidMrsScore = null;
+    var premorbid_mrs_score_key = "premorbid_mrs_score_key";
     // neurosurgery-referral-criteria
-    var _ichVolume = 31; //cjd
-    var _isPosteriorFossaIch = false; //cjd
-    var _isVentricleObstructed = false; //cjd
+    var ich_volume_key = "ich_volume_key";
+    var is_posterior_fossa_ich_key = "is_posterior_fossa_ich_key";
+    var is_ventricle_obstructed_key = "is_ventricle_obstructed_key";
     // neurosurgery-referral-summary
-    var _referralToNeurosurgeryDateTime = null;
-    var _neurosurgeonName = null;
-    var _isReferralToNeurosurgeryAccepted = null;
-    var _isForActiveTreatment = null;
+    var referral_to_neurosurgery_date_time_key = "referral_to_neurosurgery_date_time_key";
+    var neurosurgeon_name_key = "neurosurgeon_name_key";
+    var is_referral_to_neurosurgery_accepted_key = "is_referral_to_neurosurgery_accepted_key";
+    var is_for_active_treatment_key = "is_for_active_treatment_key";
 
     var service = {
 
@@ -157,8 +159,8 @@ function PatientCacheService() {
         getAnticoagulantType: getAnticoagulantType,
         setAnticoagulantType: setAnticoagulantType,
 
-        getAntiCoagulantName: getAntiCoagulantName,
-        setAntiCoagulantName: setAntiCoagulantName,
+        getAnticoagulantName: getAnticoagulantName,
+        setAnticoagulantName: setAnticoagulantName,
 
         // calculate-beriplex-dose
         getEstimatedWeightInKg: getEstimatedWeightInKg,
@@ -176,8 +178,8 @@ function PatientCacheService() {
         getInrDateTime: getInrDateTime,
         setInrDateTime: setInrDateTime,
 
-        getShouldAdministerBeriplexWhenAnticoagulatUnknown: getShouldAdministerBeriplexWhenAnticoagulatUnknown,
-        setShouldAdministerBeriplexWhenAnticoagulatUnknown: setShouldAdministerBeriplexWhenAnticoagulatUnknown,
+        getAdministerBeriplexWhenUnknown: getAdministerBeriplexWhenUnknown,
+        setAdministerBeriplexWhenUnknown: setAdministerBeriplexWhenUnknown,
 
         // confirm-beriplex-dose
         getActualBeriplexDose: getActualBeriplexDose,
@@ -194,11 +196,11 @@ function PatientCacheService() {
         setIsInfusionInstructionsViewed: setIsInfusionInstructionsViewed,
 
         // doac-reversal-agent-details
-        getDoacReveralAgentType: getDoacReveralAgentType,
-        setDoacReveralAgentType: setDoacReveralAgentType,
+        getDoacReversalAgentType: getDoacReversalAgentType,
+        setDoacReversalAgentType: setDoacReversalAgentType,
 
-        getDoacReveralAgentDateTime: getDoacReveralAgentDateTime,
-        setDoacReveralAgentDateTime: setDoacReveralAgentDateTime,
+        getDoacReversalAgentDateTime: getDoacReversalAgentDateTime,
+        setDoacReversalAgentDateTime: setDoacReversalAgentDateTime,
 
         //
         // protocol B
@@ -265,439 +267,454 @@ function PatientCacheService() {
     // general
     //
 
+
     // patient-start
     function getAppStartDateTime() {
-        return _appStartDateTime;
+        return new Date(LocalStorageService.getItem(app_start_date_time_key));
     }
 
     function setAppStartDateTime(appStartDateTime) {
-        _appStartDateTime = appStartDateTime;
+        LocalStorageService.setItem(app_start_date_time_key, appStartDateTime);
     }
     
     // register-patient
     function getUniqueId() {
-        return _uniqueId;
+        return LocalStorageService.getItem(unique_id_key);
     }
 
     function setUniqueId(uniqueId) {
-        _uniqueId = uniqueId;
+        LocalStorageService.setItem(unique_id_key, uniqueId);
     }
     
     function getInitials() {
-        return _initials;
+        return LocalStorageService.getItem(initials_key);
     }
 
     function setInitials(initials) {
-        _initials = initials;
+        LocalStorageService.setItem(initials_key, initials);
     }
 
     function getBirthDate() {
-        return _birthDate;
+        return new Date(LocalStorageService.getItem(birth_date_key));
     }
 
     function setBirthDate(birthDate) {
-        _birthDate = birthDate;
+        LocalStorageService.setItem(birth_date_key, birthDate);
     }
 
     function getEstimatedAge() {
-        return _estimatedAge;
+        return LocalStorageService.getItem(estimated_age_key);
     }
 
     function setEstimatedAge(estimatedAge) {
-        _estimatedAge = estimatedAge;
-    }
+         LocalStorageService.setItem(estimated_age_key, estimatedAge);
+   }
 
     function getExternalScanHospitalName() {
-        return _externalScanHospitalName;
+       return LocalStorageService.getItem(external_scan_hospital_name_key);
     }
 
     function setExternalScanHospitalName(externalScanHospitalName) {
-        _externalScanHospitalName = externalScanHospitalName;
+        LocalStorageService.setItem(external_scan_hospital_name_key, externalScanHospitalName);
     }
     
     function getScanDateTime() {
-        return _scanDateTime;
+        return new Date(LocalStorageService.getItem(scan_date_time_key));
     }
 
     function setScanDateTime(scanDateTime) {
-        _scanDateTime = scanDateTime;
+        LocalStorageService.setItem(scan_date_time_key, scanDateTime);
     }
 
     function getHospitalUniqueId() {
-        return _hospitalUniqueId;
+        return LocalStorageService.getItem(hospital_unique_id_key);
     }
 
     function setHospitalUniqueId(hospitalUniqueId) {
-        _hospitalUniqueId = hospitalUniqueId;
+       LocalStorageService.setItem(hospital_unique_id_key, hospitalUniqueId);
     }
     
     // patient-details
     function getDoorDateTime() {
-        return _doorDateTime;
+        return new Date(LocalStorageService.getItem(door_date_time_key));
     }
 
     function setDoorDateTime(doorDateTime) {
-        _doorDateTime = doorDateTime
+        LocalStorageService.setItem(door_date_time_key, doorDateTime);
     }
 
     function getOnsetDateTime() {
-        return _onsetDateTime;
+        return new Date(LocalStorageService.getItem(onset_date_time_key));
     }
 
     function setOnsetDateTime(onsetDateTime) {
-        _onsetDateTime = onsetDateTime
+        LocalStorageService.setItem(onset_date_time_key, onsetDateTime);
     }
 
     function getIsLastSeenWellOnset() {
-        return _isLastSeenWellOnset;
+       return LocalStorageService.getItem(is_last_seen_well_onset_key);
     }
 
     function setIsLastSeenWellOnset(isLastSeenWellOnset) {
-        _isLastSeenWellOnset = isLastSeenWellOnset
+        LocalStorageService.setItem(is_last_seen_well_onset_key, isLastSeenWellOnset);
     }
 
     function getIsBestEstimateOnset() {
-        return _isBestEstimateOnset;
+        return LocalStorageService.getItem(is_best_estimate_onset_key);
     }
 
     function setIsBestEstimateOnset(isBestEstimateOnset) {
-        _isBestEstimateOnset = isBestEstimateOnset;
+         LocalStorageService.setItem(is_best_estimate_onset_key, isBestEstimateOnset);
     }
    
     // gcs-entry
     function getGcsScore() {
-        return _gcsScore;
+        return LocalStorageService.getItem(gcs_score_key);
     }
     
     function setGcsScore(gcsScore) {
-        _gcsScore = gcsScore;
+        LocalStorageService.setItem(gcs_score_key, gcsScore);
     }
     
     function getGcsScoreEye() {
-        return _gcsScoreEye;
+        return LocalStorageService.getItem(gcs_score_eye_key);
     }
 
     function setGcsScoreEye(gcsScoreEye) {
-        _gcsScoreEye = gcsScoreEye;
+        LocalStorageService.setItem(gcs_score_eye_key, gcsScoreEye);
     }
     
     function getGcsScoreVerbal() {
-        return _gcsScoreVerbal;
+        return LocalStorageService.getItem(gcs_score_verbal_key);
     }
     
     function setGcsScoreVerbal(gcsScoreVerbal) {
-        _gcsScoreVerbal = gcsScoreVerbal;
+        LocalStorageService.setItem(gcs_score_verbal_key, gcsScoreVerbal);
     }
 
     function getGcsScoreMotor() {
-        return _gcsScoreMotor;
+        return LocalStorageService.getItem(gcs_score_motor_key);
     }
 
     function setGcsScoreMotor(gcsScoreMotor) {
-        _gcsScoreMotor = gcsScoreMotor;
+        LocalStorageService.setItem(gcs_score_motor_key, gcsScoreMotor);
     }
    
     // patient-end
     function getSummaryEmailAddress() {
-        return _summaryEmailAddress;
+        return LocalStorageService.getItem(summary_email_address_key);
     }
     
     function setSummaryEmailAddress(summaryEmailAddress) {
-        _summaryEmailAddress = summaryEmailAddress;
+        LocalStorageService.setItem(summary_email_address_key, summaryEmailAddress);
     }
 
     //
     // protocol A
     //
 
+
     // anticoagulant-identification
     function getAnticoagulantType() {
-        return _anticoagulantType;
+        return LocalStorageService.getItem(anticoagulant_type_key);
     }
 
     function setAnticoagulantType(anticoagulantType) {
-        _anticoagulantType = anticoagulantType;
+        LocalStorageService.setItem(anticoagulant_type_key, anticoagulantType);
     }
     
-    function getAntiCoagulantName() {
-        return _antiCoagulantName;
+    function getAnticoagulantName() {
+        return LocalStorageService.getItem(anticoagulant_name_key);
     }
     
-    function setAntiCoagulantName(antiCoagulantName) {
-        _antiCoagulantName = antiCoagulantName;
+    function setAnticoagulantName(anticoagulantName) {
+        LocalStorageService.setItem(anticoagulant_name_key, anticoagulantName);
     }
 
     // calculate-beriplex-dose
     function getEstimatedWeightInKg() {
-        return _estimatedWeightInKg;
+        return LocalStorageService.getItem(estimated_weight_in_kg_key);
     }
     
     function setEstimatedWeightInKg(estimatedWeightInKg) {
-        _estimatedWeightInKg = estimatedWeightInKg;
+        LocalStorageService.setItem(estimated_weight_in_kg_key, estimatedWeightInKg);
     }
     
     function getCalculatedBeriplexDose() {
-        return _calculatedBeriplexDose;
+        return LocalStorageService.getItem(calculated_beriplex_dose_key);
     }
     
     function setCalculatedBeriplexDose(calculatedBeriplexDose) {
-        _calculatedBeriplexDose = calculatedBeriplexDose;
+        LocalStorageService.setItem(calculated_beriplex_dose_key, calculatedBeriplexDose);
     }
     
     function getInrValue() {
-        return _inrValue;
+        return LocalStorageService.getItem(inr_value_key);
     }
     
     function setInrValue(inrValue) {
-        _inrValue = inrValue;
+        LocalStorageService.setItem(inr_value_key, inrValue);
     }
     
     function getInrType() {
-        return _inrType;
+        return LocalStorageService.getItem(inr_type_key);
     }
     
     function setInrType(inrType) {
-        _inrType = inrType;
+        LocalStorageService.setItem(inr_type_key, inrType);
     }
     
     function getInrDateTime() {
-        return _inrDateTime;
+        return new Date(LocalStorageService.getItem(inr_date_time_key));
     }
     
     function setInrDateTime(inrDateTime) {
-        _inrDateTime = inrDateTime;
+        LocalStorageService.setItem(inr_date_time_key, inrDateTime);
     }
 
-    function getShouldAdministerBeriplexWhenAnticoagulatUnknown() {
-        return _shouldAdministerBeriplexWhenAnticoagulatUnknown;
-    }
+    function getAdministerBeriplexWhenUnknown() {
+         return LocalStorageService.getItem(administer_beriplex_when_unknown_key);
+   }
     
-    function setShouldAdministerBeriplexWhenAnticoagulatUnknown(shouldAdministerBeriplexWhenAnticoagulatUnknown) {
-        _shouldAdministerBeriplexWhenAnticoagulatUnknown = shouldAdministerBeriplexWhenAnticoagulatUnknown;
+    function setAdministerBeriplexWhenUnknown(shouldAdministerBeriplexWhenAnticoagulantUnknown) {
+        LocalStorageService.setItem(administer_beriplex_when_unknown_key, shouldAdministerBeriplexWhenAnticoagulantUnknown);
     }
 
     // confirm-beriplex-dose
     function getActualBeriplexDose() {
-        return _actualBeriplexDose;
+        return LocalStorageService.getItem(actual_beriplex_dose_key);
     }
 
     function setActualBeriplexDose(actualBeriplexDose) {
-        _actualBeriplexDose = actualBeriplexDose;
+        LocalStorageService.setItem(actual_beriplex_dose_key, actualBeriplexDose);
     }
 
     // administer-beriplex
     function getBeriplexStartDateTime() {
-        return _beriplexStartDateTime;
+        return new Date(LocalStorageService.getItem(beriplex_start_date_time_key));
     }
     
     function setBeriplexStartDateTime(beriplexStartDateTime) {
-        _beriplexStartDateTime = beriplexStartDateTime;
+        LocalStorageService.setItem(beriplex_start_date_time_key, beriplexStartDateTime);
     }
     
     function getVitaminkDateTime() {
-        return _vitaminkDateTime;
-    }
+         return new Date(LocalStorageService.getItem(vitamink_date_time_key));
+   }
     
     function setVitaminkDateTime(vitaminkDateTime) {
-        _vitaminkDateTime = vitaminkDateTime;
+        LocalStorageService.setItem(vitamink_date_time_key, vitaminkDateTime);
     }
     
     function getIsInfusionInstructionsViewed() {
-        return _isInfusionInstructionsViewed;
+        return LocalStorageService.getItem(is_infusion_instructions_viewed_key);
     }
     
     function setIsInfusionInstructionsViewed(isInfusionInstructionsViewed) {
-        _isInfusionInstructionsViewed = isInfusionInstructionsViewed;
+        LocalStorageService.setItem(is_infusion_instructions_viewed_key, isInfusionInstructionsViewed);
     }
 
     // doac-reversal-agent-details
-    function getDoacReveralAgentType() {
-        return _doacReveralAgentType;
+    function getDoacReversalAgentType() {
+        return LocalStorageService.getItem(doac_reversal_agent_type_key);
     }
     
-    function setDoacReveralAgentType(doacReveralAgentType) {
-        _doacReveralAgentType = doacReveralAgentType;
+    function setDoacReversalAgentType(doacReversalAgentType) {
+        LocalStorageService.setItem(doac_reversal_agent_type_key, doacReversalAgentType);
     }
 
-    function getDoacReveralAgentDateTime() {
-        return _doacReveralAgentDateTime;
+    function getDoacReversalAgentDateTime() {
+        return new Date(LocalStorageService.getItem(doac_reversal_agent_date_time_key));
     }
 
-    function setDoacReveralAgentDateTime(doacReveralAgentDateTime) {
-        _doacReveralAgentDateTime = doacReveralAgentDateTime;
+    function setDoacReversalAgentDateTime(doacReversalAgentDateTime) {
+        LocalStorageService.setItem(doac_reversal_agent_date_time_key, doacReversalAgentDateTime);
     }
 
     //
     // protocol B
     //
+
     
     // bp-management
     function getBpTargetReachedDateTime() {
-        return _bpTargetReachedDateTime;
+        return new Date(LocalStorageService.getItem(bp_target_reached_date_time_key));
     }
     
     function setBpTargetReachedDateTime(bpTargetReachedDateTime) {
-        _bpTargetReachedDateTime = bpTargetReachedDateTime;
+        LocalStorageService.setItem(bp_target_reached_date_time_key, bpTargetReachedDateTime);
     }
     
     function getBpTreatmentThreshold() {
-        return _bpTreatmentThreshold;
+        return LocalStorageService.getItem(bp_treatment_threshold_key);
     }
     
     function setBpTreatmentThreshold(bpTreatmentThreshold) {
-        _bpTreatmentThreshold = bpTreatmentThreshold;
+        LocalStorageService.setItem(bp_treatment_threshold_key, bpTreatmentThreshold);
     }
     
     function getBpTarget() {
-        return _bpTarget;
+        return LocalStorageService.getItem(bp_target_key);
     }
     
     function setBpTarget(bpTarget) {
-        _bpTarget = bpTarget;
+        LocalStorageService.setItem(bp_target_key, bpTarget);
     }
 
     function getBpMeasurementEntries() {
-        return _bpBpMeasurementEntries;
+        var entries =  LocalStorageService.getItem(bp_measurement_entries_key);
+        if (entries === null) {
+            entries = [];
+        }
+        else {
+            for(var i = 0; i < entries.length; i++) {
+                entries[i].dateTime = new Date(entries[i].dateTime);
+            }
+        }
+        return entries;
     }
 
     function addBpMeasurementEntry(bpMeasurementEntry) {
-        _bpBpMeasurementEntries.push(bpMeasurementEntry);
+        var entries = getBpMeasurementEntries();
+        entries.push(bpMeasurementEntry);
+        LocalStorageService.setItem(bp_measurement_entries_key, entries);
     }
     
     // critical-care-referral
     function getDestination() {
-        return _destination;
+        return LocalStorageService.getItem(destination_key);
     }
     
     function setDestination(destination) {
-        _destination = destination;
+        LocalStorageService.setItem(destination_key, destination);
     }
     
     function getOtherDestination() {
-        return _otherDestination;
+        return LocalStorageService.getItem(other_destination_key);
     }
     
     function setOtherDestination(otherDestination) {
-        _otherDestination = otherDestination;
+        LocalStorageService.setItem(other_destination_key, otherDestination);
     }
 
     //
     // protocol C
     //
 
+
     // mrs-entry
     function getPremorbidMrsScore() {
-        return _premorbidMrsScore;
+        return LocalStorageService.getItem(premorbid_mrs_score_key);
     }
 
     function setPremorbidMrsScore(premorbidMrsScore) {
-        _premorbidMrsScore = premorbidMrsScore;
+        LocalStorageService.setItem(premorbid_mrs_score_key, premorbidMrsScore);
     }
 
     // neurosurgery-referral-criteria    
     function getIchVolume() {
-        return _ichVolume;
+        return LocalStorageService.getItem(ich_volume_key);
     }
     
     function setIchVolume(ichVolume) {
-        _ichVolume = ichVolume;
+        LocalStorageService.setItem(ich_volume_key, ichVolume);
     }
 
     function getIsPosteriorFossaIch() {
-        return _isPosteriorFossaIch;
+        return LocalStorageService.getItem(is_posterior_fossa_ich_key);
     }
     
     function setIsPosteriorFossaIch(isPosteriorFossaIch) {
-        _isPosteriorFossaIch = isPosteriorFossaIch;
+        LocalStorageService.setItem(is_posterior_fossa_ich_key, isPosteriorFossaIch);
     }
     
     function getIsVentricleObstructed() {
-        return _isVentricleObstructed;
+        return LocalStorageService.getItem(is_ventricle_obstructed_key);
     }
     
     function setIsVentricleObstructed(isVentricleObstructed) {
-        _isVentricleObstructed = isVentricleObstructed;
+        LocalStorageService.setItem(is_ventricle_obstructed_key, isVentricleObstructed);
     }
     
     // neurosurgery-referral-summary        
     function getReferralToNeurosurgeryDateTime() {
-        return _referralToNeurosurgeryDateTime;
+        return new Date(LocalStorageService.getItem(referral_to_neurosurgery_date_time_key));
     }
     
     function setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime) {
-        _referralToNeurosurgeryDateTime = referralToNeurosurgeryDateTime;
+        LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, referralToNeurosurgeryDateTime);
     }
     
     function getNeurosurgeonName() {
-        return _neurosurgeonName;
+        return LocalStorageService.getItem(neurosurgeon_name_key);
     }
     
     function setNeurosurgeonName(neurosurgeonName) {
-        _neurosurgeonName = neurosurgeonName;
+        LocalStorageService.setItem(neurosurgeon_name_key, neurosurgeonName);
     }
 
     function getIsReferralToNeurosurgeryAccepted() {
-        return _isReferralToNeurosurgeryAccepted;
+        return LocalStorageService.getItem(is_referral_to_neurosurgery_accepted_key);
     }
     
     function setIsReferralToNeurosurgeryAccepted(isReferralToNeurosurgeryAccepted) {
-        _isReferralToNeurosurgeryAccepted = isReferralToNeurosurgeryAccepted;
+        LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, isReferralToNeurosurgeryAccepted);
     }
     
     function getIsForActiveTreatment() {
-        return _isForActiveTreatment;
-    }
+         return LocalStorageService.getItem(is_for_active_treatment_key);
+   }
     
     function setIsForActiveTreatment(isForActiveTreatment) {
-        _isForActiveTreatment = isForActiveTreatment;
+        LocalStorageService.setItem(is_for_active_treatment_key, isForActiveTreatment);
     }
 
     function clearAll() {
-
-        _appStartDateTime = null;
-        _uniqueId = null;
-        _initials = null;
-        _birthDate = null;
-        _estimatedAge = null;
-        _externalScanHospitalName = null;
-        _scanDateTime = null;
-        _hospitalUniqueId = null;
-        _doorDateTime = null;
-        _onsetDateTime = null;
-        _isLastSeenWellOnset = null;
-        _isBestEstimateOnset = null;
-        _gcsScore = null;
-        _gcsScoreEye = null;
-        _gcsScoreVerbal = null;
-        _gcsScoreMotor = null;
-        _summaryEmailAddress = null;
-        _anticoagulantType = null;
-        _antiCoagulantName = null;
-        _estimatedWeightInKg = null;
-        _calculatedBeriplexDose = null;
-        _inrValue = null;
-        _inrType = null;
-        _inrDateTime = null;
-        _shouldAdministerBeriplexWhenAnticoagulatUnknown = null;
-        _actualBeriplexDose = null;
-        _beriplexStartDateTime = null;
-        _vitaminkDateTime = null;
-        _isInfusionInstructionsViewed = null;
-        _doacReveralAgentType = null;
-        _doacReveralAgentDateTime = null;
-        _bpTargetReachedDateTime = null;
-        _bpTreatmentThreshold = null;
-        _bpTarget = null;
-        _destination = null;
-        _otherDestination = null;
-        _premorbidMrsScore = null;
-        _ichVolume = null;
-        _isPosteriorFossaIch = null;
-        _isVentricleObstructed = null;
-        _referralToNeurosurgeryDateTime = null;
-        _neurosurgeonName = null;
-        _isReferralToNeurosurgeryAccepted = null;
-        _isForActiveTreatment = null;
+        LocalStorageService.setItem(app_start_date_time_key, null);
+        LocalStorageService.setItem(unique_id_key, null);
+        LocalStorageService.setItem(initials_key, null);
+        LocalStorageService.setItem(birth_date_key, null);
+        LocalStorageService.setItem(estimated_age_key, null);
+        LocalStorageService.setItem(external_scan_hospital_name_key, null);
+        LocalStorageService.setItem(scan_date_time_key, null);
+        LocalStorageService.setItem(hospital_unique_id_key, null);
+        LocalStorageService.setItem(door_date_time_key, null);
+        LocalStorageService.setItem(onset_date_time_key, null);
+        LocalStorageService.setItem(is_last_seen_well_onset_key, null);
+        LocalStorageService.setItem(is_best_estimate_onset_key, null);
+        LocalStorageService.setItem(gcs_score_key, null);
+        LocalStorageService.setItem(gcs_score_eye_key, null);
+        LocalStorageService.setItem(gcs_score_verbal_key, null);
+        LocalStorageService.setItem(gcs_score_motor_key, null);
+        LocalStorageService.setItem(summary_email_address_key, null);
+        LocalStorageService.setItem(anticoagulant_type_key, null);
+        LocalStorageService.setItem(anticoagulant_name_key, null);
+        LocalStorageService.setItem(estimated_weight_in_kg_key, null);
+        LocalStorageService.setItem(calculated_beriplex_dose_key, null);
+        LocalStorageService.setItem(inr_value_key, null);
+        LocalStorageService.setItem(inr_type_key, null);
+        LocalStorageService.setItem(inr_date_time_key, null);
+        LocalStorageService.setItem(administer_beriplex_when_unknown_key, null);
+        LocalStorageService.setItem(actual_beriplex_dose_key, null);
+        LocalStorageService.setItem(beriplex_start_date_time_key, null);
+        LocalStorageService.setItem(vitamink_date_time_key, null);
+        LocalStorageService.setItem(is_infusion_instructions_viewed_key, null);
+        LocalStorageService.setItem(doac_reversal_agent_type_key, null);
+        LocalStorageService.setItem(doac_reversal_agent_date_time_key, null);
+        LocalStorageService.setItem(bp_target_reached_date_time_key, null);
+        LocalStorageService.setItem(bp_treatment_threshold_key, null);
+        LocalStorageService.setItem(bp_target_key, null);
+        LocalStorageService.setItem(bp_measurement_entries_key, null);
+        LocalStorageService.setItem(destination_key, null);
+        LocalStorageService.setItem(other_destination_key, null);
+        LocalStorageService.setItem(premorbid_mrs_score_key, null);
+        LocalStorageService.setItem(ich_volume_key, null);
+        LocalStorageService.setItem(is_posterior_fossa_ich_key, null);
+        LocalStorageService.setItem(is_ventricle_obstructed_key, null);
+        LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, null);
+        LocalStorageService.setItem(neurosurgeon_name_key, null);
+        LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);
+        LocalStorageService.setItem(is_for_active_treatment_key, null);
     }
 
 }

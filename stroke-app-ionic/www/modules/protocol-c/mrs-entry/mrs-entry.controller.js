@@ -8,7 +8,8 @@ function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, Ta
  
     var vm = this; // S5
 
-    TabStateCacheService.setStateTabC('tabs.mrs-entry');
+    TabStateCacheService.setCurrentState('tabs.mrs-entry');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.mrs = null;
 
@@ -16,10 +17,10 @@ function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, Ta
     vm.isNextButtonEnabled = isNextButtonEnabled;
 
     function onNext() {
-        showDataValidationPopup(handleDataIsValid); 
+        showDataValidationPopup(handleDataValid); 
     }
 
-    function handleDataIsValid() {
+    function handleDataValid() {
         saveData();
 
         $state.go('tabs.neurosurgery-referral-criteria');

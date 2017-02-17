@@ -8,7 +8,8 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
  
     var vm = this; // S6
 
-    TabStateCacheService.setStateTabA('tabs.anticoagulant-identification');
+    TabStateCacheService.setCurrentState('tabs.anticoagulant-identification');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.myImage = {
       	    'src' : 'img/apixaban.png', 
@@ -48,14 +49,14 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     vm.showDoacExamplesPopup = showDoacExamplesPopup;
 
     function onNext() {
-        showDataValidationPopup(handleDataIsValid);
+        showDataValidationPopup(handleDataValid);
     }
 
     function anticoagulantTypeChanged() {
         vm.anticoagulantName = null;
     }
 
-    function handleDataIsValid() {
+    function handleDataValid() {
         saveData();
 
         if (vm.anticoagulantType === "NONE") {
@@ -73,7 +74,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
      }
 
     function onNext() {
-       showDataValidationPopup(handleDataIsValid);
+       showDataValidationPopup(handleDataValid);
     }
 
     function isNextButtonEnabled() {
@@ -95,7 +96,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         PatientCacheService.setAnticoagulantType(vm.anticoagulantType);
 
         if (vm.anticoagulantType === "VITK" || vm.anticoagulantType === "DOAC") {
-            PatientCacheService.setAntiCoagulantName(vm.anticoagulantName);
+            PatientCacheService.setAnticoagulantName(vm.anticoagulantName);
         }
     }
 

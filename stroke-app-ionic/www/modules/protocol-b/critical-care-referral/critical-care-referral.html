@@ -1,68 +1,48 @@
 <ion-view title="Refer to critical care">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
-    <div class="list card">
-      <ion-item>Critical Care—after 60 min</ion-item>
-      <div class="spacer" style="width: 748.182px; height: 0.999998px;"></div>
-      <div class="row">
-        <div class="col">
-          <div class="spacer" style="width: 0px; height: 0px;"></div>
-          <div class="show-list-numbers-and-dots">
-            <ol>
-              <li>
-                <p style="color:#000000;font-size:15px;">If target not achieved with GTN/Labetalol, refer to critical care</p>
-              </li>
-              <li>
-                <p style="color:#000000;font-size:15px;">Consider transfer to HDU/ICU for arterial line and further anti-hypertensive treatment</p>
-              </li>
-            </ol>
-          </div>
-        </div>
-        <div class="col-10 creator-container"></div>
-        <div class="col-33">
-          <div style="text-align:center;" class="show-list-numbers-and-dots border">
-            <p style="color:#000000;font-size:20px;">
-              <strong>Critical Care</strong>
-            </p>
 
-            <p style="color:#000000;font-size:20px;">Contact NHDU specialist trainee</p>
-
-            <p style="color:#000000;font-size:20px;">Contact ICU specialist trainee</p>
-          </div>
-        </div>
-      </div>
+     <div class="list card" >
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Critical Care — after 60 min
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>If target not achieved with GTN/Labetalol, refer to critical care</span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>Consider transfer to HDU/ICU for arterial line and further anti-hypertensive treatment</span>        
+      </ion-item>
     </div>
-
-
+   
     <div class="list card">
-        <form class="list">
-            <ion-item class="item-icon-left  card-header card-header-green">
-                <i class="icon ion-ionic"></i>Patient refferal
+            <ion-item class="item-icon-left card-header card-header-green">
+                <i class="icon ion-ionic"></i>Critical care referral
             </ion-item>
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Critical care'">
-                Critical care
+                <span class="input-blue">Critical care</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Intensive care unit'">
-                Intensive care unit
+                <span class="input-blue">Intensive care unit</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'High dependency unit'">
-                High dependency unit
+                <span class="input-blue">High dependency unit</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'Other'">
-                None of the above (please provide below)
+                <span class="input-blue">None of the above</span>
             </ion-radio>
             <label ng-hide="vm.destination !== 'Other'" class="item item-input">
                 <span class="input-label">Other</span>
                 <input type="text" ng-model="vm.destinationOther" placeholder="Please specify">
             </label>
-        </form>
     </div>
+
     <!--Next button-->
     <div class="spacer" style="width: 748px; height: 27px;"></div>
     <div class="col-offset-50 col-50">

@@ -13,17 +13,14 @@ function TabsController($state, TabStateCacheService) {
     vm.cTabClicked = cTabClicked;
 
     function aTabClicked() {
-        var state = TabStateCacheService.getStateTabA();
-        $state.go(state);
+        TabStateCacheService.goLatestStateTabA()
     }
 
     function bTabClicked() {
-        var state = TabStateCacheService.getStateTabB();
-        $state.go(state);
+        TabStateCacheService.goLatestStateTabB()
     }
 
     function cTabClicked() {
-        var state = TabStateCacheService.getStateTabC();
-        $state.go(state);
+        TabStateCacheService.goLatestStateTabC()
     }    
 }

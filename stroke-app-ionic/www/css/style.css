@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-.gcs-total{
+.chi-gcs-total{
         font-size: 38px;
 }
 
@@ -14,5 +14,22 @@
 .chi-height-400 {
         min-height: 400px;
 }
+
+.chi-patient-id {
+    text-align: right;
+    font-size: 18px;
+    color: #0064B4 !important; 
+}
+
+.chi-info {
+        background-color: #f5f5f5;
+}
+
+.chi-no-vertical-padding {
+        padding-top: 0px;
+        padding-bottom: 0px;
+}
+
+
 
 

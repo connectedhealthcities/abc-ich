@@ -6,12 +6,6 @@ HospitalHttpService.$inject = ['$http', '$q', 'ServerUrlService'];
 
 function HospitalHttpService($http, $q, ServerUrlService) {
 
-    var service = {
-        getHospitals: getHospitals
-    };
-
-    return service;
-
 //cjd    var _hospitals = null;
     var _hospitals = [
         {
@@ -27,6 +21,12 @@ function HospitalHttpService($http, $q, ServerUrlService) {
             "name": "Hospital 4"
         }
     ];
+
+    var service = {
+        getHospitals: getHospitals
+    };
+
+    return service;
 
 	function getHospitals() {
         if (_hospitals) {

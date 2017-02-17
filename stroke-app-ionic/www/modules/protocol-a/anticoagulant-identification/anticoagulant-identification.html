@@ -1,27 +1,31 @@
 <ion-view title="Anticoagulant identification">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
 
     <div class="list card">
-      <form class="list">
-        <ion-item class="item-icon-left  card-header card-header-green">
+        <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>Anticoagulant type
         </ion-item>
-        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'VITK'">VitK
+
+        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'VITK'">
+           <span class="input-blue">Vitamin K</span>
         </ion-radio>
-        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'DOAC'">DOAC
+        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'DOAC'">
+           <span class="input-blue">DOAC</span>
         </ion-radio>
-        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'NONE'">None
+        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'NONE'">
+            <span class="input-blue">None</span>
         </ion-radio>
-        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'UNKNOWN'">Unknown
+        <ion-radio ng-model="vm.anticoagulantType" ng-change="vm.anticoagulantTypeChanged()" name="anticoagulant-type" ng-value="'UNKNOWN'">
+           <span class="input-blue">Unknown</span>
         </ion-radio>
-      </form>
     </div>
 
     <div class="spacer" style="width: 748px; height: 32px;"></div>
@@ -35,31 +39,35 @@
     <div class="spacer" style="width: 748px; height: 32px;"></div>
 
     <div class="list card" ng-show="vm.anticoagulantType === 'DOAC'">
-      <ion-item class="item-icon-left  card-header card-header-green">
-        <i class="icon ion-ionic"></i>DOACS
-      </ion-item>
-      <ion-list>
-        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Apixaban'">Apixaban
+        <ion-item class="item-icon-left card-header card-header-green">
+          <i class="icon ion-ionic"></i>DOAC
+        </ion-item>
+
+        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Apixaban'">
+            <span class="input-blue">Apixaban</span>
         </ion-radio>
-        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Dabigatran'">Dabigatran
+        <ion-radio ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Dabigatran'">
+            <span class="input-blue">Dabigatran</span>
         </ion-radio>
-        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Rivoroxaban'">Rivoroxaban
+        <ion-radio ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Rivoroxaban'">
+            <span class="input-blue">Rivoroxaban</span>
         </ion-radio>
-        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Edoxaban'">Edoxaban
+        <ion-radio ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Edoxaban'">
+             <span class="input-blue">Edoxaban</span>
         </ion-radio>
-      </ion-list>
     </div>
 
     <div class="list card" ng-show="vm.anticoagulantType === 'VITK'">
-      <ion-item class="item-icon-left  card-header card-header-green">
-        <i class="icon ion-ionic"></i>Vitamin K antagonists
-      </ion-item>
-      <ion-list>
-        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Warfarin'">Warfarin         
+        <ion-item class="item-icon-left card-header card-header-green">
+          <i class="icon ion-ionic"></i>Vitamin K antagonist
+        </ion-item>
+
+        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Warfarin'">         
+            <span class="input-blue">Warfarin</span>
         </ion-radio>
-        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Sinthrome'">Sinthrome
+        <ion-radio class="input-blue" ng-model="vm.anticoagulantName" name="anticoagulant-name" ng-value="'Sinthrome'">
+            <span class="input-blue">Sinthrome</span>
         </ion-radio>
-      </ion-list>
     </div>
 
     <!--Next button-->

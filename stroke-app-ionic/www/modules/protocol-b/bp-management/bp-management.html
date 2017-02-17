@@ -1,49 +1,28 @@
 <ion-view title="BP management">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
 
-    <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-      <p style="font-size:19px;">
-        <strong>Patient Id:</strong> 12152016-emt</p>
+    <!-- Patient id-->
+    <div>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
+      <hr>
     </div>
-    <hr>
 
-    <div class="list card data-display-region">
-      <ion-item class="item-icon-left card-header transparent-header">
-        <i class="icon ion-android-radio-button-on"></i>Acute treatment target
+    <div class="list card" >
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Treatment target and threshold
       </ion-item>
-      <!--<div class="item item-body container transparent-header">-->
-        <div class="row">
-            <div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000; font-size:16px;">
-                    Onset time is {{vm.onsetTimeText}} six hours ago
-                 </div>
-              </div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000; font-size:16px;">
-                    Start treatment if SBP greater than: <strong>{{vm.treatmentThreshold}}</strong>
-                </div>
-              </div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000; font-size:16px;">
-                    Lower SBP to: <strong>{{vm.treatmentTarget}}</strong>
-                 </div>
-              </div>
-          </div>
-        </div>
-      <!--</div>-->
-        <!--<div class="row">
-          <div class="col text-center">
-            <p style="color:#000000; font-size:16px;">
-            BP Monitoring: every 15 min for 1 h, then hourly up to 24 h
-          </div>
-        </div>-->
+      <ion-item class="card-header-green chi-info">
+        <span>Onset time is <strong>{{vm.onsetTimeText}}</strong> six hours ago</span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>Start treatment if SBP greater than: <strong>{{vm.treatmentThreshold}}</strong></span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>Lower SBP to: <strong>{{vm.treatmentTarget}}</strong></span>        
+      </ion-item>
     </div>
-
-    <!--<div class="spacer" style="width: 748px; height: 32px;"></div>-->
 
     <div class="row">
       <div class="col-33 text-left">
@@ -57,13 +36,12 @@
     <div class="spacer" style="width: 748px; height: 32px;"></div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-heart"></i>Measurement
+          <i class="icon ion-ionic"></i>Measurement
         </ion-item>
         <div class="row row-center">
           
-          <div class="col-90">
+        <div class="col-90">
             <label class="item item-input">
               <span class="input-label">Date</span>
               <input type="date" ng-model="vm.entryDate">
@@ -79,7 +57,7 @@
           </div>
         </div>
         <label class="item item-input">
-          <span class="input-label">Systolic blood preasure (mmHg)</span>
+          <span class="input-label">SBP (mmHg)</span>
           <input type="number" placeholder="" ng-model="vm.entrySbp">
         </label>
         <label class="item item-input">
@@ -94,22 +72,19 @@
       </form>
     </div>
 
-      <div>
-      <form class="list">
-        <div class="row">
+    <div class="row">
+      <div class="col-33 col-offset-67 text-right">
+          <button ng-disabled="!vm.isAddEntryButtonEnabled()" ng-click="vm.addEntry()" style="border-radius:4px 4px 4px 4px;" class="button button-positive  button-block icon-right ion-clipboard">Add entry</button>
+      </div>
+    </div>
 
-          <div class="col-33 col-offset-67 text-right">
-            <button ng-disabled="!vm.isAddEntryButtonEnabled()" ng-click="vm.addEntry()" style="border-radius:4px 4px 4px 4px;" class="button button-positive  button-block icon-right ion-clipboard">Add entry</button>
-          </div>
-        </div>
 
-        <div class="spacer" style="width: 748px; height: 11px;"></div>
-        <div class="list card data-display-region">
-          <ion-item class="item-icon-left  card-header transparent-header" id="acuteBloodPressureManagement-list-item17">
+    <div class="list card chi-info">
+        <ion-item class="item-icon-left card-header chi-info">
             <i class="icon ion-ios-pulse-strong"></i>Previous measurements
-          </ion-item>
+        </ion-item>
           
-          <div class="row">
+        <div class="row">
             <div class="col table-header">
               <h4 style="color:#000000;font-weight:300;text-align:center;">Time</h4>
             </div>
@@ -122,9 +97,9 @@
             <div class="col table-header">
               <h4 style="color:#000000;font-weight:300;text-align:center;">Labetalol dose (mg)</h4>
             </div>
-          </div>
+        </div>
 
-          <ion-scroll class="scroller">
+        <ion-scroll class="scroller">
             <div class="row" ng-repeat="entry in vm.entries">
               <div class="col table-cell-botto">
                 <div style="text-align:center;" class="show-list-numbers-and-dots">
@@ -147,17 +122,14 @@
                </div>
               </div>
             </div>
-          </ion-scroll>
-
-        </div>
-      </form>
+        </ion-scroll>
     </div>
 
     <!--Next button-->
-    <!--<div class="spacer" style="width: 748px; height: 27px;"></div>-->
     <div class="col-offset-50 col-50">
       <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
+
   </ion-content>
 </ion-view>
 

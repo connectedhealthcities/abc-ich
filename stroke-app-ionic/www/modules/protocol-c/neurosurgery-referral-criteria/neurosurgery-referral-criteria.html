@@ -1,71 +1,48 @@
 <ion-view title="Neurosurgery referral criteria">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
     
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
 
-    <div class="list card data-display-region">
-      <ion-item class="item-icon-left card-header transparent-header">
-        <i class="icon ion-ios-information-outline"></i>Baseline scan info
+    <div class="list card" >
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Baseline scan info
       </ion-item>
-      <div class="item item-body container transparent-header">
-        <div class="row">
-            <div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000;">
-                    <strong>Refer to Neurosurgery if any of the following criteria are met:</strong>
-                  </p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000;">i.
-                    <strong>Posterior fossa ICH</strong> (brainstem or cerebellum)</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000;">ii.
-                    <strong>Obstruction of the third and/or fourth ventricle</strong> by intraventricular haemorrhage or by external compression</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="show-list-numbers-and-dots">
-                  <p style="color:#000000;">iii.
-                    <strong>ICH volume greater than 30 ml</strong>, as measured by ABC/2 method</p>
-                </div>
-              </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="show-list-numbers-and-dots text-center">
-            <p style="color:#000000;">Shared care on Neuro HDU (NHDU) may be appropriate for these patients —discuss with Neurosurgery and NHDU team on a case-by-case basis</p>
-          </div>
-        </div>
-      </div>
+      <ion-item class="card-header-green chi-info">
+        <span><strong>Refer to Neurosurgery if any of the following criteria are met:</strong></span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>1. <strong>Posterior fossa ICH</strong> (brainstem or cerebellum)</strong></span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>2. <strong>Obstruction of the third and/or fourth ventricle</strong> by intraventricular haemorrhage or by external compression</strong></span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>3. <strong>ICH volume greater than 30 ml</strong>, as measured by ABC/2 method</span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>Shared care on Neuro HDU (NHDU) may be appropriate for these patients — discuss with Neurosurgery and NHDU team on a case-by-case basis</span>        
+      </ion-item>
     </div>
-
-   <div class="spacer" style="width: 748px; height: 32px;"></div>
 
     <div class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Posterior fossa ICH
         </ion-item>
-        <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="true">Yes
+        <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="true">
+          <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="false">No
+        <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="false">
+          <span class="input-blue">No</span>
         </ion-radio>
       </form>
     </div>
-
-    <div class="spacer" style="width: 748px; height: 32px;"></div>
 
     <div class="row">
       <div class="col-33 col-offset-67 text-right">
@@ -74,18 +51,16 @@
     </div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Obstruction of the third and/or fourth ventricle
         </ion-item>
-        <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="true">Yes
+        <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="true">
+          <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="false">No
+        <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="false">
+          <span class="input-blue">No</span>
         </ion-radio>
-      </form>
     </div>
-
-    <div class="spacer" style="width: 748px; height: 32px;"></div>
 
     <div class="row">
       <div class="col-33 col-offset-67 text-right">
@@ -94,9 +69,8 @@
     </div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-calculator"></i>ICH volume calculation
+          <i class="icon ion-ionic"></i>ICH volume calculation
         </ion-item>
         <label class="item item-input">
           <span class="input-label">Longest axis - A (cm):</span>
@@ -114,10 +88,10 @@
           <span class="input-label">Slice thickness (cm):</span>
           <input type="number" min="0" step=".0001" placeholder="" ng-model="vm.sliceThickness" ng-change="vm.calculateVolume()">
         </label>
-      </form>
-      <ion-item class="item-icon-left data-display-region" ng-show="vm.ichVolume">
-        <i class="icon ion-information-circled"></i><strong>ICH volume: </strong>{{vm.ichVolume}} ml
-      </ion-item> 
+
+        <ion-item class="item-icon-left data-display-region" ng-show="vm.ichVolume">
+          <i class="icon ion-information-circled"></i><strong>ICH volume: </strong>{{vm.ichVolume}} ml
+        </ion-item> 
     </div>
 
     <!--Next button-->

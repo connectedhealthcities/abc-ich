@@ -10,7 +10,8 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         showBeriplexAdministrationOverride: showBeriplexAdministrationOverride,
         calculateStonesToKg: calculateStonesToKg,
         calculateKgToStones: calculateKgToStones,
-        isNextButtonEnabled: isNextButtonEnabled
+        isNextButtonEnabled: isNextButtonEnabled,
+        calculateBeriplexDose: calculateBeriplexDose
     };
 
     return service
@@ -59,4 +60,24 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         return isEnabled;
     }
 
+    function calculateBeriplexDose(inrValue, weightInKg) {
+        var dose = null;
+        if (inrValue && weightInKg) {
+            var weight = weightInKg.toFixed(0);
+            var inr = inrValue.toFixed(1);
+            dose = 0;
+
+            if (inr >= 1.3 && inr <= 3.9) {
+                dose = weight * 25;
+            }
+            else if (inr >= 4 && inr <= 6) {
+                dose = weight * 35;
+           }
+            else if (inr > 6) {
+                dose = weight * 50;
+           }
+        }
+
+        return dose;
+    }
 }

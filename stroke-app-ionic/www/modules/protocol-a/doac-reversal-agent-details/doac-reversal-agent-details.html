@@ -1,23 +1,26 @@
 <ion-view title="DOAC reversal agent details">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
-
-    <div class="spacer" style="width: 748px; height: 32px;"></div>
  
     <div class="list card">
       <ion-item class="item-icon-left  card-header card-header-green">
         <i class="icon ion-ionic"></i>Reversal agent administered</ion-item>
-      <ion-list id="antiCoagulant-list8">
-        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'Idarucizumab'">Idarucizumab</ion-radio>
-        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'PCC'">PCC</ion-radio>
-        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">None</ion-radio>
-       </ion-list>
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'Idarucizumab'">
+            <span class="input-blue">Idarucizumab</span>
+        </ion-radio>
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'PCC'">
+            <span class="input-blue">PCC</span>
+        </ion-radio>
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">
+            <span class="input-blue">None</span>
+        </ion-radio>
     </div>
 
     <div class="list card" ng-show="vm.reversalAgent === 'Idarucizumab' || vm.reversalAgent === 'PCC'">

@@ -8,10 +8,12 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCache
  
     var vm = this; //S8
 
-    TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
+    TabStateCacheService.setCurrentState('tabs.confirm-beriplex-dose');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.overrideCalculatedDose = null;
     vm.actualDose = null;
+    vm.calculatedDose = PatientCacheService.getCalculatedBeriplexDose();
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
@@ -19,10 +21,10 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCache
 
 
     function onNext() {
-        showDataValidationPopup(dataValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function dataValid() {
+    function handleDataValid() {
         saveData();
         $state.go('tabs.administer-beriplex');
     }
@@ -32,8 +34,7 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCache
             PatientCacheService.setActualBeriplexDose(vm.actualDose);
         }
         else {
-            var calculatedDose = PatientCacheService.getCalculatedBeriplexDose();
-            PatientCacheService.setActualBeriplexDose(calculatedDose);
+            PatientCacheService.setActualBeriplexDose(vm.calculatedDose);
         }
     }
 

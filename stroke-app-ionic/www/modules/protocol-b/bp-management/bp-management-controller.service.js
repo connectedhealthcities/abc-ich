@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('app.protocolB').service('BpManagementControllerrService', BpManagementControllerrService);
+angular.module('app.protocolB').service('BpManagementControllerService', BpManagementControllerService);
 
-BpManagementControllerrService.$inject = ['DateTimeService'];
+BpManagementControllerService.$inject = ['DateTimeService'];
 
-function BpManagementControllerrService(DateTimeService) {
+function BpManagementControllerService(DateTimeService) {
  
      var _state_start = "Start";
      var _state_above_threshold = "Above threshold";

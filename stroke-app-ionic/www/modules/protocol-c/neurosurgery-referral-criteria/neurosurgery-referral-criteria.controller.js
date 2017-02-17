@@ -8,7 +8,8 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
 
     var vm = this; // S12
 
-    TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-criteria');
+    TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-criteria');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.isPosteriorFossaIch = null;
     vm.isObstruction = null;
@@ -25,7 +26,7 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     vm.showObstructionPopup = showObstructionPopup;
  
     function onNext() {
-       showDataValidationPopup(handleDataIsValid); 
+       showDataValidationPopup(handleDataValid); 
     }
 
     function isNextButtonEnabled() {
@@ -40,7 +41,7 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
         return isEnabled;
     }
 
-    function handleDataIsValid() {
+    function handleDataValid() {
         saveData();
 
         if (isNeuroReferralNotRequired()) {

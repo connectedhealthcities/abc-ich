@@ -2,11 +2,14 @@
 
 angular.module('app.general').controller('PatientDetailsController', PatientDetailsController);
 
-PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService']; 
+PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService']; 
 
-function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService) {
+function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService) {
  
     var vm = this; // S2
+
+    TabStateCacheService.setCurrentState('patient-details');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.doorDate = null;
     vm.doorTime = null;
@@ -36,10 +39,10 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
     }
 
     function onNext() {
-        showDataValidationPopup(dataValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function dataValid() {
+    function handleDataValid() {
         saveData();
         $state.go('gcs-entry');
     }

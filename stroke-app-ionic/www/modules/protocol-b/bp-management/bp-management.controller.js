@@ -2,37 +2,41 @@
 
 angular.module('app.protocolB').controller('BpManagementController', BpManagementController);
 
-BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'BpManagementControllerrService', 'GCS_THRESHOLD'];
+BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD'];
 
-function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, BpManagementControllerrService, GCS_THRESHOLD) {
+function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD) {
  
     var vm = this; // S10
 
-    TabStateCacheService.setStateTabB('tabs.bp-management');
+    TabStateCacheService.setCurrentState('tabs.bp-management');
+    vm.patientId = PatientCacheService.getUniqueId();
 
-    var SIX_HOURS_IN_MILLISECONDS = 6 * 60 * 60 * 1000;
-    var onsetMs = PatientCacheService.getOnsetDateTime().getTime();
-    var nowMs = new Date().getTime();
-    var diffMs = nowMs - onsetMs;
-    if ( diffMs > SIX_HOURS_IN_MILLISECONDS) { //cjd >= or >?
-        vm.treatmentThreshold = 200;
-        vm.treatmentTarget = 180;
-        vm.onsetTimeText = "greater than";
-        vm.targetAchievedText = "130 to 180 mmHg";
-    }
-    else {
-        vm.treatmentThreshold = 150;
-        vm.treatmentTarget = 140;
-        vm.onsetTimeText = "less than";
-        vm.targetAchievedText = "130 to 140 mmHg";
-    }
 
     if (PatientCacheService.getBpTreatmentThreshold() === null) {
+
+        var SIX_HOURS_IN_MILLISECONDS = 6 * 60 * 60 * 1000;
+        var onsetMs = PatientCacheService.getOnsetDateTime().getTime();
+        var nowMs = new Date().getTime();
+        var diffMs = nowMs - onsetMs;
+        if ( diffMs > SIX_HOURS_IN_MILLISECONDS) { //cjd >= or >?
+            vm.treatmentThreshold = 200;
+            vm.treatmentTarget = 180;
+        }
+        else {
+            vm.treatmentThreshold = 150;
+            vm.treatmentTarget = 140;
+        }
+
         PatientCacheService.setBpTreatmentThreshold(vm.treatmentThreshold);
-    }
-    if (PatientCacheService.getBpTarget() === null) {
         PatientCacheService.setBpTarget(vm.treatmentTarget);
     }
+    else {
+        vm.treatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
+        vm.treatmentTarget = PatientCacheService.getBpTarget();
+    }
+
+    vm.onsetTimeText = vm.treatmentThreshold === 200 ? "greater than" : "less than";
+    vm.targetAchievedText = vm.treatmentThreshold === 200 ? "130 to 180 mmHg" : "130 to 140 mmHg";
 
     vm.entryDate = null;
     vm.entryTime = null;
@@ -55,7 +59,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function goNextState() {
-        if (BpManagementControllerrService.getCurrentState() === BpManagementControllerrService.STATE_TARGET_ACHIEVED) {
+        if (BpStateCacheService.getCurrentState() === BpStateCacheService.STATE_TARGET_ACHIEVED) {
             if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
                 $state.go('patient-end');
             }
@@ -69,30 +73,32 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function addEntry() {
-        showDataValidationPopup(handleDataIsValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function handleDataIsValid() {
-        var entry = BpManagementControllerrService.getEntry(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol);
+    function handleDataValid() {
+        var entry = BpManagementControllerService.getEntry(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol);
         PatientCacheService.addBpMeasurementEntry(entry);
+        vm.entries = PatientCacheService.getBpMeasurementEntries();
  
-        if (BpManagementControllerrService.getCurrentState() === BpManagementControllerrService.STATE_START) {
+        var bpState = BpStateCacheService.getCurrentState();
+        if (bpState === BpStateCacheService.STATE_START) {
             if (vm.entrySbp > vm.treatmentThreshold) {
                 showRepeatBpReadingPopup();
-                BpManagementControllerrService.setCurrentState(BpManagementControllerrService.STATE_ABOVE_THRESHOLD);
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD);
             }
         }
-        else if (BpManagementControllerrService.getCurrentState() === BpManagementControllerrService.STATE_ABOVE_THRESHOLD) {
+        else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD) {
             if (vm.entrySbp > vm.treatmentThreshold) {
-                BpManagementControllerrService.setCurrentState(BpManagementControllerrService.STATE_ABOVE_THRESHOLD_CONFIRMED);
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED);
             }
             else {
-                BpManagementControllerrService.setCurrentState(BpManagementControllerrService.STATE_START);
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_START);
             }
         }
-        else if (BpManagementControllerrService.getCurrentState() === BpManagementControllerrService.STATE_ABOVE_THRESHOLD_CONFIRMED) {
+        else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED) {
             if (vm.entrySbp < vm.treatmentTarget) {
-                BpManagementControllerrService.setCurrentState(BpManagementControllerrService.STATE_TARGET_ACHIEVED);
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_TARGET_ACHIEVED);
                 PatientCacheService.setBpTargetReachedDateTime(new Date());
                 showBpTargetAchievedPopup(goNextState);
             }
@@ -102,7 +108,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function isAddEntryButtonEnabled() {
-        return BpManagementControllerrService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp);
+        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp);
     }
 
     function clearEntryFields() {

@@ -1,9 +1,10 @@
 <ion-view title="Administer beriplex">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
@@ -11,27 +12,28 @@
     <div>
       <h1 style="color:#6F49FF;text-align:center;">Treat as quickly as possible</h1>
       <h2 style="color:#6F49FF;text-align:center;">Target door to needle time is less than 90 minutes!</h2>
-      <h1 class="nhs-blue" style="text-align:center;">Beriplex dose is: {{vm.actualBeriplexDose}} IU</h1>
     </div>
     <hr>
-    <div class="spacer" style="width: 748px; height: 29px;"></div>
+
+    <h1 class="nhs-blue" style="text-align:center;">Beriplex dose is: {{vm.actualBeriplexDose}} IU</h1>
 
     <div class="list card" >
-      <ion-item class="item-icon-left  card-header card-header-green">
-        <i class="icon ion-ionic"></i>Anti-coagulant treatment</ion-item>
-      <ion-item class="item-divider card-header-green"> 1.
-        <b>Prescribe Beriplex</b> - complete a separate line for each bottle
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Anti-coagulant treatment
       </ion-item>
-      <ion-item class="item-divider card-header-green"> 2.
-        <b>Collect Beriplex</b>
+      <ion-item class="card-header-green chi-info">
+        <span>1. <b>Prescribe Beriplex</b> - complete a separate line for each bottle</span>        
       </ion-item>
-      <ion-item class="item-divider card-header-green"> 3.
-        <b>Draw up Beriplex</b> and then administer at 8 ml/min</ion-item>
-      <ion-item class="item-divider card-header-green"> 4.
-        <b>Give Vitamin K</b> at 10 mg IV once Beriplex has commenced</ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>2. <b>Collect Beriplex</b></span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>3. <b>Draw up Beriplex</b> and then administer at 8 ml/min</span>        
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>4. <b>Give Vitamin K</b> at 10 mg IV once Beriplex has commenced</span>        
+      </ion-item>
     </div>
-
-    <div class="spacer" style="width: 748px; height: 32px;"></div>
 
     <div class="row">
       <div class="col-33 col-offset-67 text-right">

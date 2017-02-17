@@ -1,83 +1,84 @@
 <ion-view title="Neurosurgery referral summary">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
 
-    <div class="list card data-display-region">
-      <ion-item class="item-icon-left card-header transparent-header">
-        <i class="icon ion-clipboard"></i>Patient summary
+    <div class="list card" >
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Patient summary
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">Age:</div>
-          <div class="col-20 text-right">{{vm.summary.age}}</div>
+      <ion-item class="card-header-green chi-info">
+          <div class="row chi-no-vertical-padding">
+            <div class="col-80">Age:</div>
+            <div class="col-20 text-right">{{vm.summary.age}}</div>
+        </div>            
+     </ion-item>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">GCS - Eye reponse:</div>
+            <div class="col-20 text-right">{{vm.summary.gcsEye}}</div>
         </div>            
       </ion-item>
-       <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">GCS - Eye reponse:</div>
-          <div class="col-20 text-right">{{vm.summary.gcsEye}}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">GCS - Verbal reponse:</div>
+            <div class="col-20 text-right">{{vm.summary.gcsVerbal}}</div>
         </div>            
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">GCS - Verbal reponse:</div>
-          <div class="col-20 text-right">{{vm.summary.gcsVerbal}}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">GCS - Motor reponse:</div>
+            <div class="col-20 text-right">{{vm.summary.gcsMotor }}</div>
         </div>            
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">GCS - Motor reponse:</div>
-          <div class="col-20 text-right">{{vm.summary.gcsMotor }}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">GCS - Total:</div>
+            <div class="col-20 text-right">{{vm.summary.gcsTotal}}</div>
         </div>            
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">GCS - Total:</div>
-          <div class="col-20 text-right">{{vm.summary.gcsTotal}}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">Posterior fossa ICH:</div>
+            <div class="col-20 text-right">{{vm.summary.isPosteriorFossaIch}}</div>
         </div>            
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">Posterior fossa ICH:</div>
-          <div class="col-20 text-right">{{vm.summary.isPosteriorFossaIch}}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">Ventricle obstructed:</div>
+            <div class="col-20 text-right">{{vm.summary.isVentricleObstructed}}</div>
         </div>            
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">Ventricle obstructed:</div>
-          <div class="col-20 text-right">{{vm.summary.isVentricleObstructed}}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">ICH Volume:</div>
+            <div class="col-20 text-right">{{vm.summary.ichVolume}} ml</div>
         </div>            
       </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">ICH Volume:</div>
-          <div class="col-20 text-right">{{vm.summary.ichVolume}} ml</div>
-        </div>            
-      </ion-item>
-      <ion-item class="transparent-header">
-         <div class="row">
-          <div class="col-80">Premorbid mRS:</div>
-          <div class="col-20 text-right">{{vm.summary.premorbidMrs}}</div>
+      <ion-item class="card-header-green chi-info">
+         <div class="row chi-no-vertical-padding">
+            <div class="col-80">Premorbid mRS:</div>
+            <div class="col-20 text-right">{{vm.summary.premorbidMrs}}</div>
         </div>            
       </ion-item>
     </div>
-
-    <div class="spacer" style="width: 748.182px; height: 40px;"></div>
 
     <div class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Patient referred to neurosurgery
         </ion-item>
-        <ion-radio ng-model="vm.isReferred" ng-change="vm.isReferredChanged()" name="patient-referred" ng-value="true">Yes
+        <ion-radio ng-model="vm.isReferred" ng-change="vm.isReferredChanged()" name="patient-referred" ng-value="true">
+          <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isReferred" ng-change="vm.isReferredChanged()" name="patient-referred" ng-value="false">No
+        <ion-radio ng-model="vm.isReferred" ng-change="vm.isReferredChanged()" name="patient-referred" ng-value="false">
+          <span class="input-blue">No</span>
         </ion-radio>
       </form>
     </div>
@@ -113,7 +114,7 @@
           <i class="icon ion-ionic"></i>Neurosurgeon name
         </ion-item>
         <label class="item item-input">
-          <input type="text" placeholder="Enter neurosurgeon name here" ng-model="vm.neurosurgeonName">
+          <input type="text" placeholder="Enter here" ng-model="vm.neurosurgeonName">
         </label>
       </form>
     </div>
@@ -123,9 +124,11 @@
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Transfer to neurosurgery accepted
         </ion-item>
-        <ion-radio ng-model="vm.isAccepted" name="patient-accepted" ng-value="true">Yes
+        <ion-radio ng-model="vm.isAccepted" name="patient-accepted" ng-value="true">
+          <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isAccepted" name="patient-accepted" ng-value="false">No
+        <ion-radio ng-model="vm.isAccepted" name="patient-accepted" ng-value="false">
+          <span class="input-blue">No</span>
         </ion-radio>
       </form>
     </div>
@@ -135,9 +138,11 @@
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Patient for active treatment
         </ion-item>
-        <ion-radio ng-model="vm.isForActiveTreatment" name="active-treatment" ng-value="true">Yes
+        <ion-radio ng-model="vm.isForActiveTreatment" name="active-treatment" ng-value="true">
+          <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isForActiveTreatment" name="active-treatment" ng-value="false">No
+        <ion-radio ng-model="vm.isForActiveTreatment" name="active-treatment" ng-value="false">
+          <span class="input-blue">No</span>
         </ion-radio>
       </form>
     </div>

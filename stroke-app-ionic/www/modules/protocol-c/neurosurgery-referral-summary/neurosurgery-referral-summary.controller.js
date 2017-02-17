@@ -8,7 +8,8 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
 
     var vm = this; // S13
 
-    TabStateCacheService.setStateTabC('tabs.neurosurgery-referral-summary');
+    TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-summary');
+    vm.patientId = PatientCacheService.getUniqueId();
 
 //cjd ToDo age from DoB
     vm.summary = {};
@@ -35,7 +36,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
     vm.isReferredChanged = isReferredChanged;
 
     function onNext() {
-        showDataValidationPopup(handleDataIsValid); 
+        showDataValidationPopup(handleDataValid); 
     }
 
     function isNextButtonEnabled() {
@@ -59,7 +60,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
         return isEnabled;
     }
 
-    function handleDataIsValid() {
+    function handleDataValid() {
         saveData();
 
          if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {

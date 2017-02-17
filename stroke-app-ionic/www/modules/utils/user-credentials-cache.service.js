@@ -6,8 +6,8 @@ UserCredentialsCacheService.$inject = [];
 
 function UserCredentialsCacheService() {
 
-    var _username = "admin"; //cjd change to null when config screen is done
-    var _password = "admin"; //cjd change to null when config screen is done
+    var _username = null;
+    var _password = null;
 
     var service = {
 

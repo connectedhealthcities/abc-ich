@@ -8,18 +8,20 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
  
     var vm = this; // S9
 
-    TabStateCacheService.setStateTabA('tabs.calculate-beriplex-dose');
+    TabStateCacheService.setCurrentState('tabs.calculate-beriplex-dose');
+    vm.patientId = PatientCacheService.getUniqueId();
 
-    vm.inrValue;
-    vm.inrType;
-    vm.inrDate;
-    vm.inrTime;
+    vm.inrValue = null;
+    vm.inrType = null;
+    vm.inrDate = null;
+    vm.inrTime = null;
 
-    vm.estimatedWeightInKg;
-    vm.estimatedWeightInStones;
-    vm.weightGivenInKg;
+    vm.estimatedWeightInKg = null;
+    vm.estimatedWeightInStones = null;
+    vm.weightGivenInKg = null;
+    vm.calculatedDose = null;
 
-    vm.forceAdministerWhenUnknown = null; //only appears when anti-coag is unknown and INR > INR_THRESHOLD    
+    vm.administerBeriplexWhenUnknown = null; //only appears when anti-coag is unknown and INR > INR_THRESHOLD    
     vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
 
     vm.onNext = onNext;
@@ -41,28 +43,31 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     }
 
     function onInrValueChanged() {
-        vm.forceAdministerWhenUnknown = null
+        vm.administerBeriplexWhenUnknown = null;
+        vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
     }
 
     function onWeightInKgChanged() {
         vm.weightGivenInKg = true;
         vm.estimatedWeightInStones = CalculateBeriplexDoseControllerService.calculateKgToStones(vm.estimatedWeightInKg);
+        vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
     }
 
     function onWeightInStonesChanged() {
         vm.weightGivenInKg = false;
         vm.estimatedWeightInKg = CalculateBeriplexDoseControllerService.calculateStonesToKg(vm.estimatedWeightInStones);
+        vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
     }
 
     function isNextButtonEnabled() {
-        return CalculateBeriplexDoseControllerService.isNextButtonEnabled(vm.anticoagulantType, vm.inrType, vm.inrDate, vm.inrTime, vm.estimatedWeightInKg, vm.inrValue, vm.forceAdministerWhenUnknown);
+        return CalculateBeriplexDoseControllerService.isNextButtonEnabled(vm.anticoagulantType, vm.inrType, vm.inrDate, vm.inrTime, vm.estimatedWeightInKg, vm.inrValue, vm.administerBeriplexWhenUnknown);
     }
 
     function onNext() {
-        showDataValidationPopup(dataValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function dataValid() {
+    function handleDataValid() {
         saveData();
         if (vm.inrValue <= INR_THRESHOLD) {
             showInrBelowTreamentRangePopup(goNextState);
@@ -83,12 +88,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         }
         else {
             if (PatientCacheService.getAnticoagulantType() === "VITK") {
-                TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
                 $state.go('tabs.confirm-beriplex-dose');
             }
             else if (PatientCacheService.getAnticoagulantType() === "UNKNOWN") {
-                if (PatientCacheService.getShouldAdministerBeriplexWhenAnticoagulatUnknown()) {
-                    TabStateCacheService.setStateTabA('tabs.confirm-beriplex-dose');
+                if (PatientCacheService.getAdministerBeriplexWhenUnknown()) {
                     $state.go('tabs.confirm-beriplex-dose');
                 }
                 else {
@@ -109,9 +112,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         PatientCacheService.setInrType(vm.inrType);
         PatientCacheService.getInrDateTime(beriplexAdministeredDateTime);
         PatientCacheService.setEstimatedWeightInKg(vm.estimatedWeightInKg);
+        PatientCacheService.setCalculatedBeriplexDose(vm.calculatedDose);
 
         if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
-            PatientCacheService.setShouldAdministerBeriplexWhenAnticoagulatUnknown(vm.forceAdministerWhenUnknown);
+            PatientCacheService.setAdministerBeriplexWhenUnknown(vm.administerBeriplexWhenUnknown);
         }
     }
 

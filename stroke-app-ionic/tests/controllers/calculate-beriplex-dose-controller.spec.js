@@ -17,7 +17,7 @@ describe('CalculateBeriplexDoseController', function() {
 				getGcsScore: function() {},
 				getInrValue: function() {},
 				getAnticoagulantType: function() {},
-				getShouldAdministerBeriplexWhenAnticoagulatUnknown: function() {}
+				getAdministerBeriplexWhenUnknown: function() {}
 			};			
 			tabStateCacheService = {
 				setStateTabA: function() {},
@@ -46,7 +46,7 @@ describe('CalculateBeriplexDoseController', function() {
 			
 		spyOn(patientCacheService, 'getInrValue').and.returnValue(1.3);
 		spyOn(patientCacheService, 'getAnticoagulantType').and.returnValue("UNKNOWN");
-		spyOn(patientCacheService, 'getShouldAdministerBeriplexWhenAnticoagulatUnknown').and.returnValue(true);
+		spyOn(patientCacheService, 'getAdministerBeriplexWhenUnknown').and.returnValue(true);
 		spyOn(tabStateCacheService, 'setStateTabA');
 		spyOn(state, 'go');
 
@@ -72,7 +72,7 @@ describe('CalculateBeriplexDoseController', function() {
 			
 		spyOn(patientCacheService, 'getInrValue').and.returnValue(1.3);
 		spyOn(patientCacheService, 'getAnticoagulantType').and.returnValue("UNKNOWN");
-		spyOn(patientCacheService, 'getShouldAdministerBeriplexWhenAnticoagulatUnknown').and.returnValue(false);
+		spyOn(patientCacheService, 'getAdministerBeriplexWhenUnknown').and.returnValue(false);
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
 		spyOn(tabStateCacheService, 'getStateTabB').and.returnValue('current-state-tab-b');
 		spyOn(state, 'go');
@@ -98,7 +98,7 @@ describe('CalculateBeriplexDoseController', function() {
 			
 		spyOn(patientCacheService, 'getInrValue').and.returnValue(1.3);
 		spyOn(patientCacheService, 'getAnticoagulantType').and.returnValue("UNKNOWN");
-		spyOn(patientCacheService, 'getShouldAdministerBeriplexWhenAnticoagulatUnknown').and.returnValue(false);
+		spyOn(patientCacheService, 'getAdministerBeriplexWhenUnknown').and.returnValue(false);
 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(8);
 		spyOn(tabStateCacheService, 'getStateTabC').and.returnValue('current-state-tab-c');
 		spyOn(state, 'go');

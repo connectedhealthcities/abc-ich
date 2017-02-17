@@ -1,15 +1,15 @@
 <ion-view title="Patient details" hide-back-button="true" class="color-primary-0">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <!-- Patient id-->
     <div>
-      <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:18px;">
-          <strong>Patient Id:</strong> 12152016-emt</p>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
       <hr>
     </div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Door time
         </ion-item>
@@ -30,60 +30,57 @@
             <button ng-click="vm.onDoorNow()" class="button button-calm">Now</button>
           </div>
         </div>
-      </form>
     </div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Onset time
+            <i class="icon ion-ionic"></i>Onset time
         </ion-item>
         <div class="row row-center">
           
           <div class="col-90">
             <label class="item item-input">
-              <span class="input-label">Date</span>
-              <input type="date" ng-model="vm.onsetDate" ng-change="vm.onOnsetChanged()">
+                <span class="input-label">Date</span>
+                <input type="date" ng-model="vm.onsetDate" ng-change="vm.onOnsetChanged()">
             </label>
             <label class="item item-input">
-              <span class="input-label">Time</span>
-              <input type="time" step="60" ng-model="vm.onsetTime" displayformat="HH:mm" ng-change="vm.onOnsetChanged()">
+                <span class="input-label">Time</span>
+                <input type="time" step="60" ng-model="vm.onsetTime" displayformat="HH:mm" ng-change="vm.onOnsetChanged()">
             </label>
           </div>
 
           <div class="col-10 text-center">
-            <button ng-click="vm.onOnsetNow()" class="button button-calm">Now</button>
+              <button ng-click="vm.onOnsetNow()" class="button button-calm">Now</button>
           </div>
         </div>
 
         <ion-item class="item-icon-left data-display-region" ng-show="vm.timeSinceOnsetText">
-          <i class="icon ion-information-circled"></i>{{vm.timeSinceOnsetText}}
+            <i class="icon ion-information-circled"></i>{{vm.timeSinceOnsetText}}
         </ion-item>
-      </form>
     </div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Onset is last seen well 
+            <i class="icon ion-ionic"></i>Onset is last seen well 
         </ion-item>
-         <ion-radio ng-model="vm.isOnsetLastSeenWell" name="last-seen-well" ng-value="true">Yes
+         <ion-radio ng-model="vm.isOnsetLastSeenWell" name="last-seen-well" ng-value="true">
+            <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isOnsetLastSeenWell" name="last-seen-well" ng-value="false">No
+        <ion-radio ng-model="vm.isOnsetLastSeenWell" name="last-seen-well" ng-value="false">
+            <span class="input-blue">No</span>
         </ion-radio>
-      </form>
-    </div>
+     </div>
 
     <div class="list card">
-      <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Onset is best estimate
+            <i class="icon ion-ionic"></i>Onset is best estimate
         </ion-item>
-        <ion-radio ng-model="vm.isOnsetBestEstimate" name="best-estimate" ng-value="true">Yes
+        <ion-radio ng-model="vm.isOnsetBestEstimate" name="best-estimate" ng-value="true">
+            <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isOnsetBestEstimate" name="best-estimate" ng-value="false">No
+        <ion-radio ng-model="vm.isOnsetBestEstimate" name="best-estimate" ng-value="false">
+            <span class="input-blue">No</span>
         </ion-radio>
-      </form>
     </div>
 
     <!--Next button-->

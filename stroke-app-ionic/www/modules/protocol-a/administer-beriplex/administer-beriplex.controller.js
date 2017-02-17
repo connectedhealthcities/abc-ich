@@ -8,7 +8,8 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
     var vm = this; // S11
 
-    TabStateCacheService.setStateTabA('tabs.administer-beriplex');
+    TabStateCacheService.setCurrentState('tabs.administer-beriplex');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
@@ -26,10 +27,10 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     vm.onVitkNow = onVitkNow;
     
     function onNext() {
-        showDataValidationPopup(handleDataIsValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function handleDataIsValid() {
+    function handleDataValid() {
         saveData();
 
         if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {

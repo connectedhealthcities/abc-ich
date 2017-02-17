@@ -1,7 +1,14 @@
 <ion-view title="Confirm beriplex dose">
-  <ion-content padding="true" class="has-header">
-    <div class="spacer" style="width: 748px; height: 30px;"></div>
-    <div class="show-list-numbers-and-dots nhs-blue"></div>
+  <ion-content padding="true">
+
+    <!-- Patient id-->
+    <div>
+      <div class="chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
+      <hr>
+    </div>
+    
     <div class="list card data-display-region">
       <ion-item class="item-icon-left  card-header transparent-header">
         <i class="icon ion-ionic"></i>Confirm dose using the table below:</ion-item>
@@ -190,33 +197,33 @@
         </div>
       </div>
     </div>
+
     <div class="spacer" style="width: 748px; height: 34px;"></div>
-    <div id="confirmDose-markdown54" style="text-align:center;" class="show-list-numbers-and-dots nhs-blue">
+
+    <div id="confirmDose-markdown54" style="text-align:center;" class="input-blue">
       <p style="font-size:43px;">
-        <strong>Calculated dose is:</strong> 1000</p>
+        <strong>Calculated dose is: </strong> {{vm.calculatedDose}} IU</p>
     </div>
 
     <div class="list card">
-      <form class="list">
-        <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Override calculated dose
+        <ion-item class="item-icon-left card-header card-header-green">
+            <i class="icon ion-ionic"></i>Override calculated dose
         </ion-item>
-        <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="true">Yes
+        <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="true">
+            <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="false">No
+        <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="false">
+            <span class="input-blue">No</span>
         </ion-radio>
-      </form>
     </div>
 
     <div class="list card" ng-show="vm.overrideCalculatedDose">
-      <form class="list">
-        <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Actual dose
+        <ion-item class="item-icon-left card-header card-header-green">
+            <i class="icon ion-ionic"></i>Actual dose
         </ion-item>
-          <label class="item item-input">
+        <label class="item item-input">
             <input type="text" ng-model="vm.actualDose" placeholder="Enter actual dose here">
         </label>
-      </form>
     </div>
 
     <!--Next button-->

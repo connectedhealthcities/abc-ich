@@ -2,11 +2,14 @@
 
 angular.module('app.general').controller('GcsEntryController', GcsEntryController);
 
-GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'GCS_THRESHOLD'];
+GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD'];
 
-function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, GCS_THRESHOLD) {
+function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD) {
 
     var vm = this; // S3
+
+    TabStateCacheService.setCurrentState('gcs-entry');
+    vm.patientId = PatientCacheService.getUniqueId();
 
     vm.eye = null;
     vm.verbal = null;
@@ -28,10 +31,10 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, GC
     }
     
     function onNext() {
-        showDataValidationPopup(dataValid);
+        showDataValidationPopup(handleDataValid);
     }
 
-    function dataValid() {
+    function handleDataValid() {
         saveData();
         if (vm.total < GCS_THRESHOLD) {
             showStabilisePatientPopup(goNextState);

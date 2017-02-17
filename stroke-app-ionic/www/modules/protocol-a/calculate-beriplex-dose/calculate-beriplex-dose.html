@@ -1,83 +1,81 @@
 <ion-view title="Calculate Beriplex dose">
-    <ion-content padding="true" class="has-header">
+    <ion-content padding="true">
+
+        <!-- Patient id-->
         <div>
-            <div style="text-align:right;" class="show-list-numbers-and-dots nhs-blue">
-                <p style="font-size:18px;">
-                    <strong>Patient Id:</strong> 12152016-emt
-                </p>
-            </div>
-            <hr>
+        <div class="chi-patient-id">
+            <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
         </div>
+        <hr>
+        </div>
+        
         <h1 style="color:#6F49FF;text-align:center;">Treat as quickly as possible</h1>
         <h2 style="color:#6F49FF;text-align:center;">Target door to needle time is less than 90 minutes!</h2>
         <hr>
-        <div class="list card">
-            <form class="list">
-                <ion-item class="item-icon-left  card-header card-header-green">
-                    <i class="icon ion-ionic"></i>INR
-                </ion-item>
-                <label class="item item-input">
-                    <span class="input-label">Value</span>
-                    <input ng-model="vm.inrValue" ng-change="vm.onInrValueChanged()" type="text" placeholder="">
-                </label>
-                <div class="row row-center">
-                    <div class="col-90">
-                        <label class="item item-input">
-                            <span class="input-label">Date</span>
-                            <input ng-model="vm.inrDate" type="date" placeholder="">
-                        </label>
 
-                        <label class="item item-input">
-                            <span class="input-label">Time</span>
-                            <input step="60" displayformat="HH:mm" ng-model="vm.inrTime" type="time" placeholder="">
-                        </label>
-
-                    </div>
-                    <div class="col-10 text-center">
-                        <button ng-click="vm.onInrNow()" class="button button-calm ">Now</button>
-                    </div>
+        <div class="card list">
+            <div class="item item-icon-left card-header card-header-green">
+                <i class="icon ion-ionic"></i>INR reading
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Value</span>
+                <input ng-model="vm.inrValue" ng-change="vm.onInrValueChanged()" type="number" placeholder="">
+            </label>
+            <div class="row row-center">
+                <div class="col-90">
+                    <label class="item item-input">
+                        <span class="input-label">Date</span>
+                        <input ng-model="vm.inrDate" type="date" placeholder="">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Time</span>
+                        <input step="60" displayformat="HH:mm" ng-model="vm.inrTime" type="time" placeholder="">
+                    </label>
                 </div>
-            </form>
+                <div class="col-10 text-center">
+                    <button ng-click="vm.onInrNow()" class="button button-calm ">Now</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card list">
+            <div class="item item-icon-left card-header card-header-green">
+                <i class="icon ion-ionic"></i>INR type
+            </div>
+            <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'Point Of Care'">
+                <span class="input-blue">Point of care</span>
+            </ion-radio>
+            <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'Lab'">
+                <span class="input-blue">Laboratory</span>
+            </ion-radio>
         </div>
 
-        <div class="list card">
-            <form class="list">
-                <ion-item class="item-icon-left  card-header card-header-green">
-                    <i class="icon ion-ionic"></i>INR type
-                </ion-item>
-                <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'Point Of Care'">
-                    Point of care
-                </ion-radio>
-                <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'Lab'">
-                    Lab
-                </ion-radio>
-            </form>
+        <div class="card list">
+            <div class="item item-icon-left card-header card-header-green">
+                <i class="icon ion-ionic"></i>Estimated weight
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Kg</span>
+                <input ng-change="vm.onWeightInKgChanged()" ng-model="vm.estimatedWeightInKg" type="number" placeholder="">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Stones</span>
+                <input ng-change="vm.onWeightInStonesChanged()" ng-model="vm.estimatedWeightInStones" type="number" placeholder="">
+            </label>
         </div>
 
-        <div class="list card">
-            <form class="list">
-                <ion-item class="item-icon-left card-header card-header-green">
-                    <i class="icon ion-ionic"></i>Estimated weight
-                </ion-item>
-                <label class="item item-input">
-                    <span class="input-label">kg</span>
-                    <input ng-change="vm.onWeightInKgChanged()" ng-model="vm.estimatedWeightInKg" type="number" placeholder="">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">stones</span>
-                    <input ng-change="vm.onWeightInStonesChanged()" ng-model="vm.estimatedWeightInStones" type="number" placeholder="">
-                </label>
-            </form>
+        <div class="card list" ng-show="vm.showBeriplexAdministrationOverride()">
+            <div class="item item-icon-left item-text-wrap card-header card-header-green">
+                <i class="icon ion-ionic"></i>You have indicated the patient's anti-coagulant medication is unknown and their INR is greater than 1.2. Are you going to prescribe Beriplex anyway?
+            </div>
+            <ion-radio ng-model="vm.administerBeriplexWhenUnknown" name="administer-override" ng-value="true">
+                <span class="input-blue">Yes</span>
+            </ion-radio>
+            <ion-radio ng-model="vm.administerBeriplexWhenUnknown" name="administer-override" ng-value="false">
+                <span class="input-blue">No</span>
+            </ion-radio>
         </div>
-        <div ng-show="vm.showBeriplexAdministrationOverride()" class="list card">
-            <form class="list">
-                <ion-item class="item-icon-left item-text-wrap card-header card-header-green">
-                    <i class="icon ion-ionic"></i>You have indicated the patient's anti-coagulant medication is unknown and their INR is greater than 1.2. Are you going to prescribe Beriplex anyway?
-                </ion-item>
-                <ion-radio ng-model="vm.forceAdministerWhenUnknown" ng-value="true">Yes</ion-radio>
-                <ion-radio ng-model="vm.forceAdministerWhenUnknown" ng-value="false">No</ion-radio>
-            </form>
-        </div>
+        
         <!--Next button-->
         <div class="spacer" style="width: 748px; height: 27px;"></div>
         <div class="col-offset-50 col-50">

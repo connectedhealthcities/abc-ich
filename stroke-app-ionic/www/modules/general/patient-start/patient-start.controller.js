@@ -2,19 +2,49 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$state', 'TabStateCacheService', 'PatientCacheService', 'BpManagementControllerrService'];
+PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService'];
 
-function PatientStartController($state, TabStateCacheService, PatientCacheService, BpManagementControllerrService) {
+function PatientStartController($scope, $state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService) {
  
     var vm = this; // S17
 
+    vm.patientId = PatientCacheService.getUniqueId();
+
     vm.onNewPatient = onNewPatient;
+    vm.onResumePatient = onResumePatient;
 
     function onNewPatient() {
-        PatientCacheService.clearAll();//cjd need to decide when to clearAll as we might still have an ongoing patient here
-        TabStateCacheService.clearAll();//cjd need to decide when to clearAll as we might still have an ongoing patient here
-        BpManagementControllerrService.clearAll();//cjd need to decide when to clearAll as we might still have an ongoing patient here
+        if (vm.patientId) {
+            showConfirmNewPatientPopup(startNewPatient);
+        }
+        else {
+            startNewPatient();
+        }
+     }
+
+    function startNewPatient() {
+        PatientCacheService.clearAll();
+        TabStateCacheService.clearAll();
+        BpStateCacheService.clearAll();
+ 
         PatientCacheService.setAppStartDateTime(new Date());
+ 
         $state.go('register-patient');
+    }
+
+    function onResumePatient() {
+        TabStateCacheService.goCurrentState();
+    }
+
+    function showConfirmNewPatientPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/general/patient-start/confirm-new-patient-popup.html',
+            title: 'Confirm new patient',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.confirm(popupTemplate);
+
+        popup.then(okHandler);
     }
 }

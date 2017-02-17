@@ -8,17 +8,28 @@ function AuthenticationService($http, ServerUrlService, UserCredentialsCacheServ
 
     var service = {
         authenticate: authenticate,
+        testAuthentication: testAuthentication,
         getJwt: getJwt
      };
 
     return service;
 
     var _jwt = null;
-	function authenticate() {
 
+	function authenticate() {
         var username = UserCredentialsCacheService.getUsername();      	
         var password = UserCredentialsCacheService.getPassword();      	
         var credentials = { "username": username, "password": password, "rememberMe": false };
+        return authenticateImpl(credentials);
+    }
+
+    function testAuthentication(username, password) {
+        var credentials = { "username": username, "password": password, "rememberMe": false };
+        return authenticateImpl(credentials);
+    }
+
+    function authenticateImpl(credentials) {
+
         var urlPrefix = ServerUrlService.getUrlPrefix();
 
         return $http.post(urlPrefix + '/api/authenticate', credentials)
@@ -32,6 +43,8 @@ function AuthenticationService($http, ServerUrlService, UserCredentialsCacheServ
                 else {
                     return "failure";
                 }
+            }, function() {
+                return "failure";
             });
     }
 

@@ -41,9 +41,9 @@ function AppConfig($urlRouterProvider, $ionicConfigProvider, $sceDelegateProvide
 
 angular.module('app').run(AppRun);
 
-AppRun.$inject = ['$ionicPlatform'];
+AppRun.$inject = ['$ionicPlatform', '$ionicPopup'];
 
-function AppRun($ionicPlatform) {
+function AppRun($ionicPlatform, $ionicPopup) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -56,5 +56,25 @@ function AppRun($ionicPlatform) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $ionicPlatform.registerBackButtonAction(function() {
+      showExitPopup(ionic.Platform.exitApp)        
+    }, 101);
+
+    function showExitPopup(okHandler) {
+      var popupTemplate = {
+          template: "mytext", //cjd improve title and text
+          title: 'Exit app'
+      };
+
+      var popup = $ionicPopup.confirm(popupTemplate);
+
+      popup.then(function(res) {
+            if (res) {
+                okHandler();
+            }
+      });
+    }
+
   });
 }

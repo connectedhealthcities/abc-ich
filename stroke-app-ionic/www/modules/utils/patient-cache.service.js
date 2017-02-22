@@ -316,7 +316,7 @@ function PatientCacheService(LocalStorageService) {
     }
 
     function getBirthDate() {
-        return new Date(LocalStorageService.getItem(birth_date_key));
+        return getDate(birth_date_key);
     }
 
     function setBirthDate(birthDate) {
@@ -340,7 +340,7 @@ function PatientCacheService(LocalStorageService) {
     }
     
     function getScanDateTime() {
-        return new Date(LocalStorageService.getItem(scan_date_time_key));
+        return getDate(scan_date_time_key);
     }
 
     function setScanDateTime(scanDateTime) {
@@ -357,7 +357,7 @@ function PatientCacheService(LocalStorageService) {
     
     // patient-details
     function getDoorDateTime() {
-        return new Date(LocalStorageService.getItem(door_date_time_key));
+        return getDate(door_date_time_key);
     }
 
     function setDoorDateTime(doorDateTime) {
@@ -365,7 +365,7 @@ function PatientCacheService(LocalStorageService) {
     }
 
     function getOnsetDateTime() {
-        return new Date(LocalStorageService.getItem(onset_date_time_key));
+        return getDate(onset_date_time_key);
     }
 
     function setOnsetDateTime(onsetDateTime) {
@@ -486,7 +486,7 @@ function PatientCacheService(LocalStorageService) {
     }
     
     function getInrDateTime() {
-        return new Date(LocalStorageService.getItem(inr_date_time_key));
+        return getDate(inr_date_time_key);
     }
     
     function setInrDateTime(inrDateTime) {
@@ -520,7 +520,7 @@ function PatientCacheService(LocalStorageService) {
 
     // administer-beriplex
     function getBeriplexStartDateTime() {
-        return new Date(LocalStorageService.getItem(beriplex_start_date_time_key));
+        return getDate(beriplex_start_date_time_key);
     }
     
     function setBeriplexStartDateTime(beriplexStartDateTime) {
@@ -528,7 +528,7 @@ function PatientCacheService(LocalStorageService) {
     }
     
     function getVitaminkDateTime() {
-         return new Date(LocalStorageService.getItem(vitamink_date_time_key));
+         return getDate(vitamink_date_time_key);
    }
     
     function setVitaminkDateTime(vitaminkDateTime) {
@@ -553,7 +553,7 @@ function PatientCacheService(LocalStorageService) {
     }
 
     function getDoacReversalAgentDateTime() {
-        return new Date(LocalStorageService.getItem(doac_reversal_agent_date_time_key));
+        return getDate(doac_reversal_agent_date_time_key);
     }
 
     function setDoacReversalAgentDateTime(doacReversalAgentDateTime) {
@@ -567,7 +567,7 @@ function PatientCacheService(LocalStorageService) {
     
     // bp-management
     function getBpTargetReachedDateTime() {
-        return new Date(LocalStorageService.getItem(bp_target_reached_date_time_key));
+        return getDate(bp_target_reached_date_time_key);
     }
     
     function setBpTargetReachedDateTime(bpTargetReachedDateTime) {
@@ -699,7 +699,7 @@ function PatientCacheService(LocalStorageService) {
 
     // neurosurgery-referral-summary        
     function getReferralToNeurosurgeryDateTime() {
-        return new Date(LocalStorageService.getItem(referral_to_neurosurgery_date_time_key));
+        return getDate(referral_to_neurosurgery_date_time_key);
     }
     
     function setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime) {
@@ -781,6 +781,14 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(neurosurgeon_name_key, null);
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);
         LocalStorageService.setItem(is_for_active_treatment_key, null);
+    }
+
+    function getDate(key) {
+        var date = LocalStorageService.getItem(key);
+        if (date !== null) {
+            date = new Date(date);
+        }
+        return date;
     }
 
 }

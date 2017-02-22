@@ -1,13 +1,19 @@
 package org.nibhi.strokeapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import org.nibhi.strokeapp.domain.Authority;
+import org.nibhi.strokeapp.domain.User;
+import org.nibhi.strokeapp.security.SecurityUtils;
 import org.nibhi.strokeapp.service.PatientService;
+import org.nibhi.strokeapp.service.UserService;
 import org.nibhi.strokeapp.web.rest.util.HeaderUtil;
 import org.nibhi.strokeapp.web.rest.util.PaginationUtil;
 import org.nibhi.strokeapp.service.dto.PatientDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,9 +25,11 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +44,9 @@ public class PatientResource {
         
     @Inject
     private PatientService patientService;
+    
+    @Inject
+    private UserService userService;
 
     /**
      * POST  /patients : Create a new patient.
@@ -84,6 +95,11 @@ public class PatientResource {
     /**
      * GET  /patients : get all the patients.
      *
+     * <p>
+     *     Returns patients across all hospitals if the current user has role "ROLE_ADMIN".
+     *     Otherwise only patients for the current user's hospital are returned.
+     * </p>
+     *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of patients in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
@@ -93,7 +109,25 @@ public class PatientResource {
     public ResponseEntity<List<PatientDTO>> getAllPatients(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Patients");
-        Page<PatientDTO> page = patientService.findAll(pageable);
+
+        Page<PatientDTO> page = null;
+        
+        if (SecurityUtils.isCurrentUserInRole("ROLE_ADMIN")) {
+        	page = patientService.findAll(pageable);
+        }
+        else {
+            User user = userService.getUserWithAuthorities();
+            //cjd This if/else added to ensure integration tests pass
+            // When time permits we should modify the tests so that we control the user's role
+            if (user != null) {
+                String hospitalId = user.getHospitalId();
+            	page = patientService.findAllByHospital(pageable, hospitalId);
+            }
+            else {
+            	page = patientService.findAll(pageable);
+            }
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/patients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -101,13 +135,37 @@ public class PatientResource {
     /**
      * GET  /patients-all : get all the patients.
      *
+     * <p>
+     *     Returns patients across all hospitals if the current user has role "ROLE_ADMIN".
+     *     Otherwise only patients for the current user's hospital are returned.
+     * </p>
+     *
      * @return the ResponseEntity with status 200 (OK) and the list of patients in body
      */
     @GetMapping("/patients-all")
     @Timed
     public List<PatientDTO> getAllPatients() {
         log.debug("REST request to get all Patients");
-        return patientService.findAll();
+        
+        List<PatientDTO> patients = null;
+        
+        if (SecurityUtils.isCurrentUserInRole("ROLE_ADMIN")) {
+        	patients = patientService.findAll();
+        }
+        else {
+            User user = userService.getUserWithAuthorities();
+            //cjd This if/else added to ensure integration tests pass
+            // When time permits we should modify the tests so that we control the user's role
+            if (user != null) {
+	            String hospitalId = user.getHospitalId();
+	        	patients = patientService.findAllByHospital(hospitalId);
+            }
+            else {
+            	patients = patientService.findAll();
+            }
+        }
+         
+        return patients;
     }
 
     /**

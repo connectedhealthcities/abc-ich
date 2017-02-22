@@ -29,11 +29,29 @@ public interface PatientService {
     Page<PatientDTO> findAll(Pageable pageable);
 
     /**
+     *  Get all the patients for the hospital.
+     *  
+     *  @param pageable the pagination information
+     *  @param hospitalId the unique id of the hospital
+     *  @return the list of entities
+     */
+    Page<PatientDTO> findAllByHospital(Pageable pageable, String hospitalId);
+
+    /**
      *  Get all the patients.
      *  
      *  @return the list of entities
      */
     List<PatientDTO> findAll();
+
+    /**
+     *  Get all the patients for the hospital.
+     *  
+     *  @param hospitalId the unique id of the hospital
+     *  @return the list of entities
+     */
+    List<PatientDTO> findAllByHospital(String hospitalId);
+   
 
     /**
      *  Get the "id" patient.

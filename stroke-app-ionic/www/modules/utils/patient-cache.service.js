@@ -47,7 +47,7 @@ function PatientCacheService(LocalStorageService) {
     var inr_type_key = "inr_type_key";
     var inr_date_time_key = "inr_date_time_key";
     var administer_beriplex_when_unknown_key = "administer_beriplex_when_unknown_key";
-    var is_weight_given_in_kg_key = "is_weight_given_in_kg_key";
+    var is_weight_given_in_kg_key = "is_weight_given_in_kg_key"; // Local
     // confirm-beriplex-dose
     var actual_beriplex_dose_key = "actual_beriplex_dose_key";
     // administer-beriplex
@@ -83,10 +83,10 @@ function PatientCacheService(LocalStorageService) {
     var ich_volume_key = "ich_volume_key";
     var is_posterior_fossa_ich_key = "is_posterior_fossa_ich_key";
     var is_ventricle_obstructed_key = "is_ventricle_obstructed_key";
-    var ich_longest_axis_key = "ich_longest_axis_key";
-    var ich_perpendicular_axis_key = "ich_perpendicular_axis_key";
-    var ich_num_slices_key = "ich_num_slices_key";
-    var ich_slice_thickness_key = "ich_slice_thickness_key";
+    var ich_longest_axis_key = "ich_longest_axis_key"; //local
+    var ich_perpendicular_axis_key = "ich_perpendicular_axis_key"; //local
+    var ich_num_slices_key = "ich_num_slices_key"; //local
+    var ich_slice_thickness_key = "ich_slice_thickness_key"; //local
 
     // neurosurgery-referral-summary
     var referral_to_neurosurgery_date_time_key = "referral_to_neurosurgery_date_time_key";

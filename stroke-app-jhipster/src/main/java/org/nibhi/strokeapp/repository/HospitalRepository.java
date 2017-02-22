@@ -12,4 +12,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface HospitalRepository extends JpaRepository<Hospital,Long> {
 
+	Hospital findByUniqueId(String uniqueId);
+
 }

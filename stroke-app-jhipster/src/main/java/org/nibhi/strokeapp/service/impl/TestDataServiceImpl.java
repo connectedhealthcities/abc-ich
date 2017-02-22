@@ -64,15 +64,21 @@ public class TestDataServiceImpl implements TestDataService{
     public void addTestData() {
         log.debug("Request to add test data");
              
-        Hospital hospital = hospitalRepository.findOne((long) 1);       
-        addPatients(hospital);        	
+        Hospital hospital1 = hospitalRepository.findOne((long) 1);       
+        Hospital hospital2 = hospitalRepository.findOne((long) 2);       
+        addPatients(hospital1, hospital2);        	
     }
         
-    private void addPatients(Hospital hospital) {
+    private void addPatients(Hospital hospital1, Hospital hospital2) {
+    	
+        for (int i = 0; i < 50; i++) {        	
+           	ZonedDateTime doorDateTime = getPastRandomDateTimeWithinOneYear(referenceDateTime);
+           	addPatient(i, hospital1, doorDateTime);        	
+        }
 
-        for (int i = 0; i < 100; i ++) {        	
-        	ZonedDateTime doorDateTime = getPastRandomDateTimeWithinOneYear(referenceDateTime);
-        	addPatient(i, hospital, doorDateTime);        	
+        for (int i = 50; i < 100; i++) {        	
+           	ZonedDateTime doorDateTime = getPastRandomDateTimeWithinOneYear(referenceDateTime);
+        	addPatient(i, hospital2, doorDateTime);        	
         }
     }
 

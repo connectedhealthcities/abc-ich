@@ -1,7 +1,9 @@
 package org.nibhi.strokeapp.service.impl;
 
 import org.nibhi.strokeapp.service.PatientService;
+import org.nibhi.strokeapp.domain.Hospital;
 import org.nibhi.strokeapp.domain.Patient;
+import org.nibhi.strokeapp.repository.HospitalRepository;
 import org.nibhi.strokeapp.repository.PatientRepository;
 import org.nibhi.strokeapp.service.dto.PatientDTO;
 import org.nibhi.strokeapp.service.mapper.PatientMapper;
@@ -30,6 +32,9 @@ public class PatientServiceImpl implements PatientService{
     private PatientRepository patientRepository;
 
     @Inject
+    private HospitalRepository hospitalRepository;
+
+    @Inject
     private PatientMapper patientMapper;
 
     /**
@@ -54,11 +59,26 @@ public class PatientServiceImpl implements PatientService{
      */
     @Transactional(readOnly = true) 
     public Page<PatientDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Patients");
+        log.debug("Request to get all Patients, pageable");
         Page<Patient> result = patientRepository.findAll(pageable);
         return result.map(patient -> patientMapper.patientToPatientDTO(patient));
     }
 
+    /**
+     *  Get all the patients for the hospital.
+     *  
+     *  @param pageable the pagination information
+     *  @param hospitalId the unique id of the hospital
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public Page<PatientDTO> findAllByHospital(Pageable pageable, String hospitalId) {
+        log.debug("Request to get all Patients by hospital, pageable");
+        Hospital hospital = hospitalRepository.findByUniqueId(hospitalId);
+        Page<Patient> result = patientRepository.findAllByHospital(pageable, hospital);
+        return result.map(patient -> patientMapper.patientToPatientDTO(patient));
+    }
+    
     /**
      *  Get all the patients.
      *  
@@ -70,6 +90,24 @@ public class PatientServiceImpl implements PatientService{
         List<PatientDTO> result = patientRepository.findAll().stream()
             .map(patientMapper::patientToPatientDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
+    }
+
+    /**
+     *  Get all the patients for the hospital.
+     *  
+     *  @param hospitalId the unique id of the hospital
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<PatientDTO> findAllByHospital(String hospitalId) {
+        log.debug("Request to get all Patients by hospital");
+        Hospital hospital = hospitalRepository.findByUniqueId(hospitalId);
+    	
+        List<PatientDTO> result = patientRepository.findAllByHospital(hospital).stream()
+                .map(patientMapper::patientToPatientDTO)
+                .collect(Collectors.toCollection(LinkedList::new));
 
         return result;
     }

@@ -5,6 +5,7 @@ import org.nibhi.strokeapp.StrokeApp;
 import org.nibhi.strokeapp.domain.Patient;
 import org.nibhi.strokeapp.repository.PatientRepository;
 import org.nibhi.strokeapp.service.PatientService;
+import org.nibhi.strokeapp.service.UserService;
 import org.nibhi.strokeapp.service.dto.PatientDTO;
 import org.nibhi.strokeapp.service.mapper.PatientMapper;
 
@@ -155,6 +156,9 @@ public class PatientResourceIntTest {
     private PatientService patientService;
 
     @Inject
+    private UserService userService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -172,6 +176,7 @@ public class PatientResourceIntTest {
         MockitoAnnotations.initMocks(this);
         PatientResource patientResource = new PatientResource();
         ReflectionTestUtils.setField(patientResource, "patientService", patientService);
+        ReflectionTestUtils.setField(patientResource, "userService", userService);
         this.restPatientMockMvc = MockMvcBuilders.standaloneSetup(patientResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();

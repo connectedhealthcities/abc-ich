@@ -11,9 +11,9 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
     TabStateCacheService.setCurrentState('tabs.doac-reversal-agent-details');
     vm.patientId = PatientCacheService.getUniqueId();
 
-    vm.reversalAgent = null
-    vm.reversalDate = null;
-    vm.reversalTime = null;
+    vm.reversalAgent = PatientCacheService.getDoacReversalAgentType();
+    vm.reversalDate = PatientCacheService.getDoacReversalAgentDateTime();
+    vm.reversalTime = PatientCacheService.getDoacReversalAgentDateTime();
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;

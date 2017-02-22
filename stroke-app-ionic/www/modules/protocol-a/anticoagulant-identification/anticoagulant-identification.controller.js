@@ -40,8 +40,8 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         effect: 'fade',
         speed: 500
     }
-    vm.anticoagulantType = null;
-    vm.anticoagulantName = null;
+    vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
+    vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
@@ -160,7 +160,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/view-doacs-popup.html',
             title: 'ICH on DOAC',
-            cssClass: 'chi-extra-wide-popup',
+            cssClass: 'doac-popup',
             scope: $scope
         };
         $ionicPopup.alert(popupTemplate);

@@ -1,52 +1,13 @@
-  <!--<img src="img/apixaban.png" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">-->
-
-
-<!--<ion-slides disable-side-menu-drag="" options="{'loop': true}" slider="slider1" delegate-handle="slider1" ng-change="changed()" slidechangeend="changeEnd()" ng-model="model">-->
-
-<!--<ion-slides disable-side-menu-drag="">-->
-  
-
-  <!--<img ng-src="{{vm.myImage.src}}" class="fullscreen-image" />-->
-
-<!--class="fullscreen-image"-->
-<!--
-    <ion-slide ng-repeat="image in vm.doacImages">
-        <img ng-src="{{image.src}}" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;"  />
-        <p class="info">{{image.title}}</p>
-    </ion-slide>-->
-
-
-<!--<ion-slide-page style="background:url(&quot;img/apixaban.png&quot;) no-repeat center;background-size:cover;"></ion-slide-page>
-<ion-slide-page style="background:url(&quot;img/dabigatran.png&quot;) no-repeat center;background-size:cover;"></ion-slide-page>
-<ion-slide-page style="background:url(&quot;img/rivaroxaban.png&quot;) no-repeat center;background-size:cover;"></ion-slide-page>
-<ion-slide-page style="background:url(&quot;img/edoxaban.png&quot;) no-repeat center;background-size:cover;"></ion-slide-page>-->
-
-<!--</ion-slides>-->
-
-<div class="chi-height-400">
-<ion-content scroll="false">
-  <ion-slides  options="vm.sliderOptions" slider="data.slider">
+<div>
+  <ion-content class="chi-height-doac-slider" scroll="false">
+    <ion-slides  options="vm.sliderOptions" slider="data.slider">
     
-    <!--<ion-slide-page ng-repeat="image in vm.doacImages">
-        <img ng-src="{{image.src}}" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;"  />
-        <p class="info">{{image.title}}</p>
-    </ion-slide-page>-->
+      <ion-slide-page ng-repeat="image in vm.doacImages">
+          <img ng-src="{{image.src}}" class="fullscreen-image"  />
+          <p class="info">{{image.title}}</p>
+      </ion-slide-page>
 
-    <ion-slide-page ng-repeat="image in vm.doacImages">
-        <img ng-src="{{image.src}}" class="fullscreen-image"  />
-        <p class="info">{{image.title}}</p>
-    </ion-slide-page>
-
-    <!--<ion-slide-page>
-      <div class="box blue"><h1>BLUE</h1></div>
-    </ion-slide-page>
-    <ion-slide-page>
-      <div class="box yellow"><h1>YELLOW</h1></div>
-    </ion-slide-page>
-    <ion-slide-page>
-      <div class="box pink"><h1>PINK</h1></div>
-    </ion-slide-page>-->
-  </ion-slides>
-</ion-content>
-  </div>
+     </ion-slides>
+  </ion-content>
+</div>
 

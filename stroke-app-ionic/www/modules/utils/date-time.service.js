@@ -9,7 +9,8 @@ function DateTimeService() {
     var service = {
         getNowWithZeroSeconds: getNowWithZeroSeconds,
         getTimeSinceOnsetText: getTimeSinceOnsetText,
-        getDateTimeFromDateAndTime: getDateTimeFromDateAndTime
+        getDateTimeFromDateAndTime: getDateTimeFromDateAndTime,
+        getAgeFromBirthDate: getAgeFromBirthDate
     };
 
     return service;
@@ -59,6 +60,16 @@ function DateTimeService() {
             time.getMinutes(), 0, 0);
 
         return dateTime;
+    }
+
+    function getAgeFromBirthDate(birthDate) {
+        var today = new Date();
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;    
     }
 }
 

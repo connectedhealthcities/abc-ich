@@ -13,10 +13,10 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
     vm.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
-    vm.beriplexDate = null;
-    vm.beriplexTime = null;
-    vm.vitkDate = null;
-    vm.vitkTime = null;
+    vm.beriplexDate = PatientCacheService.getBeriplexStartDateTime();
+    vm.beriplexTime = PatientCacheService.getBeriplexStartDateTime();
+    vm.vitkDate = PatientCacheService.getVitaminkDateTime();
+    vm.vitkTime = PatientCacheService.getVitaminkDateTime();
     
     var isInfusionInstructionsViewed = false;
 

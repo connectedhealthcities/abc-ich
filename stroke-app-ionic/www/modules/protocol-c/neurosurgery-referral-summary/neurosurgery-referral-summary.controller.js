@@ -11,9 +11,14 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
     TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-summary');
     vm.patientId = PatientCacheService.getUniqueId();
 
-//cjd ToDo age from DoB
     vm.summary = {};
-    vm.summary.age = PatientCacheService.getEstimatedAge() + " estimated";
+    if (PatientCacheService.getEstimatedAge() != null) {
+        vm.summary.age = PatientCacheService.getEstimatedAge() + " estimated";
+    }
+    else {
+        var birthDate = PatientCacheService.getBirthDate();
+        vm.summary.age = DateTimeService.getAgeFromBirthDate(birthDate) + "";
+    }   
     vm.summary.gcsEye = PatientCacheService.getGcsScoreEye();
     vm.summary.gcsVerbal = PatientCacheService.getGcsScoreVerbal();
     vm.summary.gcsMotor = PatientCacheService.getGcsScoreMotor();
@@ -22,14 +27,25 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
     vm.summary.isVentricleObstructed = PatientCacheService.getIsVentricleObstructed();
     vm.summary.ichVolume = PatientCacheService.getIchVolume();
     vm.summary.premorbidMrs = PatientCacheService.getPremorbidMrsScore();
-   
-    vm.isReferred = null;
-    vm.referralDate = null;
-    vm.referralTime = null;
-    vm.neurosurgeonName = null;
-    vm.isAccepted = null;
-    vm.isForActiveTreatment = null;
 
+
+    vm.referralDate = PatientCacheService.getReferralToNeurosurgeryDateTime();
+    vm.referralTime = PatientCacheService.getReferralToNeurosurgeryDateTime();
+    vm.neurosurgeonName = PatientCacheService.getNeurosurgeonName();
+    vm.isAccepted = PatientCacheService.getIsReferralToNeurosurgeryAccepted();
+    vm.isForActiveTreatment = PatientCacheService.getIsForActiveTreatment();
+    if (vm.isForActiveTreatment != null) {
+        if (vm.referralDate != null) {
+            vm.isReferred = true;
+        }
+        else {
+            vm.isReferred = true;
+        }
+    }
+    else {
+        vm.isReferred = null;
+    }
+    
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
     vm.onReferralNow = onReferralNow;

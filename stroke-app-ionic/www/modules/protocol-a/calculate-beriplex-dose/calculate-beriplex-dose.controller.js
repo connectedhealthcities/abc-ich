@@ -11,17 +11,30 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     TabStateCacheService.setCurrentState('tabs.calculate-beriplex-dose');
     vm.patientId = PatientCacheService.getUniqueId();
 
-    vm.inrValue = null;
-    vm.inrType = null;
-    vm.inrDate = null;
-    vm.inrTime = null;
+    vm.inrValue = PatientCacheService.getInrValue();
+    vm.inrType = PatientCacheService.getInrType();
+    vm.inrDate = PatientCacheService.getInrDateTime();
+    vm.inrTime = PatientCacheService.getInrDateTime();
+    
+    vm.weightGivenInKg = PatientCacheService.getIsWeightGivenInKg();
+    if (vm.weightGivenInKg != null) {
+        var weightInKg = PatientCacheService.getEstimatedWeightInKg();
+        if (vm.weightGivenInKg) {
+            vm.estimatedWeightInKg = weightInKg;
+            onWeightInKgChanged();
+        }
+        else {
+            vm.estimatedWeightInStones = CalculateBeriplexDoseControllerService.calculateKgToStones(weightInKg);
+            onWeightInStonesChanged();
+        }
+    }
+    else {
+        vm.estimatedWeightInKg = null;
+        vm.estimatedWeightInStones = null;
+        vm.calculatedDose = null;
+   }
 
-    vm.estimatedWeightInKg = null;
-    vm.estimatedWeightInStones = null;
-    vm.weightGivenInKg = null;
-    vm.calculatedDose = null;
-
-    vm.administerBeriplexWhenUnknown = null; //only appears when anti-coag is unknown and INR > INR_THRESHOLD    
+    vm.administerBeriplexWhenUnknown = PatientCacheService.getAdministerBeriplexWhenUnknown(); //only appears when anti-coag is unknown and INR > INR_THRESHOLD    
     vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
 
     vm.onNext = onNext;
@@ -110,9 +123,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         var beriplexAdministeredDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.inrDate, vm.inrTime);
         PatientCacheService.setInrValue(vm.inrValue);
         PatientCacheService.setInrType(vm.inrType);
-        PatientCacheService.getInrDateTime(beriplexAdministeredDateTime);
+        PatientCacheService.setInrDateTime(beriplexAdministeredDateTime);
         PatientCacheService.setEstimatedWeightInKg(vm.estimatedWeightInKg);
         PatientCacheService.setCalculatedBeriplexDose(vm.calculatedDose);
+        PatientCacheService.setIsWeightGivenInKg(vm.weightGivenInKg);
 
         if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
             PatientCacheService.setAdministerBeriplexWhenUnknown(vm.administerBeriplexWhenUnknown);

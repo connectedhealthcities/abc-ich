@@ -11,10 +11,6 @@
         width: 90% !important;
 }
 
-.chi-height-400 {
-        min-height: 400px;
-}
-
 .chi-patient-id {
     text-align: right;
     font-size: 18px;
@@ -29,6 +25,19 @@
         padding-top: 0px;
         padding-bottom: 0px;
 }
+
+.chi-height-doac-slider {
+        height: 400px !important;
+}
+
+.doac-popup .popup-body {
+        height:600px !important;
+}
+
+.doac-popup .popup {
+         width: 90% !important;
+}
+
 
 
 

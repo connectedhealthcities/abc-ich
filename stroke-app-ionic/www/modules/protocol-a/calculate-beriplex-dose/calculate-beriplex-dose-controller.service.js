@@ -62,8 +62,8 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
 
     function calculateBeriplexDose(inrValue, weightInKg) {
         var dose = null;
-        if (inrValue && weightInKg) {
-            var weight = weightInKg.toFixed(0);
+        if (inrValue && weightInKg) {            
+            var weight = (Math.round(weightInKg / 10) * 10);
             var inr = inrValue.toFixed(1);
             dose = 0;
 

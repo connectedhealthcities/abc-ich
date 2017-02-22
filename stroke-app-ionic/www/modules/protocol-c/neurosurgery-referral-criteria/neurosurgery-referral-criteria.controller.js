@@ -11,13 +11,13 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-criteria');
     vm.patientId = PatientCacheService.getUniqueId();
 
-    vm.isPosteriorFossaIch = null;
-    vm.isObstruction = null;
-    vm.ichVolume = null;
-    vm.longestAxis = null;
-    vm.perpendicularAxis = null;
-    vm.numSlices = null;
-    vm.sliceThickness = null;
+    vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
+    vm.isObstruction = PatientCacheService.getIsVentricleObstructed();
+    vm.longestAxis = PatientCacheService.getIchLongestAxis();
+    vm.perpendicularAxis = PatientCacheService.getIchPerpendicularAxis();
+    vm.numSlices = PatientCacheService.getIchNumSlices();
+    vm.sliceThickness = PatientCacheService.getIchSliceThickness();
+    calculateVolume();
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
@@ -69,7 +69,11 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     function saveData() {
         PatientCacheService.setIsPosteriorFossaIch(vm.isPosteriorFossaIch);
         PatientCacheService.setIsVentricleObstructed(vm.isObstruction);
-        PatientCacheService.setIchVolume(vm.ichVolume);
+        PatientCacheService.setIchVolume(vm.ichVolume); 
+        PatientCacheService.setIchLongestAxis(vm.longestAxis);
+        PatientCacheService.setIchPerpendicularAxis(vm.perpendicularAxis);
+        PatientCacheService.setIchNumSlices(vm.numSlices);
+        PatientCacheService.SetIchSliceThickness(vm.sliceThickness);
     }
  
     function calculateVolume() {
@@ -79,6 +83,9 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
             vm.sliceThickness != null) {
             var volume = vm.longestAxis * vm.perpendicularAxis * vm.numSlices * vm.sliceThickness;
             vm.ichVolume = parseFloat(volume).toFixed(2);
+        }
+        else {
+            vm.ichVolume = null;
         }
     }
 

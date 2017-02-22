@@ -12,8 +12,8 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     TabStateCacheService.setCurrentState('tabs.critical-care-referral');
     vm.patientId = PatientCacheService.getUniqueId();
 
-    vm.destination;
-    vm.destinationOther;
+    vm.destination = PatientCacheService.getDestination();
+    vm.destinationOther = PatientCacheService.getOtherDestination();
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;

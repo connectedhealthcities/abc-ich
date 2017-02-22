@@ -47,6 +47,7 @@ function PatientCacheService(LocalStorageService) {
     var inr_type_key = "inr_type_key";
     var inr_date_time_key = "inr_date_time_key";
     var administer_beriplex_when_unknown_key = "administer_beriplex_when_unknown_key";
+    var is_weight_given_in_kg_key = "is_weight_given_in_kg_key";
     // confirm-beriplex-dose
     var actual_beriplex_dose_key = "actual_beriplex_dose_key";
     // administer-beriplex
@@ -82,6 +83,11 @@ function PatientCacheService(LocalStorageService) {
     var ich_volume_key = "ich_volume_key";
     var is_posterior_fossa_ich_key = "is_posterior_fossa_ich_key";
     var is_ventricle_obstructed_key = "is_ventricle_obstructed_key";
+    var ich_longest_axis_key = "ich_longest_axis_key";
+    var ich_perpendicular_axis_key = "ich_perpendicular_axis_key";
+    var ich_num_slices_key = "ich_num_slices_key";
+    var ich_slice_thickness_key = "ich_slice_thickness_key";
+
     // neurosurgery-referral-summary
     var referral_to_neurosurgery_date_time_key = "referral_to_neurosurgery_date_time_key";
     var neurosurgeon_name_key = "neurosurgeon_name_key";
@@ -181,6 +187,9 @@ function PatientCacheService(LocalStorageService) {
         getAdministerBeriplexWhenUnknown: getAdministerBeriplexWhenUnknown,
         setAdministerBeriplexWhenUnknown: setAdministerBeriplexWhenUnknown,
 
+        getIsWeightGivenInKg: getIsWeightGivenInKg,
+        setIsWeightGivenInKg: setIsWeightGivenInKg,
+
         // confirm-beriplex-dose
         getActualBeriplexDose: getActualBeriplexDose,
         setActualBeriplexDose: setActualBeriplexDose,
@@ -243,6 +252,18 @@ function PatientCacheService(LocalStorageService) {
  
         getIsVentricleObstructed: getIsVentricleObstructed,
         setIsVentricleObstructed: setIsVentricleObstructed,
+
+        getIchLongestAxis: getIchLongestAxis,
+        setIchLongestAxis: setIchLongestAxis,
+
+        getIchPerpendicularAxis: getIchPerpendicularAxis,
+        setIchPerpendicularAxis: setIchPerpendicularAxis,
+
+        getIchNumSlices: getIchNumSlices,
+        setIchNumSlices: setIchNumSlices,
+
+        getIchSliceThickness: getIchSliceThickness,
+        SetIchSliceThickness: SetIchSliceThickness,
 
         // neurosurgery-referral-summary
         getReferralToNeurosurgeryDateTime: getReferralToNeurosurgeryDateTime,
@@ -474,10 +495,18 @@ function PatientCacheService(LocalStorageService) {
 
     function getAdministerBeriplexWhenUnknown() {
          return LocalStorageService.getItem(administer_beriplex_when_unknown_key);
-   }
+    }
     
     function setAdministerBeriplexWhenUnknown(shouldAdministerBeriplexWhenAnticoagulantUnknown) {
         LocalStorageService.setItem(administer_beriplex_when_unknown_key, shouldAdministerBeriplexWhenAnticoagulantUnknown);
+    }
+
+    function getIsWeightGivenInKg() {
+        return LocalStorageService.getItem(is_weight_given_in_kg_key);
+    }
+
+    function setIsWeightGivenInKg(isWeightGivenInKg) {
+        LocalStorageService.setItem(is_weight_given_in_kg_key, isWeightGivenInKg);
     }
 
     // confirm-beriplex-dose
@@ -635,7 +664,39 @@ function PatientCacheService(LocalStorageService) {
     function setIsVentricleObstructed(isVentricleObstructed) {
         LocalStorageService.setItem(is_ventricle_obstructed_key, isVentricleObstructed);
     }
+
+    function getIchLongestAxis() {
+        return LocalStorageService.getItem(ich_longest_axis_key);
+    }
     
+    function setIchLongestAxis(ichLongestAxis) {
+        LocalStorageService.setItem(ich_longest_axis_key, ichLongestAxis);
+    }
+
+    function getIchPerpendicularAxis() {
+        return LocalStorageService.getItem(ich_perpendicular_axis_key);
+    }
+    
+    function setIchPerpendicularAxis(ichPerpendicularAxis) {
+        LocalStorageService.setItem(ich_perpendicular_axis_key, ichPerpendicularAxis);
+    }
+
+    function getIchNumSlices() {
+        return LocalStorageService.getItem(ich_num_slices_key);
+    }
+    
+    function setIchNumSlices(ichNumSlices) {
+        LocalStorageService.setItem(ich_num_slices_key, ichNumSlices);
+    }
+
+    function getIchSliceThickness() {
+        return LocalStorageService.getItem(ich_slice_thickness_key);
+    }
+    
+    function SetIchSliceThickness(ichSliceThickness) {
+        LocalStorageService.setItem(ich_slice_thickness_key, ichSliceThickness);
+    }
+
     // neurosurgery-referral-summary        
     function getReferralToNeurosurgeryDateTime() {
         return new Date(LocalStorageService.getItem(referral_to_neurosurgery_date_time_key));
@@ -695,6 +756,7 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(inr_type_key, null);
         LocalStorageService.setItem(inr_date_time_key, null);
         LocalStorageService.setItem(administer_beriplex_when_unknown_key, null);
+        LocalStorageService.setItem(is_weight_given_in_kg_key, null);        
         LocalStorageService.setItem(actual_beriplex_dose_key, null);
         LocalStorageService.setItem(beriplex_start_date_time_key, null);
         LocalStorageService.setItem(vitamink_date_time_key, null);
@@ -711,6 +773,10 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(ich_volume_key, null);
         LocalStorageService.setItem(is_posterior_fossa_ich_key, null);
         LocalStorageService.setItem(is_ventricle_obstructed_key, null);
+        LocalStorageService.setItem(ich_longest_axis_key, null);
+        LocalStorageService.setItem(ich_perpendicular_axis_key, null);
+        LocalStorageService.setItem(ich_num_slices_key, null);
+        LocalStorageService.setItem(ich_slice_thickness_key, null);
         LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, null);
         LocalStorageService.setItem(neurosurgeon_name_key, null);
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);

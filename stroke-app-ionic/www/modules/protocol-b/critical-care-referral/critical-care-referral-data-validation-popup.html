@@ -1,14 +1,14 @@
 <ion-list>
     <ion-item>
         <div class="row">
-            <div class="col-80">Destination:</div>
-            <div class="col-20  text-right">{{vm.destination}}</div>
+            <div class="col-80 item-text-wrap">Destination:</div>
+            <div class="col-20 text-right">{{vm.destination}}</div>
         </div>
     </ion-item>
     <ion-item ng-hide="vm.destination !== 'Other'">
         <div class="row">
             <div class="col-80 item-text-wrap">Other destination:</div>
-            <div class="col-20  text-right">{{vm.destinationOther}}</div>
+            <div class="col-20 text-right">{{vm.destinationOther}}</div>
         </div>
     </ion-item>
 </ion-list>

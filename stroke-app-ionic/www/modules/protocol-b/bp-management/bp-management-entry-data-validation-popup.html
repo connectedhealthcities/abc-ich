@@ -1,31 +1,31 @@
 <ion-list> 
     <ion-item>
         <div class="row">
-            <div class="col-80">Entry date:</div>
+            <div class="col-80 item-text-wrap">Entry date:</div>
             <div class="col-20 text-right">{{vm.entryDate | date: 'dd MMM yyyy'}}</div>
         </div>
     </ion-item>
     <ion-item>
         <div class="row">
-            <div class="col-80">Entry time:</div>
+            <div class="col-80 item-text-wrap">Entry time:</div>
             <div class="col-20 text-right">{{vm.entryTime | date: 'HH:mm'}}</div>
         </div>
     </ion-item>
     <ion-item>
         <div class="row">
-          <div class="col-80">Systolic BP:</div>
+          <div class="col-80 item-text-wrap">Systolic BP:</div>
           <div class="col-20 text-right">{{vm.entrySbp}}</div>
         </div>
     </ion-item>
     <ion-item ng-show="vm.entryGtn">
         <div class="row">
-          <div class="col-80">IV GTN rate (ml/h):</div>
+          <div class="col-80 item-text-wrap">IV GTN rate (ml/h):</div>
           <div class="col-20 text-right">{{vm.entryGtn}}</div>
         </div>
     </ion-item>
     <ion-item ng-show="vm.entryLabetalol">
         <div class="row">
-          <div class="col-80">Labetalol dose (mg):</div>
+          <div class="col-80 item-text-wrap">Labetalol dose (mg):</div>
           <div class="col-20 text-right">{{vm.entryLabetalol}}</div>
         </div>
     </ion-item>

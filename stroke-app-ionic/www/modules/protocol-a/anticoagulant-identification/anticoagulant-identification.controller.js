@@ -160,7 +160,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/view-doacs-popup.html',
             title: 'ICH on DOAC',
-            cssClass: 'doac-popup',
+            cssClass: 'chi-doac-popup',
             scope: $scope
         };
         $ionicPopup.alert(popupTemplate);

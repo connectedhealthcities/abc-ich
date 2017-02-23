@@ -14,14 +14,12 @@ public interface PatientMapper {
 
     @Mapping(source = "hospital.id", target = "hospitalId")
     @Mapping(source = "hospital.uniqueId", target = "hospitalUniqueId")
-    @Mapping(source = "inr.id", target = "inrId")
     PatientDTO patientToPatientDTO(Patient patient);
 
     List<PatientDTO> patientsToPatientDTOs(List<Patient> patients);
 
     @Mapping(target = "bpManagementEntries", ignore = true)
     @Mapping(source = "hospitalId", target = "hospital")
-    @Mapping(source = "inrId", target = "inr")
     Patient patientDTOToPatient(PatientDTO patientDTO);
 
     List<Patient> patientDTOsToPatients(List<PatientDTO> patientDTOs);
@@ -33,14 +31,5 @@ public interface PatientMapper {
         Hospital hospital = new Hospital();
         hospital.setId(id);
         return hospital;
-    }
-
-    default Inr inrFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Inr inr = new Inr();
-        inr.setId(id);
-        return inr;
     }
 }

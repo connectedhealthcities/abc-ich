@@ -3,14 +3,13 @@ package org.nibhi.strokeapp.service.impl;
 import org.nibhi.strokeapp.service.TestDataService;
 import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.Hospital;
-import org.nibhi.strokeapp.domain.Inr;
 import org.nibhi.strokeapp.domain.Patient;
-import org.nibhi.strokeapp.domain.enumeration.AntiCoagulant;
+import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 import org.nibhi.strokeapp.domain.enumeration.Destination;
+import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 import org.nibhi.strokeapp.repository.BpManagementEntryRepository;
 import org.nibhi.strokeapp.repository.HospitalRepository;
-import org.nibhi.strokeapp.repository.InrRepository;
 import org.nibhi.strokeapp.repository.PatientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,9 +50,6 @@ public class TestDataServiceImpl implements TestDataService{
 
     @Inject
     private BpManagementEntryRepository bpManagementEntryRepository;
-
-    @Inject
-    private InrRepository inrRepository;
 
 
     /**
@@ -114,7 +110,8 @@ public class TestDataServiceImpl implements TestDataService{
         // ZonedDateTime bpDateTime_13														// appStartDateTime + 67 minutes 	i=12, GTN=7.5, lab=40
 
         ZonedDateTime bpTargetReachedDateTime = getBpTargetReachedDateTime(vitaminkDateTime); // captured automatically as BpManagementEntries are added
-
+        ZonedDateTime referralToNeurosurgeryDateTime = getReferralToNeurosurgeryDateTime(bpTargetReachedDateTime); // random time within 30 minutes after bpTargetReachedDateTime
+        
         Patient patient = new Patient();
  
         patient.setOnsetDateTime(onsetDateTime);
@@ -131,32 +128,50 @@ public class TestDataServiceImpl implements TestDataService{
         patient.setInitials("PT" + (index+1));
         // patient.setBirthDate(birthDate);
         patient.setEstimatedAge(70);
-        patient.setExternalScan(false);
-        patient.setGcsScore(ThreadLocalRandom.current().nextInt(3, 15 + 1));
-        patient.setAntiCoagulant(AntiCoagulant.WARFARIN);
+        patient.setExternalScanHospitalName("Dummy external hospital");
+        int gcsEye = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+        int gcsVerbal = ThreadLocalRandom.current().nextInt(1, 5 + 1);
+        int gcsMotor = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        patient.setGcsScoreEye(gcsEye);
+        patient.setGcsScoreVerbal(gcsVerbal);
+        patient.setGcsScoreMotor(gcsMotor);
+        patient.setGcsScore(gcsEye + gcsVerbal + gcsMotor);
+         
+        patient.setAnticoagulantName("Warfarin");
+        patient.setAnticoagulantType(AnticoagulantType.VITK);
         patient.setEstimatedWeightInKg(75.0f);
         patient.setCalculatedBeriplexDose(3500);
         patient.setActualBeriplexDose(3500);
-        patient.setBeriplexAdministered(true);
-        patient.setVitaminkAdministered(true);
         patient.setInfusionInstructionsViewed(true);
+        patient.setDoacReversalAgentType(DoacReversalAgentType.NONE);
+
+        patient.setBpTreatmentThreshold(200);//cjd
+        patient.setBpTarget(180);//cjd
+
         patient.setPremorbidMrsScore(ThreadLocalRandom.current().nextInt(0, 5 + 1));
         patient.setPosteriorFossaIch(ThreadLocalRandom.current().nextBoolean());
         patient.setVentricleObstructed(ThreadLocalRandom.current().nextBoolean());
         patient.setIchVolume(ThreadLocalRandom.current().nextInt(20, 40 + 1) * 1.0f);
-        patient.setReferredToNeurosurgery(ThreadLocalRandom.current().nextBoolean());
-        // patient.setIsForActiveTreatment(true);
-        patient.setDestination(Destination.NEUROSURGERY);
-        // patient.setOtherDestination("otherDestination");
-        patient.setHospital(hospital);
         
-    	Inr inr = new Inr();
-      	inr.setInrType(InrType.POINT_OF_CARE);
-      	inr.setValue(6.1f);
-      	inr.setMeasuredDateTime(getInrDateTime(appStartDateTime));
-      	inrRepository.save(inr);
- 
-      	patient.setInr(inr);
+        patient.setForActiveTreatment(true);
+        boolean isReferredToNeurosurgery = ThreadLocalRandom.current().nextBoolean();
+        if (isReferredToNeurosurgery) {
+        	patient.setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime);
+        	patient.setNeurosurgeonName("Dummy neurosurgeon name");
+        	patient.setReferralToNeurosurgeryAccepted(ThreadLocalRandom.current().nextBoolean());
+            patient.setDestination(Destination.NEUROSURGERY);      	
+        }
+        else {
+            patient.setDestination(Destination.HDU);
+            // patient.setOtherDestination("otherDestination");        	
+        }
+        
+        patient.setSummaryEmailAddress("test@email.com");
+        patient.setHospital(hospital);
+         
+      	patient.setInrValue(6.1f);
+      	patient.setInrType(InrType.POINT_OF_CARE);
+      	patient.setInrDateTime(getInrDateTime(appStartDateTime));
 
         patient = patientRepository.save(patient);
 
@@ -227,6 +242,13 @@ public class TestDataServiceImpl implements TestDataService{
 		// Generate a random date-time up to 300 minutes after the vitamink date-time
 		long MILLISECONDS_PER_300_MINUTES = 300 * MILLISECONDS_PER_MINUTE;
 		return getFutureRandomDateTimeWithinAnIntervalOfReferenceDateTime(vitaminkDateTime, MILLISECONDS_PER_300_MINUTES);
+	}
+
+	private ZonedDateTime getReferralToNeurosurgeryDateTime(ZonedDateTime bpTargetReachedDateTime) {
+
+		// Generate a random date-time up to 30 minutes after the vitamink date-time
+		long MILLISECONDS_PER_30_MINUTES = 30 * MILLISECONDS_PER_MINUTE;
+		return getFutureRandomDateTimeWithinAnIntervalOfReferenceDateTime(bpTargetReachedDateTime, MILLISECONDS_PER_30_MINUTES);
 	}
 
 	private Integer getSbp(int index) {

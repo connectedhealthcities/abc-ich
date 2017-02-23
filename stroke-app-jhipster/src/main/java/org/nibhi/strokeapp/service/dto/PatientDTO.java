@@ -8,8 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import org.nibhi.strokeapp.domain.enumeration.AntiCoagulant;
 import org.nibhi.strokeapp.domain.enumeration.Destination;
+import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
+import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
+import org.nibhi.strokeapp.domain.enumeration.InrType;
 
 /**
  * A DTO for the Patient entity.
@@ -38,8 +40,6 @@ public class PatientDTO implements Serializable {
     @Max(value = 15)
     private Integer gcsScore;
 
-    private AntiCoagulant antiCoagulant;
-
     private Float estimatedWeightInKg;
 
     @Min(value = 750)
@@ -64,25 +64,53 @@ public class PatientDTO implements Serializable {
 
     private ZonedDateTime scanDateTime;
 
-    private Boolean beriplexAdministered;
-
-    private Boolean vitaminkAdministered;
-
     private Boolean infusionInstructionsViewed;
 
     private Boolean posteriorFossaIch;
 
     private Boolean ventricleObstructed;
 
-    private Boolean referredToNeurosurgery;
-
     private Boolean forActiveTreatment;
-
-    private Boolean externalScan;
 
     private Boolean lastSeenWellOnset;
 
     private Boolean bestEstimateOnset;
+
+    private String externalScanHospitalName;
+
+    private Integer gcsScoreEye;
+
+    private Integer gcsScoreVerbal;
+
+    private Integer gcsScoreMotor;
+
+    private AnticoagulantType anticoagulantType;
+
+    private Boolean administerBeriplexWhenAnticoagulantUnknown;
+
+    private DoacReversalAgentType doacReversalAgentType;
+
+    private ZonedDateTime doacReversalAgentDateTime;
+
+    private Integer bpTreatmentThreshold;
+
+    private Integer bpTarget;
+
+    private ZonedDateTime referralToNeurosurgeryDateTime;
+
+    private String neurosurgeonName;
+
+    private Boolean referralToNeurosurgeryAccepted;
+
+    private String summaryEmailAddress;
+
+    private String anticoagulantName;
+
+    private Float inrValue;
+
+    private InrType inrType;
+
+    private ZonedDateTime inrDateTime;
 
 
     private Long hospitalId;
@@ -90,8 +118,6 @@ public class PatientDTO implements Serializable {
 
     private String hospitalUniqueId;
 
-    private Long inrId;
-    
     public Long getId() {
         return id;
     }
@@ -161,13 +187,6 @@ public class PatientDTO implements Serializable {
 
     public void setGcsScore(Integer gcsScore) {
         this.gcsScore = gcsScore;
-    }
-    public AntiCoagulant getAntiCoagulant() {
-        return antiCoagulant;
-    }
-
-    public void setAntiCoagulant(AntiCoagulant antiCoagulant) {
-        this.antiCoagulant = antiCoagulant;
     }
     public Float getEstimatedWeightInKg() {
         return estimatedWeightInKg;
@@ -239,20 +258,6 @@ public class PatientDTO implements Serializable {
     public void setScanDateTime(ZonedDateTime scanDateTime) {
         this.scanDateTime = scanDateTime;
     }
-    public Boolean getBeriplexAdministered() {
-        return beriplexAdministered;
-    }
-
-    public void setBeriplexAdministered(Boolean beriplexAdministered) {
-        this.beriplexAdministered = beriplexAdministered;
-    }
-    public Boolean getVitaminkAdministered() {
-        return vitaminkAdministered;
-    }
-
-    public void setVitaminkAdministered(Boolean vitaminkAdministered) {
-        this.vitaminkAdministered = vitaminkAdministered;
-    }
     public Boolean getInfusionInstructionsViewed() {
         return infusionInstructionsViewed;
     }
@@ -274,26 +279,12 @@ public class PatientDTO implements Serializable {
     public void setVentricleObstructed(Boolean ventricleObstructed) {
         this.ventricleObstructed = ventricleObstructed;
     }
-    public Boolean getReferredToNeurosurgery() {
-        return referredToNeurosurgery;
-    }
-
-    public void setReferredToNeurosurgery(Boolean referredToNeurosurgery) {
-        this.referredToNeurosurgery = referredToNeurosurgery;
-    }
     public Boolean getForActiveTreatment() {
         return forActiveTreatment;
     }
 
     public void setForActiveTreatment(Boolean forActiveTreatment) {
         this.forActiveTreatment = forActiveTreatment;
-    }
-    public Boolean getExternalScan() {
-        return externalScan;
-    }
-
-    public void setExternalScan(Boolean externalScan) {
-        this.externalScan = externalScan;
     }
     public Boolean getLastSeenWellOnset() {
         return lastSeenWellOnset;
@@ -308,6 +299,132 @@ public class PatientDTO implements Serializable {
 
     public void setBestEstimateOnset(Boolean bestEstimateOnset) {
         this.bestEstimateOnset = bestEstimateOnset;
+    }
+    public String getExternalScanHospitalName() {
+        return externalScanHospitalName;
+    }
+
+    public void setExternalScanHospitalName(String externalScanHospitalName) {
+        this.externalScanHospitalName = externalScanHospitalName;
+    }
+    public Integer getGcsScoreEye() {
+        return gcsScoreEye;
+    }
+
+    public void setGcsScoreEye(Integer gcsScoreEye) {
+        this.gcsScoreEye = gcsScoreEye;
+    }
+    public Integer getGcsScoreVerbal() {
+        return gcsScoreVerbal;
+    }
+
+    public void setGcsScoreVerbal(Integer gcsScoreVerbal) {
+        this.gcsScoreVerbal = gcsScoreVerbal;
+    }
+    public Integer getGcsScoreMotor() {
+        return gcsScoreMotor;
+    }
+
+    public void setGcsScoreMotor(Integer gcsScoreMotor) {
+        this.gcsScoreMotor = gcsScoreMotor;
+    }
+    public AnticoagulantType getAnticoagulantType() {
+        return anticoagulantType;
+    }
+
+    public void setAnticoagulantType(AnticoagulantType anticoagulantType) {
+        this.anticoagulantType = anticoagulantType;
+    }
+    public Boolean getAdministerBeriplexWhenAnticoagulantUnknown() {
+        return administerBeriplexWhenAnticoagulantUnknown;
+    }
+
+    public void setAdministerBeriplexWhenAnticoagulantUnknown(Boolean administerBeriplexWhenAnticoagulantUnknown) {
+        this.administerBeriplexWhenAnticoagulantUnknown = administerBeriplexWhenAnticoagulantUnknown;
+    }
+    public DoacReversalAgentType getDoacReversalAgentType() {
+        return doacReversalAgentType;
+    }
+
+    public void setDoacReversalAgentType(DoacReversalAgentType doacReversalAgentType) {
+        this.doacReversalAgentType = doacReversalAgentType;
+    }
+    public ZonedDateTime getDoacReversalAgentDateTime() {
+        return doacReversalAgentDateTime;
+    }
+
+    public void setDoacReversalAgentDateTime(ZonedDateTime doacReversalAgentDateTime) {
+        this.doacReversalAgentDateTime = doacReversalAgentDateTime;
+    }
+    public Integer getBpTreatmentThreshold() {
+        return bpTreatmentThreshold;
+    }
+
+    public void setBpTreatmentThreshold(Integer bpTreatmentThreshold) {
+        this.bpTreatmentThreshold = bpTreatmentThreshold;
+    }
+    public Integer getBpTarget() {
+        return bpTarget;
+    }
+
+    public void setBpTarget(Integer bpTarget) {
+        this.bpTarget = bpTarget;
+    }
+    public ZonedDateTime getReferralToNeurosurgeryDateTime() {
+        return referralToNeurosurgeryDateTime;
+    }
+
+    public void setReferralToNeurosurgeryDateTime(ZonedDateTime referralToNeurosurgeryDateTime) {
+        this.referralToNeurosurgeryDateTime = referralToNeurosurgeryDateTime;
+    }
+    public String getNeurosurgeonName() {
+        return neurosurgeonName;
+    }
+
+    public void setNeurosurgeonName(String neurosurgeonName) {
+        this.neurosurgeonName = neurosurgeonName;
+    }
+    public Boolean getReferralToNeurosurgeryAccepted() {
+        return referralToNeurosurgeryAccepted;
+    }
+
+    public void setReferralToNeurosurgeryAccepted(Boolean referralToNeurosurgeryAccepted) {
+        this.referralToNeurosurgeryAccepted = referralToNeurosurgeryAccepted;
+    }
+    public String getSummaryEmailAddress() {
+        return summaryEmailAddress;
+    }
+
+    public void setSummaryEmailAddress(String summaryEmailAddress) {
+        this.summaryEmailAddress = summaryEmailAddress;
+    }
+    public String getAnticoagulantName() {
+        return anticoagulantName;
+    }
+
+    public void setAnticoagulantName(String anticoagulantName) {
+        this.anticoagulantName = anticoagulantName;
+    }
+    public Float getInrValue() {
+        return inrValue;
+    }
+
+    public void setInrValue(Float inrValue) {
+        this.inrValue = inrValue;
+    }
+    public InrType getInrType() {
+        return inrType;
+    }
+
+    public void setInrType(InrType inrType) {
+        this.inrType = inrType;
+    }
+    public ZonedDateTime getInrDateTime() {
+        return inrDateTime;
+    }
+
+    public void setInrDateTime(ZonedDateTime inrDateTime) {
+        this.inrDateTime = inrDateTime;
     }
 
     public Long getHospitalId() {
@@ -325,14 +442,6 @@ public class PatientDTO implements Serializable {
 
     public void setHospitalUniqueId(String hospitalUniqueId) {
         this.hospitalUniqueId = hospitalUniqueId;
-    }
-
-    public Long getInrId() {
-        return inrId;
-    }
-
-    public void setInrId(Long inrId) {
-        this.inrId = inrId;
     }
 
     @Override
@@ -369,7 +478,6 @@ public class PatientDTO implements Serializable {
             ", appStartDateTime='" + appStartDateTime + "'" +
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", gcsScore='" + gcsScore + "'" +
-            ", antiCoagulant='" + antiCoagulant + "'" +
             ", estimatedWeightInKg='" + estimatedWeightInKg + "'" +
             ", calculatedBeriplexDose='" + calculatedBeriplexDose + "'" +
             ", actualBeriplexDose='" + actualBeriplexDose + "'" +
@@ -380,16 +488,30 @@ public class PatientDTO implements Serializable {
             ", destination='" + destination + "'" +
             ", otherDestination='" + otherDestination + "'" +
             ", scanDateTime='" + scanDateTime + "'" +
-            ", beriplexAdministered='" + beriplexAdministered + "'" +
-            ", vitaminkAdministered='" + vitaminkAdministered + "'" +
             ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
             ", posteriorFossaIch='" + posteriorFossaIch + "'" +
             ", ventricleObstructed='" + ventricleObstructed + "'" +
-            ", referredToNeurosurgery='" + referredToNeurosurgery + "'" +
             ", forActiveTreatment='" + forActiveTreatment + "'" +
-            ", externalScan='" + externalScan + "'" +
             ", lastSeenWellOnset='" + lastSeenWellOnset + "'" +
             ", bestEstimateOnset='" + bestEstimateOnset + "'" +
+            ", externalScanHospitalName='" + externalScanHospitalName + "'" +
+            ", gcsScoreEye='" + gcsScoreEye + "'" +
+            ", gcsScoreVerbal='" + gcsScoreVerbal + "'" +
+            ", gcsScoreMotor='" + gcsScoreMotor + "'" +
+            ", anticoagulantType='" + anticoagulantType + "'" +
+            ", administerBeriplexWhenAnticoagulantUnknown='" + administerBeriplexWhenAnticoagulantUnknown + "'" +
+            ", doacReversalAgentType='" + doacReversalAgentType + "'" +
+            ", doacReversalAgentDateTime='" + doacReversalAgentDateTime + "'" +
+            ", bpTreatmentThreshold='" + bpTreatmentThreshold + "'" +
+            ", bpTarget='" + bpTarget + "'" +
+            ", referralToNeurosurgeryDateTime='" + referralToNeurosurgeryDateTime + "'" +
+            ", neurosurgeonName='" + neurosurgeonName + "'" +
+            ", referralToNeurosurgeryAccepted='" + referralToNeurosurgeryAccepted + "'" +
+            ", summaryEmailAddress='" + summaryEmailAddress + "'" +
+            ", anticoagulantName='" + anticoagulantName + "'" +
+            ", inrValue='" + inrValue + "'" +
+            ", inrType='" + inrType + "'" +
+            ", inrDateTime='" + inrDateTime + "'" +
             '}';
     }
 }

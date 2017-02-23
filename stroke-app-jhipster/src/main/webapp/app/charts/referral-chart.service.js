@@ -15,6 +15,8 @@
         	addYearMonthFieldToPatients: addYearMonthFieldToPatients,
         	getIncorrectReferrals: getIncorrectReferrals,
         	getMissingReferrals: getMissingReferrals,
+        	getPatientsAcceptedForTransfer: getPatientsAcceptedForTransfer,
+        	getPatientsReferred: getPatientsReferred,
         	getChartDataPoints: getChartDataPoints,
         	getMonthlyGroups: getMonthlyGroups,
         	getXAxisTickText: getXAxisTickText
@@ -41,7 +43,7 @@
         	for(i = 0; i < patients.length; i++) {
         		patient = patients[i];
         		
-        		if (patient.referredToNeurosurgery && !shouldPatientBeReferred(patient)) {
+        		if (patient.referralToNeurosurgeryDateTime !== null && !shouldPatientBeReferred(patient)) {
             		incorrectReferrals.push(patient);
         		}
         	}        	
@@ -56,12 +58,40 @@
         	for(i = 0; i < patients.length; i++) {
         		patient = patients[i];
         		
-        		if (!patient.referredToNeurosurgery && shouldPatientBeReferred(patient)) {
+        		if (patient.referralToNeurosurgeryDateTime === null && shouldPatientBeReferred(patient)) {
             		missingReferrals.push(patient);
         		}
         	}        	
 
         	return missingReferrals;
+        }
+
+        function getPatientsAcceptedForTransfer(patients) {
+        	var i, patient, patientsAcceptedForTransfer = [];
+        	
+        	for(i = 0; i < patients.length; i++) {
+        		patient = patients[i];
+        		
+        		if (patient.referralToNeurosurgeryAccepted) {
+        			patientsAcceptedForTransfer.push(patient);
+        		}
+        	}        	
+
+        	return patientsAcceptedForTransfer;        	
+        }
+        
+        function getPatientsReferred(patients) {
+        	var i, patient, patientsReferred = [];
+        	
+        	for(i = 0; i < patients.length; i++) {
+        		patient = patients[i];
+        		
+        		if (patient.referralToNeurosurgeryDateTime !== null) {
+        			patientsReferred.push(patient);
+        		}
+        	}        	
+
+        	return patientsReferred;        	
         }
 
         function getChartDataPoints(numeratorGroups, denominatorGroups) {

@@ -9,6 +9,10 @@
     	<uib-tab heading="General" active="tabState[0]" select="setTab(0)">
 		    <dl class="dl-horizontal jh-entity-details">
 		    
+		        <dt><span>App Start Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.appStartDateTime | date:'medium'}}</span>
+		        </dd>
 		        <dt><span>Initials</span></dt>
 		        <dd>
 		            <span>{{vm.patient.initials}}</span>
@@ -21,25 +25,49 @@
 		        <dd>
 		            <span>{{vm.patient.estimatedAge}}</span>
 		        </dd>
-		        <dt><span>Door Date Time</span></dt>
-		        <dd>
-		            <span>{{vm.patient.doorDateTime | date:'medium'}}</span>
-		        </dd>
-		        <dt><span>App Start Date Time</span></dt>
-		        <dd>
-		            <span>{{vm.patient.appStartDateTime | date:'medium'}}</span>
-		        </dd>
 		        <dt><span>Scan Date Time</span></dt>
 		        <dd>
 		            <span>{{vm.patient.scanDateTime | date:'medium'}}</span>
 		        </dd>
-		        <dt><span>External Scan</span></dt>
+		        <dt><span>External Scan Hospital</span></dt>
 		        <dd>
-		            <span>{{vm.patient.externalScan}}</span>
+		            <span>{{vm.patient.externalScanHospitalName}}</span>
 		        </dd>
-		        <dt><span>Hospital</span></dt>
+		        <dt><span>Onset Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.hospitalUniqueId}}</span>
+		            <span>{{vm.patient.onsetDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>Door Date Time</span></dt>
+		        <dd>
+		            <span>{{vm.patient.doorDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>Last Seen Well Onset</span></dt>
+		        <dd>
+		            <span>{{vm.patient.lastSeenWellOnset}}</span>
+		        </dd>
+		        <dt><span>Best Estimate Onset</span></dt>
+		        <dd>
+		            <span>{{vm.patient.bestEstimateOnset}}</span>
+		        </dd>		        
+		        <dt><span>Gcs Score</span></dt>
+		        <dd>
+		            <span>{{vm.patient.gcsScore}}</span>
+		        </dd>
+		        <dt><span>Gcs Eye</span></dt>
+		        <dd>
+		            <span>{{vm.patient.gcsScoreEye}}</span>
+		        </dd>
+		        <dt><span>Gcs Verbal</span></dt>
+		        <dd>
+		            <span>{{vm.patient.gcsScoreVerbal}}</span>
+		        </dd>
+		        <dt><span>Gcs Motor</span></dt>
+		        <dd>
+		            <span>{{vm.patient.gcsScoreMotor}}</span>
+		        </dd>
+		        <dt><span>Summary Email Address</span></dt>
+		        <dd>
+		            <span>{{vm.patient.summaryEmailAddress}}</span>
 		        </dd>
 		    </dl>
         </uib-tab>
@@ -48,33 +76,45 @@
         	<div>
 		    <dl class="dl-horizontal jh-entity-details">
 
-		        <dt><span>Anti Coagulant</span></dt>
+		        <dt><span>Anticoagulant Type</span></dt>
 		        <dd>
-		            <span>{{vm.patient.antiCoagulant}}</span>
+		            <span>{{vm.patient.antiCoagulantType}}</span>
+		        </dd>
+		        <dt><span>Anticoagulant Name</span></dt>
+		        <dd>
+		            <span>{{vm.patient.antiCoagulantName}}</span>
 		        </dd>
 		        <dt><span>Estimated Weight In Kg</span></dt>
 		        <dd>
 		            <span>{{vm.patient.estimatedWeightInKg}}</span>
 		        </dd>
+        		<dt><span>Inr Value</span></dt>
+        		<dd>
+            		<span>{{vm.patient.inrValue}}</span>
+        		</dd>
+        		<dt><span>Inr Type</span></dt>
+        		<dd>
+            		<span>{{vm.patient.inrType}}</span>
+        		</dd>
+        		<dt><span>Inr Date Time</span></dt>
+        		<dd>
+            		<span>{{vm.patient.inrDateTime | date:'medium'}}</span>
+        		</dd>
 		        <dt><span>Calculated Beriplex Dose</span></dt>
 		        <dd>
 		            <span>{{vm.patient.calculatedBeriplexDose}}</span>
 		        </dd>
+        		<dt><span>Administer Beriplex When Anticoagulant Unknown</span></dt>
+        		<dd>
+            		<span>{{vm.patient.administerBeriplexWhenAnticoagulantUnknown}}</span>
+        		</dd>
 		        <dt><span>Actual Beriplex Dose</span></dt>
 		        <dd>
 		            <span>{{vm.patient.actualBeriplexDose}}</span>
 		        </dd>
-		        <dt><span>Beriplex Administered</span></dt>
-		        <dd>
-		            <span>{{vm.patient.beriplexAdministered}}</span>
-		        </dd>
 		        <dt><span>Beriplex Start Date Time</span></dt>
 		        <dd>
 		            <span>{{vm.patient.beriplexStartDateTime | date:'medium'}}</span>
-		        </dd>
-		        <dt><span>Vitamink Administered</span></dt>
-		        <dd>
-		            <span>{{vm.patient.vitaminkAdministered}}</span>
 		        </dd>
 		        <dt><span>Vitamink Date Time</span></dt>
 		        <dd>
@@ -84,18 +124,14 @@
 		        <dd>
 		            <span>{{vm.patient.infusionInstructionsViewed}}</span>
 		        </dd>
-        		<dt><span>Inr Value</span></dt>
+        		<dt><span>DOAC Reversal Agent Type</span></dt>
         		<dd>
-            		<span>{{vm.inr.value}}</span>
+            		<span>{{vm.patient.doacreversalAgentType}}</span>
         		</dd>
-        		<dt><span>Inr Type</span></dt>
+        		<dt><span>DOAC Reversal Agent Date Time</span></dt>
         		<dd>
-            		<span>{{vm.inr.inrType}}</span>
-        		</dd>
-        		<dt><span>Inr Date Time</span></dt>
-        		<dd>
-            		<span>{{vm.inr.measuredDateTime | date:'medium'}}</span>
-        		</dd>        		
+            		<span>{{vm.patient.doacAgentDateTime | date:'medium'}}</span>
+        		</dd>	
 		    </dl>
 		    </div>
         </uib-tab>
@@ -103,21 +139,25 @@
         <uib-tab heading="BP Protocol" active="tabState[2]" select="setTab(2)" ng-click="vm.bpTabClicked()">
 		    <dl class="dl-horizontal jh-entity-details">
 
-		        <dt><span>Onset Date Time</span></dt>
-		        <dd>
-		            <span>{{vm.patient.onsetDateTime | date:'medium'}}</span>
-		        </dd>
-		        <dt><span>Last Seen Well Onset</span></dt>
-		        <dd>
-		            <span>{{vm.patient.lastSeenWellOnset}}</span>
-		        </dd>
-		        <dt><span>Best Estimate Onset</span></dt>
-		        <dd>
-		            <span>{{vm.patient.bestEstimateOnset}}</span>
-		        </dd>
-		        <dt><span>Bp Target Reached Date Time</span></dt>
+		        <dt><span>BP Target Reached Date Time</span></dt>
 		        <dd>
 		            <span>{{vm.patient.bpTargetReachedDateTime | date:'medium'}}</span>
+		        </dd>
+		        <dt><span>BP Treatment Threshold</span></dt>
+		        <dd>
+		            <span>{{vm.patient.bpTreatmentThreshold}}</span>
+		        </dd>
+		        <dt><span>BP Target</span></dt>
+		        <dd>
+		            <span>{{vm.patient.bpTarget}}</span>
+		        </dd>		        		        
+		        <dt><span>Destination</span></dt>
+		        <dd>
+		            <span>{{vm.patient.destination}}</span>
+		        </dd>
+		        <dt><span>Other Destination</span></dt>
+		        <dd>
+		            <span>{{vm.patient.otherDestination}}</span>
 		        </dd>
 		    </dl>
 
@@ -156,10 +196,6 @@
         <uib-tab heading="Care Pathway" active="tabState[3]" select="setTab(3)">
 		    <dl class="dl-horizontal jh-entity-details">
 
-		        <dt><span>Gcs Score</span></dt>
-		        <dd>
-		            <span>{{vm.patient.gcsScore}}</span>
-		        </dd>
 		        <dt><span>Premorbid Mrs Score</span></dt>
 		        <dd>
 		            <span>{{vm.patient.premorbidMrsScore}}</span>
@@ -167,14 +203,6 @@
 		        <dt><span>Ich Volume</span></dt>
 		        <dd>
 		            <span>{{vm.patient.ichVolume}}</span>
-		        </dd>
-		        <dt><span>Destination</span></dt>
-		        <dd>
-		            <span>{{vm.patient.destination}}</span>
-		        </dd>
-		        <dt><span>Other Destination</span></dt>
-		        <dd>
-		            <span>{{vm.patient.otherDestination}}</span>
 		        </dd>
 		        <dt><span>Posterior Fossa Ich</span></dt>
 		        <dd>
@@ -184,14 +212,22 @@
 		        <dd>
 		            <span>{{vm.patient.ventricleObstructed}}</span>
 		        </dd>
-		        <dt><span>Referred To Neurosurgery</span></dt>
+		        <dt><span>Referral To Neurosurgery Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.referredToNeurosurgery}}</span>
+		            <span>{{vm.patient.referralToNeurosurgeryDateTime | date:'medium'}}</span>
+		        </dd>		        
+		        <dt><span>Neurosurgeon Name</span></dt>
+		        <dd>
+		            <span>{{vm.patient.neurosurgeonName}}</span>
+		        </dd>
+		        <dt><span>Referral To Neurosurgery Accepted</span></dt>
+		        <dd>
+		            <span>{{vm.patient.referralToNeurosurgeryAccepted}}</span>
 		        </dd>
 		        <dt><span>For Active Treatment</span></dt>
 		        <dd>
 		            <span>{{vm.patient.forActiveTreatment}}</span>
-		        </dd>
+		        </dd>		        
 		    </dl>
         </uib-tab>
 

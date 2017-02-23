@@ -14,11 +14,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="hospital"/>
 
-        <addForeignKeyConstraint baseColumnNames="inr_id"
-                                 baseTableName="patient"
-                                 constraintName="fk_patient_inr_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="inr"/>
-
     </changeSet>
 </databaseChangeLog>

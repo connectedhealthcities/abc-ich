@@ -35,7 +35,7 @@ public class BpManagementEntryResource {
     /**
      * GET  /bp-management-entries/patient/:patientId : get the bpManagementEntries for a patient.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of inrs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of bpManagementEntries in body
      */
     @GetMapping("/bp-management-entries/patient/{patientId}")
     @Timed

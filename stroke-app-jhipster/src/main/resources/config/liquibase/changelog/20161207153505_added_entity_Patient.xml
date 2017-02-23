@@ -57,10 +57,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="anti_coagulant" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="estimated_weight_in_kg" type="${floatType}">
                 <constraints nullable="true" />
             </column>
@@ -101,14 +97,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="beriplex_administered" type="bit">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="vitamink_administered" type="bit">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="infusion_instructions_viewed" type="bit">
                 <constraints nullable="true" />
             </column>
@@ -121,15 +109,7 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="referred_to_neurosurgery" type="bit">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="for_active_treatment" type="bit">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="external_scan" type="bit">
                 <constraints nullable="true" />
             </column>
             
@@ -141,12 +121,82 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="external_scan_hospital_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="gcs_score_eye" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="gcs_score_verbal" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="gcs_score_motor" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="anticoagulant_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="administer_beriplex_when_anticoagulant_unknown" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="doac_reversal_agent_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="doac_reversal_agent_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="bp_treatment_threshold" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="bp_target" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="referral_to_neurosurgery_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="neurosurgeon_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="referral_to_neurosurgery_accepted" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="summary_email_address" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="anticoagulant_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="inr_value" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="inr_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="inr_date_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="hospital_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="inr_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>
+
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="patient" columnName="onset_date_time" columnDataType="datetime"/>
@@ -156,6 +206,9 @@
         <dropDefaultValue tableName="patient" columnName="beriplex_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="vitamink_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="scan_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="doac_reversal_agent_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="referral_to_neurosurgery_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="inr_date_time" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

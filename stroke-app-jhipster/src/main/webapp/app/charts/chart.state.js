@@ -71,6 +71,21 @@
                     controllerAs: 'vm'
                 }
             }
+        })
+        .state('neuro-acceptance-rate-chart', {
+            parent: 'chart',
+            url: '/neuro-acceptance-rate-chart',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'Neurosurgery Acceptance Rate Chart'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/charts/neuro-acceptance-rate-chart.html',
+                    controller: 'NeuroAcceptanceRateChartController',
+                    controllerAs: 'vm'
+                }
+            }
         });
     }
 })();

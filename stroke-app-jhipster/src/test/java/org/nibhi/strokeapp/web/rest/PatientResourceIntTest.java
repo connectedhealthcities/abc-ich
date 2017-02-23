@@ -38,8 +38,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.nibhi.strokeapp.domain.enumeration.AntiCoagulant;
 import org.nibhi.strokeapp.domain.enumeration.Destination;
+import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
+import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
+import org.nibhi.strokeapp.domain.enumeration.InrType;
 /**
  * Test class for the PatientResource REST controller.
  *
@@ -80,9 +82,6 @@ public class PatientResourceIntTest {
     private static final Integer DEFAULT_GCS_SCORE = 3;
     private static final Integer UPDATED_GCS_SCORE = 4;
 
-    private static final AntiCoagulant DEFAULT_ANTI_COAGULANT = AntiCoagulant.UNKNOWN;
-    private static final AntiCoagulant UPDATED_ANTI_COAGULANT = AntiCoagulant.NONE;
-
     private static final Float DEFAULT_ESTIMATED_WEIGHT_IN_KG = 1F;
     private static final Float UPDATED_ESTIMATED_WEIGHT_IN_KG = 2F;
 
@@ -116,12 +115,6 @@ public class PatientResourceIntTest {
     private static final ZonedDateTime UPDATED_SCAN_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_SCAN_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_SCAN_DATE_TIME);
 
-    private static final Boolean DEFAULT_BERIPLEX_ADMINISTERED = false;
-    private static final Boolean UPDATED_BERIPLEX_ADMINISTERED = true;
-
-    private static final Boolean DEFAULT_VITAMINK_ADMINISTERED = false;
-    private static final Boolean UPDATED_VITAMINK_ADMINISTERED = true;
-
     private static final Boolean DEFAULT_INFUSION_INSTRUCTIONS_VIEWED = false;
     private static final Boolean UPDATED_INFUSION_INSTRUCTIONS_VIEWED = true;
 
@@ -131,20 +124,71 @@ public class PatientResourceIntTest {
     private static final Boolean DEFAULT_VENTRICLE_OBSTRUCTED = false;
     private static final Boolean UPDATED_VENTRICLE_OBSTRUCTED = true;
 
-    private static final Boolean DEFAULT_REFERRED_TO_NEUROSURGERY = false;
-    private static final Boolean UPDATED_REFERRED_TO_NEUROSURGERY = true;
-
     private static final Boolean DEFAULT_FOR_ACTIVE_TREATMENT = false;
     private static final Boolean UPDATED_FOR_ACTIVE_TREATMENT = true;
-
-    private static final Boolean DEFAULT_EXTERNAL_SCAN = false;
-    private static final Boolean UPDATED_EXTERNAL_SCAN = true;
 
     private static final Boolean DEFAULT_LAST_SEEN_WELL_ONSET = false;
     private static final Boolean UPDATED_LAST_SEEN_WELL_ONSET = true;
 
     private static final Boolean DEFAULT_BEST_ESTIMATE_ONSET = false;
     private static final Boolean UPDATED_BEST_ESTIMATE_ONSET = true;
+
+    private static final String DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_EXTERNAL_SCAN_HOSPITAL_NAME = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_GCS_SCORE_EYE = 1;
+    private static final Integer UPDATED_GCS_SCORE_EYE = 2;
+
+    private static final Integer DEFAULT_GCS_SCORE_VERBAL = 1;
+    private static final Integer UPDATED_GCS_SCORE_VERBAL = 2;
+
+    private static final Integer DEFAULT_GCS_SCORE_MOTOR = 1;
+    private static final Integer UPDATED_GCS_SCORE_MOTOR = 2;
+
+    private static final AnticoagulantType DEFAULT_ANTICOAGULANT_TYPE = AnticoagulantType.DOAC;
+    private static final AnticoagulantType UPDATED_ANTICOAGULANT_TYPE = AnticoagulantType.VITK;
+
+    private static final Boolean DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN = false;
+    private static final Boolean UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN = true;
+
+    private static final DoacReversalAgentType DEFAULT_DOAC_REVERSAL_AGENT_TYPE = DoacReversalAgentType.NONE;
+    private static final DoacReversalAgentType UPDATED_DOAC_REVERSAL_AGENT_TYPE = DoacReversalAgentType.IDARUCIZUMAB;
+
+    private static final ZonedDateTime DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME);
+
+    private static final Integer DEFAULT_BP_TREATMENT_THRESHOLD = 1;
+    private static final Integer UPDATED_BP_TREATMENT_THRESHOLD = 2;
+
+    private static final Integer DEFAULT_BP_TARGET = 1;
+    private static final Integer UPDATED_BP_TARGET = 2;
+
+    private static final ZonedDateTime DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
+
+    private static final String DEFAULT_NEUROSURGEON_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NEUROSURGEON_NAME = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED = false;
+    private static final Boolean UPDATED_REFERRAL_TO_NEUROSURGERY_ACCEPTED = true;
+
+    private static final String DEFAULT_SUMMARY_EMAIL_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_SUMMARY_EMAIL_ADDRESS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ANTICOAGULANT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ANTICOAGULANT_NAME = "BBBBBBBBBB";
+
+    private static final Float DEFAULT_INR_VALUE = 1F;
+    private static final Float UPDATED_INR_VALUE = 2F;
+
+    private static final InrType DEFAULT_INR_TYPE = InrType.POINT_OF_CARE;
+    private static final InrType UPDATED_INR_TYPE = InrType.LABORATORY;
+
+    private static final ZonedDateTime DEFAULT_INR_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_INR_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_INR_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_INR_DATE_TIME);
 
     @Inject
     private PatientRepository patientRepository;
@@ -154,7 +198,7 @@ public class PatientResourceIntTest {
 
     @Inject
     private PatientService patientService;
-
+    
     @Inject
     private UserService userService;
 
@@ -199,7 +243,6 @@ public class PatientResourceIntTest {
                 .appStartDateTime(DEFAULT_APP_START_DATE_TIME)
                 .bpTargetReachedDateTime(DEFAULT_BP_TARGET_REACHED_DATE_TIME)
                 .gcsScore(DEFAULT_GCS_SCORE)
-                .antiCoagulant(DEFAULT_ANTI_COAGULANT)
                 .estimatedWeightInKg(DEFAULT_ESTIMATED_WEIGHT_IN_KG)
                 .calculatedBeriplexDose(DEFAULT_CALCULATED_BERIPLEX_DOSE)
                 .actualBeriplexDose(DEFAULT_ACTUAL_BERIPLEX_DOSE)
@@ -210,16 +253,30 @@ public class PatientResourceIntTest {
                 .destination(DEFAULT_DESTINATION)
                 .otherDestination(DEFAULT_OTHER_DESTINATION)
                 .scanDateTime(DEFAULT_SCAN_DATE_TIME)
-                .beriplexAdministered(DEFAULT_BERIPLEX_ADMINISTERED)
-                .vitaminkAdministered(DEFAULT_VITAMINK_ADMINISTERED)
                 .infusionInstructionsViewed(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED)
                 .posteriorFossaIch(DEFAULT_POSTERIOR_FOSSA_ICH)
                 .ventricleObstructed(DEFAULT_VENTRICLE_OBSTRUCTED)
-                .referredToNeurosurgery(DEFAULT_REFERRED_TO_NEUROSURGERY)
                 .forActiveTreatment(DEFAULT_FOR_ACTIVE_TREATMENT)
-                .externalScan(DEFAULT_EXTERNAL_SCAN)
                 .lastSeenWellOnset(DEFAULT_LAST_SEEN_WELL_ONSET)
-                .bestEstimateOnset(DEFAULT_BEST_ESTIMATE_ONSET);
+                .bestEstimateOnset(DEFAULT_BEST_ESTIMATE_ONSET)
+                .externalScanHospitalName(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME)
+                .gcsScoreEye(DEFAULT_GCS_SCORE_EYE)
+                .gcsScoreVerbal(DEFAULT_GCS_SCORE_VERBAL)
+                .gcsScoreMotor(DEFAULT_GCS_SCORE_MOTOR)
+                .anticoagulantType(DEFAULT_ANTICOAGULANT_TYPE)
+                .administerBeriplexWhenAnticoagulantUnknown(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN)
+                .doacReversalAgentType(DEFAULT_DOAC_REVERSAL_AGENT_TYPE)
+                .doacReversalAgentDateTime(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME)
+                .bpTreatmentThreshold(DEFAULT_BP_TREATMENT_THRESHOLD)
+                .bpTarget(DEFAULT_BP_TARGET)
+                .referralToNeurosurgeryDateTime(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
+                .neurosurgeonName(DEFAULT_NEUROSURGEON_NAME)
+                .referralToNeurosurgeryAccepted(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED)
+                .summaryEmailAddress(DEFAULT_SUMMARY_EMAIL_ADDRESS)
+                .anticoagulantName(DEFAULT_ANTICOAGULANT_NAME)
+                .inrValue(DEFAULT_INR_VALUE)
+                .inrType(DEFAULT_INR_TYPE)
+                .inrDateTime(DEFAULT_INR_DATE_TIME);
         return patient;
     }
 
@@ -254,7 +311,6 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getAppStartDateTime()).isEqualTo(DEFAULT_APP_START_DATE_TIME);
         assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(DEFAULT_BP_TARGET_REACHED_DATE_TIME);
         assertThat(testPatient.getGcsScore()).isEqualTo(DEFAULT_GCS_SCORE);
-        assertThat(testPatient.getAntiCoagulant()).isEqualTo(DEFAULT_ANTI_COAGULANT);
         assertThat(testPatient.getEstimatedWeightInKg()).isEqualTo(DEFAULT_ESTIMATED_WEIGHT_IN_KG);
         assertThat(testPatient.getCalculatedBeriplexDose()).isEqualTo(DEFAULT_CALCULATED_BERIPLEX_DOSE);
         assertThat(testPatient.getActualBeriplexDose()).isEqualTo(DEFAULT_ACTUAL_BERIPLEX_DOSE);
@@ -265,16 +321,30 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getDestination()).isEqualTo(DEFAULT_DESTINATION);
         assertThat(testPatient.getOtherDestination()).isEqualTo(DEFAULT_OTHER_DESTINATION);
         assertThat(testPatient.getScanDateTime()).isEqualTo(DEFAULT_SCAN_DATE_TIME);
-        assertThat(testPatient.isBeriplexAdministered()).isEqualTo(DEFAULT_BERIPLEX_ADMINISTERED);
-        assertThat(testPatient.isVitaminkAdministered()).isEqualTo(DEFAULT_VITAMINK_ADMINISTERED);
         assertThat(testPatient.isInfusionInstructionsViewed()).isEqualTo(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED);
         assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(DEFAULT_POSTERIOR_FOSSA_ICH);
         assertThat(testPatient.isVentricleObstructed()).isEqualTo(DEFAULT_VENTRICLE_OBSTRUCTED);
-        assertThat(testPatient.isReferredToNeurosurgery()).isEqualTo(DEFAULT_REFERRED_TO_NEUROSURGERY);
         assertThat(testPatient.isForActiveTreatment()).isEqualTo(DEFAULT_FOR_ACTIVE_TREATMENT);
-        assertThat(testPatient.isExternalScan()).isEqualTo(DEFAULT_EXTERNAL_SCAN);
         assertThat(testPatient.isLastSeenWellOnset()).isEqualTo(DEFAULT_LAST_SEEN_WELL_ONSET);
         assertThat(testPatient.isBestEstimateOnset()).isEqualTo(DEFAULT_BEST_ESTIMATE_ONSET);
+        assertThat(testPatient.getExternalScanHospitalName()).isEqualTo(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME);
+        assertThat(testPatient.getGcsScoreEye()).isEqualTo(DEFAULT_GCS_SCORE_EYE);
+        assertThat(testPatient.getGcsScoreVerbal()).isEqualTo(DEFAULT_GCS_SCORE_VERBAL);
+        assertThat(testPatient.getGcsScoreMotor()).isEqualTo(DEFAULT_GCS_SCORE_MOTOR);
+        assertThat(testPatient.getAnticoagulantType()).isEqualTo(DEFAULT_ANTICOAGULANT_TYPE);
+        assertThat(testPatient.isAdministerBeriplexWhenAnticoagulantUnknown()).isEqualTo(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN);
+        assertThat(testPatient.getDoacReversalAgentType()).isEqualTo(DEFAULT_DOAC_REVERSAL_AGENT_TYPE);
+        assertThat(testPatient.getDoacReversalAgentDateTime()).isEqualTo(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME);
+        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(DEFAULT_BP_TREATMENT_THRESHOLD);
+        assertThat(testPatient.getBpTarget()).isEqualTo(DEFAULT_BP_TARGET);
+        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
+        assertThat(testPatient.getNeurosurgeonName()).isEqualTo(DEFAULT_NEUROSURGEON_NAME);
+        assertThat(testPatient.isReferralToNeurosurgeryAccepted()).isEqualTo(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED);
+        assertThat(testPatient.getSummaryEmailAddress()).isEqualTo(DEFAULT_SUMMARY_EMAIL_ADDRESS);
+        assertThat(testPatient.getAnticoagulantName()).isEqualTo(DEFAULT_ANTICOAGULANT_NAME);
+        assertThat(testPatient.getInrValue()).isEqualTo(DEFAULT_INR_VALUE);
+        assertThat(testPatient.getInrType()).isEqualTo(DEFAULT_INR_TYPE);
+        assertThat(testPatient.getInrDateTime()).isEqualTo(DEFAULT_INR_DATE_TIME);
     }
 
     @Test
@@ -297,7 +367,6 @@ public class PatientResourceIntTest {
                 .andExpect(jsonPath("$.[*].appStartDateTime").value(hasItem(DEFAULT_APP_START_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].bpTargetReachedDateTime").value(hasItem(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].gcsScore").value(hasItem(DEFAULT_GCS_SCORE)))
-                .andExpect(jsonPath("$.[*].antiCoagulant").value(hasItem(DEFAULT_ANTI_COAGULANT.toString())))
                 .andExpect(jsonPath("$.[*].estimatedWeightInKg").value(hasItem(DEFAULT_ESTIMATED_WEIGHT_IN_KG.doubleValue())))
                 .andExpect(jsonPath("$.[*].calculatedBeriplexDose").value(hasItem(DEFAULT_CALCULATED_BERIPLEX_DOSE)))
                 .andExpect(jsonPath("$.[*].actualBeriplexDose").value(hasItem(DEFAULT_ACTUAL_BERIPLEX_DOSE)))
@@ -308,16 +377,30 @@ public class PatientResourceIntTest {
                 .andExpect(jsonPath("$.[*].destination").value(hasItem(DEFAULT_DESTINATION.toString())))
                 .andExpect(jsonPath("$.[*].otherDestination").value(hasItem(DEFAULT_OTHER_DESTINATION.toString())))
                 .andExpect(jsonPath("$.[*].scanDateTime").value(hasItem(DEFAULT_SCAN_DATE_TIME_STR)))
-                .andExpect(jsonPath("$.[*].beriplexAdministered").value(hasItem(DEFAULT_BERIPLEX_ADMINISTERED.booleanValue())))
-                .andExpect(jsonPath("$.[*].vitaminkAdministered").value(hasItem(DEFAULT_VITAMINK_ADMINISTERED.booleanValue())))
                 .andExpect(jsonPath("$.[*].infusionInstructionsViewed").value(hasItem(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED.booleanValue())))
                 .andExpect(jsonPath("$.[*].posteriorFossaIch").value(hasItem(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue())))
                 .andExpect(jsonPath("$.[*].ventricleObstructed").value(hasItem(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue())))
-                .andExpect(jsonPath("$.[*].referredToNeurosurgery").value(hasItem(DEFAULT_REFERRED_TO_NEUROSURGERY.booleanValue())))
                 .andExpect(jsonPath("$.[*].forActiveTreatment").value(hasItem(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue())))
-                .andExpect(jsonPath("$.[*].externalScan").value(hasItem(DEFAULT_EXTERNAL_SCAN.booleanValue())))
                 .andExpect(jsonPath("$.[*].lastSeenWellOnset").value(hasItem(DEFAULT_LAST_SEEN_WELL_ONSET.booleanValue())))
-                .andExpect(jsonPath("$.[*].bestEstimateOnset").value(hasItem(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue())));
+                .andExpect(jsonPath("$.[*].bestEstimateOnset").value(hasItem(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue())))
+                .andExpect(jsonPath("$.[*].externalScanHospitalName").value(hasItem(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME.toString())))
+                .andExpect(jsonPath("$.[*].gcsScoreEye").value(hasItem(DEFAULT_GCS_SCORE_EYE)))
+                .andExpect(jsonPath("$.[*].gcsScoreVerbal").value(hasItem(DEFAULT_GCS_SCORE_VERBAL)))
+                .andExpect(jsonPath("$.[*].gcsScoreMotor").value(hasItem(DEFAULT_GCS_SCORE_MOTOR)))
+                .andExpect(jsonPath("$.[*].anticoagulantType").value(hasItem(DEFAULT_ANTICOAGULANT_TYPE.toString())))
+                .andExpect(jsonPath("$.[*].administerBeriplexWhenAnticoagulantUnknown").value(hasItem(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN.booleanValue())))
+                .andExpect(jsonPath("$.[*].doacReversalAgentType").value(hasItem(DEFAULT_DOAC_REVERSAL_AGENT_TYPE.toString())))
+                .andExpect(jsonPath("$.[*].doacReversalAgentDateTime").value(hasItem(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR)))
+                .andExpect(jsonPath("$.[*].bpTreatmentThreshold").value(hasItem(DEFAULT_BP_TREATMENT_THRESHOLD)))
+                .andExpect(jsonPath("$.[*].bpTarget").value(hasItem(DEFAULT_BP_TARGET)))
+                .andExpect(jsonPath("$.[*].referralToNeurosurgeryDateTime").value(hasItem(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR)))
+                .andExpect(jsonPath("$.[*].neurosurgeonName").value(hasItem(DEFAULT_NEUROSURGEON_NAME.toString())))
+                .andExpect(jsonPath("$.[*].referralToNeurosurgeryAccepted").value(hasItem(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED.booleanValue())))
+                .andExpect(jsonPath("$.[*].summaryEmailAddress").value(hasItem(DEFAULT_SUMMARY_EMAIL_ADDRESS.toString())))
+                .andExpect(jsonPath("$.[*].anticoagulantName").value(hasItem(DEFAULT_ANTICOAGULANT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].inrValue").value(hasItem(DEFAULT_INR_VALUE.doubleValue())))
+                .andExpect(jsonPath("$.[*].inrType").value(hasItem(DEFAULT_INR_TYPE.toString())))
+                .andExpect(jsonPath("$.[*].inrDateTime").value(hasItem(DEFAULT_INR_DATE_TIME_STR)));
     }
 
     @Test
@@ -340,7 +423,6 @@ public class PatientResourceIntTest {
             .andExpect(jsonPath("$.appStartDateTime").value(DEFAULT_APP_START_DATE_TIME_STR))
             .andExpect(jsonPath("$.bpTargetReachedDateTime").value(DEFAULT_BP_TARGET_REACHED_DATE_TIME_STR))
             .andExpect(jsonPath("$.gcsScore").value(DEFAULT_GCS_SCORE))
-            .andExpect(jsonPath("$.antiCoagulant").value(DEFAULT_ANTI_COAGULANT.toString()))
             .andExpect(jsonPath("$.estimatedWeightInKg").value(DEFAULT_ESTIMATED_WEIGHT_IN_KG.doubleValue()))
             .andExpect(jsonPath("$.calculatedBeriplexDose").value(DEFAULT_CALCULATED_BERIPLEX_DOSE))
             .andExpect(jsonPath("$.actualBeriplexDose").value(DEFAULT_ACTUAL_BERIPLEX_DOSE))
@@ -351,16 +433,30 @@ public class PatientResourceIntTest {
             .andExpect(jsonPath("$.destination").value(DEFAULT_DESTINATION.toString()))
             .andExpect(jsonPath("$.otherDestination").value(DEFAULT_OTHER_DESTINATION.toString()))
             .andExpect(jsonPath("$.scanDateTime").value(DEFAULT_SCAN_DATE_TIME_STR))
-            .andExpect(jsonPath("$.beriplexAdministered").value(DEFAULT_BERIPLEX_ADMINISTERED.booleanValue()))
-            .andExpect(jsonPath("$.vitaminkAdministered").value(DEFAULT_VITAMINK_ADMINISTERED.booleanValue()))
             .andExpect(jsonPath("$.infusionInstructionsViewed").value(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED.booleanValue()))
             .andExpect(jsonPath("$.posteriorFossaIch").value(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue()))
             .andExpect(jsonPath("$.ventricleObstructed").value(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue()))
-            .andExpect(jsonPath("$.referredToNeurosurgery").value(DEFAULT_REFERRED_TO_NEUROSURGERY.booleanValue()))
             .andExpect(jsonPath("$.forActiveTreatment").value(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue()))
-            .andExpect(jsonPath("$.externalScan").value(DEFAULT_EXTERNAL_SCAN.booleanValue()))
             .andExpect(jsonPath("$.lastSeenWellOnset").value(DEFAULT_LAST_SEEN_WELL_ONSET.booleanValue()))
-            .andExpect(jsonPath("$.bestEstimateOnset").value(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue()));
+            .andExpect(jsonPath("$.bestEstimateOnset").value(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue()))
+            .andExpect(jsonPath("$.externalScanHospitalName").value(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME.toString()))
+            .andExpect(jsonPath("$.gcsScoreEye").value(DEFAULT_GCS_SCORE_EYE))
+            .andExpect(jsonPath("$.gcsScoreVerbal").value(DEFAULT_GCS_SCORE_VERBAL))
+            .andExpect(jsonPath("$.gcsScoreMotor").value(DEFAULT_GCS_SCORE_MOTOR))
+            .andExpect(jsonPath("$.anticoagulantType").value(DEFAULT_ANTICOAGULANT_TYPE.toString()))
+            .andExpect(jsonPath("$.administerBeriplexWhenAnticoagulantUnknown").value(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN.booleanValue()))
+            .andExpect(jsonPath("$.doacReversalAgentType").value(DEFAULT_DOAC_REVERSAL_AGENT_TYPE.toString()))
+            .andExpect(jsonPath("$.doacReversalAgentDateTime").value(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR))
+            .andExpect(jsonPath("$.bpTreatmentThreshold").value(DEFAULT_BP_TREATMENT_THRESHOLD))
+            .andExpect(jsonPath("$.bpTarget").value(DEFAULT_BP_TARGET))
+            .andExpect(jsonPath("$.referralToNeurosurgeryDateTime").value(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR))
+            .andExpect(jsonPath("$.neurosurgeonName").value(DEFAULT_NEUROSURGEON_NAME.toString()))
+            .andExpect(jsonPath("$.referralToNeurosurgeryAccepted").value(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED.booleanValue()))
+            .andExpect(jsonPath("$.summaryEmailAddress").value(DEFAULT_SUMMARY_EMAIL_ADDRESS.toString()))
+            .andExpect(jsonPath("$.anticoagulantName").value(DEFAULT_ANTICOAGULANT_NAME.toString()))
+            .andExpect(jsonPath("$.inrValue").value(DEFAULT_INR_VALUE.doubleValue()))
+            .andExpect(jsonPath("$.inrType").value(DEFAULT_INR_TYPE.toString()))
+            .andExpect(jsonPath("$.inrDateTime").value(DEFAULT_INR_DATE_TIME_STR));
     }
 
     @Test
@@ -390,7 +486,6 @@ public class PatientResourceIntTest {
                 .appStartDateTime(UPDATED_APP_START_DATE_TIME)
                 .bpTargetReachedDateTime(UPDATED_BP_TARGET_REACHED_DATE_TIME)
                 .gcsScore(UPDATED_GCS_SCORE)
-                .antiCoagulant(UPDATED_ANTI_COAGULANT)
                 .estimatedWeightInKg(UPDATED_ESTIMATED_WEIGHT_IN_KG)
                 .calculatedBeriplexDose(UPDATED_CALCULATED_BERIPLEX_DOSE)
                 .actualBeriplexDose(UPDATED_ACTUAL_BERIPLEX_DOSE)
@@ -401,16 +496,30 @@ public class PatientResourceIntTest {
                 .destination(UPDATED_DESTINATION)
                 .otherDestination(UPDATED_OTHER_DESTINATION)
                 .scanDateTime(UPDATED_SCAN_DATE_TIME)
-                .beriplexAdministered(UPDATED_BERIPLEX_ADMINISTERED)
-                .vitaminkAdministered(UPDATED_VITAMINK_ADMINISTERED)
                 .infusionInstructionsViewed(UPDATED_INFUSION_INSTRUCTIONS_VIEWED)
                 .posteriorFossaIch(UPDATED_POSTERIOR_FOSSA_ICH)
                 .ventricleObstructed(UPDATED_VENTRICLE_OBSTRUCTED)
-                .referredToNeurosurgery(UPDATED_REFERRED_TO_NEUROSURGERY)
                 .forActiveTreatment(UPDATED_FOR_ACTIVE_TREATMENT)
-                .externalScan(UPDATED_EXTERNAL_SCAN)
                 .lastSeenWellOnset(UPDATED_LAST_SEEN_WELL_ONSET)
-                .bestEstimateOnset(UPDATED_BEST_ESTIMATE_ONSET);
+                .bestEstimateOnset(UPDATED_BEST_ESTIMATE_ONSET)
+                .externalScanHospitalName(UPDATED_EXTERNAL_SCAN_HOSPITAL_NAME)
+                .gcsScoreEye(UPDATED_GCS_SCORE_EYE)
+                .gcsScoreVerbal(UPDATED_GCS_SCORE_VERBAL)
+                .gcsScoreMotor(UPDATED_GCS_SCORE_MOTOR)
+                .anticoagulantType(UPDATED_ANTICOAGULANT_TYPE)
+                .administerBeriplexWhenAnticoagulantUnknown(UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN)
+                .doacReversalAgentType(UPDATED_DOAC_REVERSAL_AGENT_TYPE)
+                .doacReversalAgentDateTime(UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME)
+                .bpTreatmentThreshold(UPDATED_BP_TREATMENT_THRESHOLD)
+                .bpTarget(UPDATED_BP_TARGET)
+                .referralToNeurosurgeryDateTime(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
+                .neurosurgeonName(UPDATED_NEUROSURGEON_NAME)
+                .referralToNeurosurgeryAccepted(UPDATED_REFERRAL_TO_NEUROSURGERY_ACCEPTED)
+                .summaryEmailAddress(UPDATED_SUMMARY_EMAIL_ADDRESS)
+                .anticoagulantName(UPDATED_ANTICOAGULANT_NAME)
+                .inrValue(UPDATED_INR_VALUE)
+                .inrType(UPDATED_INR_TYPE)
+                .inrDateTime(UPDATED_INR_DATE_TIME);
         PatientDTO patientDTO = patientMapper.patientToPatientDTO(updatedPatient);
 
         restPatientMockMvc.perform(put("/api/patients")
@@ -431,7 +540,6 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getAppStartDateTime()).isEqualTo(UPDATED_APP_START_DATE_TIME);
         assertThat(testPatient.getBpTargetReachedDateTime()).isEqualTo(UPDATED_BP_TARGET_REACHED_DATE_TIME);
         assertThat(testPatient.getGcsScore()).isEqualTo(UPDATED_GCS_SCORE);
-        assertThat(testPatient.getAntiCoagulant()).isEqualTo(UPDATED_ANTI_COAGULANT);
         assertThat(testPatient.getEstimatedWeightInKg()).isEqualTo(UPDATED_ESTIMATED_WEIGHT_IN_KG);
         assertThat(testPatient.getCalculatedBeriplexDose()).isEqualTo(UPDATED_CALCULATED_BERIPLEX_DOSE);
         assertThat(testPatient.getActualBeriplexDose()).isEqualTo(UPDATED_ACTUAL_BERIPLEX_DOSE);
@@ -442,16 +550,30 @@ public class PatientResourceIntTest {
         assertThat(testPatient.getDestination()).isEqualTo(UPDATED_DESTINATION);
         assertThat(testPatient.getOtherDestination()).isEqualTo(UPDATED_OTHER_DESTINATION);
         assertThat(testPatient.getScanDateTime()).isEqualTo(UPDATED_SCAN_DATE_TIME);
-        assertThat(testPatient.isBeriplexAdministered()).isEqualTo(UPDATED_BERIPLEX_ADMINISTERED);
-        assertThat(testPatient.isVitaminkAdministered()).isEqualTo(UPDATED_VITAMINK_ADMINISTERED);
         assertThat(testPatient.isInfusionInstructionsViewed()).isEqualTo(UPDATED_INFUSION_INSTRUCTIONS_VIEWED);
         assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(UPDATED_POSTERIOR_FOSSA_ICH);
         assertThat(testPatient.isVentricleObstructed()).isEqualTo(UPDATED_VENTRICLE_OBSTRUCTED);
-        assertThat(testPatient.isReferredToNeurosurgery()).isEqualTo(UPDATED_REFERRED_TO_NEUROSURGERY);
         assertThat(testPatient.isForActiveTreatment()).isEqualTo(UPDATED_FOR_ACTIVE_TREATMENT);
-        assertThat(testPatient.isExternalScan()).isEqualTo(UPDATED_EXTERNAL_SCAN);
         assertThat(testPatient.isLastSeenWellOnset()).isEqualTo(UPDATED_LAST_SEEN_WELL_ONSET);
         assertThat(testPatient.isBestEstimateOnset()).isEqualTo(UPDATED_BEST_ESTIMATE_ONSET);
+        assertThat(testPatient.getExternalScanHospitalName()).isEqualTo(UPDATED_EXTERNAL_SCAN_HOSPITAL_NAME);
+        assertThat(testPatient.getGcsScoreEye()).isEqualTo(UPDATED_GCS_SCORE_EYE);
+        assertThat(testPatient.getGcsScoreVerbal()).isEqualTo(UPDATED_GCS_SCORE_VERBAL);
+        assertThat(testPatient.getGcsScoreMotor()).isEqualTo(UPDATED_GCS_SCORE_MOTOR);
+        assertThat(testPatient.getAnticoagulantType()).isEqualTo(UPDATED_ANTICOAGULANT_TYPE);
+        assertThat(testPatient.isAdministerBeriplexWhenAnticoagulantUnknown()).isEqualTo(UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN);
+        assertThat(testPatient.getDoacReversalAgentType()).isEqualTo(UPDATED_DOAC_REVERSAL_AGENT_TYPE);
+        assertThat(testPatient.getDoacReversalAgentDateTime()).isEqualTo(UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME);
+        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(UPDATED_BP_TREATMENT_THRESHOLD);
+        assertThat(testPatient.getBpTarget()).isEqualTo(UPDATED_BP_TARGET);
+        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
+        assertThat(testPatient.getNeurosurgeonName()).isEqualTo(UPDATED_NEUROSURGEON_NAME);
+        assertThat(testPatient.isReferralToNeurosurgeryAccepted()).isEqualTo(UPDATED_REFERRAL_TO_NEUROSURGERY_ACCEPTED);
+        assertThat(testPatient.getSummaryEmailAddress()).isEqualTo(UPDATED_SUMMARY_EMAIL_ADDRESS);
+        assertThat(testPatient.getAnticoagulantName()).isEqualTo(UPDATED_ANTICOAGULANT_NAME);
+        assertThat(testPatient.getInrValue()).isEqualTo(UPDATED_INR_VALUE);
+        assertThat(testPatient.getInrType()).isEqualTo(UPDATED_INR_TYPE);
+        assertThat(testPatient.getInrDateTime()).isEqualTo(UPDATED_INR_DATE_TIME);
     }
 
     @Test

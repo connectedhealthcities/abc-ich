@@ -12,14 +12,6 @@
             "otherEntityName": "hospital",
             "relationshipType": "many-to-one",
             "otherEntityField": "uniqueId"
-        },
-        {
-            "relationshipName": "inr",
-            "otherEntityName": "inr",
-            "relationshipType": "one-to-one",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "patient"
         }
     ],
     "fields": [
@@ -64,11 +56,6 @@
             ],
             "fieldValidateRulesMin": 3,
             "fieldValidateRulesMax": 15
-        },
-        {
-            "fieldName": "antiCoagulant",
-            "fieldType": "AntiCoagulant",
-            "fieldValues": "UNKNOWN,NONE,WARFARIN,SINTHROME,APIXABAN,DABIGATRAN,RIVO_ROXABAN,EDOXABAN"
         },
         {
             "fieldName": "estimatedWeightInKg",
@@ -124,14 +111,6 @@
             "fieldType": "ZonedDateTime"
         },
         {
-            "fieldName": "beriplexAdministered",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "vitaminkAdministered",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "infusionInstructionsViewed",
             "fieldType": "Boolean"
         },
@@ -144,15 +123,7 @@
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "referredToNeurosurgery",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "forActiveTreatment",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "externalScan",
             "fieldType": "Boolean"
         },
         {
@@ -162,6 +133,81 @@
         {
             "fieldName": "bestEstimateOnset",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "externalScanHospitalName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gcsScoreEye",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "gcsScoreVerbal",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "gcsScoreMotor",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "anticoagulantType",
+            "fieldType": "AnticoagulantType",
+            "fieldValues": "DOAC,VITK,NONE,UNKNOWN"
+        },
+        {
+            "fieldName": "administerBeriplexWhenAnticoagulantUnknown",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "doacReversalAgentType",
+            "fieldType": "DoacReversalAgentType",
+            "fieldValues": "NONE,IDARUCIZUMAB,PCC"
+        },
+        {
+            "fieldName": "doacReversalAgentDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "bpTreatmentThreshold",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bpTarget",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "referralToNeurosurgeryDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "neurosurgeonName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "referralToNeurosurgeryAccepted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "summaryEmailAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "anticoagulantName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "inrValue",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "inrType",
+            "fieldType": "InrType",
+            "fieldValues": "POINT_OF_CARE,LABORATORY"
+        },
+        {
+            "fieldName": "inrDateTime",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20161207153505",

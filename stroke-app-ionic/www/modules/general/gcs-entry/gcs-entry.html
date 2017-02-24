@@ -117,15 +117,16 @@
       </div>
     </div>
 
-    <div class="list card data-display-region">
-      <div class="item item-body transparent-header chi-gcs-total">
-        <div class="row creator-container">
-          <div class="col-90" style="text-align: right; width: 100%;">Total: {{vm.total}}</div>
+    <div class="list card">
+      <div class="item chi-gcs-total chi-info">
+        <div class="row">
+          <div class="col-90 text-right">Total: {{vm.total}}</div>
         </div>
       </div>
     </div>
+
     <!--Next button-->
-    <div class="spacer" style="width: 748.182px; height: 40px;"></div>
+   <div class="chi-spacer"></div>
     <div class="col-offset-50 col-50">
       <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>

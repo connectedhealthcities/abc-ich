@@ -17,8 +17,6 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         }
         vm.hospitals.push({"uniqueId": "Other"});
     });
-    
-    vm.patientId = null;
 
     vm.isDateOfBirthKnown = null;
     vm.isExternalScan = null;
@@ -36,6 +34,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     vm.onScanNow = onScanNow;
     vm.isDateOfBirthKnownChanged = isDateOfBirthKnownChanged;
     vm.isExternalScanChanged = isExternalScanChanged;
+    vm.selectedHospitalChanged = selectedHospitalChanged;
 
     function isNextButtonEnabled() {
         var isEnabled = false;
@@ -63,32 +62,39 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function handleDataValid() {
-        PatientHttpService.registerPatient(vm.initials).then(function(response) {
-            vm.patientId = response.patientId;
+        var allowDuplicate = false;
+        PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, allowDuplicate).then(function(response) {
             if (response.isDuplicate) {
-                showPatientAlreadyRegisteredPopup(registerNewPatient, cancelRegisterPatient);
+                showPatientAlreadyRegisteredPopup(confirmRegisterPatient, cancelRegisterPatient);
             }
             else {
-                registerNewPatient();
+                 savePatient(response.uniqueId);
             }
         });       
     }
 
-    function registerNewPatient() {
-        saveData();
+    function confirmRegisterPatient() {
+        var allowDuplicate = true;
+        PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, allowDuplicate).then(function(response) {
+            savePatient(response.uniqueId);
+        });       
+    }
+
+    function savePatient(uniqueId) {
+        saveData(uniqueId);
         showPatientNotesPopup(goNextState);
     }
 
-     function goNextState() {
+    function goNextState() {
         $state.go('patient-details');
-     }
+    }
 
     function cancelRegisterPatient() {
         $state.go('patient-start');
     }
  
-    function saveData() {
-        PatientCacheService.setUniqueId(vm.patientId);
+    function saveData(uniqueId) {
+        PatientCacheService.setUniqueId(uniqueId);
         PatientCacheService.setInitials(vm.initials);
         if (vm.isDateOfBirthKnown) {
             PatientCacheService.setBirthDate(vm.dateOfBirth);
@@ -119,6 +125,10 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         vm.scanDate = null;
         vm.scanTime = null;
         vm.selectedHospital = null;
+        vm.otherHospital = null;
+    }
+
+    function selectedHospitalChanged() {
         vm.otherHospital = null;
     }
 

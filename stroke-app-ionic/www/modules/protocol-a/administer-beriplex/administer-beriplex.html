@@ -10,12 +10,12 @@
     </div>
 
     <div>
-      <h1 style="color:#6F49FF;text-align:center;">Treat as quickly as possible</h1>
-      <h2 style="color:#6F49FF;text-align:center;">Target door to needle time is less than 90 minutes!</h2>
+      <h1 class="text-center input-blue">Treat as quickly as possible</h1>
+      <h2 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h2>
     </div>
     <hr>
 
-    <h1 class="nhs-blue" style="text-align:center;">Beriplex dose is: {{vm.actualBeriplexDose}} IU</h1>
+    <h1 class="text-center input-blue">Beriplex dose is: {{vm.actualBeriplexDose}} IU</h1>
 
     <div class="list card" >
       <ion-item class="item-icon-left card-header card-header-green chi-info">
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="spacer" style="width: 748px; height: 32px;"></div>
+    <div class="chi-spacer"></div>
 
     <div class="list card">
       <form class="list">
@@ -94,7 +94,7 @@
     </div>
 
     <!--Next button-->
-    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <div class="chi-spacer"></div>
     <div class="col-offset-50 col-50">
       <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>

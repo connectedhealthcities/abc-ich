@@ -60,7 +60,7 @@
     </div>
 
     <div class="list card">
-        <ion-item class="item-icon-left  card-header card-header-green">
+        <ion-item class="item-icon-left card-header card-header-green">
             <i class="icon ion-ionic"></i>Onset is last seen well 
         </ion-item>
          <ion-radio ng-model="vm.isOnsetLastSeenWell" name="last-seen-well" ng-value="true">
@@ -72,7 +72,7 @@
      </div>
 
     <div class="list card">
-        <ion-item class="item-icon-left  card-header card-header-green">
+        <ion-item class="item-icon-left card-header card-header-green">
             <i class="icon ion-ionic"></i>Onset is best estimate
         </ion-item>
         <ion-radio ng-model="vm.isOnsetBestEstimate" name="best-estimate" ng-value="true">
@@ -83,8 +83,8 @@
         </ion-radio>
     </div>
 
-    <!--Next button-->
-    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <!--Next button-->   
+    <div class="chi-spacer"></div>
     <div class="col-offset-50 col-50">
       <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>

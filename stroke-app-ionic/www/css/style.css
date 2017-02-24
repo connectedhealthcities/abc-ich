@@ -38,6 +38,15 @@
          width: 90% !important;
 }
 
+.chi-spacer {
+        height: 30px !important;
+}
+
+.chi-iframe {
+        height:1000px; 
+        width:100%;
+}
+
 
 
 

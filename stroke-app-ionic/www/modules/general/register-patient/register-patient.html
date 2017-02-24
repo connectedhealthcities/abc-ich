@@ -82,7 +82,7 @@
           <i class="icon ion-ionic"></i>External hospital
         </ion-item>
         <!--<div ng-repeat="hospital in vm.hospitals">-->
-            <ion-radio ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.uniqueId}}">
+            <ion-radio ng-change="vm.selectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.uniqueId}}">
               <span class="input-blue">{{hospital.uniqueId}}</span>
             </ion-radio>
         <!--</div>-->
@@ -93,7 +93,7 @@
     </div>
 
     <!--Next button-->
-    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <div class="chi-spacer"></div>
     <div class="col-offset-50 col-50">
       <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>

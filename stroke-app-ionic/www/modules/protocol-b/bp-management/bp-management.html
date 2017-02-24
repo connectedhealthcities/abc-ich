@@ -33,165 +33,102 @@
       </div>
     </div>
 
-    <div class="spacer" style="width: 748px; height: 32px;"></div>
+    <div class="chi-spacer"></div>
 
     <div class="list card">
-        <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Measurement
-        </ion-item>
-        <div class="row row-center">
-          
-        <div class="col-90">
-            <label class="item item-input">
-              <span class="input-label">Date</span>
-              <input type="date" ng-model="vm.entryDate">
-            </label>
-            <label class="item item-input">
-              <span class="input-label">Time</span>
-              <input type="time" step="60" ng-model="vm.entryTime" displayformat="HH:mm">
-            </label>
-          </div>
+      <ion-item class="item-icon-left  card-header card-header-green">
+        <i class="icon ion-ionic"></i>Measurement
+      </ion-item>
 
-          <div class="col-10 text-center">
-            <button ng-click="vm.onEntryNow()" class="button button-calm">Now</button>
-          </div>
+      <div class="row row-center">          
+        <div class="col-90">
+          <label class="item item-input">
+            <span class="input-label">Date</span>
+            <input type="date" ng-model="vm.entryDate">
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Time</span>
+            <input type="time" step="60" ng-model="vm.entryTime" displayformat="HH:mm">
+          </label>
         </div>
-        <label class="item item-input">
-          <span class="input-label">SBP (mmHg)</span>
-          <input type="number" placeholder="" ng-model="vm.entrySbp">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">IV GTN rate (ml/h)</span>
-          <input type="number" placeholder="" ng-model="vm.entryGtn">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Labetalol dose (mg)</span>
-          <input type="number" placeholder="" ng-model="vm.entryLabetalol">
-        </label>
-        <div class="spacer" style="width: 748px; height: 1px;"></div>
-      </form>
+        <div class="col-10 text-center">
+            <button ng-click="vm.onEntryNow()" class="button button-calm">Now</button>
+        </div>
+      </div>
+
+      <label class="item item-input">
+        <span class="input-label">SBP (mmHg)</span>
+        <input type="number" placeholder="" ng-model="vm.entrySbp">
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">IV GTN rate (ml/h)</span>
+        <input type="number" placeholder="" ng-model="vm.entryGtn">
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">Labetalol dose (mg)</span>
+        <input type="number" placeholder="" ng-model="vm.entryLabetalol">
+      </label>
     </div>
 
     <div class="row">
       <div class="col-33 col-offset-67 text-right">
-          <button ng-disabled="!vm.isAddEntryButtonEnabled()" ng-click="vm.addEntry()" style="border-radius:4px 4px 4px 4px;" class="button button-positive  button-block icon-right ion-clipboard">Add entry</button>
+          <button ng-disabled="!vm.isAddEntryButtonEnabled()" ng-click="vm.addEntry()" class="button button-positive  button-block icon-right ion-clipboard">Add entry</button>
       </div>
     </div>
 
-
     <div class="list card chi-info">
-        <ion-item class="item-icon-left card-header chi-info">
-            <i class="icon ion-ios-pulse-strong"></i>Previous measurements
-        </ion-item>
+      <ion-item class="item-icon-left card-header chi-info">
+        <i class="icon ion-ios-pulse-strong"></i>Previous measurements
+      </ion-item>
           
-        <div class="row">
-            <div class="col table-header">
-              <h4 style="color:#000000;font-weight:300;text-align:center;">Time</h4>
-            </div>
-            <div class="col table-header">
-              <h4 style="color:#000000;font-weight:300;text-align:center;">SBP (mmhg)</h4>
-            </div>
-            <div class="col table-header">
-              <h4 style="color:#000000;font-weight:300;text-align:center;">IV GTN rate (ml/h)</h4>
-            </div>
-            <div class="col table-header">
-              <h4 style="color:#000000;font-weight:300;text-align:center;">Labetalol dose (mg)</h4>
-            </div>
+      <div class="row">
+        <div class="col table-header">
+          <h4 class="text-center">Time</h4>
         </div>
+        <div class="col table-header">
+          <h4 class="text-center">SBP (mmhg)</h4>
+        </div>
+        <div class="col table-header">
+          <h4 class="text-center">IV GTN rate (ml/h)</h4>
+        </div>
+        <div class="col table-header">
+          <h4 class="text-center">Labetalol dose (mg)</h4>
+        </div>
+      </div>
 
-        <ion-scroll class="scroller">
-            <div class="row" ng-repeat="entry in vm.entries">
-              <div class="col table-cell-botto">
-                <div style="text-align:center;" class="show-list-numbers-and-dots">
-                  {{entry.dateTime | date: 'HH:mm'}}
-                </div>
-              </div>
-              <div class="col table-cell-botto">
-                <div style="text-align:center;" class="show-list-numbers-and-dots">
-                  {{entry.systolicBp}}
-                </div>
-              </div>
-              <div class="col table-cell-botto">
-                <div style="text-align:center;" class="show-list-numbers-and-dots">
-                  {{entry.gtnRate}}
-                </div>
-              </div>
-              <div class="col">
-                <div style="text-align:center;" class="show-list-numbers-and-dots">
-                   {{entry.labetalolDose}}
-               </div>
-              </div>
+      <ion-scroll class="scroller">
+        <div class="row" ng-repeat="entry in vm.entries">
+          <div class="col">
+            <div class="text-center">
+              {{entry.dateTime | date: 'HH:mm'}}
             </div>
-        </ion-scroll>
+          </div>
+          <div class="col">
+            <div class="text-center">
+               {{entry.systolicBp}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+              {{entry.gtnRate}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+                {{entry.labetalolDose}}
+            </div>
+          </div>
+        </div>
+      </ion-scroll>
     </div>
 
     <!--Next button-->
+    <div class="chi-spacer"></div>
     <div class="col-offset-50 col-50">
       <button ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>
 
   </ion-content>
 </ion-view>
-
-
-
-    <!--<div class="list card data-display-region">
-      <ion-item class="item-icon-left  card-header transparent-header">
-        <i class="icon ion-android-radio-button-on"></i>Acute treatment target
-      </ion-item>
-      <div>
-        <div class="row">
-          <div class="col creator-container"></div>
-          <div class="col-25 table-header table-cell">
-            <h4 style="color:#000000;font-weight:300;text-align:center;">Time since onset</h4>
-          </div>
-          <div class="col-25 table-header table-cell">
-            <h4 style="color:#000000;font-weight:300;text-align:center;">Start treatment if</h4>
-          </div>
-          <div class="col-25 table-header table-cell-edge">
-            <h4 style="color:#000000;font-weight:300;text-align:center;">Lower SBP to</h4>
-          </div>
-          <div class="col creator-container"></div>
-        </div>
-
-        <div class="row">
-          <div class="col creator-container"></div>
-          <div class="col-25 table-cell">
-            <div class="show-list-numbers-and-dots">
-              <p style="color:#000000;font-size:19px;">&nbsp;Less than 6 hours</p>
-            </div>
-          </div>
-          <div class="col-25 table-cell">
-            <div class="show-list-numbers-and-dots">
-              <p style="color:#000000;font-size:19px;">&nbsp;SBP &gt; 150 mmHg</p>
-            </div>
-          </div>
-          <div class="col-25 table-cell-edge">
-            <div class="show-list-numbers-and-dots">
-              <p style="color:#000000;font-size:19px;">&nbsp;140 mmHg, within 1 hour</p>
-            </div>
-          </div>
-          <div class="col creator-container"></div>
-        </div>
-
-        <div class="row">
-          <div class="col creator-container"></div>
-          <div class="col-25 table-cell-bottom">
-            <div class="show-list-numbers-and-dots">
-              <p style="color:#000000;font-size:19px;">&nbsp;Greater than 6 hours or unknown</p>
-            </div>
-          </div>
-          <div class="col-25 table-cell-bottom">
-            <div class="show-list-numbers-and-dots">
-              <p style="color:#000000;font-size:19px;">&nbsp;SBP &gt; 200 mmHg</p>
-            </div>
-          </div>
-          <div class="col-25">
-            <div class="show-list-numbers-and-dots">
-              <p style="color:#000000;font-size:19px;">&nbsp;180 mmHg, within 1 hour</p>
-            </div>
-          </div>
-          <div class="col creator-container"></div>
-        </div>
-      </div>
-    </div>-->

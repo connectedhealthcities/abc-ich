@@ -2,9 +2,9 @@
 
 angular.module('utils').service('PatientHttpService', PatientHttpService);
 
-PatientHttpService.$inject = ['$timeout'];
+PatientHttpService.$inject = ['$q'];
 
-function PatientHttpService($timeout) {
+function PatientHttpService($q) {
 
     var service = {
         registerPatient: registerPatient,
@@ -12,10 +12,27 @@ function PatientHttpService($timeout) {
 
     return service;
 
-	function registerPatient(initials) {
-        //cjd ToDo - replace timeout with http request
-        return $timeout().then(function () {
-            return { "patientId": "HOSPID-ABC-67-01", "isDuplicate": true };
-        });
+	function registerPatient(initials, birthDate, estimatedAge, allowDuplicate) {
+        //cjd ToDo - replace $q with http request
+        
+        if (allowDuplicate) {
+            return $q.when( { "uniqueId": "HOSPID-ABC-67", "isDuplicate": false } );
+        }
+        else {
+            return $q.when( { "uniqueId": "HOSPID-ABC-67", "isDuplicate": true } );
+        }
+        
+
+        // var patient = {
+        //     "initials": initials,
+        //     "birthDate": birthDate,
+        //     "estimatedAge": estimatedAge,
+        //     "allowDuplicate": allowDuplicate
+        // };
+
+        // var urlPrefix = ServerUrlService.getUrlPrefix();
+        // return $http.post(urlPrefix + '/api/patients', patient).then(function(response) {
+        //     return response.data;;
+        // });               
     }
 }

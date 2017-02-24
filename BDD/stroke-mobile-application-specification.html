@@ -36,15 +36,20 @@ Template
 		Then: the "Register Patient" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>
-	<Scenario> #2: Patient Start view - User selects "Resume Patient"   
+	<Scenario> #2: Patient Start view - User selects "Resume Patient"
 		Given: the user is viewing the "Patient Start" view
 		When: they select the "Resume Patient" button
-		Then: ToDo - need to decide what should happen here //cjd
+		Then: The last selected view should be displayed
+		And: the visibility of the ABC tabs should be correct
+		And: if the ABC tabs are visible, the selected tab should be correct
+		And the data state when last viewed is maintained
 	</Scenario>    
 	<!-- Register Patient view --> 
 	<Note> #3
 		The server will respond with "matching patient detected" when a patient already exists with identical values for the following criteria:
-		ToDo - list all properties used here when known //cjd
+		- unique id of the hospital
+		- patient initials
+		- patient age
 	</Note>
 	<Scenario> #3: Register Patient view - no matching patient is detected
 		Given: the user has entered valid data on the "Register Patient" view

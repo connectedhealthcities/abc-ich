@@ -47,16 +47,16 @@
       </div>
     </div>
 
-    <div class="spacer" style="width: 748px; height: 29px;"></div>
+    <div class="chi-spacer"></div>
 
     <div ng-show="vm.mrs >= 3">
-      <div style="text-align:center;" class="show-list-numbers-and-dots nhs-blue">
-        <p style="font-size:24px;">Premorbid mRS ≥ 3 - unlikely to be candidate for surgery</p>
+      <div class="text-center">
+        <h2 class="input-blue">Premorbid mRS ≥ 3 - unlikely to be candidate for surgery</h2>
       </div>
     </div>
 
     <!--Next button-->
-    <div class="spacer" style="width: 748px; height: 27px;"></div>
+    <div class="chi-spacer"></div>
     <div class="col-offset-50 col-50">
       <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
     </div>

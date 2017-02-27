@@ -11,10 +11,10 @@ function TabStateCacheService($state, LocalStorageService) {
     var DEFAULT_STATE_TAB_C = 'tabs.mrs-entry';
     var DEFAULT_CURRENT_STATE = 'patient-start';
     
-    var state_tab_a_key = "state_tab_a_key";
-    var state_tab_b_key = "state_tab_b_key";
-    var state_tab_c_key = "state_tab_c_key";
-    var current_tab_state_key = "current_tab_state_key";
+    var state_tab_a_key = "tabs-state-tab-a";
+    var state_tab_b_key = "tabs-state-tab-b";
+    var state_tab_c_key = "tabs-state-tab-c";
+    var current_state_key = "current-state";
 
     var service = {
 
@@ -32,7 +32,7 @@ function TabStateCacheService($state, LocalStorageService) {
     return service;
 
     function setCurrentState(state) {
-        LocalStorageService.setItem(current_tab_state_key, state);
+        LocalStorageService.setItem(current_state_key, state);
         if (state === "tabs.administer-beriplex" ||
             state === "tabs.anticoagulant-identification" ||
             state === "tabs.calculate-beriplex-dose" ||
@@ -64,7 +64,7 @@ function TabStateCacheService($state, LocalStorageService) {
     }
 
     function goCurrentState() {
-        var currentState = LocalStorageService.getItem(current_tab_state_key);
+        var currentState = LocalStorageService.getItem(current_state_key);
         if (currentState == null) {
             currentState = DEFAULT_CURRENT_STATE;
         }
@@ -75,7 +75,7 @@ function TabStateCacheService($state, LocalStorageService) {
         LocalStorageService.setItem(state_tab_a_key, null);
         LocalStorageService.setItem(state_tab_b_key, null);
         LocalStorageService.setItem(state_tab_c_key, null);
-        LocalStorageService.setItem(current_tab_state_key, null);
+        LocalStorageService.setItem(current_state_key, null);
     }
 
     function getStateTabA() {

@@ -16,9 +16,10 @@ public interface PatientMapper {
     @Mapping(source = "hospital.uniqueId", target = "hospitalUniqueId")
     PatientDTO patientToPatientDTO(Patient patient);
 
+    @Mapping(target = "isDuplicate", ignore = true)
+    @Mapping(target = "isDuplicateAllowed", ignore = true)
     List<PatientDTO> patientsToPatientDTOs(List<Patient> patients);
 
-    @Mapping(target = "bpManagementEntries", ignore = true)
     @Mapping(source = "hospitalId", target = "hospital")
     Patient patientDTOToPatient(PatientDTO patientDTO);
 

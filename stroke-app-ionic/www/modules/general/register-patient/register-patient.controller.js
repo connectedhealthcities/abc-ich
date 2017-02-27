@@ -9,6 +9,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     var vm = this; // S1
 
     TabStateCacheService.setCurrentState('register-patient');
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.hospitals = [];
     HospitalHttpService.getHospitals().then(function(hospitals) {
@@ -62,26 +63,45 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function handleDataValid() {
-        var allowDuplicate = false;
-        PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, allowDuplicate).then(function(response) {
-            if (response.isDuplicate) {
-                showPatientAlreadyRegisteredPopup(confirmRegisterPatient, cancelRegisterPatient);
-            }
-            else {
-                 savePatient(response.uniqueId);
-            }
-        });       
+        if (vm.isDemoMode) {
+            savePatient("demo-mode-patient", 0);
+        }
+        else {
+            var isDuplicateAllowed = false;
+            PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, isDuplicateAllowed).then(function(response) {
+                if (response.success) {
+                    if (response.patient.isDuplicate) {
+                        showPatientAlreadyRegisteredPopup(confirmRegisterPatient, cancelRegisterPatient);
+                    }
+                    else {
+                        savePatient(response.patient.uniqueId, response.patient.id);
+                    }
+                }
+                else {
+                    showPatientRegistrationFailedPopup(handleRegistrationFailed);
+                }
+            });       
+        }
     }
 
     function confirmRegisterPatient() {
-        var allowDuplicate = true;
-        PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, allowDuplicate).then(function(response) {
-            savePatient(response.uniqueId);
+        var isDuplicateAllowed = true;
+        PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, isDuplicateAllowed).then(function(response) {
+            if (response.success) {
+                savePatient(response.patient.uniqueId, response.patient.id);
+            }
+            else {
+                showPatientRegistrationFailedPopup(handleRegistrationFailed);
+            }
         });       
     }
 
-    function savePatient(uniqueId) {
-        saveData(uniqueId);
+    function cancelRegisterPatient() {
+         $state.go('patient-start');
+     }
+
+    function savePatient(uniqueId, id) {
+        saveData(uniqueId, id);
         showPatientNotesPopup(goNextState);
     }
 
@@ -89,12 +109,13 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         $state.go('patient-details');
     }
 
-    function cancelRegisterPatient() {
+    function handleRegistrationFailed() {
         $state.go('patient-start');
     }
  
-    function saveData(uniqueId) {
+    function saveData(uniqueId, id) {
         PatientCacheService.setUniqueId(uniqueId);
+        PatientCacheService.setId(id);        
         PatientCacheService.setInitials(vm.initials);
         if (vm.isDateOfBirthKnown) {
             PatientCacheService.setBirthDate(vm.dateOfBirth);
@@ -184,4 +205,16 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
 
         popup.then(okHandler);
     }
+
+    function showPatientRegistrationFailedPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/general/register-patient/patient-registration-failed-popup.html',
+            title: 'Patient registration failed',
+            cssClass: 'chi-wide-popup'
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+
+        popup.then(okHandler);
+    }
+    
 }

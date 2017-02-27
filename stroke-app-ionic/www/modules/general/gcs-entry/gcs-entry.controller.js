@@ -10,6 +10,7 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, Ta
 
     TabStateCacheService.setCurrentState('gcs-entry');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.eye = null;
     vm.verbal = null;

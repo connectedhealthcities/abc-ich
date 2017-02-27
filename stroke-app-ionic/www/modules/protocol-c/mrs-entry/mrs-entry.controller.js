@@ -10,6 +10,7 @@ function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, Ta
 
     TabStateCacheService.setCurrentState('tabs.mrs-entry');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.mrs = null;
 

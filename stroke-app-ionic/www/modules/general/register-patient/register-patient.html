@@ -1,5 +1,14 @@
 <ion-view title="Register patient">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
+
+    <div ng-show="vm.isDemoMode">
+        <div class="row chi-header-row">
+          <div class="chi-demo-mode">
+            <p><strong>Demo mode</strong></p>
+          </div>
+        </div>
+        <hr>
+    </div>
 
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">

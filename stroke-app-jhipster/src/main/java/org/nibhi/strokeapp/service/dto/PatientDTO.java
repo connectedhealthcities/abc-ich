@@ -5,10 +5,11 @@ import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 import org.nibhi.strokeapp.domain.enumeration.Destination;
+import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
@@ -19,6 +20,10 @@ import org.nibhi.strokeapp.domain.enumeration.InrType;
 public class PatientDTO implements Serializable {
 
     private Long id;
+    
+    private Boolean isDuplicate;
+    
+    private Boolean isDuplicateAllowed;
 
     private String uniqueId;
 
@@ -117,6 +122,8 @@ public class PatientDTO implements Serializable {
     
 
     private String hospitalUniqueId;
+    
+    private Set<BpManagementEntry> bpManagementEntries = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -125,6 +132,23 @@ public class PatientDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Boolean getIsDuplicate() {
+        return isDuplicate;
+    }
+
+    public void setIsDuplicate(Boolean isDuplicate) {
+        this.isDuplicate = isDuplicate;
+    }
+
+    public Boolean getIsDuplicateAllowed() {
+        return isDuplicateAllowed;
+    }
+
+    public void setIsDuplicateAllowed(Boolean isDuplicateAllowed) {
+        this.isDuplicateAllowed = isDuplicateAllowed;
+    }
+
     public String getUniqueId() {
         return uniqueId;
     }
@@ -132,6 +156,7 @@ public class PatientDTO implements Serializable {
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
+    
     public String getInitials() {
         return initials;
     }
@@ -139,6 +164,7 @@ public class PatientDTO implements Serializable {
     public void setInitials(String initials) {
         this.initials = initials;
     }
+    
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -146,6 +172,7 @@ public class PatientDTO implements Serializable {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
+    
     public Integer getEstimatedAge() {
         return estimatedAge;
     }
@@ -153,6 +180,7 @@ public class PatientDTO implements Serializable {
     public void setEstimatedAge(Integer estimatedAge) {
         this.estimatedAge = estimatedAge;
     }
+    
     public ZonedDateTime getOnsetDateTime() {
         return onsetDateTime;
     }
@@ -160,6 +188,7 @@ public class PatientDTO implements Serializable {
     public void setOnsetDateTime(ZonedDateTime onsetDateTime) {
         this.onsetDateTime = onsetDateTime;
     }
+    
     public ZonedDateTime getDoorDateTime() {
         return doorDateTime;
     }
@@ -167,6 +196,7 @@ public class PatientDTO implements Serializable {
     public void setDoorDateTime(ZonedDateTime doorDateTime) {
         this.doorDateTime = doorDateTime;
     }
+    
     public ZonedDateTime getAppStartDateTime() {
         return appStartDateTime;
     }
@@ -174,6 +204,7 @@ public class PatientDTO implements Serializable {
     public void setAppStartDateTime(ZonedDateTime appStartDateTime) {
         this.appStartDateTime = appStartDateTime;
     }
+    
     public ZonedDateTime getBpTargetReachedDateTime() {
         return bpTargetReachedDateTime;
     }
@@ -181,6 +212,7 @@ public class PatientDTO implements Serializable {
     public void setBpTargetReachedDateTime(ZonedDateTime bpTargetReachedDateTime) {
         this.bpTargetReachedDateTime = bpTargetReachedDateTime;
     }
+    
     public Integer getGcsScore() {
         return gcsScore;
     }
@@ -188,6 +220,7 @@ public class PatientDTO implements Serializable {
     public void setGcsScore(Integer gcsScore) {
         this.gcsScore = gcsScore;
     }
+    
     public Float getEstimatedWeightInKg() {
         return estimatedWeightInKg;
     }
@@ -195,6 +228,7 @@ public class PatientDTO implements Serializable {
     public void setEstimatedWeightInKg(Float estimatedWeightInKg) {
         this.estimatedWeightInKg = estimatedWeightInKg;
     }
+    
     public Integer getCalculatedBeriplexDose() {
         return calculatedBeriplexDose;
     }
@@ -202,6 +236,7 @@ public class PatientDTO implements Serializable {
     public void setCalculatedBeriplexDose(Integer calculatedBeriplexDose) {
         this.calculatedBeriplexDose = calculatedBeriplexDose;
     }
+    
     public Integer getActualBeriplexDose() {
         return actualBeriplexDose;
     }
@@ -209,6 +244,7 @@ public class PatientDTO implements Serializable {
     public void setActualBeriplexDose(Integer actualBeriplexDose) {
         this.actualBeriplexDose = actualBeriplexDose;
     }
+    
     public ZonedDateTime getBeriplexStartDateTime() {
         return beriplexStartDateTime;
     }
@@ -216,6 +252,7 @@ public class PatientDTO implements Serializable {
     public void setBeriplexStartDateTime(ZonedDateTime beriplexStartDateTime) {
         this.beriplexStartDateTime = beriplexStartDateTime;
     }
+    
     public ZonedDateTime getVitaminkDateTime() {
         return vitaminkDateTime;
     }
@@ -223,6 +260,7 @@ public class PatientDTO implements Serializable {
     public void setVitaminkDateTime(ZonedDateTime vitaminkDateTime) {
         this.vitaminkDateTime = vitaminkDateTime;
     }
+    
     public Integer getPremorbidMrsScore() {
         return premorbidMrsScore;
     }
@@ -230,6 +268,7 @@ public class PatientDTO implements Serializable {
     public void setPremorbidMrsScore(Integer premorbidMrsScore) {
         this.premorbidMrsScore = premorbidMrsScore;
     }
+    
     public Float getIchVolume() {
         return ichVolume;
     }
@@ -237,6 +276,7 @@ public class PatientDTO implements Serializable {
     public void setIchVolume(Float ichVolume) {
         this.ichVolume = ichVolume;
     }
+    
     public Destination getDestination() {
         return destination;
     }
@@ -244,6 +284,7 @@ public class PatientDTO implements Serializable {
     public void setDestination(Destination destination) {
         this.destination = destination;
     }
+    
     public String getOtherDestination() {
         return otherDestination;
     }
@@ -251,6 +292,7 @@ public class PatientDTO implements Serializable {
     public void setOtherDestination(String otherDestination) {
         this.otherDestination = otherDestination;
     }
+    
     public ZonedDateTime getScanDateTime() {
         return scanDateTime;
     }
@@ -258,6 +300,7 @@ public class PatientDTO implements Serializable {
     public void setScanDateTime(ZonedDateTime scanDateTime) {
         this.scanDateTime = scanDateTime;
     }
+    
     public Boolean getInfusionInstructionsViewed() {
         return infusionInstructionsViewed;
     }
@@ -265,6 +308,7 @@ public class PatientDTO implements Serializable {
     public void setInfusionInstructionsViewed(Boolean infusionInstructionsViewed) {
         this.infusionInstructionsViewed = infusionInstructionsViewed;
     }
+    
     public Boolean getPosteriorFossaIch() {
         return posteriorFossaIch;
     }
@@ -272,6 +316,7 @@ public class PatientDTO implements Serializable {
     public void setPosteriorFossaIch(Boolean posteriorFossaIch) {
         this.posteriorFossaIch = posteriorFossaIch;
     }
+    
     public Boolean getVentricleObstructed() {
         return ventricleObstructed;
     }
@@ -279,6 +324,7 @@ public class PatientDTO implements Serializable {
     public void setVentricleObstructed(Boolean ventricleObstructed) {
         this.ventricleObstructed = ventricleObstructed;
     }
+    
     public Boolean getForActiveTreatment() {
         return forActiveTreatment;
     }
@@ -286,6 +332,7 @@ public class PatientDTO implements Serializable {
     public void setForActiveTreatment(Boolean forActiveTreatment) {
         this.forActiveTreatment = forActiveTreatment;
     }
+    
     public Boolean getLastSeenWellOnset() {
         return lastSeenWellOnset;
     }
@@ -293,6 +340,7 @@ public class PatientDTO implements Serializable {
     public void setLastSeenWellOnset(Boolean lastSeenWellOnset) {
         this.lastSeenWellOnset = lastSeenWellOnset;
     }
+    
     public Boolean getBestEstimateOnset() {
         return bestEstimateOnset;
     }
@@ -300,6 +348,7 @@ public class PatientDTO implements Serializable {
     public void setBestEstimateOnset(Boolean bestEstimateOnset) {
         this.bestEstimateOnset = bestEstimateOnset;
     }
+    
     public String getExternalScanHospitalName() {
         return externalScanHospitalName;
     }
@@ -307,6 +356,7 @@ public class PatientDTO implements Serializable {
     public void setExternalScanHospitalName(String externalScanHospitalName) {
         this.externalScanHospitalName = externalScanHospitalName;
     }
+    
     public Integer getGcsScoreEye() {
         return gcsScoreEye;
     }
@@ -314,6 +364,7 @@ public class PatientDTO implements Serializable {
     public void setGcsScoreEye(Integer gcsScoreEye) {
         this.gcsScoreEye = gcsScoreEye;
     }
+    
     public Integer getGcsScoreVerbal() {
         return gcsScoreVerbal;
     }
@@ -321,6 +372,7 @@ public class PatientDTO implements Serializable {
     public void setGcsScoreVerbal(Integer gcsScoreVerbal) {
         this.gcsScoreVerbal = gcsScoreVerbal;
     }
+    
     public Integer getGcsScoreMotor() {
         return gcsScoreMotor;
     }
@@ -328,6 +380,7 @@ public class PatientDTO implements Serializable {
     public void setGcsScoreMotor(Integer gcsScoreMotor) {
         this.gcsScoreMotor = gcsScoreMotor;
     }
+    
     public AnticoagulantType getAnticoagulantType() {
         return anticoagulantType;
     }
@@ -335,6 +388,7 @@ public class PatientDTO implements Serializable {
     public void setAnticoagulantType(AnticoagulantType anticoagulantType) {
         this.anticoagulantType = anticoagulantType;
     }
+    
     public Boolean getAdministerBeriplexWhenAnticoagulantUnknown() {
         return administerBeriplexWhenAnticoagulantUnknown;
     }
@@ -342,6 +396,7 @@ public class PatientDTO implements Serializable {
     public void setAdministerBeriplexWhenAnticoagulantUnknown(Boolean administerBeriplexWhenAnticoagulantUnknown) {
         this.administerBeriplexWhenAnticoagulantUnknown = administerBeriplexWhenAnticoagulantUnknown;
     }
+    
     public DoacReversalAgentType getDoacReversalAgentType() {
         return doacReversalAgentType;
     }
@@ -349,6 +404,7 @@ public class PatientDTO implements Serializable {
     public void setDoacReversalAgentType(DoacReversalAgentType doacReversalAgentType) {
         this.doacReversalAgentType = doacReversalAgentType;
     }
+    
     public ZonedDateTime getDoacReversalAgentDateTime() {
         return doacReversalAgentDateTime;
     }
@@ -356,6 +412,7 @@ public class PatientDTO implements Serializable {
     public void setDoacReversalAgentDateTime(ZonedDateTime doacReversalAgentDateTime) {
         this.doacReversalAgentDateTime = doacReversalAgentDateTime;
     }
+    
     public Integer getBpTreatmentThreshold() {
         return bpTreatmentThreshold;
     }
@@ -363,6 +420,7 @@ public class PatientDTO implements Serializable {
     public void setBpTreatmentThreshold(Integer bpTreatmentThreshold) {
         this.bpTreatmentThreshold = bpTreatmentThreshold;
     }
+    
     public Integer getBpTarget() {
         return bpTarget;
     }
@@ -370,6 +428,7 @@ public class PatientDTO implements Serializable {
     public void setBpTarget(Integer bpTarget) {
         this.bpTarget = bpTarget;
     }
+    
     public ZonedDateTime getReferralToNeurosurgeryDateTime() {
         return referralToNeurosurgeryDateTime;
     }
@@ -377,6 +436,7 @@ public class PatientDTO implements Serializable {
     public void setReferralToNeurosurgeryDateTime(ZonedDateTime referralToNeurosurgeryDateTime) {
         this.referralToNeurosurgeryDateTime = referralToNeurosurgeryDateTime;
     }
+    
     public String getNeurosurgeonName() {
         return neurosurgeonName;
     }
@@ -384,6 +444,7 @@ public class PatientDTO implements Serializable {
     public void setNeurosurgeonName(String neurosurgeonName) {
         this.neurosurgeonName = neurosurgeonName;
     }
+    
     public Boolean getReferralToNeurosurgeryAccepted() {
         return referralToNeurosurgeryAccepted;
     }
@@ -391,6 +452,7 @@ public class PatientDTO implements Serializable {
     public void setReferralToNeurosurgeryAccepted(Boolean referralToNeurosurgeryAccepted) {
         this.referralToNeurosurgeryAccepted = referralToNeurosurgeryAccepted;
     }
+    
     public String getSummaryEmailAddress() {
         return summaryEmailAddress;
     }
@@ -398,6 +460,7 @@ public class PatientDTO implements Serializable {
     public void setSummaryEmailAddress(String summaryEmailAddress) {
         this.summaryEmailAddress = summaryEmailAddress;
     }
+    
     public String getAnticoagulantName() {
         return anticoagulantName;
     }
@@ -405,6 +468,7 @@ public class PatientDTO implements Serializable {
     public void setAnticoagulantName(String anticoagulantName) {
         this.anticoagulantName = anticoagulantName;
     }
+    
     public Float getInrValue() {
         return inrValue;
     }
@@ -412,6 +476,7 @@ public class PatientDTO implements Serializable {
     public void setInrValue(Float inrValue) {
         this.inrValue = inrValue;
     }
+    
     public InrType getInrType() {
         return inrType;
     }
@@ -419,6 +484,7 @@ public class PatientDTO implements Serializable {
     public void setInrType(InrType inrType) {
         this.inrType = inrType;
     }
+    
     public ZonedDateTime getInrDateTime() {
         return inrDateTime;
     }
@@ -442,6 +508,14 @@ public class PatientDTO implements Serializable {
 
     public void setHospitalUniqueId(String hospitalUniqueId) {
         this.hospitalUniqueId = hospitalUniqueId;
+    }
+ 
+    public Set<BpManagementEntry> getBpManagementEntries() {
+        return bpManagementEntries;
+    }
+
+    public void setBpManagementEntries(Set<BpManagementEntry> bpManagementEntries) {
+        this.bpManagementEntries = bpManagementEntries;
     }
 
     @Override

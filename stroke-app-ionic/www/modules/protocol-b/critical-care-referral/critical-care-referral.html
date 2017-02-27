@@ -2,12 +2,19 @@
   <ion-content padding="true">
 
     <!-- Patient id-->
-    <div>
-      <div class="chi-patient-id">
+    <div class="row chi-header-row">
+      <div ng-show="vm.isDemoMode" class="col-50 chi-demo-mode">
+        <p><strong>Demo mode</strong></p>
+      </div>
+
+      <div ng-show="vm.isDemoMode" class="col-50 chi-patient-id">
         <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
-      <hr>
+      <div ng-show="!vm.isDemoMode" class="col-50 col-offset-50 chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
     </div>
+    <hr>
 
      <div class="list card" >
       <ion-item class="item-icon-left card-header card-header-green chi-info">
@@ -20,24 +27,24 @@
         <span>Consider transfer to HDU/ICU for arterial line and further anti-hypertensive treatment</span>        
       </ion-item>
     </div>
-   
+
     <div class="list card">
             <ion-item class="item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>Critical care referral
             </ion-item>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Critical care'">
-                <span class="input-blue">Critical care</span>
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'STROKEWARD'">
+                <span class="input-blue">Stroke ward</span>
             </ion-radio>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Intensive care unit'">
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'ICU'">
                 <span class="input-blue">Intensive care unit</span>
             </ion-radio>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'High dependency unit'">
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'HDU'">
                 <span class="input-blue">High dependency unit</span>
             </ion-radio>
-            <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'Other'">
+            <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'OTHER'">
                 <span class="input-blue">None of the above</span>
             </ion-radio>
-            <label ng-hide="vm.destination !== 'Other'" class="item item-input">
+            <label ng-hide="vm.destination !== 'OTHER'" class="item item-input">
                 <span class="input-label">Other</span>
                 <input type="text" ng-model="vm.destinationOther" placeholder="Please specify">
             </label>

@@ -2,12 +2,19 @@
   <ion-content padding="true">
 
     <!-- Patient id-->
-    <div>
-      <div class="chi-patient-id">
+    <div class="row chi-header-row">
+      <div ng-show="vm.isDemoMode" class="col-50 chi-demo-mode">
+        <p><strong>Demo mode</strong></p>
+      </div>
+
+      <div ng-show="vm.isDemoMode" class="col-50 chi-patient-id">
         <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
-      <hr>
+      <div ng-show="!vm.isDemoMode" class="col-50 col-offset-50 chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
     </div>
+    <hr>
     
     <div class="list card">
       <ion-item class="item-icon-left card-header card-header-green">

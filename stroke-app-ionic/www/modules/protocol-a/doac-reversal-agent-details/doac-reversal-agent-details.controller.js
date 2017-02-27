@@ -10,6 +10,7 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
 
     TabStateCacheService.setCurrentState('tabs.doac-reversal-agent-details');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.reversalAgent = PatientCacheService.getDoacReversalAgentType();
     vm.reversalDate = PatientCacheService.getDoacReversalAgentDateTime();
@@ -37,7 +38,7 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
 
     function saveData() {
         PatientCacheService.setDoacReversalAgentType(vm.reversalAgent);
-        if (vm.reversalAgent === "Idarucizumab" || vm.reversalAgent === "PCC") {
+        if (vm.reversalAgent === "IDARUCIZUMAB" || vm.reversalAgent === "PCC") {
             var reversalDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.reversalDate, vm.reversalTime);
             PatientCacheService.setDoacReversalAgentDateTime(reversalDateTime);
         }
@@ -47,7 +48,7 @@ function DoacReversalAgentDetailsController($scope, $state, $ionicPopup, Patient
          var isEnabled = false;
 
          if (vm.reversalAgent != null) {
-            if (vm.reversalAgent === "None") {
+            if (vm.reversalAgent === "NONE") {
                 isEnabled = true;
             }
             else {

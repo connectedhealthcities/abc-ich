@@ -2,12 +2,12 @@
 
 angular.module('utils').service('UserCredentialsCacheService', UserCredentialsCacheService);
 
-UserCredentialsCacheService.$inject = [];
+UserCredentialsCacheService.$inject = ['LocalStorageService'];
 
-function UserCredentialsCacheService() {
+function UserCredentialsCacheService(LocalStorageService) {
 
-    var _username = null;
-    var _password = null;
+    var username_key = "credentials-username";
+    var password_key = "credentials-password";
 
     var service = {
 
@@ -21,18 +21,18 @@ function UserCredentialsCacheService() {
     return service;
 
     function getUsername() {
-        return _username;
+        return LocalStorageService.getItem(username_key);
     }
 
     function setUsername(username) {
-        _username = username;
+        LocalStorageService.setItem(username_key, username);
     }
 
     function getPassword() {
-        return _password;
+        return LocalStorageService.getItem(password_key);
     }
 
     function setPassword(password){
-        _password = password;
+        LocalStorageService.setItem(password_key, password);
     }
 }

@@ -10,6 +10,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
 
     TabStateCacheService.setCurrentState('tabs.calculate-beriplex-dose');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.inrValue = PatientCacheService.getInrValue();
     vm.inrType = PatientCacheService.getInrType();

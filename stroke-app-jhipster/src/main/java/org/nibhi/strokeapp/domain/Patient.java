@@ -575,7 +575,7 @@ public class Patient implements Serializable {
     @Column(name = "bp_target")
     private Integer bpTarget;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "patient")
     @JsonIgnore
     private Set<BpManagementEntry> bpManagementEntries = new HashSet<>();
 

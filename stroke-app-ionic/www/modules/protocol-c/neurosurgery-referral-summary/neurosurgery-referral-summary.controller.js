@@ -10,6 +10,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
 
     TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-summary');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.summary = {};
     if (PatientCacheService.getEstimatedAge() != null) {

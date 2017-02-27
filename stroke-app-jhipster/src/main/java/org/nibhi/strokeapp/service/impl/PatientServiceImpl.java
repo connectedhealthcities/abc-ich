@@ -1,8 +1,11 @@
 package org.nibhi.strokeapp.service.impl;
 
 import org.nibhi.strokeapp.service.PatientService;
+import org.nibhi.strokeapp.service.UserService;
+import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.Hospital;
 import org.nibhi.strokeapp.domain.Patient;
+import org.nibhi.strokeapp.domain.User;
 import org.nibhi.strokeapp.repository.HospitalRepository;
 import org.nibhi.strokeapp.repository.PatientRepository;
 import org.nibhi.strokeapp.service.dto.PatientDTO;
@@ -15,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,21 +42,106 @@ public class PatientServiceImpl implements PatientService{
     private HospitalRepository hospitalRepository;
 
     @Inject
+    private UserService userService;
+
+    @Inject
     private PatientMapper patientMapper;
 
     /**
-     * Save a patient.
+     * Create a patient.
      *
-     * @param patientDTO the entity to save
+     * @param patientDTO the entity to create
      * @return the persisted entity
      */
-    public PatientDTO save(PatientDTO patientDTO) {
-        log.debug("Request to save Patient : {}", patientDTO);
+    public PatientDTO create(PatientDTO patientDTO) {
+        log.debug("Request to create Patient : {}", patientDTO);
+        
+        User user = userService.getUserWithAuthorities();
+        String hospitalId = user.getHospitalId();
+        String candidateId = getCandidateUniqueId(patientDTO, hospitalId);
+        List<Patient> matchingPatients = patientRepository.findAllByUniqueIdStartingWith(candidateId);
+        Hospital hospital = hospitalRepository.findByUniqueId(hospitalId);
+        
+        PatientDTO result = patientDTO;
+        if (patientDTO.getIsDuplicateAllowed()) {
+        	if (matchingPatients.size() > 0) {
+            	String duplicateId = getDuplicateUniqueId(matchingPatients, candidateId);
+        		patientDTO.setUniqueId(duplicateId);
+        	}
+        	else {
+        		patientDTO.setUniqueId(candidateId);
+        	}
+            Patient patient = patientMapper.patientDTOToPatient(patientDTO);
+            patient.setHospital(hospital);
+            patient = patientRepository.save(patient);
+            result = patientMapper.patientToPatientDTO(patient);
+    		result.setIsDuplicate(true);
+        }
+        else {
+        	if (matchingPatients.size() > 0) {
+        		result.setUniqueId(candidateId);
+        		result.setIsDuplicate(true);
+        	}
+        	else {
+        		patientDTO.setUniqueId(candidateId);
+                Patient patient = patientMapper.patientDTOToPatient(patientDTO);
+                patient.setHospital(hospital);
+                patient = patientRepository.save(patient);
+                result = patientMapper.patientToPatientDTO(patient);
+        		result.setIsDuplicate(false);
+            }
+        }
+
+        return result;
+    }
+
+    private String getCandidateUniqueId(PatientDTO patientDTO, String hospitalId) {
+    	 
+        String initials = patientDTO.getInitials();
+        LocalDate birthDate = patientDTO.getBirthDate();
+        Integer age = null;
+        if (birthDate != null) {
+        	LocalDate now = LocalDate.now();
+        	age = Period.between(birthDate, now).getYears();
+        }
+        else {
+        	age = patientDTO.getEstimatedAge();
+        }
+        
+        List<String> elements = new ArrayList<String>();
+        if (hospitalId != null) elements.add(hospitalId);
+        if (initials != null) elements.add(initials);
+        if (age != null) elements.add(age.toString());
+        
+        String candidateId = String.join("-", elements);
+    	
+    	return candidateId;
+    }
+
+    private String getDuplicateUniqueId(List<Patient> matchingPatients, String canditateId) {
+    	
+    	int postFix = matchingPatients.size() + 1;
+    	String duplicateId = canditateId + "_" + postFix;
+    	return duplicateId; 
+    }
+
+    /**
+     * Update a patient.
+     * 
+     * @param patientDTO the entity to update
+     * @return the persisted entity
+     */
+    public PatientDTO update(PatientDTO patientDTO) {
+        log.debug("Request to update Patient : {}", patientDTO);
         Patient patient = patientMapper.patientDTOToPatient(patientDTO);
+        for(BpManagementEntry bpManagementEntry : patient.getBpManagementEntries()) {
+        	bpManagementEntry.setPatient(patient);
+        }
         patient = patientRepository.save(patient);
         PatientDTO result = patientMapper.patientToPatientDTO(patient);
         return result;
     }
+        
 
     /**
      *  Get all the patients.

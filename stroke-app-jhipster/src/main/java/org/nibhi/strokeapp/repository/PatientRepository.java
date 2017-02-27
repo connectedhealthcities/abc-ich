@@ -16,4 +16,5 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 	
 	Page<Patient> findAllByHospital(Pageable pageable, Hospital hospital);
 	List<Patient> findAllByHospital(Hospital hospital);
+	List<Patient> findAllByUniqueIdStartingWith(String startingWith);
 }

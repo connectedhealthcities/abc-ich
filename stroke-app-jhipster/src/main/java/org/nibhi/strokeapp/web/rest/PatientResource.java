@@ -63,10 +63,9 @@ public class PatientResource {
         if (patientDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("patient", "idexists", "A new patient cannot already have an ID")).body(null);
         }
-        PatientDTO result = patientService.save(patientDTO);
-        return ResponseEntity.created(new URI("/api/patients/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("patient", result.getId().toString()))
-            .body(result);
+        PatientDTO result = patientService.create(patientDTO);
+        return ResponseEntity.ok()
+                .body(result);
     }
 
     /**
@@ -86,7 +85,7 @@ public class PatientResource {
         if (patientDTO.getId() == null) {
             return createPatient(patientDTO);
         }
-        PatientDTO result = patientService.save(patientDTO);
+        PatientDTO result = patientService.update(patientDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("patient", patientDTO.getId().toString()))
             .body(result);

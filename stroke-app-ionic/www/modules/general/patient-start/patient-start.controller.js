@@ -8,6 +8,10 @@ function PatientStartController($scope, $state, $ionicPopup, TabStateCacheServic
  
     var vm = this; // S17
 
+    var isDemoMode = PatientCacheService.getIsDemoMode();
+    if (isDemoMode) {
+        PatientCacheService.clearAll();
+    }
     vm.patientId = PatientCacheService.getUniqueId();
 
     vm.onNewPatient = onNewPatient;

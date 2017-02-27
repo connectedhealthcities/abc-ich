@@ -2,61 +2,61 @@
 
 angular.module('utils').service('PatientCacheService', PatientCacheService);
 
-PatientCacheService.$inject = ['LocalStorageService'];
+PatientCacheService.$inject = ['LocalStorageService', 'IS_DEMO_MODE_KEY'];
 
-function PatientCacheService(LocalStorageService) {
+function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
  
     //
     // general
     //
 
     // patient-start 
-    var app_start_date_time_key = "app_start_date_time_key";
+    var app_start_date_time_key = "patient-app-start-date-time";
     // register-patient
-    var unique_id_key = "unique_id_key";
-    var initials_key = "initials_key";
-    var birth_date_key = "birth_date_key";
-    var estimated_age_key = "estimated_age_key";
-    var external_scan_hospital_name_key = "external_scan_hospital_name_key";
-    var scan_date_time_key = "scan_date_time_key";
-    var hospital_unique_id_key = "hospital_unique_id_key";
+    var id_key = "patient-id";
+    var unique_id_key = "patient-unique-id";
+    var initials_key = "patient-initials";
+    var birth_date_key = "patient-birth-date";
+    var estimated_age_key = "patient-estimated-age";
+    var external_scan_hospital_name_key = "patient-external-scan-hospital-name";
+    var scan_date_time_key = "patient-scan-date-time";
     // patient-details
-    var door_date_time_key = "door_date_time_key";
-    var onset_date_time_key = "onset_date_time_key";
-    var is_last_seen_well_onset_key = "is_last_seen_well_onset_key";
-    var is_best_estimate_onset_key = "is_best_estimate_onset_key";
+    var door_date_time_key = "patient-door-date-time";
+    var onset_date_time_key = "patient-onset-date-time";
+    var is_last_seen_well_onset_key = "patient-is-last-seen-well-onset";
+    var is_best_estimate_onset_key = "patient-is-best-estimate-onset";
     // gcs-entry
-    var gcs_score_key = "gcs_score_key";
-    var gcs_score_eye_key = "gcs_score_eye_key";
-    var gcs_score_verbal_key = "gcs_score_verbal_key";
-    var gcs_score_motor_key = "gcs_score_motor_key";
+    var gcs_score_key = "patient-gcs-score";
+    var gcs_score_eye_key = "patient-gcs-score-eye";
+    var gcs_score_verbal_key = "patient-gcs-score-verbal";
+    var gcs_score_motor_key = "patient-gcs-score-motor";
     // patient-end
-    var summary_email_address_key = "summary_email_address_key";
+    var summary_email_address_key = "patient-summary-email-address";
 
     //
     // protocol A
     //
 
     // anticoagulant-identification
-    var anticoagulant_type_key = "anticoagulant_type_key";
-    var anticoagulant_name_key = "anticoagulant_name_key";
+    var anticoagulant_type_key = "patient-anticoagulant-type";
+    var anticoagulant_name_key = "patient-anticoagulant-name";
     // calculate-beriplex-dose
-    var estimated_weight_in_kg_key = "estimated_weight_in_kg_key";
-    var calculated_beriplex_dose_key = "calculated_beriplex_dose_key";
-    var inr_value_key = "inr_value_key";
-    var inr_type_key = "inr_type_key";
-    var inr_date_time_key = "inr_date_time_key";
-    var administer_beriplex_when_unknown_key = "administer_beriplex_when_unknown_key";
-    var is_weight_given_in_kg_key = "is_weight_given_in_kg_key"; // Local
+    var estimated_weight_in_kg_key = "patient-estimated-weight-in-kg";
+    var calculated_beriplex_dose_key = "patient-calculated-beriplex-dose";
+    var inr_value_key = "patient-inr-value";
+    var inr_type_key = "patient-inr-type";
+    var inr_date_time_key = "patient-inr-date-time";
+    var administer_beriplex_when_unknown_key = "patient-administer-beriplex-when-unknown";
+    var is_weight_given_in_kg_key = "patient-is-weight-given-in-kg"; // Local
     // confirm-beriplex-dose
-    var actual_beriplex_dose_key = "actual_beriplex_dose_key";
+    var actual_beriplex_dose_key = "patient-actual-beriplex-dose";
     // administer-beriplex
-    var beriplex_start_date_time_key = "beriplex_start_date_time_key";
-    var vitamink_date_time_key = "vitamink_date_time_key";
-    var is_infusion_instructions_viewed_key = "is_infusion_instructions_viewed_key";
+    var beriplex_start_date_time_key = "patient-beriplex-start-date-time";
+    var vitamink_date_time_key = "patient-vitamink-date-time";
+    var is_infusion_instructions_viewed_key = "patient-is-infusion-instructions-viewed";
     // doac-reversal-agent-details
-    var doac_reversal_agent_type_key = "doac_reversal_agent_type_key";
-    var doac_reversal_agent_date_time_key = "doac_reversal_agent_date_time_key";
+    var doac_reversal_agent_type_key = "patient-doac-reversal-agent-type";
+    var doac_reversal_agent_date_time_key = "patient-doac-reversal-agent-date-time";
 
 
     //
@@ -64,13 +64,13 @@ function PatientCacheService(LocalStorageService) {
     //
 
     // bp-management
-    var bp_target_reached_date_time_key = "bp_target_reached_date_time_key";
-    var bp_treatment_threshold_key = "bp_treatment_threshold_key";
-    var bp_target_key = "bp_target_key";
-    var bp_measurement_entries_key = "bp_measurement_entries_key";
+    var bp_target_reached_date_time_key = "patient-bp-target-reached-date-time";
+    var bp_treatment_threshold_key = "patient-bp-treatment-threshold";
+    var bp_target_key = "patient-bp-target";
+    var bp_measurement_entries_key = "patient-bp-measurement-entries";
     // critical-care-referral
-    var destination_key = "destination_key";
-    var other_destination_key = "other_destination_key";
+    var destination_key = "patient-destination";
+    var other_destination_key = "patient-other-destination";
 
 
     //
@@ -78,24 +78,27 @@ function PatientCacheService(LocalStorageService) {
     //
 
     // mrs-entry
-    var premorbid_mrs_score_key = "premorbid_mrs_score_key";
+    var premorbid_mrs_score_key = "patient-premorbid-mrs-score";
     // neurosurgery-referral-criteria
-    var ich_volume_key = "ich_volume_key";
-    var is_posterior_fossa_ich_key = "is_posterior_fossa_ich_key";
-    var is_ventricle_obstructed_key = "is_ventricle_obstructed_key";
-    var ich_longest_axis_key = "ich_longest_axis_key"; //local
-    var ich_perpendicular_axis_key = "ich_perpendicular_axis_key"; //local
-    var ich_num_slices_key = "ich_num_slices_key"; //local
-    var ich_slice_thickness_key = "ich_slice_thickness_key"; //local
+    var ich_volume_key = "patient-ich-volume";
+    var is_posterior_fossa_ich_key = "patient-is-posterior-fossa-ich";
+    var is_ventricle_obstructed_key = "patient-is-ventricle-obstructed";
+    var ich_longest_axis_key = "patient-ich-longest-axis"; //local
+    var ich_perpendicular_axis_key = "patient-ich-perpendicular-axis"; //local
+    var ich_num_slices_key = "patient-ich-num-slices"; //local
+    var ich_slice_thickness_key = "patient-ich-slice-thickness"; //local
 
     // neurosurgery-referral-summary
-    var referral_to_neurosurgery_date_time_key = "referral_to_neurosurgery_date_time_key";
-    var neurosurgeon_name_key = "neurosurgeon_name_key";
-    var is_referral_to_neurosurgery_accepted_key = "is_referral_to_neurosurgery_accepted_key";
-    var is_for_active_treatment_key = "is_for_active_treatment_key";
+    var referral_to_neurosurgery_date_time_key = "patient-referral-to-neurosurgery-date-time";
+    var neurosurgeon_name_key = "patient-neurosurgeon-name";
+    var is_referral_to_neurosurgery_accepted_key = "patient-is-referral-to-neurosurgery-accepted";
+    var is_for_active_treatment_key = "patient-is-for-active-treatment";
 
     var service = {
 
+        getIsDemoMode: getIsDemoMode,
+        setIsDemoMode: setIsDemoMode,
+        
         //
         // general
         //
@@ -105,6 +108,9 @@ function PatientCacheService(LocalStorageService) {
         setAppStartDateTime: setAppStartDateTime,
 
         // register-patient
+        getId: getId,
+        setId: setId,
+
         getUniqueId: getUniqueId,
         setUniqueId: setUniqueId,
 
@@ -122,9 +128,6 @@ function PatientCacheService(LocalStorageService) {
 
         getScanDateTime: getScanDateTime,
         setScanDateTime: setScanDateTime,
-
-        getHospitalUniqueId: getHospitalUniqueId,
-        setHospitalUniqueId: setHospitalUniqueId,
 
         // patient-details
         getDoorDateTime: getDoorDateTime,
@@ -284,6 +287,14 @@ function PatientCacheService(LocalStorageService) {
 
     return service;
 
+    function getIsDemoMode() {
+        return LocalStorageService.getItem(IS_DEMO_MODE_KEY);;
+    }
+
+    function setIsDemoMode(isDemoMode) {
+        LocalStorageService.setItem(IS_DEMO_MODE_KEY, isDemoMode);
+    }
+
     //
     // general
     //
@@ -291,7 +302,7 @@ function PatientCacheService(LocalStorageService) {
 
     // patient-start
     function getAppStartDateTime() {
-        return new Date(LocalStorageService.getItem(app_start_date_time_key));
+        return getDate(app_start_date_time_key);
     }
 
     function setAppStartDateTime(appStartDateTime) {
@@ -299,6 +310,14 @@ function PatientCacheService(LocalStorageService) {
     }
     
     // register-patient
+    function getId() {
+        return LocalStorageService.getItem(id_key);
+    }
+
+    function setId(id) {
+        LocalStorageService.setItem(id_key, id);
+    }
+
     function getUniqueId() {
         return LocalStorageService.getItem(unique_id_key);
     }
@@ -345,14 +364,6 @@ function PatientCacheService(LocalStorageService) {
 
     function setScanDateTime(scanDateTime) {
         LocalStorageService.setItem(scan_date_time_key, scanDateTime);
-    }
-
-    function getHospitalUniqueId() {
-        return LocalStorageService.getItem(hospital_unique_id_key);
-    }
-
-    function setHospitalUniqueId(hospitalUniqueId) {
-       LocalStorageService.setItem(hospital_unique_id_key, hospitalUniqueId);
     }
     
     // patient-details
@@ -732,13 +743,13 @@ function PatientCacheService(LocalStorageService) {
 
     function clearAll() {
         LocalStorageService.setItem(app_start_date_time_key, null);
+        LocalStorageService.setItem(id_key, null);
         LocalStorageService.setItem(unique_id_key, null);
         LocalStorageService.setItem(initials_key, null);
         LocalStorageService.setItem(birth_date_key, null);
         LocalStorageService.setItem(estimated_age_key, null);
         LocalStorageService.setItem(external_scan_hospital_name_key, null);
         LocalStorageService.setItem(scan_date_time_key, null);
-        LocalStorageService.setItem(hospital_unique_id_key, null);
         LocalStorageService.setItem(door_date_time_key, null);
         LocalStorageService.setItem(onset_date_time_key, null);
         LocalStorageService.setItem(is_last_seen_well_onset_key, null);
@@ -781,6 +792,9 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(neurosurgeon_name_key, null);
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);
         LocalStorageService.setItem(is_for_active_treatment_key, null);
+
+        // This must be last
+        LocalStorageService.setItem(IS_DEMO_MODE_KEY, null);
     }
 
     function getDate(key) {

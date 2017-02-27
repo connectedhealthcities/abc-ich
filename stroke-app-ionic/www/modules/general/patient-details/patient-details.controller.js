@@ -10,6 +10,7 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
 
     TabStateCacheService.setCurrentState('patient-details');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.doorDate = null;
     vm.doorTime = null;

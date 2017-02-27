@@ -1,7 +1,7 @@
 id;unique_id;name
-1;HOSP_1;"Hospital 1"
-2;HOSP_2;"Hospital 2"
-3;HOSP_3;"Hospital 3"
-4;HOSP_4;"Hospital 4"
-5;HOSP_5;"Hospital 5"
-6;HOSP_6;"Hospital 6"
+1;HOSP1;"Hospital 1"
+2;HOSP2;"Hospital 2"
+3;HOSP3;"Hospital 3"
+4;HOSP4;"Hospital 4"
+5;HOSP5;"Hospital 5"
+6;HOSP6;"Hospital 6"

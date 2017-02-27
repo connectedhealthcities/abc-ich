@@ -11,7 +11,7 @@ function BpStateCacheService(LocalStorageService) {
      var STATE_ABOVE_THRESHOLD_CONFIRMED = "STATE_ABOVE_THRESHOLD_CONFIRMED";
      var STATE_TARGET_ACHIEVED = "STATE_TARGET_ACHIEVED";
 
-     var current_bp_state_key = "current_bp_state_key";
+     var current_bp_state_key = "bp-state";
 
      var service = {
         STATE_START: STATE_START,

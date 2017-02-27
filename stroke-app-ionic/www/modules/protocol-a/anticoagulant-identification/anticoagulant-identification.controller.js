@@ -10,6 +10,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
 
     TabStateCacheService.setCurrentState('tabs.anticoagulant-identification');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.myImage = {
       	    'src' : 'img/apixaban.png', 

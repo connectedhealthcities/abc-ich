@@ -10,6 +10,7 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
     TabStateCacheService.setCurrentState('tabs.administer-beriplex');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 

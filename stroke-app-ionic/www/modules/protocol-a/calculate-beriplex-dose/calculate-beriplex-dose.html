@@ -2,12 +2,19 @@
     <ion-content padding="true">
 
         <!-- Patient id-->
-        <div>
-        <div class="chi-patient-id">
-            <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+        <div class="row chi-header-row">
+            <div ng-show="vm.isDemoMode" class="col-50 chi-demo-mode">
+                <p><strong>Demo mode</strong></p>
+            </div>
+
+            <div ng-show="vm.isDemoMode" class="col-50 chi-patient-id">
+                <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+            </div>
+            <div ng-show="!vm.isDemoMode" class="col-50 col-offset-50 chi-patient-id">
+                <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+            </div>
         </div>
         <hr>
-        </div>
         
         <h1 class="text-center input-blue">Treat as quickly as possible</h1>
         <h2 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h2>
@@ -42,10 +49,10 @@
             <div class="item item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>INR type
             </div>
-            <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'Point Of Care'">
+            <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'POINT_OF_CARE'">
                 <span class="input-blue">Point of care</span>
             </ion-radio>
-            <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'Lab'">
+            <ion-radio ng-model="vm.inrType" name="anticoagulant-type" ng-value="'LABORATORY'">
                 <span class="input-blue">Laboratory</span>
             </ion-radio>
         </div>

@@ -10,6 +10,7 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCache
 
     TabStateCacheService.setCurrentState('tabs.confirm-beriplex-dose');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.overrideCalculatedDose = null;
     vm.actualDose = null;

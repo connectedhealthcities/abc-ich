@@ -10,7 +10,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
 
     TabStateCacheService.setCurrentState('tabs.bp-management');
     vm.patientId = PatientCacheService.getUniqueId();
-
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     if (PatientCacheService.getBpTreatmentThreshold() === null) {
 

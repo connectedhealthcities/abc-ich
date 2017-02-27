@@ -38,13 +38,13 @@ function AuthenticationService($http, ServerUrlService, UserCredentialsCacheServ
                 if (angular.isDefined(bearerToken) && bearerToken.slice(0, 7) === 'Bearer ') {
                     var jwt = bearerToken.slice(7, bearerToken.length);
                     _jwt = jwt;
-                    return "success";
+                    return true;
                 }
                 else {
-                    return "failure";
+                    return false;
                 }
             }, function() {
-                return "failure";
+                return false;
             });
     }
 

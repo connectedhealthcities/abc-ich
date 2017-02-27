@@ -5,4 +5,5 @@ package org.nibhi.strokeapp.domain.enumeration;
  */
 public enum Destination {
     ICU,HDU,NEUROSURGERY,STROKEWARD,OTHER
+    //cjd check these enum values with Adrian
 }

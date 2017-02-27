@@ -38,8 +38,12 @@ function UserCredentialsConfigurationController($window, $ionicPopup, UserCreden
     }
 
     function onTestLogin() {
-        AuthenticationService.testAuthentication(vm.username, vm.password).then(function(response) {
-            showAlert(response);
+        AuthenticationService.testAuthentication(vm.username, vm.password).then(function(success) {
+            var alertText = "Failure";
+            if (success) {
+                alertText = "Success";
+            }
+            showAlert(alertText);
         })
     }
 

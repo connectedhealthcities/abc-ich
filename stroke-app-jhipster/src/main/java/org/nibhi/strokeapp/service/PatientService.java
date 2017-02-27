@@ -13,12 +13,20 @@ import java.util.List;
 public interface PatientService {
 
     /**
-     * Save a patient.
+     * Create a patient.
      *
-     * @param patientDTO the entity to save
+     * @param patientDTO the entity to create
      * @return the persisted entity
      */
-    PatientDTO save(PatientDTO patientDTO);
+    PatientDTO create(PatientDTO patientDTO);
+
+    /**
+     * Update a patient.
+     *
+     * @param patientDTO the entity to update
+     * @return the persisted entity
+     */
+    PatientDTO update(PatientDTO patientDTO);
 
     /**
      *  Get all the patients.

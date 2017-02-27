@@ -2,25 +2,25 @@
 
 angular.module('utils').service('EmailCacheService', EmailCacheService);
 
-EmailCacheService.$inject = [];
+EmailCacheService.$inject = ['LocalStorageService'];
 
-function EmailCacheService() {
+function EmailCacheService(LocalStorageService) {
 
-    var _email = null;
-
+    var email_key = "email";
+ 
     var service = {
 
         getEmail: getEmail,
-        setEmail: setEmail,
+        setEmail: setEmail
     };
     
     return service;
 
     function getEmail() {
-        return _email;
+        return LocalStorageService.getItem(email_key);
     }
 
     function setEmail(email) {
-        _email = email;
+        LocalStorageService.setItem(email_key, email);
     }
 }

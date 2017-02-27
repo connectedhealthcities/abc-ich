@@ -2,9 +2,16 @@
 
 angular.module('app').controller('MenuController', MenuController);
 
-MenuController.$inject = ['$scope', '$stateParams'];
+MenuController.$inject = ['$scope', '$state', 'PatientCacheService'];
 
-function MenuController($scope, $stateParams) {
- 
+function MenuController($scope, $state, PatientCacheService) {
 
+ //   var vm = this;
+
+    $scope.onDemoMode = onDemoMode;
+
+    function onDemoMode() {
+        PatientCacheService.setIsDemoMode(true);
+        $state.go("register-patient");
+    }
 }

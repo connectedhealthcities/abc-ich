@@ -1,13 +1,20 @@
-<ion-view title="NEW SCREEN S14" id="page52">
-  <ion-content padding="true" class="has-header">
+<ion-view title="Patient end">
+  <ion-content padding="true">
 
     <!-- Patient id-->
-    <div>
-      <div class="chi-patient-id">
+    <div class="row chi-header-row">
+      <div ng-show="vm.isDemoMode" class="col-50 chi-demo-mode">
+        <p><strong>Demo mode</strong></p>
+      </div>
+
+      <div ng-show="vm.isDemoMode" class="col-50 chi-patient-id">
         <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
       </div>
-      <hr>
+      <div ng-show="!vm.isDemoMode" class="col-50 col-offset-50 chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
     </div>
+    <hr>
 
     <!--Finish button-->
     <div class="col-offset-25 col-50">

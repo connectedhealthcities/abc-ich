@@ -10,6 +10,7 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
 
     TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-criteria');
     vm.patientId = PatientCacheService.getUniqueId();
+    vm.isDemoMode = PatientCacheService.getIsDemoMode();
 
     vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
     vm.isObstruction = PatientCacheService.getIsVentricleObstructed();

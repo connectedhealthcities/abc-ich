@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService'];
+PatientEndController.$inject = ['$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService'];
 
-function PatientEndController($state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService) {
+function PatientEndController($state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService) {
  
     var vm = this; // S14
 
@@ -13,6 +13,11 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
     vm.isDemoMode = PatientCacheService.getIsDemoMode();
     
     vm.onFinish = onFinish;
+    vm.onSend = onSend;
+
+    function onSend() {
+        EmailService.sendEmail();
+    }
 
     function onFinish() {
         

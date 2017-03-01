@@ -8,7 +8,7 @@ function EmailConfigurationController($window, EmailCacheService) {
  
     var vm = this;
 
-    vm.email = EmailCacheService.getEmail();;
+    vm.email = EmailCacheService.getEmail();
 
     vm.onCancel = onCancel;
     vm.onSave = onSave;

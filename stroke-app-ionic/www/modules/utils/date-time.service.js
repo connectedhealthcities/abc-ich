@@ -2,15 +2,17 @@
 
 angular.module('utils').service('DateTimeService', DateTimeService);
 
-DateTimeService.$inject = [];
+DateTimeService.$inject = ['$filter'];
 
-function DateTimeService() {
+function DateTimeService($filter) {
 
     var service = {
         getNowWithZeroSeconds: getNowWithZeroSeconds,
         getTimeSinceOnsetText: getTimeSinceOnsetText,
         getDateTimeFromDateAndTime: getDateTimeFromDateAndTime,
-        getAgeFromBirthDate: getAgeFromBirthDate
+        getAgeFromBirthDate: getAgeFromBirthDate,
+        formatDateTimeForRtf: formatDateTimeForRtf,
+        formatBirthDateForRtf: formatBirthDateForRtf
     };
 
     return service;
@@ -21,7 +23,7 @@ function DateTimeService() {
         now.setMilliseconds(0);
         return now;
     }
- 
+
     function getTimeSinceOnsetText(now, onsetDate, onsetTime) {
         var onsetDateTime = getDateTimeFromDateAndTime(onsetDate, onsetTime);
         var millis = now.getTime() - onsetDateTime.getTime();
@@ -60,6 +62,16 @@ function DateTimeService() {
             time.getMinutes(), 0, 0);
 
         return dateTime;
+    }
+
+    function formatDateTimeForRtf(dateTime) {
+        var date = $filter('date')(dateTime, 'd MMM y H:mm');
+        return date;
+    }
+
+    function formatBirthDateForRtf(dateTime) {
+        var birthdate = $filter('date') (dateTime, 'd MMM y');
+        return birthdate;
     }
 
     function getAgeFromBirthDate(birthDate) {

@@ -49,15 +49,10 @@
             	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
             	
             	var bpTargetReachedDate = DateUtils.convertDateTimeFromServer(patient.bpTargetReachedDateTime);
-            	var dttDiffMs = Math.abs(bpTargetReachedDate - doorDate);
-            	var dttMinutes = Math.floor((dttDiffMs/1000)/60);
-            	patient.dtt = dttMinutes;
+            	patient.dtt = DateUtils.getMinutesBetweenDates(doorDate, bpTargetReachedDate);
             	
             	var beriplexStartDateTime = DateUtils.convertDateTimeFromServer(patient.beriplexStartDateTime);
-            	var dntDiffMs = Math.abs(beriplexStartDateTime - doorDate);
-            	var dntMinutes = Math.floor((dntDiffMs/1000)/60);
-            	patient.dnt = dntMinutes;
-
+            	patient.dnt = DateUtils.getMinutesBetweenDates(doorDate, beriplexStartDateTime);
             });
         	
         	return patients;

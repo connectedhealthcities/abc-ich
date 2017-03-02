@@ -13,7 +13,8 @@
             convertDateTimeFromServer : convertDateTimeFromServer,
             convertLocalDateFromServer : convertLocalDateFromServer,
             convertLocalDateToServer : convertLocalDateToServer,
-            dateformat : dateformat
+            dateformat : dateformat,
+            getMinutesBetweenDates: getMinutesBetweenDates
         };
 
         return service;
@@ -44,6 +45,29 @@
 
         function dateformat () {
             return 'yyyy-MM-dd';
+        }
+        
+        function getMinutesBetweenDates (earlierDate, laterDate) {
+            
+        	// return null if either of the supplied dates is null
+            if (earlierDate === null || laterDate === null) {
+            	return null;
+            }
+            
+            var earlierDateMs = earlierDate.getTime();
+            var laterDateMs = laterDate.getTime();
+  
+            // return null if later date is before earlier date
+            if (laterDateMs < earlierDateMs) {
+            	return null;
+            }
+
+            var diffMs = laterDateMs - earlierDate;
+            
+            var minutes = (diffMs / 1000) / 60;
+            minutes = Math.round(minutes);
+            
+            return minutes           
         }
     }
 

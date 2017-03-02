@@ -38,7 +38,10 @@
         	
         	for(i = 0; i < patients.length; i++) {
         		patient = patients[i];
-        		chartDataPoints.push({x:getTimeSeriesValue(patient), value:getDttValue(patient)});
+        		var minutes = getDttValue(patient);
+        		if (minutes !== null) {
+            		chartDataPoints.push({x:getTimeSeriesValue(patient), value:minutes});
+        		}
         	}
         	
         	return chartDataPoints;
@@ -117,9 +120,9 @@
         	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
         	var bpTargetReachedDate = DateUtils.convertDateTimeFromServer(patient.bpTargetReachedDateTime);
 
-        	var diffMs = Math.abs(bpTargetReachedDate - doorDate);
-        	var minutes = Math.floor((diffMs/1000)/60);
-        	return minutes;
+         	var minutes = DateUtils.getMinutesBetweenDates(doorDate, bpTargetReachedDate);
+        	
+         	return minutes;
         }
 
         function chartDataSelectHandler(d, element) {

@@ -38,7 +38,10 @@
         	
         	for(i = 0; i < patients.length; i++) {
         		patient = patients[i];
-        		chartDataPoints.push({x:getTimeSeriesValue(patient), value:getDntValue(patient)});
+        		var minutes = getDntValue(patient);
+        		if (minutes !== null) {
+        			chartDataPoints.push({x:getTimeSeriesValue(patient), value:minutes});
+        		}
         	}
         	
         	return chartDataPoints;
@@ -117,9 +120,9 @@
         	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
         	var beriplexStartDateTime = DateUtils.convertDateTimeFromServer(patient.beriplexStartDateTime);
 
-        	var diffMs = Math.abs(beriplexStartDateTime - doorDate);
-        	var minutes = Math.floor((diffMs/1000)/60);
-        	return minutes;
+         	var minutes = DateUtils.getMinutesBetweenDates(doorDate, beriplexStartDateTime);
+        	
+         	return minutes;
         }
         
         function chartDataSelectHandler(d, element) {

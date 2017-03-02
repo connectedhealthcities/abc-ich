@@ -16,42 +16,42 @@ function PatientHttpService($http, ServerUrlService, $q) {
 	function registerPatient(initials, birthDate, estimatedAge, isDuplicateAllowed) {
         //cjd ToDo - replace $q with http request
         
-        if (isDuplicateAllowed) {
-            return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": 1, "isDuplicate": false } } );
-        }
-        else {
-            return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": null, "isDuplicate": true } } );
-        }
+        // if (isDuplicateAllowed) {
+        //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": 1, "isDuplicate": false } } );
+        // }
+        // else {
+        //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": null, "isDuplicate": true } } );
+        // }
         
 
-        // var patient = {
-        //     "initials": initials,
-        //     "birthDate": birthDate,
-        //     "estimatedAge": estimatedAge,
-        //     "isDuplicateAllowed": isDuplicateAllowed
-        // };
+        var patient = {
+            "initials": initials,
+            "birthDate": birthDate,
+            "estimatedAge": estimatedAge,
+            "isDuplicateAllowed": isDuplicateAllowed
+        };
 
-        // var urlPrefix = ServerUrlService.getUrlPrefix();
-        // return $http.post(urlPrefix + '/api/patients', patient)
-        //     .then(function(response) {
-        //     return { "success": true, "patient": response.data};
-        // }, function() {
-        //     return { "success": false };
-        // });
+        var urlPrefix = ServerUrlService.getUrlPrefix();
+        return $http.post(urlPrefix + '/api/patients', patient)
+            .then(function(response) {
+            return { "success": true, "patient": response.data};
+        }, function() {
+            return { "success": false };
+        });
                
     }
 
     function savePatient(patient) {
        //cjd ToDo - replace $q with http request
  
-        return $q.when(true);
+        // return $q.when(true);
 
-        // var urlPrefix = ServerUrlService.getUrlPrefix();
-        // return $http.put(urlPrefix + '/api/patients', patient)
-        //     .then(function() {
-        //         return true;
-        //      }, function() {
-        //         return false;
-        //     });
+        var urlPrefix = ServerUrlService.getUrlPrefix();
+        return $http.put(urlPrefix + '/api/patients', patient)
+            .then(function() {
+                return true;
+             }, function() {
+                return false;
+            });
     }
 }

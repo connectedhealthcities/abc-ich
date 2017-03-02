@@ -133,10 +133,18 @@ public class PatientServiceImpl implements PatientService{
      */
     public PatientDTO update(PatientDTO patientDTO) {
         log.debug("Request to update Patient : {}", patientDTO);
+        
+        User user = userService.getUserWithAuthorities();
+        String hospitalId = user.getHospitalId();
+        Hospital hospital = hospitalRepository.findByUniqueId(hospitalId);
+
         Patient patient = patientMapper.patientDTOToPatient(patientDTO);
+        patient.setHospital(hospital);
+        
         for(BpManagementEntry bpManagementEntry : patient.getBpManagementEntries()) {
         	bpManagementEntry.setPatient(patient);
         }
+        
         patient = patientRepository.save(patient);
         PatientDTO result = patientMapper.patientToPatientDTO(patient);
         return result;

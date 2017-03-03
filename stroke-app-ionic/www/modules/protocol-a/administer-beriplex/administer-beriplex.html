@@ -51,6 +51,18 @@
     <div class="chi-spacer"></div>
 
     <div class="list card">
+        <ion-item class="item-icon-left card-header card-header-green">
+          <i class="icon ion-ionic"></i>Beriplex administered
+        </ion-item>
+        <ion-radio ng-model="vm.isBeriplexAdministered" ng-change="vm.isBeriplexAdministeredChanged()" name="beriplex-administered" ng-value="true">
+          <span class="input-blue">Yes</span>
+        </ion-radio>
+        <ion-radio ng-model="vm.isBeriplexAdministered" ng-change="vm.isBeriplexAdministeredChanged()" name="beriplex-administered" ng-value="false">
+          <span class="input-blue">No</span>
+        </ion-radio>
+    </div>
+
+    <div ng-show="vm.isBeriplexAdministered" class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Beriplex start time
@@ -76,6 +88,18 @@
     </div>
 
     <div class="list card">
+        <ion-item class="item-icon-left card-header card-header-green">
+          <i class="icon ion-ionic"></i>Vitamin K administered
+        </ion-item>
+        <ion-radio ng-model="vm.isVitkAdministered" ng-change="vm.isVitkAdministeredChanged()" name="vitk-administered" ng-value="true">
+          <span class="input-blue">Yes</span>
+        </ion-radio>
+        <ion-radio ng-model="vm.isVitkAdministered" ng-change="vm.isVitkAdministeredChanged()" name="vitk-administered" ng-value="false">
+          <span class="input-blue">No</span>
+        </ion-radio>
+    </div>
+
+    <div ng-show="vm.isVitkAdministered" class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Vitamin K time

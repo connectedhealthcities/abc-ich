@@ -16,7 +16,7 @@
         </ion-item>
         <label class="item item-input">
           <span class="input-label">Initials</span>
-          <input type="text" placeholder="" ng-model="vm.initials">
+          <input type="text" placeholder="" ng-model="vm.initials" ng-change="vm.onInitialsChanged(vm.initials)">
         </label>
     </div>
     
@@ -36,11 +36,21 @@
          <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Date of birth
         </ion-item>
-        <label class="item item-input">
-          <span class="input-label">Date of birth</span>
-          <input type="date" placeholder="" ng-model="vm.dateOfBirth">
-        </label>
-    </div>
+        <ion-item class="row">
+          <div class="col">
+            <input type="number" placeholder="DD" ng-change="vm.onDateChanged()" ng-model="vm.day">
+          </div>
+          <div class="col">
+            <input type="number" placeholder="MM" ng-change="vm.onDateChanged()" ng-model="vm.month">
+          </div>
+          <div class="col">
+            <input type="number" placeholder="YYYY" ng-change="vm.onDateChanged()" ng-model="vm.year">
+          </div>
+        </ion-item>          
+        <ion-item class="item-icon-left data-display-region" ng-show="vm.dateOfBirth">
+            <i class="icon ion-information-circled"></i>{{vm.dateOfBirth | date: 'dd MMM yyyy'}}
+        </ion-item>
+     </div>
 
     <div class="list card" ng-show="vm.isDateOfBirthKnown != null && !vm.isDateOfBirthKnown">
         <ion-item class="item-icon-left  card-header card-header-green">
@@ -90,11 +100,9 @@
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>External hospital
         </ion-item>
-        <!--<div ng-repeat="hospital in vm.hospitals">-->
-            <ion-radio ng-change="vm.selectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.uniqueId}}">
-              <span class="input-blue">{{hospital.uniqueId}}</span>
-            </ion-radio>
-        <!--</div>-->
+        <ion-radio ng-change="vm.selectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.uniqueId}}">
+          <span class="input-blue">{{hospital.uniqueId}}</span>
+        </ion-radio>
         <label ng-show="vm.selectedHospital ==='Other'" class="item item-input">
           <span class="input-label">Hospital name</span>
           <input type="text" placeholder="" ng-model="vm.otherHospital">

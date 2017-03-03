@@ -23,6 +23,9 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     vm.isExternalScan = null;
 
     vm.initials = null;
+    vm.day = null;
+    vm.month = null;
+    vm.year = null;
     vm.dateOfBirth = null;
     vm.estimatedAge = null;
     vm.scanDate = null;
@@ -36,6 +39,8 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     vm.isDateOfBirthKnownChanged = isDateOfBirthKnownChanged;
     vm.isExternalScanChanged = isExternalScanChanged;
     vm.selectedHospitalChanged = selectedHospitalChanged;
+    vm.onInitialsChanged = onInitialsChanged;
+    vm.onDateChanged = onDateChanged;
 
     function isNextButtonEnabled() {
         var isEnabled = false;
@@ -138,6 +143,9 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function isDateOfBirthKnownChanged() {
+        vm.day = null;
+        vm.month = null;
+        vm.year = null;
         vm.dateOfBirth = null;
         vm.estimatedAge = null;
     }
@@ -157,6 +165,16 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         var now = DateTimeService.getNowWithZeroSeconds();
         vm.scanDate = now;
         vm.scanTime = now;
+    }
+
+    function onInitialsChanged(initials) {
+        vm.initials = initials.toUpperCase();
+    }
+
+    function onDateChanged() {
+        if (vm.day != null && vm.month != null && vm.year != null) {
+            vm.dateOfBirth = new Date(vm.year, vm.month-1, vm.day);
+        }
     }
 
     function showDataValidationPopup(okHandler) {

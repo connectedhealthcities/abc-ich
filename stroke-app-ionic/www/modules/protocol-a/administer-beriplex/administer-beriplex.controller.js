@@ -14,8 +14,10 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
     vm.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
+    vm.isBeriplexAdministered = PatientCacheService.getIsBeriplexAdministered();
     vm.beriplexDate = PatientCacheService.getBeriplexStartDateTime();
     vm.beriplexTime = PatientCacheService.getBeriplexStartDateTime();
+    vm.isVitkAdministered = PatientCacheService.getIsVitaminkAdministered();
     vm.vitkDate = PatientCacheService.getVitaminkDateTime();
     vm.vitkTime = PatientCacheService.getVitaminkDateTime();
     
@@ -26,6 +28,8 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     vm.onViewInfusionInstructions = onViewInfusionInstructions;
     vm.onBeriplexNow = onBeriplexNow;
     vm.onVitkNow = onVitkNow;
+    vm.isBeriplexAdministeredChanged = isBeriplexAdministeredChanged;
+    vm.isVitkAdministeredChanged = isVitkAdministeredChanged;
     
     function onNext() {
         showDataValidationPopup(handleDataValid);
@@ -43,11 +47,23 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     }
 
     function saveData() {
-        var beriplexDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.beriplexDate, vm.beriplexTime);
-        PatientCacheService.setBeriplexStartDateTime(beriplexDateTime);
+        PatientCacheService.setIsBeriplexAdministered(vm.isBeriplexAdministered);
+        if(vm.isBeriplexAdministered) {
+            var beriplexDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.beriplexDate, vm.beriplexTime);
+            PatientCacheService.setBeriplexStartDateTime(beriplexDateTime);
+        }
+        else {
+            PatientCacheService.setBeriplexStartDateTime(null);
+        }
 
-        var vitkDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.vitkDate, vm.vitkTime);
-        PatientCacheService.setVitaminkDateTime(vitkDateTime);
+        PatientCacheService.setIsVitaminkAdministered(vm.isVitkAdministered);
+        if(vm.isVitkAdministered) {
+            var vitkDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.vitkDate, vm.vitkTime);
+            PatientCacheService.setVitaminkDateTime(vitkDateTime);
+        }
+        else {
+            PatientCacheService.setVitaminkDateTime(null);
+        }
 
         PatientCacheService.setIsInfusionInstructionsViewed(isInfusionInstructionsViewed);
     }
@@ -56,12 +72,37 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
         var isEnabled = false;
 
-        if (vm.beriplexDate != null &&
-            vm.beriplexTime != null &&
-            vm.vitkDate != null &&
-            vm.vitkTime != null) {
-
+        if (vm.isBeriplexAdministered != null &&
+            !vm.isBeriplexAdministered &&
+            vm.isVitkAdministered != null &&
+            !vm.isVitkAdministered) {
             isEnabled = true;
+        }
+        else if (vm.isBeriplexAdministered != null &&
+            vm.isBeriplexAdministered &&
+            vm.isVitkAdministered != null &&
+            !vm.isVitkAdministered) {
+            if (vm.beriplexDate != null &&
+                vm.beriplexTime != null) {
+                isEnabled = true;
+            }
+        }
+        else if (vm.isBeriplexAdministered != null &&
+            !vm.isBeriplexAdministered &&
+            vm.isVitkAdministered != null &&
+            vm.isVitkAdministered) {
+            if (vm.vitkDate != null &&
+                vm.vitkTime != null) {
+                isEnabled = true;
+            }
+        }
+        else {
+            if (vm.beriplexDate != null &&
+                vm.beriplexTime != null &&
+                vm.vitkDate != null &&
+                vm.vitkTime != null) {
+                isEnabled = true;
+            }
         }
 
         return isEnabled;
@@ -82,6 +123,16 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
         var now = DateTimeService.getNowWithZeroSeconds();
         vm.vitkDate = now;
         vm.vitkTime = now;
+    }
+
+    function isBeriplexAdministeredChanged() {
+        vm.beriplexDate = null;
+        vm.beriplexTime = null;
+    }
+
+    function isVitkAdministeredChanged() {
+        vm.vitkDate = null;
+        vm.vitkTime = null;
     }
 
     function showDataValidationPopup(okHandler) {

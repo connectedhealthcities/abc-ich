@@ -32,14 +32,17 @@
             <ion-item class="item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>Critical care referral
             </ion-item>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'STROKEWARD'">
-                <span class="input-blue">Stroke ward</span>
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'STROKE_UNIT'">
+                <span class="input-blue">Acute stroke unit</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'ICU'">
                 <span class="input-blue">Intensive care unit</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'HDU'">
                 <span class="input-blue">High dependency unit</span>
+            </ion-radio>
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'NOT_YET_DECIDED'">
+                <span class="input-blue">Further care location not yet decided</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'OTHER'">
                 <span class="input-blue">None of the above</span>

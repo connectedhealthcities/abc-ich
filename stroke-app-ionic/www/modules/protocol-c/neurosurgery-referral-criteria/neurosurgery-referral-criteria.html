@@ -51,11 +51,6 @@
       </form>
     </div>
 
-    <div class="row">
-      <div class="col-33 col-offset-67 text-right">
-        <button ng-click="vm.showObstructionPopup()" class="button button-energized  button-block icon-left ion-information-circled">View obstruction</button>
-      </div>
-    </div>
 
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">
@@ -71,7 +66,7 @@
 
     <div class="row">
       <div class="col-33 col-offset-67 text-right">
-        <button ng-click="vm.showVolumeMeasurementPopup()" class="button button-energized  button-block icon-left ion-information-circled">View volume measurement</button>
+        <button ng-click="vm.showObstructionPopup()" class="button button-energized  button-block icon-left ion-information-circled">View obstruction</button>
       </div>
     </div>
 
@@ -99,6 +94,12 @@
         <ion-item class="item-icon-left data-display-region" ng-show="vm.ichVolume">
           <i class="icon ion-information-circled"></i><strong>ICH volume: </strong>{{vm.ichVolume}} ml
         </ion-item> 
+    </div>
+
+    <div class="row">
+      <div class="col-50 col-offset-50 text-right">
+        <button ng-click="vm.showVolumeMeasurementPopup()" class="button button-energized  button-block icon-left ion-information-circled">View volume measurement</button>
+      </div>
     </div>
 
     <!--Next button-->

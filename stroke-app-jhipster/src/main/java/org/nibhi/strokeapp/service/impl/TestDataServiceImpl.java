@@ -159,7 +159,7 @@ public class TestDataServiceImpl implements TestDataService{
         	patient.setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime);
         	patient.setNeurosurgeonName("Dummy neurosurgeon name");
         	patient.setReferralToNeurosurgeryAccepted(ThreadLocalRandom.current().nextBoolean());
-            patient.setDestination(Destination.NEUROSURGERY);      	
+            patient.setDestination(Destination.STROKE_UNIT);      	
         }
         else {
             patient.setDestination(Destination.HDU);

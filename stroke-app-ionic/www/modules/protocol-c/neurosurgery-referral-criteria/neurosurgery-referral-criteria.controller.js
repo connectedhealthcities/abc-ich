@@ -82,7 +82,7 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
             vm.perpendicularAxis != null &&
             vm.numSlices != null &&
             vm.sliceThickness != null) {
-            var volume = vm.longestAxis * vm.perpendicularAxis * vm.numSlices * vm.sliceThickness;
+            var volume = vm.longestAxis * vm.perpendicularAxis * vm.numSlices * vm.sliceThickness / 2;
             vm.ichVolume = parseFloat(volume).toFixed(2);
         }
         else {

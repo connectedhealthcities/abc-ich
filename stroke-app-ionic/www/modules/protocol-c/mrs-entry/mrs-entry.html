@@ -18,8 +18,14 @@
 
     <div class="list card">
       <ion-item class="item-icon-left card-header card-header-green">
-        <i class="icon ion-ionic"></i>modified Rankin Scale (mRS)
+        <i class="icon ion-ionic"></i>Pre-stroke mRS
       </ion-item>
+      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="0">
+        <div class="row chi-no-vertical-padding">
+          <div class="col-90 item-text-wrap input-blue">No symptoms at all</div>
+          <div class="col-10 text-right input-blue">0</div>
+        </div>
+      </ion-radio>
       <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="1">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">No significant disability despite symptoms; able to carry out all usual duties and activities</div>

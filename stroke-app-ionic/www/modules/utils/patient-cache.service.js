@@ -51,13 +51,14 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
     // confirm-beriplex-dose
     var actual_beriplex_dose_key = "patient-actual-beriplex-dose";
     // administer-beriplex
+    var is_beriplex_administered_key = "is_beriplex_administered"; // Local
     var beriplex_start_date_time_key = "patient-beriplex-start-date-time";
+    var is_vitamink_administered_key = "is_vitamink_administered"; // Local
     var vitamink_date_time_key = "patient-vitamink-date-time";
     var is_infusion_instructions_viewed_key = "patient-is-infusion-instructions-viewed";
     // doac-reversal-agent-details
     var doac_reversal_agent_type_key = "patient-doac-reversal-agent-type";
     var doac_reversal_agent_date_time_key = "patient-doac-reversal-agent-date-time";
-
 
     //
     // protocol B
@@ -198,8 +199,14 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
         setActualBeriplexDose: setActualBeriplexDose,
 
         // administer-beriplex
+        getIsBeriplexAdministered: getIsBeriplexAdministered,
+        setIsBeriplexAdministered: setIsBeriplexAdministered,
+
         getBeriplexStartDateTime: getBeriplexStartDateTime,
         setBeriplexStartDateTime: setBeriplexStartDateTime,
+
+        getIsVitaminkAdministered: getIsVitaminkAdministered,
+        setIsVitaminkAdministered: setIsVitaminkAdministered,
 
         getVitaminkDateTime: getVitaminkDateTime,
         setVitaminkDateTime: setVitaminkDateTime,
@@ -530,6 +537,15 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
     }
 
     // administer-beriplex
+
+     function getIsBeriplexAdministered() {
+        return LocalStorageService.getItem(is_beriplex_administered_key);
+    }
+    
+    function setIsBeriplexAdministered(isBeriplexAdministered) {
+        LocalStorageService.setItem(is_beriplex_administered_key, isBeriplexAdministered);
+    }
+  
     function getBeriplexStartDateTime() {
         return getDate(beriplex_start_date_time_key);
     }
@@ -537,7 +553,15 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
     function setBeriplexStartDateTime(beriplexStartDateTime) {
         LocalStorageService.setItem(beriplex_start_date_time_key, beriplexStartDateTime);
     }
+
+    function getIsVitaminkAdministered() {
+        return LocalStorageService.getItem(is_vitamink_administered_key);
+    }
     
+    function setIsVitaminkAdministered(isVitaminkAdministered) {
+        LocalStorageService.setItem(is_vitamink_administered_key, isVitaminkAdministered);
+    }
+
     function getVitaminkDateTime() {
          return getDate(vitamink_date_time_key);
    }
@@ -768,8 +792,10 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
         LocalStorageService.setItem(inr_date_time_key, null);
         LocalStorageService.setItem(administer_beriplex_when_unknown_key, null);
         LocalStorageService.setItem(is_weight_given_in_kg_key, null);        
-        LocalStorageService.setItem(actual_beriplex_dose_key, null);
+        LocalStorageService.setItem(actual_beriplex_dose_key, null);           
+        LocalStorageService.setItem(is_beriplex_administered_key, null);
         LocalStorageService.setItem(beriplex_start_date_time_key, null);
+        LocalStorageService.setItem(is_vitamink_administered_key, null);
         LocalStorageService.setItem(vitamink_date_time_key, null);
         LocalStorageService.setItem(is_infusion_instructions_viewed_key, null);
         LocalStorageService.setItem(doac_reversal_agent_type_key, null);

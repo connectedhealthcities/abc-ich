@@ -1,4 +1,3 @@
-/// <reference path="critical-care-referral-data-validation-popup.html" />
 'use strict';
 
 angular.module('app.protocolB') .controller('CriticalCareReferralController', CriticalCareReferralController);

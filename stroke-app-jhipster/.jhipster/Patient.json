@@ -100,7 +100,7 @@
         {
             "fieldName": "destination",
             "fieldType": "Destination",
-            "fieldValues": "ICU,HDU,NEUROSURGERY,STROKEWARD,OTHER"
+            "fieldValues": "ICU,HDU,STROKE_UNIT,NOT_YET_DECIDED,OTHER"
         },
         {
             "fieldName": "otherDestination",

@@ -1,20 +1,20 @@
 <ion-list> 
     <ion-item>
          <div class="row">
-          <div class="col-80 item-text-wrap">Reversal agent:</div>
-          <div class="col-20 text-right">{{vm.reversalAgent}}</div>
+          <div class="col-50 item-text-wrap">Reversal agent:</div>
+          <div class="col-50 text-right">{{vm.reversalAgent}}</div>
         </div>    
     </ion-item>
     <ion-item ng-show="vm.reversalAgent === 'IDARUCIZUMAB' || vm.reversalAgent === 'PCC'">
         <div class="row">
-          <div class="col-80 item-text-wrap">Reversal date:</div>
-          <div class="col-20 text-right">{{vm.reversalDate | date: 'dd MMM yyyy'}}</div>
+          <div class="col-50 item-text-wrap">Reversal date:</div>
+          <div class="col-50 text-right">{{vm.reversalDate | date: 'dd MMM yyyy'}}</div>
         </div>
     </ion-item>
     <ion-item ng-show="vm.reversalAgent === 'IDARUCIZUMAB' || vm.reversalAgent === 'PCC'">
         <div class="row">
-          <div class="col-80 item-text-wrap">Reversal time:</div>
-          <div class="col-20 text-right">{{vm.reversalTime | date: 'HH:mm'}}</div>
+          <div class="col-50 item-text-wrap">Reversal time:</div>
+          <div class="col-50 text-right">{{vm.reversalTime | date: 'HH:mm'}}</div>
         </div>
     </ion-item>
 </ion-list>

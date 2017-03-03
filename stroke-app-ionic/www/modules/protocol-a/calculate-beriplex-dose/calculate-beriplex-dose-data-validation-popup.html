@@ -1,44 +1,44 @@
 <ion-list>
     <ion-item>
         <div class="row">
-            <div class="col-80 item-text-wrap">INR value:</div>
-            <div class="col-20 text-right">{{vm.inrValue}}</div>
+            <div class="col-50 item-text-wrap">INR value:</div>
+            <div class="col-50 text-right">{{vm.inrValue}}</div>
         </div>
     </ion-item>
     <ion-item>
         <div class="row">
-            <div class="col-80 item-text-wrap">INR type:</div>
-            <div class="col-20 text-right">{{vm.inrType}}</div>
+            <div class="col-50 item-text-wrap">INR type:</div>
+            <div class="col-50 text-right">{{vm.inrType}}</div>
         </div>
     </ion-item>
     <ion-item>
         <div class="row">
-            <div class="col-80 item-text-wrap">INR date:</div>
-            <div class="col-20 text-right">{{vm.inrDate | date: 'dd MMM yyyy'}}</div>
+            <div class="col-50 item-text-wrap">INR date:</div>
+            <div class="col-50 text-right">{{vm.inrDate | date: 'dd MMM yyyy'}}</div>
         </div>
     </ion-item>
     <ion-item>
         <div class="row">
-            <div class="col-80 item-text-wrap">INR time:</div>
-            <div class="col-20 text-right">{{vm.inrTime | date: 'HH:mm'}}</div>
+            <div class="col-50 item-text-wrap">INR time:</div>
+            <div class="col-50 text-right">{{vm.inrTime | date: 'HH:mm'}}</div>
         </div>
     </ion-item>
     <ion-item ng-hide="!vm.weightGivenInKg">
         <div class="row">
-            <div class="col-80 item-text-wrap">Estimated weight in kg:</div>
-            <div class="col-20 text-right">{{vm.estimatedWeightInKg}}</div>
+            <div class="col-50 item-text-wrap">Estimated weight in kg:</div>
+            <div class="col-50 text-right">{{vm.estimatedWeightInKg}}</div>
         </div>
     </ion-item>
     <ion-item ng-hide="vm.weightGivenInKg">
         <div class="row">
-            <div class="col-80 item-text-wrap">Estimated weight in stones:</div>
-            <div class="col-20 text-right">{{vm.estimatedWeightInStones}}</div>
+            <div class="col-50 item-text-wrap">Estimated weight in stones:</div>
+            <div class="col-50 text-right">{{vm.estimatedWeightInStones}}</div>
         </div>
     </ion-item>
     <ion-item ng-hide="!vm.showBeriplexAdministrationOverride()">
         <div class="row">
-            <div class="col-80 item-text-wrap">Administer beriplex when anticoagulant unknown and INR > 1.2:</div>
-            <div class="col-20 text-right">{{vm.administerBeriplexWhenUnknown}}</div>
+            <div class="col-50 item-text-wrap">Administer beriplex when anticoagulant unknown and INR > 1.2:</div>
+            <div class="col-50 text-right">{{vm.administerBeriplexWhenUnknown}}</div>
         </div>
     </ion-item>
 </ion-list>

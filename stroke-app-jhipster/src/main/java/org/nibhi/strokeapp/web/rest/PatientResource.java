@@ -55,6 +55,7 @@ public class PatientResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new patientDTO, or with status 400 (Bad Request) if the patient has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
+    @CrossOrigin
     @PostMapping("/patients")
     @Timed
     @PreAuthorize("hasRole('ROLE_MOBILE')")
@@ -77,6 +78,7 @@ public class PatientResource {
      * or with status 500 (Internal Server Error) if the patientDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
+    @CrossOrigin
     @PutMapping("/patients")
     @Timed
     @PreAuthorize("hasRole('ROLE_MOBILE')")

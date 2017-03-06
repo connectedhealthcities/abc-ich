@@ -20,7 +20,7 @@ function PatientHttpService($http, ServerUrlService, $q) {
         //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": 1, "isDuplicate": false } } );
         // }
         // else {
-        //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": null, "isDuplicate": true } } );
+        //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": null, "isDuplicate": false } } );
         // }
         
 

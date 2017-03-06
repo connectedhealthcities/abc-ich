@@ -32,18 +32,14 @@ function AuthenticationService($http, ServerUrlService, UserCredentialsCacheServ
 
         var urlPrefix = ServerUrlService.getUrlPrefix();
 
-        return $http.post(urlPrefix + '/api/authenticate', credentials)
-            .then(function(data) {
-                var bearerToken = data.headers('Authorization');
-                if (angular.isDefined(bearerToken) && bearerToken.slice(0, 7) === 'Bearer ') {
-                    var jwt = bearerToken.slice(7, bearerToken.length);
-                    _jwt = jwt;
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }, function() {
+        var url = urlPrefix + '/api/authenticate';
+
+        return $http.post(url, credentials)
+            .then(function(response) {
+                var jwt = response.data.id_token;
+                _jwt = jwt;
+                return true;
+            }, function(response) {
                 return false;
             });
     }

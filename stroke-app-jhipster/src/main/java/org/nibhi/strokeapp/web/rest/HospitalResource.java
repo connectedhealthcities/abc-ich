@@ -80,6 +80,7 @@ public class HospitalResource {
      *
      * @return the ResponseEntity with status 200 (OK) and the list of hospitals in body
      */
+    @CrossOrigin
     @GetMapping("/hospitals")
     @Timed
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MOBILE')")

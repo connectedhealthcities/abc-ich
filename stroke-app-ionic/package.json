@@ -10,12 +10,6 @@
     "gulp-rename": "^1.2.0",
     "ionic": "^2.2.1"
   },
-  "scripts": {
-    "init": "npm run addPlatform-Android",
-    "addPlatform-Android": "ionic platforms add android",
-    "runLocal": "ionic serve",
-    "runAndroid": "ionic run android"
-  },
   "devDependencies": {
     "bower": "^1.3.3",
     "gulp-util": "^2.2.14",

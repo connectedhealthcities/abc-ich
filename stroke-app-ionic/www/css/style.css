@@ -56,7 +56,9 @@
         height: 20px !important;
 }
 
-
+.chi-tabs-top > .tabs {
+    top: 0px;
+}
 
 
 

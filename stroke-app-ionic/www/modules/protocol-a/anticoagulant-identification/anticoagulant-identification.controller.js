@@ -2,15 +2,15 @@
 
 angular.module('app.protocolA').controller('AnticoagulantIdentificationController', AnticoagulantIdentificationController);
 
-AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD'];
+AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
 
-function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD) { 
+function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD, DemoModeCacheService) { 
  
     var vm = this; // S6
 
     TabStateCacheService.setCurrentState('tabs.anticoagulant-identification');
     vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = PatientCacheService.getIsDemoMode();
+    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.myImage = {
       	    'src' : 'img/apixaban.png', 
@@ -41,7 +41,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         effect: 'fade',
         speed: 500
     }
-    vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
+    vm.anticoagulantType = displayValueFromEnumValueForAnticoagulantType(PatientCacheService.getAnticoagulantType());
     vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
     vm.onNext = onNext;
@@ -60,13 +60,13 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     function handleDataValid() {
         saveData();
 
-        if (vm.anticoagulantType === "NONE") {
+        if (vm.anticoagulantType === "None") {
             goNextStateWhenNone();
         }
-        else if (vm.anticoagulantType === "UNKNOWN") {
+        else if (vm.anticoagulantType === "Unknown") {
             showAnticoagulantUnknownPopup(goNextStateWhenVitkOrUnknown);
         }
-        else if (vm.anticoagulantType === "VITK") {
+        else if (vm.anticoagulantType === "Vitamin K antagonist") {
             goNextStateWhenVitkOrUnknown();
         }
         else if (vm.anticoagulantType === "DOAC") {
@@ -82,9 +82,9 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         var isEnabled = false;
 
         if (vm.anticoagulantType != null) {
-            if ( (vm.anticoagulantType === "UNKNOWN") ||
-                 (vm.anticoagulantType === "NONE") ||
-                 (vm.anticoagulantType == "VITK" && vm.anticoagulantName != null) ||
+            if ( (vm.anticoagulantType === "Unknown") ||
+                 (vm.anticoagulantType === "None") ||
+                 (vm.anticoagulantType == "Vitamin K antagonist" && vm.anticoagulantName != null) ||
                  (vm.anticoagulantType == "DOAC" && vm.anticoagulantName != null) ) {
                 isEnabled = true;
             }
@@ -94,12 +94,55 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     }
 
     function saveData() {
-        PatientCacheService.setAnticoagulantType(vm.anticoagulantType);
+        PatientCacheService.setAnticoagulantType(enumValueFromDisplayValueForAnticoagulantType(vm.anticoagulantType));
 
-        if (vm.anticoagulantType === "VITK" || vm.anticoagulantType === "DOAC") {
+        if (vm.anticoagulantType === "Vitamin K antagonist" || vm.anticoagulantType === "DOAC") {
             PatientCacheService.setAnticoagulantName(vm.anticoagulantName);
         }
     }
+
+    function displayValueFromEnumValueForAnticoagulantType(enumValue) {
+        var displayValue;
+        switch(enumValue) {
+            case "VITK":
+                displayValue = "Vitamin K antagonist";
+                break;
+            case "DOAC":
+                displayValue = "DOAC";
+                break;
+            case "UNKNOWN":
+                displayValue = "Unknown";
+                break;
+            case "NONE":
+                displayValue = "None";
+                break;
+           default:
+                displayValue = null;                
+        }
+        return displayValue;
+    }
+
+    function enumValueFromDisplayValueForAnticoagulantType(displayValue) {
+        var enumValue;
+        switch(displayValue) {
+            case "Vitamin K antagonist":
+                enumValue = "VITK";
+                break;
+            case "DOAC":
+                enumValue = "DOAC";
+                break;
+            case "Unknown":
+                enumValue = "UNKNOWN";
+                break;
+            case "None":
+                enumValue = "NONE";
+                break;
+            default:
+                enumValue = null;                
+        }
+        return enumValue;
+    }
+
 
     function goNextStateWhenVitkOrUnknown() {
         $state.go('tabs.calculate-beriplex-dose');
@@ -160,7 +203,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     function showDoacExamplesPopup() {
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/view-doacs-popup.html',
-            title: 'ICH on DOAC',
+            title: 'ICH on DOAC', //cjd
             cssClass: 'chi-doac-popup',
             scope: $scope
         };

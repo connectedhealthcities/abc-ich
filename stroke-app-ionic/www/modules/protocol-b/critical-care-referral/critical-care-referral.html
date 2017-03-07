@@ -32,7 +32,7 @@
             <ion-item class="item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>Critical care referral
             </ion-item>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'STROKE_UNIT'">
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Stroke unit'">
                 <span class="input-blue">Acute stroke unit</span>
             </ion-radio>
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'ICU'">
@@ -41,13 +41,13 @@
             <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'HDU'">
                 <span class="input-blue">High dependency unit</span>
             </ion-radio>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'NOT_YET_DECIDED'">
+            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Not yet decided'">
                 <span class="input-blue">Further care location not yet decided</span>
             </ion-radio>
-            <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'OTHER'">
+            <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'None of the above'">
                 <span class="input-blue">None of the above</span>
             </ion-radio>
-            <label ng-hide="vm.destination !== 'OTHER'" class="item item-input">
+            <label ng-hide="vm.destination !== 'None of the above'" class="item item-input">
                 <span class="input-label">Other</span>
                 <input type="text" ng-model="vm.destinationOther" placeholder="Please specify">
             </label>

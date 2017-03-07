@@ -2,16 +2,13 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService'];
+PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'DemoModeCacheService'];
 
-function PatientStartController($scope, $state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService) {
+function PatientStartController($scope, $state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, DemoModeCacheService) {
  
     var vm = this; // S17
 
-    var isDemoMode = PatientCacheService.getIsDemoMode();
-    if (isDemoMode) {
-        PatientCacheService.clearAll();
-    }
+    DemoModeCacheService.setIsDemoMode(false);
     vm.patientId = PatientCacheService.getUniqueId();
 
     vm.onNewPatient = onNewPatient;

@@ -63,8 +63,7 @@ function AppRun($ionicPlatform, $ionicPopup) {
 
     function showExitPopup(okHandler) {
       var popupTemplate = {
-          template: "mytext", //cjd improve title and text
-          title: 'Exit app'
+         title: 'Exit StrokeApp?'
       };
 
       var popup = $ionicPopup.confirm(popupTemplate);

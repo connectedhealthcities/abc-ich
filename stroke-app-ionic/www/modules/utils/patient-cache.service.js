@@ -2,9 +2,9 @@
 
 angular.module('utils').service('PatientCacheService', PatientCacheService);
 
-PatientCacheService.$inject = ['LocalStorageService', 'IS_DEMO_MODE_KEY'];
+PatientCacheService.$inject = ['LocalStorageService'];
 
-function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
+function PatientCacheService(LocalStorageService) {
  
     //
     // general
@@ -97,9 +97,6 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
 
     var service = {
 
-        getIsDemoMode: getIsDemoMode,
-        setIsDemoMode: setIsDemoMode,
-        
         //
         // general
         //
@@ -293,14 +290,6 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
     };
 
     return service;
-
-    function getIsDemoMode() {
-        return LocalStorageService.getItem(IS_DEMO_MODE_KEY);;
-    }
-
-    function setIsDemoMode(isDemoMode) {
-        LocalStorageService.setItem(IS_DEMO_MODE_KEY, isDemoMode);
-    }
 
     //
     // general
@@ -818,9 +807,6 @@ function PatientCacheService(LocalStorageService, IS_DEMO_MODE_KEY) {
         LocalStorageService.setItem(neurosurgeon_name_key, null);
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);
         LocalStorageService.setItem(is_for_active_treatment_key, null);
-
-        // This must be last
-        LocalStorageService.setItem(IS_DEMO_MODE_KEY, null);
     }
 
     function getDate(key) {

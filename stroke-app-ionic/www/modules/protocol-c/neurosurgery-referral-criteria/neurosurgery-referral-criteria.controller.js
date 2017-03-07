@@ -2,15 +2,15 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralCriteriaController', NeurosurgeryReferralCriteriaController);
 
-NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD'];
+NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD', 'DemoModeCacheService'];
 
-function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD) {
+function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD, DemoModeCacheService) {
 
     var vm = this; // S12
 
     TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-criteria');
     vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = PatientCacheService.getIsDemoMode();
+    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
     vm.isObstruction = PatientCacheService.getIsVentricleObstructed();

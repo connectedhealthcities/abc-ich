@@ -77,6 +77,11 @@
         <span class="input-label">Labetalol dose (mg)</span>
         <input type="number" placeholder="" ng-model="vm.entryLabetalol">
       </label>
+
+      <label class="item item-input">
+        <span class="input-label">Pulse</span>
+        <input type="number" placeholder="" ng-model="vm.entryHeartRate">
+      </label>
     </div>
 
     <div class="row">
@@ -103,6 +108,9 @@
         <div class="col table-header">
           <h4 class="text-center">Labetalol dose (mg)</h4>
         </div>
+        <div class="col table-header">
+          <h4 class="text-center">Pulse</h4>
+        </div>
       </div>
 
       <ion-scroll class="scroller">
@@ -125,6 +133,11 @@
           <div class="col">
             <div class="text-center">
                 {{entry.labetalolDose}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+                {{entry.heartRate}}
             </div>
           </div>
         </div>

@@ -2,15 +2,15 @@
 
 angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
 
-AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD'];
+AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
 
-function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD) {
+function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService) {
 
     var vm = this; // S11
 
     TabStateCacheService.setCurrentState('tabs.administer-beriplex');
     vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = PatientCacheService.getIsDemoMode();
+    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 

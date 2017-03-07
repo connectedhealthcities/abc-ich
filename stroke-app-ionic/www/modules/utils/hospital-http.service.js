@@ -9,16 +9,28 @@ function HospitalHttpService($http, $q, ServerUrlService) {
 //cjd    var _hospitals = null;
     var _hospitals = [
         {
-            "uniqueId": "HOSP_2",
+            "uniqueId": "HOSP1",
+            "name": "Hospital 1"
+        },
+        {
+            "uniqueId": "HOSP2",
             "name": "Hospital 2"
         },
         {
-            "uniqueId": "HOSP_3",
+            "uniqueId": "HOSP3",
             "name": "Hospital 3"
         },
         {
-            "uniqueId": "HOSP_4",
+            "uniqueId": "HOSP4",
             "name": "Hospital 4"
+        },
+        {
+            "uniqueId": "HOSP5",
+            "name": "Hospital 5"
+        },
+        {
+            "uniqueId": "HOSP6",
+            "name": "Hospital 6"
         }
     ];
 

@@ -2,15 +2,15 @@
 
 angular.module('app.general').controller('PatientDetailsController', PatientDetailsController);
 
-PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService']; 
+PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'DemoModeCacheService']; 
 
-function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService) {
+function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, DemoModeCacheService) {
  
     var vm = this; // S2
 
     TabStateCacheService.setCurrentState('patient-details');
     vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = PatientCacheService.getIsDemoMode();
+    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.doorDate = null;
     vm.doorTime = null;

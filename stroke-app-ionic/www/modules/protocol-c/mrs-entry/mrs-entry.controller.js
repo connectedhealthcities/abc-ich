@@ -2,15 +2,15 @@
 
 angular.module('app.protocolC').controller('MrsEntryController', MrsEntryController);
 
-MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService'];
+MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService'];
 
-function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService) {
+function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService) {
  
     var vm = this; // S5
 
     TabStateCacheService.setCurrentState('tabs.mrs-entry');
     vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = PatientCacheService.getIsDemoMode();
+    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.mrs = null;
 

@@ -2,14 +2,14 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, PatientHttpService, HospitalHttpService) {
+function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService) {
 
     var vm = this; // S1
 
     TabStateCacheService.setCurrentState('register-patient');
-    vm.isDemoMode = PatientCacheService.getIsDemoMode();
+    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.hospitals = [];
     HospitalHttpService.getHospitals().then(function(hospitals) {
@@ -69,12 +69,14 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
 
     function handleDataValid() {
         if (vm.isDemoMode) {
+            vm.uniqueId = "demo-mode-patient";
             savePatient("demo-mode-patient", 0);
         }
         else {
             var isDuplicateAllowed = false;
             PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, isDuplicateAllowed).then(function(response) {
                 if (response.success) {
+                    vm.uniqueId = response.patient.uniqueId;
                     if (response.patient.isDuplicate) {
                         showPatientAlreadyRegisteredPopup(confirmRegisterPatient, cancelRegisterPatient);
                     }
@@ -92,6 +94,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     function confirmRegisterPatient() {
         var isDuplicateAllowed = true;
         PatientHttpService.registerPatient(vm.initials, vm.dateOfBirth, vm.estimatedAge, isDuplicateAllowed).then(function(response) {
+            vm.uniqueId = response.patient.uniqueId;
             if (response.success) {
                 savePatient(response.patient.uniqueId, response.patient.id);
             }
@@ -217,7 +220,8 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         var popupTemplate = {
             templateUrl: 'modules/general/register-patient/patient-notes-popup.html',
             title: 'Patient notes',
-            cssClass: 'chi-wide-popup'
+            cssClass: 'chi-wide-popup',
+            scope: $scope
         };
         var popup = $ionicPopup.alert(popupTemplate);
 

@@ -1,13 +1,16 @@
 <div>
-  <ion-content class="chi-height-doac-slider" scroll="false">
-    <ion-slides  options="vm.sliderOptions" slider="data.slider">
-    
-      <ion-slide-page ng-repeat="image in vm.doacImages">
-          <img ng-src="{{image.src}}" class="fullscreen-image"  />
-          <p class="info">{{image.title}}</p>
-      </ion-slide-page>
 
+    <div class="text-center chi-doac-image-title">{{selectedTitle}}</div>
+  
+  <ion-content class="chi-height-doac-slider" scroll="false">
+    <ion-slides options="sliderOptions" slider="data.slider">   
+      <ion-slide-page ng-repeat="image in doacImages">
+        <div class="text-center">
+          <img ng-src="{{image.src}}" class="fullscreen-image"/>
+        </div>
+      </ion-slide-page>
      </ion-slides>
+
   </ion-content>
 </div>
 

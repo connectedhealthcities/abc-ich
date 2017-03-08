@@ -18,7 +18,7 @@
 
     <div class="list card" >
       <ion-item class="item-icon-left card-header card-header-green chi-info">
-        <i class="icon ion-information-circled"></i>Baseline scan info
+        <i class="icon ion-information-circled"></i>Neurosurgical referral
       </ion-item>
       <ion-item class="card-header-green chi-info">
         <div class="item-text-wrap"><strong>Refer to Neurosurgery if any of the following criteria are met:</strong></div>        
@@ -31,9 +31,6 @@
       </ion-item>
       <ion-item class="card-header-green chi-info">
         <div class="item-text-wrap">3. <strong>ICH volume greater than 30 ml</strong>, as measured by ABC/2 method</div>        
-      </ion-item>
-      <ion-item class="card-header-green chi-info">
-        <div class="item-text-wrap">Shared care on Neuro HDU (NHDU) may be appropriate for these patients — discuss with Neurosurgery and NHDU team on a case-by-case basis</div>        
       </ion-item>
     </div>
 
@@ -75,11 +72,11 @@
           <i class="icon ion-ionic"></i>ICH volume calculation
         </ion-item>
         <label class="item item-input">
-          <span class="input-label">Longest axis - A (cm):</span>
+          <span class="input-label">A – longest axis (cm):</span>
           <input type="number" min="0" step=".01" placeholder="" ng-model="vm.longestAxis" ng-change="vm.calculateVolume()">
         </label>
         <label class="item item-input">
-          <span class="input-label">Longest axis perpendicular to A (cm):</span>
+          <span class="input-label">B – longest axis perpendicular to A (cm):</span>
           <input type="number" min="0" step=".01" placeholder="" ng-model="vm.perpendicularAxis" ng-change="vm.calculateVolume()">
         </label>
         <label class="item item-input">

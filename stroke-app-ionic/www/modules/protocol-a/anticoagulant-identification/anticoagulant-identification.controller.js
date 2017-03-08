@@ -12,7 +12,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-    $scope.doacImages = [
+    vm.sliderImages = [
         {
       	    'src' : 'img/apixaban.png', 
       	    'title' : 'Apixaban'
@@ -31,20 +31,12 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     	}
     ];
 
-    $scope.selectedTitle = $scope.doacImages[0].title;
-
-    $scope.$on("$ionicSlides.slideChangeEnd", function(event, data) {
-        // note: the indexes are 0-based
-        var title = $scope.doacImages[data.slider.activeIndex].title
-        $scope.selectedTitle = title;
-        $scope.$apply();
-    });
-
-    $scope.sliderOptions = {
+    vm.sliderOptions = {
         loop: false,
         effect: 'fade',
         speed: 500
     }
+
     vm.anticoagulantType = displayValueFromEnumValueForAnticoagulantType(PatientCacheService.getAnticoagulantType());
     vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
@@ -208,7 +200,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/view-doacs-popup.html',
             title: 'DOAC images',
-            cssClass: 'chi-doac-popup',
+            cssClass: 'chi-slider-popup',
             scope: $scope
         };
         $ionicPopup.alert(popupTemplate);

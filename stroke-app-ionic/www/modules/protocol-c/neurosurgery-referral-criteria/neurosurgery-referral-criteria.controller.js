@@ -12,6 +12,23 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
+    vm.sliderImages = [
+        {
+      	    'src' : 'img/occluded-3rd.jpg', 
+      	    'title' : 'occluded 3rd'
+    	}, 
+        {
+      	    'src' : 'img/occluded-4th.jpg', 
+      	    'title' : 'occluded 4th'
+    	}
+    ];
+
+    vm.sliderOptions = {
+        loop: false,
+        effect: 'fade',
+        speed: 500
+    }
+
     vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
     vm.isObstruction = PatientCacheService.getIsVentricleObstructed();
     vm.longestAxis = PatientCacheService.getIchLongestAxis();
@@ -135,8 +152,8 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     function showObstructionPopup() {
         var popupTemplate = {
             templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/obstruction-popup.html',
-            title: 'Obstruction of the third and/or fourth ventricle',
-            cssClass: 'chi-wide-popup',
+            title: 'Occlusion images',
+            cssClass: 'chi-slider-popup',
             scope: $scope
         };
         $ionicPopup.alert(popupTemplate);

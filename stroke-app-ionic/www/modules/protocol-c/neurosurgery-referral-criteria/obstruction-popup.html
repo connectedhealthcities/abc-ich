@@ -1,3 +1,16 @@
-<div class="text-center">
-  <img ng-src="img/ich-volume.jpg"/> <!-- //cjd need image here -->
+<div>
+  
+  <ion-content class="chi-slider-height" scroll="false">
+    <ion-slides options="vm.sliderOptions" slider="data.slider">   
+      <ion-slide-page ng-repeat="image in vm.sliderImages">
+            
+        <div class="text-center chi-slider-image-title">{{image.title}}</div>
+
+        <div class="text-center">
+          <img ng-src="{{image.src}}"/>
+        </div>
+      </ion-slide-page>
+     </ion-slides>
+
+  </ion-content>
 </div>

@@ -94,10 +94,10 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
             }
         }
         else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED) {
-            if (vm.entrySbp < vm.treatmentTarget) {
+            if (vm.entrySbp <= vm.treatmentTarget) {
                 BpStateCacheService.setCurrentState(BpStateCacheService.STATE_TARGET_ACHIEVED);
                 PatientCacheService.setBpTargetReachedDateTime(new Date());
-                showBpTargetAchievedPopup(goNextState);
+                showBpTargetAchievedPopup();
             }
         }
  
@@ -150,16 +150,14 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         $ionicPopup.alert(popupTemplate);
     }
 
-    function showBpTargetAchievedPopup(okHandler) {
+    function showBpTargetAchievedPopup() {
         var popupTemplate = {
             templateUrl: 'modules/protocol-b/bp-management/bp-target-achieved-popup.html',
-            title: 'SBP target achieved',
+            title: 'BP target achieved',
             cssClass: 'chi-wide-popup',
             scope: $scope
         };
-        var popup = $ionicPopup.alert(popupTemplate);
-
-        popup.then(okHandler);
+        $ionicPopup.alert(popupTemplate);
     }
 
     function showGtnProtocolPopup() {

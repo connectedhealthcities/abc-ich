@@ -281,7 +281,7 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<!-- BP Management view --> 
-	<Scenario> #26: BP Management view - Target not reached
+	<Scenario> #26: BP Management view - User selects Next - Target not reached
 		Given: the user has entered valid data on the "BP Management" view
 		And: the target has not been reached
 		When: they select the "Next" button
@@ -289,7 +289,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #27: BP Management view - Target reached (GCS >= 9)
+	<Scenario> #27: BP Management view - User selects Next - Target reached (GCS >= 9)
 		Given: the user has entered valid data on the "BP Management" view
 		And: the target has been reached
 		And: the GCS value is >= 9
@@ -298,16 +298,29 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #28: BP Management view - Target reached (GCS < 9)
+	<Scenario> #28: BP Management view - User selects Next - Target reached (GCS < 9)
 		Given: the user has entered valid data on the "BP Management" view
 		And: the target has been reached
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
+	</Scenario>
+	<Note> #4
+		See Story: BP treatment threshold and target for definitions of threshold and target.
+	</Note>
+	<Scenario> #29: BP Management view - User selects Add entry - show repeat reading popup
+		Given: the last reading (if any) was not above threshold
+		When: they add an entry where SBP is above threshold
+		Then: the repeat reading after 2 minutes popup is displayed
+	</Scenario>    
+	<Scenario> #30: BP Management view - User selects Add entry - show target reached popup
+		Given: the last 2 consecutive readings have been above threshold
+		When: they add an entry where SBP is below target
+		Then: the target reached popup is displayed
 	</Scenario>    
 	<!-- Refer to Critical Care view --> 
-	<Scenario> #29: Refer to Critical Care view - (GCS >= 9)
+	<Scenario> #31: Refer to Critical Care view - (GCS >= 9)
 		Given: the user has entered valid data on the "Refer to Critical Care" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -315,7 +328,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #30: Refer to Critical Care view - (GCS < 9)
+	<Scenario> #32: Refer to Critical Care view - (GCS < 9)
 		Given: the user has entered valid data on the "Refer to Critical Care" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -323,7 +336,7 @@ Template
 		And: the ABC tabs are not displayed
 	</Scenario>    
 	<!-- mRS selection view --> 
-	<Scenario> #31: mRS selection view
+	<Scenario> #33: mRS selection view
 		Given: the user has entered valid data on the "mRS selection" view
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -332,7 +345,7 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<!-- Neurosurgery referral criteria view -->
-	<Note> #4
+	<Note> #5
 		Referral criteria:
 			- ichVolume > 30 ml
 			- Posterior fossa ICH
@@ -355,7 +368,7 @@ Template
 		(GCS < 9) AND (mRS >= 3)
 
 	</Note>
-	<Scenario> #32: Neurosurgery Referral Criteria view - referral not required
+	<Scenario> #34: Neurosurgery Referral Criteria view - referral not required
 		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
 		And: referral is not required (see note above)
 		When: they select the "Next" button
@@ -363,7 +376,7 @@ Template
 		And: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>    
-	<Scenario> #33: Neurosurgery Referral Criteria view - referral is required
+	<Scenario> #35: Neurosurgery Referral Criteria view - referral is required
 		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
 		And: referral is required (see note above)
 		When: they select the "Next" button
@@ -374,7 +387,7 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>    
-	<Scenario> #34: Neurosurgery Referral Criteria view - referral should be considered
+	<Scenario> #36: Neurosurgery Referral Criteria view - referral should be considered
 		Given: the user has entered valid data on the "Neurosurgery Referral Criteria" view
 		And: referral should be considered (see note above)
 		When: they select the "Next" button
@@ -386,7 +399,7 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<!-- Neurosurgery Referral Summary view -->
-	<Scenario> #35: Neurosurgery Referral Summary view - (GCS >= 9)
+	<Scenario> #37: Neurosurgery Referral Summary view - (GCS >= 9)
 		Given: the user has entered valid data on the "Neurosurgery Referral Summary" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -394,7 +407,7 @@ Template
 		And: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>    
-	<Scenario> #36: Neurosurgery Referral Summary view - (GCS < 9)
+	<Scenario> #38: Neurosurgery Referral Summary view - (GCS < 9)
 		Given: the user has entered valid data on the "Neurosurgery Referral Summary" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -406,7 +419,7 @@ Template
 </Story>
 
 <Story> View Navigation via Tab selection
-	<Note> #5
+	<Note> #6
 		Default views for each tab are as follows:
 		- Tab A: Anticoagulant Identification view
 		- Tab B: BP Management view

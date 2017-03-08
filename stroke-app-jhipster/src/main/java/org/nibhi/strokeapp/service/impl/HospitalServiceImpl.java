@@ -1,7 +1,9 @@
 package org.nibhi.strokeapp.service.impl;
 
 import org.nibhi.strokeapp.service.HospitalService;
+import org.nibhi.strokeapp.service.UserService;
 import org.nibhi.strokeapp.domain.Hospital;
+import org.nibhi.strokeapp.domain.User;
 import org.nibhi.strokeapp.repository.HospitalRepository;
 import org.nibhi.strokeapp.service.dto.HospitalDTO;
 import org.nibhi.strokeapp.service.mapper.HospitalMapper;
@@ -11,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +30,9 @@ public class HospitalServiceImpl implements HospitalService{
     
     @Inject
     private HospitalRepository hospitalRepository;
+
+    @Inject
+    private UserService userService;
 
     @Inject
     private HospitalMapper hospitalMapper;
@@ -55,6 +62,31 @@ public class HospitalServiceImpl implements HospitalService{
         List<HospitalDTO> result = hospitalRepository.findAll().stream()
             .map(hospitalMapper::hospitalToHospitalDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
+    }
+
+    /**
+     *  Get all the externalhospitals.
+     *  
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<HospitalDTO> findAllExternal() {
+        log.debug("Request to get all external Hospitals");
+        List<HospitalDTO> result = hospitalRepository.findAll().stream()
+            .map(hospitalMapper::hospitalToHospitalDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
+        
+        User user = userService.getUserWithAuthorities();
+        String hospitalId = user.getHospitalId();
+        
+        for (Iterator<HospitalDTO> iter = result.listIterator(); iter.hasNext(); ) {
+        	HospitalDTO hospitalDTO = iter.next();
+            if (hospitalDTO.getUniqueId().equals(hospitalId)) {
+                iter.remove();
+            }
+        }
 
         return result;
     }

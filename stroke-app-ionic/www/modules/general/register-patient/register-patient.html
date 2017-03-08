@@ -100,8 +100,8 @@
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>External hospital
         </ion-item>
-        <ion-radio ng-change="vm.selectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.uniqueId}}">
-          <span class="input-blue">{{hospital.uniqueId}}</span>
+        <ion-radio ng-change="vm.selectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.name}}">
+          <span class="input-blue">{{hospital.name}}</span>
         </ion-radio>
         <label ng-show="vm.selectedHospital ==='Other'" class="item item-input">
           <span class="input-label">Hospital name</span>

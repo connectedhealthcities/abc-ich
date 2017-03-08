@@ -26,6 +26,13 @@ public interface HospitalService {
     List<HospitalDTO> findAll();
 
     /**
+     *  Get all the external hospitals.
+     *  
+     *  @return the list of entities
+     */
+    List<HospitalDTO> findAllExternal();
+
+    /**
      *  Get the "id" hospital.
      *
      *  @param id the id of the entity

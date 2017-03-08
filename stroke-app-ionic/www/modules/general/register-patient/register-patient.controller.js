@@ -16,7 +16,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         for (var i = 0; i < hospitals.length; i++) {
             vm.hospitals.push(hospitals[i]);
         }
-        vm.hospitals.push({"uniqueId": "Other"});
+        vm.hospitals.push({"name": "Other"});
     });
 
     vm.isDateOfBirthKnown = null;

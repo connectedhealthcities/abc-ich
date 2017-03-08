@@ -2,36 +2,25 @@
 
 angular.module('utils').service('HospitalHttpService', HospitalHttpService);
 
-HospitalHttpService.$inject = ['$http', '$q', 'ServerUrlService'];
+HospitalHttpService.$inject = ['$http', 'ServerUrlService'];
 
-function HospitalHttpService($http, $q, ServerUrlService) {
+function HospitalHttpService($http, ServerUrlService) {
 
-//cjd    var _hospitals = null;
+     
     var _hospitals = [
-        {
-            "uniqueId": "HOSP1",
-            "name": "Hospital 1"
-        },
-        {
-            "uniqueId": "HOSP2",
-            "name": "Hospital 2"
-        },
-        {
-            "uniqueId": "HOSP3",
-            "name": "Hospital 3"
-        },
-        {
-            "uniqueId": "HOSP4",
-            "name": "Hospital 4"
-        },
-        {
-            "uniqueId": "HOSP5",
-            "name": "Hospital 5"
-        },
-        {
-            "uniqueId": "HOSP6",
-            "name": "Hospital 6"
-        }
+        { "uniqueId": "Tameside", "name": "Tameside" },
+        { "uniqueId": "Wythenshawe", "name": "Wythenshawe" },
+        { "uniqueId": "Macclesfield", "name": "Macclesfield" },
+        { "uniqueId": "Stockport", "name": "Stockport" },
+        { "uniqueId": "Fairfield", "name": "Fairfield" },
+        { "uniqueId": "Rochdale", "name": "Rochdale" },
+        { "uniqueId": "NorthManchester", "name": "North Manchester" },
+        { "uniqueId": "Oldham", "name": "Oldham" },
+        { "uniqueId": "Bolton", "name": "Bolton" },
+        { "uniqueId": "Wigan", "name": "Wigan" },
+        { "uniqueId": "Trafford", "name": "Trafford" },
+        { "uniqueId": "ManchesterRoyal", "name": "Manchester Royal" },
+        { "uniqueId": "Salford", "name": "Salford" }
     ];
 
     var service = {
@@ -41,15 +30,15 @@ function HospitalHttpService($http, $q, ServerUrlService) {
     return service;
 
 	function getHospitals() {
-        if (_hospitals) {
-            return $q.when(_hospitals);
-        }
-        else {
-            var urlPrefix = ServerUrlService.getUrlPrefix();
-            return $http.get(urlPrefix + '/api/hospitals').then(function(response) {
-                _hospitals = response.data;			    			    	
+            
+        var urlPrefix = ServerUrlService.getUrlPrefix();
+        return $http.get(urlPrefix + '/api/external-hospitals')
+            .then(function(response) {
+                // server returns all hospitals except the current hospital
+                return response.data;
+            }, function(response) {
+                // return full list of hospitals if comms fails
                 return _hospitals;
-            });               
-        }
+            });
     }
 }

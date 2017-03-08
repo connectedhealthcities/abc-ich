@@ -80,13 +80,26 @@ public class HospitalResource {
      *
      * @return the ResponseEntity with status 200 (OK) and the list of hospitals in body
      */
-    @CrossOrigin
     @GetMapping("/hospitals")
     @Timed
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MOBILE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<HospitalDTO> getAllHospitals() {
         log.debug("REST request to get all Hospitals");
         return hospitalService.findAll();
+    }
+
+    /**
+     * GET  /external-hospitals : get all the external hospitals.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of hospitals in body
+     */
+    @CrossOrigin
+    @GetMapping("/external-hospitals")
+    @Timed
+    @PreAuthorize("hasRole('ROLE_MOBILE')")
+    public List<HospitalDTO> getAllExternalHospitals() {
+        log.debug("REST request to get all external Hospitals");
+        return hospitalService.findAllExternal();
     }
 
     /**

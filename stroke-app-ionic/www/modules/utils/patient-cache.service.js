@@ -41,7 +41,9 @@ function PatientCacheService(LocalStorageService) {
     var anticoagulant_type_key = "patient-anticoagulant-type";
     var anticoagulant_name_key = "patient-anticoagulant-name";
     // calculate-beriplex-dose
-    var administer_beriplex_without_inr_key = "administer-beriplex-without-inr";
+    var reversal_agent_administered_at_external_hospital_key = "patient-reversal-agent-administered-at-external-hospital";
+    var reversal_agent_administered_time_known_key = "patient-reversal-agent-administered-time-known";    
+    var administer_beriplex_without_inr_key = "patient-administer-beriplex-without-inr";
     var estimated_weight_in_kg_key = "patient-estimated-weight-in-kg";
     var calculated_beriplex_dose_key = "patient-calculated-beriplex-dose";
     var inr_value_key = "patient-inr-value";
@@ -52,14 +54,14 @@ function PatientCacheService(LocalStorageService) {
     // confirm-beriplex-dose
     var actual_beriplex_dose_key = "patient-actual-beriplex-dose";
     // administer-beriplex
-    var is_beriplex_administered_key = "is_beriplex_administered"; // Local
+    var is_beriplex_administered_key = "patient-is-beriplex-administered"; // Local
     var beriplex_start_date_time_key = "patient-beriplex-start-date-time";
-    var is_vitamink_administered_key = "is_vitamink_administered"; // Local
+    var is_vitamink_administered_key = "patient-is-vitamink-administered"; // Local
     var vitamink_date_time_key = "patient-vitamink-date-time";
     var is_infusion_instructions_viewed_key = "patient-is-infusion-instructions-viewed";
-    // doac-reversal-agent-details
-    var doac_reversal_agent_type_key = "patient-doac-reversal-agent-type";
-    var doac_reversal_agent_date_time_key = "patient-doac-reversal-agent-date-time";
+    // reversal-agent-details
+    var reversal_agent_type_key = "patient-reversal-agent-type";
+    var reversal_agent_date_time_key = "patient-reversal-agent-date-time";
 
     //
     // protocol B
@@ -171,6 +173,12 @@ function PatientCacheService(LocalStorageService) {
         setAnticoagulantName: setAnticoagulantName,
 
         // calculate-beriplex-dose
+        getReversalAgentAdministeredAtExternalHospital: getReversalAgentAdministeredAtExternalHospital,
+        setReversalAgentAdministeredAtExternalHospital: setReversalAgentAdministeredAtExternalHospital,
+
+        getReversalAgentAdministeredTimeKnown: getReversalAgentAdministeredTimeKnown,
+        setReversalAgentAdministeredTimeKnown: setReversalAgentAdministeredTimeKnown,
+
         getAdministerBeriplexWithoutInr: getAdministerBeriplexWithoutInr,
         setAdministerBeriplexWithoutInr: setAdministerBeriplexWithoutInr,
         
@@ -215,12 +223,12 @@ function PatientCacheService(LocalStorageService) {
         getIsInfusionInstructionsViewed: getIsInfusionInstructionsViewed,
         setIsInfusionInstructionsViewed: setIsInfusionInstructionsViewed,
 
-        // doac-reversal-agent-details
-        getDoacReversalAgentType: getDoacReversalAgentType,
-        setDoacReversalAgentType: setDoacReversalAgentType,
+        // reversal-agent-details
+        getReversalAgentType: getReversalAgentType,
+        setReversalAgentType: setReversalAgentType,
 
-        getDoacReversalAgentDateTime: getDoacReversalAgentDateTime,
-        setDoacReversalAgentDateTime: setDoacReversalAgentDateTime,
+        getReversalAgentDateTime: getReversalAgentDateTime,
+        setReversalAgentDateTime: setReversalAgentDateTime,
 
         //
         // protocol B
@@ -464,6 +472,23 @@ function PatientCacheService(LocalStorageService) {
     }
 
     // calculate-beriplex-dose
+
+    function getReversalAgentAdministeredAtExternalHospital() {
+        return LocalStorageService.getItem(reversal_agent_administered_at_external_hospital_key);
+    }
+    
+    function setReversalAgentAdministeredAtExternalHospital(reversalAgentAdministeredAtExternalHospital) {
+        LocalStorageService.setItem(reversal_agent_administered_at_external_hospital_key, reversalAgentAdministeredAtExternalHospital);
+    }
+
+    function getReversalAgentAdministeredTimeKnown() {
+        return LocalStorageService.getItem(reversal_agent_administered_time_known_key);
+    }
+    
+    function setReversalAgentAdministeredTimeKnown(reversalAgentAdministeredTimeKnown) {
+        LocalStorageService.setItem(reversal_agent_administered_time_known_key, reversalAgentAdministeredTimeKnown);
+    }
+
     function getAdministerBeriplexWithoutInr() {
         return LocalStorageService.getItem(administer_beriplex_without_inr_key);
     }
@@ -579,21 +604,21 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(is_infusion_instructions_viewed_key, isInfusionInstructionsViewed);
     }
 
-    // doac-reversal-agent-details
-    function getDoacReversalAgentType() {
-        return LocalStorageService.getItem(doac_reversal_agent_type_key);
+    // reversal-agent-details
+    function getReversalAgentType() {
+        return LocalStorageService.getItem(reversal_agent_type_key);
     }
     
-    function setDoacReversalAgentType(doacReversalAgentType) {
-        LocalStorageService.setItem(doac_reversal_agent_type_key, doacReversalAgentType);
+    function setReversalAgentType(reversalAgentType) {
+        LocalStorageService.setItem(reversal_agent_type_key, reversalAgentType);
     }
 
-    function getDoacReversalAgentDateTime() {
-        return getDate(doac_reversal_agent_date_time_key);
+    function getReversalAgentDateTime() {
+        return getDate(reversal_agent_date_time_key);
     }
 
-    function setDoacReversalAgentDateTime(doacReversalAgentDateTime) {
-        LocalStorageService.setItem(doac_reversal_agent_date_time_key, doacReversalAgentDateTime);
+    function setReversalAgentDateTime(reversalAgentDateTime) {
+        LocalStorageService.setItem(reversal_agent_date_time_key, reversalAgentDateTime);
     }
 
     //
@@ -785,7 +810,9 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(gcs_score_motor_key, null);
         LocalStorageService.setItem(summary_email_address_key, null);
         LocalStorageService.setItem(anticoagulant_type_key, null);
-        LocalStorageService.setItem(anticoagulant_name_key, null);        
+        LocalStorageService.setItem(anticoagulant_name_key, null); 
+        LocalStorageService.setItem(reversal_agent_administered_at_external_hospital_key, null);
+        LocalStorageService.setItem(reversal_agent_administered_time_known_key, null);
         LocalStorageService.setItem(administer_beriplex_without_inr_key, null);
         LocalStorageService.setItem(estimated_weight_in_kg_key, null);
         LocalStorageService.setItem(calculated_beriplex_dose_key, null);
@@ -800,8 +827,8 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(is_vitamink_administered_key, null);
         LocalStorageService.setItem(vitamink_date_time_key, null);
         LocalStorageService.setItem(is_infusion_instructions_viewed_key, null);
-        LocalStorageService.setItem(doac_reversal_agent_type_key, null);
-        LocalStorageService.setItem(doac_reversal_agent_date_time_key, null);
+        LocalStorageService.setItem(reversal_agent_type_key, null);
+        LocalStorageService.setItem(reversal_agent_date_time_key, null);
         LocalStorageService.setItem(bp_target_reached_date_time_key, null);
         LocalStorageService.setItem(bp_treatment_threshold_key, null);
         LocalStorageService.setItem(bp_target_key, null);

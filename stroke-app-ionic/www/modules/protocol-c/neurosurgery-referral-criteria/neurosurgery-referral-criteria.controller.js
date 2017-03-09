@@ -2,13 +2,13 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralCriteriaController', NeurosurgeryReferralCriteriaController);
 
-NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD', 'DemoModeCacheService'];
+NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD', 'DemoModeCacheService', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY', 'STATE_PATIENT_END'];
 
-function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD, DemoModeCacheService) {
+function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END) {
 
     var vm = this; // S12
 
-    TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-criteria');
+    TabStateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_CRITERIA);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -77,10 +77,10 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
 
     function goNextState() {
         if (isNeuroReferralNotRequired()) {
-            $state.go('patient-end');
+            $state.go(STATE_PATIENT_END);
         }
         else {
-            $state.go('tabs.neurosurgery-referral-summary');
+            $state.go(STATE_NEUROSURGERY_REFERRAL_SUMMARY);
         }
     }
 

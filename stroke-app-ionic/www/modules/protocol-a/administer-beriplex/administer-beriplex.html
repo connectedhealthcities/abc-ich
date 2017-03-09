@@ -1,4 +1,4 @@
-<ion-view title="Administer beriplex">
+<ion-view title="Administer beriplex" hide-nav-bar="true">
   <ion-content padding="true">
 
     <!-- Patient id-->
@@ -17,8 +17,8 @@
     <hr>
 
     <div>
-      <h1 class="text-center input-blue">Treat as quickly as possible</h1>
-      <h2 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h2>
+      <h2 class="text-center input-blue">Treat as quickly as possible</h2>
+      <h3 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h3>
     </div>
     <hr>
 
@@ -52,7 +52,7 @@
 
     <div class="list card">
         <ion-item class="item-icon-left card-header card-header-green">
-          <i class="icon ion-ionic"></i>Beriplex administered
+          <i class="icon ion-ionic"></i>Beriplex administered?
         </ion-item>
         <ion-radio ng-model="vm.isBeriplexAdministered" ng-change="vm.isBeriplexAdministeredChanged()" name="beriplex-administered" ng-value="true">
           <span class="input-blue">Yes</span>
@@ -89,7 +89,7 @@
 
     <div class="list card">
         <ion-item class="item-icon-left card-header card-header-green">
-          <i class="icon ion-ionic"></i>Vitamin K administered
+          <i class="icon ion-ionic"></i>Vitamin K administered?
         </ion-item>
         <ion-radio ng-model="vm.isVitkAdministered" ng-change="vm.isVitkAdministeredChanged()" name="vitk-administered" ng-value="true">
           <span class="input-blue">Yes</span>

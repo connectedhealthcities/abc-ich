@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService) {
+function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS) {
 
     var vm = this; // S1
 
-    TabStateCacheService.setCurrentState('register-patient');
+    TabStateCacheService.setCurrentState(STATE_REGISTER_PATIENT);
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.hospitals = [];
@@ -105,7 +105,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function cancelRegisterPatient() {
-         $state.go('patient-start');
+         $state.go(STATE_PATIENT_START);
      }
 
     function savePatient(uniqueId, id) {
@@ -114,11 +114,11 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function goNextState() {
-        $state.go('patient-details');
+        $state.go(STATE_PATIENT_DETAILS);
     }
 
     function handleRegistrationFailed() {
-        $state.go('patient-start');
+        $state.go(STATE_PATIENT_START);
     }
  
     function saveData(uniqueId, id) {

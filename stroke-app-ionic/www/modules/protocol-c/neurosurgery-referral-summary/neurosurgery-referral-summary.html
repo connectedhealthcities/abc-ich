@@ -1,4 +1,4 @@
-<ion-view title="Neurosurgery referral summary">
+<ion-view title="Neurosurgery referral summary" hide-nav-bar="true">
   <ion-content padding="true">
 
     <!-- Patient id-->
@@ -52,13 +52,13 @@
       </ion-item>
       <ion-item class="card-header-green chi-info">
          <div class="row chi-no-vertical-padding">
-            <div class="col-80">Posterior fossa ICH:</div>
+            <div class="col-80">Posterior fossa ICH?:</div>
             <div class="col-20 text-right">{{vm.summary.isPosteriorFossaIch}}</div>
         </div>            
       </ion-item>
       <ion-item class="card-header-green chi-info">
          <div class="row chi-no-vertical-padding">
-            <div class="col-80">Ventricle obstructed:</div>
+            <div class="col-80">Ventricle obstructed?:</div>
             <div class="col-20 text-right">{{vm.summary.isVentricleObstructed}}</div>
         </div>            
       </ion-item>
@@ -79,7 +79,7 @@
     <div class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Patient referred to neurosurgery
+          <i class="icon ion-ionic"></i>Patient referred to neurosurgery?
         </ion-item>
         <ion-radio ng-model="vm.isReferred" ng-change="vm.isReferredChanged()" name="patient-referred" ng-value="true">
           <span class="input-blue">Yes</span>
@@ -129,7 +129,7 @@
     <div ng-show="vm.isReferred" class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Transfer to neurosurgery accepted
+          <i class="icon ion-ionic"></i>Transfer to neurosurgery accepted?
         </ion-item>
         <ion-radio ng-model="vm.isAccepted" name="patient-accepted" ng-value="true">
           <span class="input-blue">Yes</span>
@@ -143,7 +143,7 @@
     <div class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Patient for active treatment
+          <i class="icon ion-ionic"></i>Patient for active treatment?
         </ion-item>
         <ion-radio ng-model="vm.isForActiveTreatment" name="active-treatment" ng-value="true">
           <span class="input-blue">Yes</span>

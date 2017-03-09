@@ -2,19 +2,22 @@
 
 angular.module('app.protocolA').controller('CalculateBeriplexDoseController', CalculateBeriplexDoseController);
 
-CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'DemoModeCacheService'];
+CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService', 'EnumService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
 
-function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService, INR_THRESHOLD, GCS_THRESHOLD, DemoModeCacheService) {
+function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService, EnumService, INR_THRESHOLD, GCS_THRESHOLD, DemoModeCacheService, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) {
  
     var vm = this; // S9
 
-    TabStateCacheService.setCurrentState('tabs.calculate-beriplex-dose');
+    TabStateCacheService.setCurrentState(STATE_CALCULATE_BERIPLEX_DOSE);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
+    vm.externalScanHospitalName = PatientCacheService.getExternalScanHospitalName();
+    vm.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
+
     vm.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();
     vm.inrValue = PatientCacheService.getInrValue();
-    vm.inrType = displayValueFromEnumValueForInrType(PatientCacheService.getInrType());
+    vm.inrType = EnumService.displayValueFromEnumValueForInrType(PatientCacheService.getInrType());
     vm.inrDate = PatientCacheService.getInrDateTime();
     vm.inrTime = PatientCacheService.getInrDateTime();
     
@@ -46,7 +49,8 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     vm.onWeightInKgChanged = onWeightInKgChanged;
     vm.onWeightInStonesChanged = onWeightInStonesChanged;
     vm.onInrValueChanged = onInrValueChanged;
-    vm.administerBeriplexWithoutInrChanged = administerBeriplexWithoutInrChanged;
+    vm.onAdministerBeriplexWithoutInrChanged = onAdministerBeriplexWithoutInrChanged;
+    vm.onReversalAgentAdministeredAtExternalHospitalChanged = onReversalAgentAdministeredAtExternalHospitalChanged;
 
     function showBeriplexAdministrationOverride() {
         return CalculateBeriplexDoseControllerService.showBeriplexAdministrationOverride(vm.anticoagulantType, vm.inrValue);
@@ -63,7 +67,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
     }
 
-    function administerBeriplexWithoutInrChanged() {
+    function onAdministerBeriplexWithoutInrChanged() {
         vm.inrValue = null;
         vm.inrType = null;
         vm.inrDate = null;
@@ -75,6 +79,18 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         if (vm.administerBeriplexWithoutInr) {
             vm.inrValue = 2.0; // within 1.3 - 3.9 band!
         }
+    }
+
+    function onReversalAgentAdministeredAtExternalHospitalChanged() {
+            
+        vm.administerBeriplexWithoutInr = null;
+        vm.inrValue = null;
+        vm.inrType = null;
+        vm.inrDate = null;
+        vm.inrTime = null;
+        vm.weightGivenInKg = null;
+        vm.estimatedWeightInKg = null;
+        vm.estimatedWeightInStones = null;
     }
 
     function onWeightInKgChanged() {
@@ -90,7 +106,16 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     }
 
     function isNextButtonEnabled() {
-        return CalculateBeriplexDoseControllerService.isNextButtonEnabled(vm.administerBeriplexWithoutInr, vm.anticoagulantType, vm.inrType, vm.inrDate, vm.inrTime, vm.estimatedWeightInKg, vm.inrValue, vm.administerBeriplexWhenUnknown);
+        return CalculateBeriplexDoseControllerService.isNextButtonEnabled(
+            vm.reversalAgentAdministeredAtExternalHospital,
+            vm.administerBeriplexWithoutInr, 
+            vm.anticoagulantType, 
+            vm.inrType, 
+            vm.inrDate, 
+            vm.inrTime, 
+            vm.estimatedWeightInKg, 
+            vm.inrValue, 
+            vm.administerBeriplexWhenUnknown);
     }
 
     function onNext() {
@@ -99,7 +124,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
 
     function handleDataValid() {
         saveData();
-        if (vm.inrValue <= INR_THRESHOLD) {
+        if (vm.inrValue != null && vm.inrValue <= INR_THRESHOLD) {
             showInrBelowTreamentRangePopup(goNextState);
         } else {
             goNextState();
@@ -107,85 +132,63 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     }
 
     function goNextState() {
-
-        if (PatientCacheService.getAdministerBeriplexWithoutInr()) {
-            $state.go('tabs.confirm-beriplex-dose');
+        if (PatientCacheService.getReversalAgentAdministeredAtExternalHospital()) {
+            $state.go(STATE_REVERSAL_AGENT_DETAILS);
         }
         else {
-            if (PatientCacheService.getInrValue() <= INR_THRESHOLD) {
-                if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-                    TabStateCacheService.goLatestStateTabC();
-                }
-                else {
-                    TabStateCacheService.goLatestStateTabB();
-                }
-            }
-            else {
-                if (PatientCacheService.getAnticoagulantType() === "VITK") {
-                    $state.go('tabs.confirm-beriplex-dose');
-                }
-                else if (PatientCacheService.getAnticoagulantType() === "UNKNOWN") {
-                    if (PatientCacheService.getAdministerBeriplexWhenUnknown()) {
-                        $state.go('tabs.confirm-beriplex-dose');
+        if (PatientCacheService.getAdministerBeriplexWithoutInr()) {
+            $state.go(STATE_CONFIRM_BERIPLEX_DOSE);
+        }
+        else {
+                if (PatientCacheService.getInrValue() <= INR_THRESHOLD) {
+                    if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
+                        TabStateCacheService.goLatestStateTabC();
                     }
                     else {
-                        if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-                            TabStateCacheService.goLatestStateTabC();
+                        TabStateCacheService.goLatestStateTabB();
+                    }
+                }
+                else {
+                    if (PatientCacheService.getAnticoagulantType() === "VITK") {
+                        $state.go(STATE_CONFIRM_BERIPLEX_DOSE);
+                    }
+                    else if (PatientCacheService.getAnticoagulantType() === "UNKNOWN") {
+                        if (PatientCacheService.getAdministerBeriplexWhenUnknown()) {
+                            $state.go(STATE_CONFIRM_BERIPLEX_DOSE);
                         }
                         else {
-                            TabStateCacheService.goLatestStateTabB();
+                            if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
+                                TabStateCacheService.goLatestStateTabC();
+                            }
+                            else {
+                                TabStateCacheService.goLatestStateTabB();
+                            }
                         }
                     }
                 }
             }
-        }     
+        }
+           
     }
 
     function saveData() {
-        PatientCacheService.setAdministerBeriplexWithoutInr(vm.administerBeriplexWithoutInr);
-        if (!vm.administerBeriplexWithoutInr) {
-            var beriplexAdministeredDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.inrDate, vm.inrTime);
-            PatientCacheService.setInrDateTime(beriplexAdministeredDateTime);
-            PatientCacheService.setInrValue(vm.inrValue);
-            PatientCacheService.setInrType(enumValueFromDisplayValueForInrType(vm.inrType));
-        }
-        PatientCacheService.setEstimatedWeightInKg(vm.estimatedWeightInKg);
-        PatientCacheService.setIsWeightGivenInKg(vm.weightGivenInKg);
-        PatientCacheService.setCalculatedBeriplexDose(vm.calculatedDose);
+        PatientCacheService.setReversalAgentAdministeredAtExternalHospital(vm.reversalAgentAdministeredAtExternalHospital);
+        if (!vm.reversalAgentAdministeredAtExternalHospital) {
+            PatientCacheService.setAdministerBeriplexWithoutInr(vm.administerBeriplexWithoutInr);
+            if (!vm.administerBeriplexWithoutInr) {
+                var beriplexAdministeredDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.inrDate, vm.inrTime);
+                PatientCacheService.setInrDateTime(beriplexAdministeredDateTime);
+                PatientCacheService.setInrValue(vm.inrValue);
+                PatientCacheService.setInrType(EnumService.enumValueFromDisplayValueForInrType(vm.inrType));
+            }
+            PatientCacheService.setEstimatedWeightInKg(vm.estimatedWeightInKg);
+            PatientCacheService.setIsWeightGivenInKg(vm.weightGivenInKg);
+            PatientCacheService.setCalculatedBeriplexDose(vm.calculatedDose);
 
-        if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
-            PatientCacheService.setAdministerBeriplexWhenUnknown(vm.administerBeriplexWhenUnknown);
+            if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
+                PatientCacheService.setAdministerBeriplexWhenUnknown(vm.administerBeriplexWhenUnknown);
+            }
         }
-    }
-
-    function displayValueFromEnumValueForInrType(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "POINT_OF_CARE":
-                displayValue = "Point of care";
-                break;
-            case "LABORATORY":
-                displayValue = "Laboratory";
-                break;
-            default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForInrType(displayValue) {
-        var enumValue;
-        switch(displayValue) {
-            case "Point of care":
-                enumValue = "POINT_OF_CARE";
-                break;
-            case "Laboratory":
-                enumValue = "LABORATORY";
-                break;
-            default:
-                enumValue = null;                
-        }
-        return enumValue;
     }
 
     function showDataValidationPopup(okHandler) {

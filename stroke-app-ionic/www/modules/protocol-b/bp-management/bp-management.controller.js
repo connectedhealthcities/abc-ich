@@ -2,13 +2,13 @@
 
 angular.module('app.protocolB').controller('BpManagementController', BpManagementController);
 
-BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
+BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_BP_MANAGEMENT', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
 
-function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService) {
+function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
     var vm = this; // S10
 
-    TabStateCacheService.setCurrentState('tabs.bp-management');
+    TabStateCacheService.setCurrentState(STATE_BP_MANAGEMENT);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -58,14 +58,14 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         var currentState = BpStateCacheService.getCurrentState();
         if (currentState === BpStateCacheService.STATE_TARGET_ACHIEVED || currentState === BpStateCacheService.STATE_START) {
             if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-                $state.go('patient-end');
+                $state.go(STATE_PATIENT_END);
             }
             else {
                 TabStateCacheService.goLatestStateTabC();
             }
         }
         else {
-            $state.go('tabs.critical-care-referral');
+            $state.go(STATE_CRITICAL_CARE_REFERRAL);
         }
     }
 

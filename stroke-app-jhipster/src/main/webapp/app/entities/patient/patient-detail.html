@@ -83,7 +83,15 @@
 		        <dt><span>Anticoagulant Name</span></dt>
 		        <dd>
 		            <span>{{vm.patient.antiCoagulantName}}</span>
-		        </dd>
+		        </dd>		        
+		        <dt><span>Reversal Agent Administered At External Hospital</span></dt>
+        		<dd>
+            		<span>{{vm.patient.reversalAgentAdministeredAtExternalHospital}}</span>
+        		</dd>
+		        <dt><span>Reversal Agent Administered Time Known</span></dt>
+        		<dd>
+            		<span>{{vm.patient.reversalAgentAdministeredTimeKnown}}</span>
+        		</dd>
         		<dt><span>Administer Beriplex without waiting for INR</span></dt>
         		<dd>
             		<span>{{vm.patient.administerBeriplexWithoutInr}}</span>
@@ -128,13 +136,13 @@
 		        <dd>
 		            <span>{{vm.patient.infusionInstructionsViewed}}</span>
 		        </dd>
-        		<dt><span>DOAC Reversal Agent Type</span></dt>
+        		<dt><span>Reversal Agent Type</span></dt>
         		<dd>
-            		<span>{{vm.patient.doacreversalAgentType}}</span>
+            		<span>{{vm.patient.reversalAgentType}}</span>
         		</dd>
-        		<dt><span>DOAC Reversal Agent Date Time</span></dt>
+        		<dt><span>Reversal Agent Date Time</span></dt>
         		<dd>
-            		<span>{{vm.patient.doacAgentDateTime | date:'dd MMM yyyy HH:mm'}}</span>
+            		<span>{{vm.patient.reversalAgentDateTime | date:'dd MMM yyyy HH:mm'}}</span>
         		</dd>	
 		    </dl>
 		    </div>

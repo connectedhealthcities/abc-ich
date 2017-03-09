@@ -6,7 +6,7 @@ import org.nibhi.strokeapp.domain.Hospital;
 import org.nibhi.strokeapp.domain.Patient;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 import org.nibhi.strokeapp.domain.enumeration.Destination;
-import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
+import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 import org.nibhi.strokeapp.repository.BpManagementEntryRepository;
 import org.nibhi.strokeapp.repository.HospitalRepository;
@@ -24,6 +24,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import javax.inject.Inject;
+import javax.persistence.Column;
 
 
 /**
@@ -139,11 +140,15 @@ public class TestDataServiceImpl implements TestDataService{
          
         patient.setAnticoagulantName("Warfarin");
         patient.setAnticoagulantType(AnticoagulantType.VITK);
+        //cjd patient.setReversalAgentAdministeredAtExternalHospital(true);
+        //cjd patient.setReversalAgentAdministeredTimeKnown(true);
+        //cjd patient.setAdministerBeriplexWithoutInr(true);
+
         patient.setEstimatedWeightInKg(75.0f);
         patient.setCalculatedBeriplexDose(3500);
         patient.setActualBeriplexDose(3500);
         patient.setInfusionInstructionsViewed(true);
-        patient.setDoacReversalAgentType(DoacReversalAgentType.NONE);
+        patient.setReversalAgentType(ReversalAgentType.NONE);
 
         patient.setBpTreatmentThreshold(200);//cjd
         patient.setBpTarget(180);//cjd
@@ -163,7 +168,7 @@ public class TestDataServiceImpl implements TestDataService{
         }
         else {
             patient.setDestination(Destination.HDU);
-            // patient.setOtherDestination("otherDestination");        	
+            //cjd patient.setOtherDestination("otherDestination");        	
         }
         
         patient.setSummaryEmailAddress("test@email.com");

@@ -5,13 +5,19 @@
           <div class="col-50 text-right">{{vm.reversalAgent}}</div>
         </div>    
     </ion-item>
-    <ion-item ng-show="vm.reversalAgent === 'Idarucizumab' || vm.reversalAgent === 'PCC'">
+    <ion-item ng-show="vm.reversalAgentAdministeredAtExternalHospital">
+        <div class="row">
+            <div class="col-50 item-text-wrap">Time reversal agent was administered is known?</div>
+            <div class="col-50 text-right">{{vm.reversalAgentAdministeredTimeKnown}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-show="vm.reversalDate != null">
         <div class="row">
           <div class="col-50 item-text-wrap">Reversal date:</div>
           <div class="col-50 text-right">{{vm.reversalDate | date: 'dd MMM yyyy'}}</div>
         </div>
     </ion-item>
-    <ion-item ng-show="vm.reversalAgent === 'Idarucizumab' || vm.reversalAgent === 'PCC'">
+    <ion-item ng-show="vm.reversalTime != null">
         <div class="row">
           <div class="col-50 item-text-wrap">Reversal time:</div>
           <div class="col-50 text-right">{{vm.reversalTime | date: 'HH:mm'}}</div>

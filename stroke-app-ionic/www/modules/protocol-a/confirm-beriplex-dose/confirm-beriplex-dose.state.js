@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(ConfirmBeriplexDoseState);
 
-ConfirmBeriplexDoseState.$inject = ['$stateProvider', '$urlRouterProvider'];
+ConfirmBeriplexDoseState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_CONFIRM_BERIPLEX_DOSE'];
 
-function ConfirmBeriplexDoseState($stateProvider, $urlRouterProvider) {
+function ConfirmBeriplexDoseState($stateProvider, $urlRouterProvider, STATE_CONFIRM_BERIPLEX_DOSE) {
 
-  $stateProvider.state('tabs.confirm-beriplex-dose', {
+  $stateProvider.state(STATE_CONFIRM_BERIPLEX_DOSE, {
     cache: false,
     url: '/confirm-beriplex-dose',
     views: {

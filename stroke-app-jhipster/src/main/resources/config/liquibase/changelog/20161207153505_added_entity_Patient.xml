@@ -140,6 +140,14 @@
             <column name="anticoagulant_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+
+            <column name="reversal_agent_administered_at_external_hospital" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="reversal_agent_administered_time_known" type="bit">
+                <constraints nullable="true" />
+            </column>
             
             <column name="administer_beriplex_without_inr" type="bit">
                 <constraints nullable="true" />
@@ -149,11 +157,11 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="doac_reversal_agent_type" type="varchar(255)">
+            <column name="reversal_agent_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             
-            <column name="doac_reversal_agent_date_time" type="timestamp">
+            <column name="reversal_agent_date_time" type="timestamp">
                 <constraints nullable="true" />
             </column>
             
@@ -210,7 +218,7 @@
         <dropDefaultValue tableName="patient" columnName="beriplex_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="vitamink_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="scan_date_time" columnDataType="datetime"/>
-        <dropDefaultValue tableName="patient" columnName="doac_reversal_agent_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="reversal_agent_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="referral_to_neurosurgery_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="inr_date_time" columnDataType="datetime"/>
         

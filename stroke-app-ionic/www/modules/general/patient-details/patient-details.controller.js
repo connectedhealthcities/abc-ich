@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('PatientDetailsController', PatientDetailsController);
 
-PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'DemoModeCacheService']; 
+PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'DemoModeCacheService', 'STATE_PATIENT_DETAILS', 'STATE_GCS_ENTRY']; 
 
-function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, DemoModeCacheService) {
+function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, DemoModeCacheService, STATE_PATIENT_DETAILS, STATE_GCS_ENTRY) {
  
     var vm = this; // S2
 
-    TabStateCacheService.setCurrentState('patient-details');
+    TabStateCacheService.setCurrentState(STATE_PATIENT_DETAILS);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -45,7 +45,7 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
 
     function handleDataValid() {
         saveData();
-        $state.go('gcs-entry');
+        $state.go(STATE_GCS_ENTRY);
     }
 
     function onDoorNow() {

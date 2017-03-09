@@ -1,11 +1,17 @@
 <ion-list>
-    <ion-item>
+    <ion-item ng-show="vm.externalScanHospitalName != null">
+        <div class="row">
+            <div class="col-50 item-text-wrap">Reversal agent administered at external hospital?</div>
+            <div class="col-50 text-right">{{vm.reversalAgentAdministeredAtExternalHospital}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-show="vm.externalScanHospitalName == null || (vm.reversalAgentAdministeredAtExternalHospital != null && !vm.reversalAgentAdministeredAtExternalHospital)">
         <div class="row">
             <div class="col-50 item-text-wrap">Do you plan to administer Beriplex without waiting for INR?</div>
             <div class="col-50 text-right">{{vm.administerBeriplexWithoutInr}}</div>
         </div>
     </ion-item>
-    <ion-item ng-show="!vm.administerBeriplexWithoutInr">
+    <ion-item ng-show="vm.administerBeriplexWithoutInr != null && !vm.administerBeriplexWithoutInr">
         <div class="row">
             <div class="col-50 item-text-wrap">INR value:</div>
             <div class="col-50 text-right">{{vm.inrValue}}</div>
@@ -29,13 +35,13 @@
             <div class="col-50 text-right">{{vm.inrTime | date: 'HH:mm'}}</div>
         </div>
     </ion-item>
-    <ion-item ng-hide="!vm.weightGivenInKg">
+    <ion-item ng-show="vm.weightGivenInKg">
         <div class="row">
             <div class="col-50 item-text-wrap">Estimated weight in kg:</div>
             <div class="col-50 text-right">{{vm.estimatedWeightInKg}}</div>
         </div>
     </ion-item>
-    <ion-item ng-hide="vm.weightGivenInKg">
+    <ion-item ng-show="vm.weightGivenInKg != null && !vm.weightGivenInKg">
         <div class="row">
             <div class="col-50 item-text-wrap">Estimated weight in stones:</div>
             <div class="col-50 text-right">{{vm.estimatedWeightInStones}}</div>
@@ -43,7 +49,7 @@
     </ion-item>
     <ion-item ng-hide="!vm.showBeriplexAdministrationOverride()">
         <div class="row">
-            <div class="col-50 item-text-wrap">Administer beriplex when anticoagulant unknown and INR > 1.2:</div>
+            <div class="col-50 item-text-wrap">Administer beriplex when anticoagulant unknown and INR > 1.2?:</div>
             <div class="col-50 text-right">{{vm.administerBeriplexWhenUnknown}}</div>
         </div>
     </ion-item>

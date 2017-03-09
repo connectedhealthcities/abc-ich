@@ -38,6 +38,8 @@ function PatientEndControllerService(PatientCacheService) {
         patient.anticoagulantType = PatientCacheService.getAnticoagulantType();
         patient.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
+        patient.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
+        patient.reversalAgentAdministeredTimeKnown = PatientCacheService.getReversalAgentAdministeredTimeKnown();
         patient.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();
         patient.estimatedWeightInKg = PatientCacheService.getEstimatedWeightInKg();
         patient.inrValue = PatientCacheService.getInrValue();
@@ -52,8 +54,8 @@ function PatientEndControllerService(PatientCacheService) {
         patient.vitaminkDateTime = PatientCacheService.getVitaminkDateTime();
         patient.infusionInstructionsViewed = PatientCacheService.getIsInfusionInstructionsViewed();
 
-        patient.doacReversalAgentType = PatientCacheService.getDoacReversalAgentType();
-        patient.doacReversalAgentDateTime = PatientCacheService.getDoacReversalAgentDateTime();
+        patient.reversalAgentType = PatientCacheService.getReversalAgentType();
+        patient.reversalAgentDateTime = PatientCacheService.getReversalAgentDateTime();
 
         patient.bpTargetReachedDateTime = PatientCacheService.getBpTargetReachedDateTime();
         patient.bpTreatmentThreshold = PatientCacheService.getBpTreatmentThreshold();

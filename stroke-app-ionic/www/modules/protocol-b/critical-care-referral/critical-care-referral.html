@@ -1,4 +1,4 @@
-<ion-view title="Refer to critical care">
+<ion-view title="Refer to critical care" hide-nav-bar="true">
   <ion-content padding="true">
 
     <!-- Patient id-->
@@ -48,8 +48,7 @@
                 <span class="input-blue">None of the above</span>
             </ion-radio>
             <label ng-hide="vm.destination !== 'None of the above'" class="item item-input">
-                <span class="input-label">Other</span>
-                <input type="text" ng-model="vm.destinationOther" placeholder="Please specify">
+                <input type="text" ng-model="vm.destinationOther" placeholder="Enter destination here">
             </label>
     </div>
 

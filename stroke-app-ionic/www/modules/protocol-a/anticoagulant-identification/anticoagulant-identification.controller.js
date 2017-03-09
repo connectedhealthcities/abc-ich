@@ -2,13 +2,13 @@
 
 angular.module('app.protocolA').controller('AnticoagulantIdentificationController', AnticoagulantIdentificationController);
 
-AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
+AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'EnumService', 'GCS_THRESHOLD', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
 
-function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD, DemoModeCacheService) { 
+function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, EnumService, GCS_THRESHOLD, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) { 
  
     var vm = this; // S6
 
-    TabStateCacheService.setCurrentState('tabs.anticoagulant-identification');
+    TabStateCacheService.setCurrentState(STATE_ANTICOAGULANT_IDENTIFICATION);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -37,7 +37,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         speed: 500
     }
 
-    vm.anticoagulantType = displayValueFromEnumValueForAnticoagulantType(PatientCacheService.getAnticoagulantType());
+    vm.anticoagulantType = EnumService.displayValueFromEnumValueForAnticoagulantType(PatientCacheService.getAnticoagulantType());
     vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
     vm.onNext = onNext;
@@ -90,62 +90,19 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     }
 
     function saveData() {
-        PatientCacheService.setAnticoagulantType(enumValueFromDisplayValueForAnticoagulantType(vm.anticoagulantType));
+        PatientCacheService.setAnticoagulantType(EnumService.enumValueFromDisplayValueForAnticoagulantType(vm.anticoagulantType));
 
         if (vm.anticoagulantType === "Vitamin K antagonist" || vm.anticoagulantType === "DOAC") {
             PatientCacheService.setAnticoagulantName(vm.anticoagulantName);
         }
     }
 
-    function displayValueFromEnumValueForAnticoagulantType(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "VITK":
-                displayValue = "Vitamin K antagonist";
-                break;
-            case "DOAC":
-                displayValue = "DOAC";
-                break;
-            case "UNKNOWN":
-                displayValue = "Unknown";
-                break;
-            case "NONE":
-                displayValue = "None";
-                break;
-           default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForAnticoagulantType(displayValue) {
-        var enumValue;
-        switch(displayValue) {
-            case "Vitamin K antagonist":
-                enumValue = "VITK";
-                break;
-            case "DOAC":
-                enumValue = "DOAC";
-                break;
-            case "Unknown":
-                enumValue = "UNKNOWN";
-                break;
-            case "None":
-                enumValue = "NONE";
-                break;
-            default:
-                enumValue = null;                
-        }
-        return enumValue;
-    }
-
-
     function goNextStateWhenVitkOrUnknown() {
-        $state.go('tabs.calculate-beriplex-dose');
+        $state.go(STATE_CALCULATE_BERIPLEX_DOSE);
     }
 
     function goNextStateWhenDoac() {
-        $state.go('tabs.doac-reversal-agent-details');
+        $state.go(STATE_REVERSAL_AGENT_DETAILS);
     }
 
     function goNextStateWhenNone() {

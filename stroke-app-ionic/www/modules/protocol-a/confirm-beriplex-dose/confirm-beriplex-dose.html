@@ -1,4 +1,4 @@
-<ion-view title="Confirm beriplex dose">
+<ion-view title="Confirm beriplex dose" hide-nav-bar="true">
   <ion-content padding="true">
 
     <!-- Patient id-->
@@ -160,7 +160,7 @@
 
     <div class="list card">
         <ion-item class="item-icon-left card-header card-header-green">
-            <i class="icon ion-ionic"></i>Override calculated dose
+            <i class="icon ion-ionic"></i>Override calculated dose?
         </ion-item>
         <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="true">
             <span class="input-blue">Yes</span>

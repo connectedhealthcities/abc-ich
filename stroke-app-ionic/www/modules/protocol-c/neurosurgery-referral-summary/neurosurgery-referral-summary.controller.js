@@ -2,13 +2,13 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralSummaryController', NeurosurgeryReferralSummaryController);
 
-NeurosurgeryReferralSummaryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService','DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
+NeurosurgeryReferralSummaryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService','DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY', 'STATE_PATIENT_END'];
 
-function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService) {
+function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END) {
 
     var vm = this; // S13
 
-    TabStateCacheService.setCurrentState('tabs.neurosurgery-referral-summary');
+    TabStateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_SUMMARY);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -84,7 +84,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
             TabStateCacheService.goLatestStateTabB();
         }
         else {
-            $state.go('patient-end');
+            $state.go(STATE_PATIENT_END);
         }
      }
 

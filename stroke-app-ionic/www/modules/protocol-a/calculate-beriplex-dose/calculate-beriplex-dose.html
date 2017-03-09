@@ -1,4 +1,4 @@
-<ion-view title="Calculate Beriplex dose">
+<ion-view title="Calculate Beriplex dose" hide-nav-bar="true">
     <ion-content padding="true">
 
         <!-- Patient id-->
@@ -16,18 +16,30 @@
         </div>
         <hr>
        
-        <h1 class="text-center input-blue">Treat as quickly as possible</h1>
-        <h2 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h2>
+        <h2 class="text-center input-blue">Treat as quickly as possible</h2>
+        <h3 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h3>
         <hr>
 
-        <div class="card list">
+        <div class="card list" ng-show="vm.externalScanHospitalName != null">
+            <div class="item item-icon-left item-text-wrap card-header card-header-green">
+                <i class="icon ion-ionic"></i>Reversal agent administered at external hospital?
+            </div>
+            <ion-radio ng-model="vm.reversalAgentAdministeredAtExternalHospital" ng-change="vm.onReversalAgentAdministeredAtExternalHospitalChanged()" name="reversal-agent-external" ng-value="true">
+                <span class="input-blue">Yes</span>
+            </ion-radio>
+            <ion-radio ng-model="vm.reversalAgentAdministeredAtExternalHospital" ng-change="vm.onReversalAgentAdministeredAtExternalHospitalChanged()" name="reversal-agent-external" ng-value="false">
+                <span class="input-blue">No</span>
+            </ion-radio>
+        </div>
+
+        <div class="card list" ng-show="vm.externalScanHospitalName == null || (vm.reversalAgentAdministeredAtExternalHospital != null && !vm.reversalAgentAdministeredAtExternalHospital)">
             <div class="item item-icon-left item-text-wrap card-header card-header-green">
                 <i class="icon ion-ionic"></i>Do you plan to administer Beriplex without waiting for INR?
             </div>
-            <ion-radio ng-model="vm.administerBeriplexWithoutInr" ng-change="vm.administerBeriplexWithoutInrChanged()" name="administer-without-inr" ng-value="true">
+            <ion-radio ng-model="vm.administerBeriplexWithoutInr" ng-change="vm.onAdministerBeriplexWithoutInrChanged()" name="administer-without-inr" ng-value="true">
                 <span class="input-blue">Yes</span>
             </ion-radio>
-            <ion-radio ng-model="vm.administerBeriplexWithoutInr" ng-change="vm.administerBeriplexWithoutInrChanged()" name="administer-without-inr" ng-value="false">
+            <ion-radio ng-model="vm.administerBeriplexWithoutInr" ng-change="vm.onAdministerBeriplexWithoutInrChanged()" name="administer-without-inr" ng-value="false">
                 <span class="input-blue">No</span>
             </ion-radio>
         </div>

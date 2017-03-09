@@ -2,6 +2,8 @@ package org.nibhi.strokeapp.service.dto;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -11,7 +13,7 @@ import java.util.Set;
 import org.nibhi.strokeapp.domain.enumeration.Destination;
 import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
-import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
+import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 
 /**
@@ -93,11 +95,15 @@ public class PatientDTO implements Serializable {
 
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
 
+    private Boolean reversalAgentAdministeredAtExternalHospital;
+
+    private Boolean reversalAgentAdministeredTimeKnown;
+
     private Boolean administerBeriplexWithoutInr;
 
-    private DoacReversalAgentType doacReversalAgentType;
+    private ReversalAgentType reversalAgentType;
 
-    private ZonedDateTime doacReversalAgentDateTime;
+    private ZonedDateTime reversalAgentDateTime;
 
     private Integer bpTreatmentThreshold;
 
@@ -399,6 +405,22 @@ public class PatientDTO implements Serializable {
         this.administerBeriplexWhenAnticoagulantUnknown = administerBeriplexWhenAnticoagulantUnknown;
     }
 
+    public Boolean getReversalAgentAdministeredAtExternalHospital() {
+        return reversalAgentAdministeredAtExternalHospital;
+    }
+
+    public void setReversalAgentAdministeredAtExternalHospital(Boolean reversalAgentAdministeredAtExternalHospital) {
+        this.reversalAgentAdministeredAtExternalHospital = reversalAgentAdministeredAtExternalHospital;
+    }
+    
+    public Boolean getReversalAgentAdministeredTimeKnown() {
+        return reversalAgentAdministeredTimeKnown;
+    }
+
+    public void setReversalAgentAdministeredTimeKnown(Boolean reversalAgentAdministeredTimeKnown) {
+        this.reversalAgentAdministeredTimeKnown = reversalAgentAdministeredTimeKnown;
+    }
+   
     public Boolean getAdministerBeriplexWithoutInr() {
         return administerBeriplexWithoutInr;
     }
@@ -407,20 +429,20 @@ public class PatientDTO implements Serializable {
         this.administerBeriplexWithoutInr = administerBeriplexWithoutInr;
     }
 
-    public DoacReversalAgentType getDoacReversalAgentType() {
-        return doacReversalAgentType;
+    public ReversalAgentType getReversalAgentType() {
+        return reversalAgentType;
     }
 
-    public void setDoacReversalAgentType(DoacReversalAgentType doacReversalAgentType) {
-        this.doacReversalAgentType = doacReversalAgentType;
+    public void setReversalAgentType(ReversalAgentType reversalAgentType) {
+        this.reversalAgentType = reversalAgentType;
     }
     
-    public ZonedDateTime getDoacReversalAgentDateTime() {
-        return doacReversalAgentDateTime;
+    public ZonedDateTime getReversalAgentDateTime() {
+        return reversalAgentDateTime;
     }
 
-    public void setDoacReversalAgentDateTime(ZonedDateTime doacReversalAgentDateTime) {
-        this.doacReversalAgentDateTime = doacReversalAgentDateTime;
+    public void setReversalAgentDateTime(ZonedDateTime reversalAgentDateTime) {
+        this.reversalAgentDateTime = reversalAgentDateTime;
     }
     
     public Integer getBpTreatmentThreshold() {
@@ -584,9 +606,11 @@ public class PatientDTO implements Serializable {
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
             ", administerBeriplexWhenAnticoagulantUnknown='" + administerBeriplexWhenAnticoagulantUnknown + "'" +
+    		", reversalAgentAdministeredAtExternalHospital='" + reversalAgentAdministeredAtExternalHospital + "'" +
+    		", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +
-            ", doacReversalAgentType='" + doacReversalAgentType + "'" +
-            ", doacReversalAgentDateTime='" + doacReversalAgentDateTime + "'" +
+            ", reversalAgentType='" + reversalAgentType + "'" +
+            ", reversalAgentDateTime='" + reversalAgentDateTime + "'" +
             ", bpTreatmentThreshold='" + bpTreatmentThreshold + "'" +
             ", bpTarget='" + bpTarget + "'" +
             ", referralToNeurosurgeryDateTime='" + referralToNeurosurgeryDateTime + "'" +

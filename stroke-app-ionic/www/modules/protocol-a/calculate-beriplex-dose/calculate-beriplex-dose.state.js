@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(CalculateBeriplexDoseState);
 
-CalculateBeriplexDoseState.$inject = ['$stateProvider', '$urlRouterProvider'];
+CalculateBeriplexDoseState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_CALCULATE_BERIPLEX_DOSE'];
 
-function CalculateBeriplexDoseState($stateProvider, $urlRouterProvider) {
+function CalculateBeriplexDoseState($stateProvider, $urlRouterProvider, STATE_CALCULATE_BERIPLEX_DOSE) {
 
-  $stateProvider.state('tabs.calculate-beriplex-dose', {
+  $stateProvider.state(STATE_CALCULATE_BERIPLEX_DOSE, {
     cache: false,
     url: '/calculate-beriplex-dose',
     views: {

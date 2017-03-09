@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(BpManagementState);
 
-BpManagementState.$inject = ['$stateProvider', '$urlRouterProvider'];
+BpManagementState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_BP_MANAGEMENT'];
 
-function BpManagementState($stateProvider, $urlRouterProvider) {
+function BpManagementState($stateProvider, $urlRouterProvider, STATE_BP_MANAGEMENT) {
 
-  $stateProvider.state('tabs.bp-management', {
+  $stateProvider.state(STATE_BP_MANAGEMENT, {
     cache: false,
     url: '/bp-management',
     views: {

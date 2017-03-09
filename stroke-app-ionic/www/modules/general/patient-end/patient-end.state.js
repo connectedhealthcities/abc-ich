@@ -2,11 +2,11 @@
 
 angular.module('app.general').config(PatientEndState);
 
-PatientEndState.$inject = ['$stateProvider', '$urlRouterProvider'];
+PatientEndState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_PATIENT_END'];
 
-function PatientEndState($stateProvider, $urlRouterProvider) {
+function PatientEndState($stateProvider, $urlRouterProvider, STATE_PATIENT_END) {
 
-  $stateProvider.state('patient-end', {
+  $stateProvider.state(STATE_PATIENT_END, {
     cache: false,
     url: '/patient-end',
     templateUrl: 'modules/general/patient-end/patient-end.html',

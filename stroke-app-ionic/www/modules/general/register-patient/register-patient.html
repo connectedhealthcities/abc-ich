@@ -12,17 +12,16 @@
 
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Personal information
+          <i class="icon ion-ionic"></i>Patient initials
         </ion-item>
         <label class="item item-input">
-          <span class="input-label">Initials</span>
-          <input type="text" placeholder="" ng-model="vm.initials" ng-change="vm.onInitialsChanged(vm.initials)">
+          <input type="text" placeholder="Enter initials here" ng-model="vm.initials" ng-change="vm.onInitialsChanged(vm.initials)">
         </label>
     </div>
     
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Date of birth known
+          <i class="icon ion-ionic"></i>Date of birth known?
         </ion-item>
         <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.isDateOfBirthKnownChanged()" name="dob-known" ng-value="true">
           <span class="input-blue">Yes</span>
@@ -57,14 +56,13 @@
           <i class="icon ion-ionic"></i>Estimated age
         </ion-item>
         <label class="item item-input">
-          <span class="input-label">Estimated age</span>
-          <input type="number" placeholder="Enter age here" ng-model="vm.estimatedAge">
+           <input type="number" placeholder="Enter age here" ng-model="vm.estimatedAge">
         </label>
     </div>
 
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Scan performed at external hospital
+          <i class="icon ion-ionic"></i>Scan performed at external hospital?
         </ion-item>
         <ion-radio ng-model="vm.isExternalScan" ng-change="vm.isExternalScanChanged()" name="external-scan" ng-value="true">
           <span class="input-blue">Yes</span>
@@ -104,8 +102,7 @@
           <span class="input-blue">{{hospital.name}}</span>
         </ion-radio>
         <label ng-show="vm.selectedHospital ==='Other'" class="item item-input">
-          <span class="input-label">Hospital name</span>
-          <input type="text" placeholder="" ng-model="vm.otherHospital">
+          <input type="text" placeholder="Enter hospital name here" ng-model="vm.otherHospital">
         </label>
     </div>
 

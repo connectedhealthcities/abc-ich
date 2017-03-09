@@ -40,7 +40,7 @@
 //
 //import org.nibhi.strokeapp.domain.enumeration.Destination;
 //import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
-//import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
+//import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 //import org.nibhi.strokeapp.domain.enumeration.InrType;
 ///**
 // * Test class for the PatientResource REST controller.
@@ -151,15 +151,21 @@
 //    private static final Boolean DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN = false;
 //    private static final Boolean UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN = true;
 //
+//    private static final Boolean DEFAULT_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL = false;
+//    private static final Boolean UPDATED_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL = true;
+//
+//    private static final Boolean DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN = false;
+//    private static final Boolean UPDATED_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN = true;
+//
 //    private static final Boolean DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR = false;
 //    private static final Boolean UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR = true;
 //
-//    private static final DoacReversalAgentType DEFAULT_DOAC_REVERSAL_AGENT_TYPE = DoacReversalAgentType.NONE;
-//    private static final DoacReversalAgentType UPDATED_DOAC_REVERSAL_AGENT_TYPE = DoacReversalAgentType.IDARUCIZUMAB;
+//    private static final ReversalAgentType DEFAULT_REVERSAL_AGENT_TYPE = ReversalAgentType.NONE;
+//    private static final ReversalAgentType UPDATED_REVERSAL_AGENT_TYPE = ReversalAgentType.IDARUCIZUMAB;
 //
-//    private static final ZonedDateTime DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-//    private static final ZonedDateTime UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-//    private static final String DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME);
+//    private static final ZonedDateTime DEFAULT_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+//    private static final ZonedDateTime UPDATED_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+//    private static final String DEFAULT_REVERSAL_AGENT_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_REVERSAL_AGENT_DATE_TIME);
 //
 //    private static final Integer DEFAULT_BP_TREATMENT_THRESHOLD = 1;
 //    private static final Integer UPDATED_BP_TREATMENT_THRESHOLD = 2;
@@ -268,9 +274,11 @@
 //                .gcsScoreMotor(DEFAULT_GCS_SCORE_MOTOR)
 //                .anticoagulantType(DEFAULT_ANTICOAGULANT_TYPE)
 //                .administerBeriplexWhenAnticoagulantUnknown(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN)
+//                .reversalAgentAdministeredAtExternalHospital(DEFAULT_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL)
+//                .reversalAgentAdministeredTimeKnown(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN)
 //                .administerBeriplexWithoutInr(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR)
-//                .doacReversalAgentType(DEFAULT_DOAC_REVERSAL_AGENT_TYPE)
-//                .doacReversalAgentDateTime(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME)
+//                .reversalAgentType(DEFAULT_REVERSAL_AGENT_TYPE)
+//                .reversalAgentDateTime(DEFAULT_REVERSAL_AGENT_DATE_TIME)
 //                .bpTreatmentThreshold(DEFAULT_BP_TREATMENT_THRESHOLD)
 //                .bpTarget(DEFAULT_BP_TARGET)
 //                .referralToNeurosurgeryDateTime(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
@@ -337,9 +345,11 @@
 //        assertThat(testPatient.getGcsScoreMotor()).isEqualTo(DEFAULT_GCS_SCORE_MOTOR);
 //        assertThat(testPatient.getAnticoagulantType()).isEqualTo(DEFAULT_ANTICOAGULANT_TYPE);
 //        assertThat(testPatient.isAdministerBeriplexWhenAnticoagulantUnknown()).isEqualTo(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN);
+//        assertThat(testPatient.isReversalAgentAdministeredAtExternalHospital()).isEqualTo(DEFAULT_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL);
+//        assertThat(testPatient.isReversalAgentAdministeredTimeKnown()).isEqualTo(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN);
 //        assertThat(testPatient.isAdministerBeriplexWithoutInr()).isEqualTo(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR);
-//        assertThat(testPatient.getDoacReversalAgentType()).isEqualTo(DEFAULT_DOAC_REVERSAL_AGENT_TYPE);
-//        assertThat(testPatient.getDoacReversalAgentDateTime()).isEqualTo(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME);
+//        assertThat(testPatient.getReversalAgentType()).isEqualTo(DEFAULT_REVERSAL_AGENT_TYPE);
+//        assertThat(testPatient.getReversalAgentDateTime()).isEqualTo(DEFAULT_REVERSAL_AGENT_DATE_TIME);
 //        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(DEFAULT_BP_TREATMENT_THRESHOLD);
 //        assertThat(testPatient.getBpTarget()).isEqualTo(DEFAULT_BP_TARGET);
 //        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
@@ -394,9 +404,11 @@
 //                .andExpect(jsonPath("$.[*].gcsScoreMotor").value(hasItem(DEFAULT_GCS_SCORE_MOTOR)))
 //                .andExpect(jsonPath("$.[*].anticoagulantType").value(hasItem(DEFAULT_ANTICOAGULANT_TYPE.toString())))
 //                .andExpect(jsonPath("$.[*].administerBeriplexWhenAnticoagulantUnknown").value(hasItem(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN.booleanValue())))
+//                .andExpect(jsonPath("$.[*].reversalAgentAdministeredAtExternalHospital").value(hasItem(DEFAULT_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL.booleanValue())))
+//                .andExpect(jsonPath("$.[*].reversalAgentAdministeredTimeKnown").value(hasItem(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN.booleanValue())))
 //                .andExpect(jsonPath("$.[*].administerBeriplexWithoutInr").value(hasItem(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR.booleanValue())))
-//                .andExpect(jsonPath("$.[*].doacReversalAgentType").value(hasItem(DEFAULT_DOAC_REVERSAL_AGENT_TYPE.toString())))
-//                .andExpect(jsonPath("$.[*].doacReversalAgentDateTime").value(hasItem(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR)))
+//                .andExpect(jsonPath("$.[*].reversalAgentType").value(hasItem(DEFAULT_REVERSAL_AGENT_TYPE.toString())))
+//                .andExpect(jsonPath("$.[*].reversalAgentDateTime").value(hasItem(DEFAULT_REVERSAL_AGENT_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].bpTreatmentThreshold").value(hasItem(DEFAULT_BP_TREATMENT_THRESHOLD)))
 //                .andExpect(jsonPath("$.[*].bpTarget").value(hasItem(DEFAULT_BP_TARGET)))
 //                .andExpect(jsonPath("$.[*].referralToNeurosurgeryDateTime").value(hasItem(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR)))
@@ -451,9 +463,11 @@
 //            .andExpect(jsonPath("$.gcsScoreMotor").value(DEFAULT_GCS_SCORE_MOTOR))
 //            .andExpect(jsonPath("$.anticoagulantType").value(DEFAULT_ANTICOAGULANT_TYPE.toString()))
 //            .andExpect(jsonPath("$.administerBeriplexWhenAnticoagulantUnknown").value(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN.booleanValue()))
+//            .andExpect(jsonPath("$.reversalAgentAdministeredAtExternalHospital").value(DEFAULT_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL.booleanValue()))
+//            .andExpect(jsonPath("$.reversalAgentAdministeredTimeKnown").value(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN.booleanValue()))
 //            .andExpect(jsonPath("$.administerBeriplexWithoutInr").value(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR.booleanValue()))
-//            .andExpect(jsonPath("$.doacReversalAgentType").value(DEFAULT_DOAC_REVERSAL_AGENT_TYPE.toString()))
-//            .andExpect(jsonPath("$.doacReversalAgentDateTime").value(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR))
+//            .andExpect(jsonPath("$.reversalAgentType").value(DEFAULT_REVERSAL_AGENT_TYPE.toString()))
+//            .andExpect(jsonPath("$.reversalAgentDateTime").value(DEFAULT_REVERSAL_AGENT_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.bpTreatmentThreshold").value(DEFAULT_BP_TREATMENT_THRESHOLD))
 //            .andExpect(jsonPath("$.bpTarget").value(DEFAULT_BP_TARGET))
 //            .andExpect(jsonPath("$.referralToNeurosurgeryDateTime").value(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR))
@@ -515,9 +529,11 @@
 //                .gcsScoreMotor(UPDATED_GCS_SCORE_MOTOR)
 //                .anticoagulantType(UPDATED_ANTICOAGULANT_TYPE)
 //                .administerBeriplexWhenAnticoagulantUnknown(UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN)
+//                .reversalAgentAdministeredAtExternalHospital(UPDATED_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL)
+//                .reversalAgentAdministeredTimeKnown(UPDATED_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN)
 //                .administerBeriplexWithoutInr(UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR)
-//                .doacReversalAgentType(UPDATED_DOAC_REVERSAL_AGENT_TYPE)
-//                .doacReversalAgentDateTime(UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME)
+//                .reversalAgentType(UPDATED_REVERSAL_AGENT_TYPE)
+//                .reversalAgentDateTime(UPDATED_REVERSAL_AGENT_DATE_TIME)
 //                .bpTreatmentThreshold(UPDATED_BP_TREATMENT_THRESHOLD)
 //                .bpTarget(UPDATED_BP_TARGET)
 //                .referralToNeurosurgeryDateTime(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
@@ -570,9 +586,11 @@
 //        assertThat(testPatient.getGcsScoreMotor()).isEqualTo(UPDATED_GCS_SCORE_MOTOR);
 //        assertThat(testPatient.getAnticoagulantType()).isEqualTo(UPDATED_ANTICOAGULANT_TYPE);
 //        assertThat(testPatient.isAdministerBeriplexWhenAnticoagulantUnknown()).isEqualTo(UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN);
+//        assertThat(testPatient.isReversalAgentAdministeredAtExternalHospital()).isEqualTo(UPDATED_REVERSAL_AGENT_ADMINISTERED_AT_EXTERNAL_HOSPITAL);
+//        assertThat(testPatient.isReversalAgentAdministeredTimeKnown()).isEqualTo(UPDATED_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN);
 //        assertThat(testPatient.isAdministerBeriplexWithoutInr()).isEqualTo(UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR);
-//        assertThat(testPatient.getDoacReversalAgentType()).isEqualTo(UPDATED_DOAC_REVERSAL_AGENT_TYPE);
-//        assertThat(testPatient.getDoacReversalAgentDateTime()).isEqualTo(UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME);
+//        assertThat(testPatient.getReversalAgentType()).isEqualTo(UPDATED_REVERSAL_AGENT_TYPE);
+//        assertThat(testPatient.getReversalAgentDateTime()).isEqualTo(UPDATED_REVERSAL_AGENT_DATE_TIME);
 //        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(UPDATED_BP_TREATMENT_THRESHOLD);
 //        assertThat(testPatient.getBpTarget()).isEqualTo(UPDATED_BP_TARGET);
 //        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME);

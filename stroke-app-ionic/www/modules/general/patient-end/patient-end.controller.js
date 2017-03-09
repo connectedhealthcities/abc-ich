@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService'];
+PatientEndController.$inject = ['$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
 
-function PatientEndController($state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService) {
+function PatientEndController($state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService, STATE_PATIENT_END, STATE_PATIENT_START) {
  
     var vm = this; // S14
 
-    TabStateCacheService.setCurrentState('patient-end');
+    TabStateCacheService.setCurrentState(STATE_PATIENT_END);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
     
@@ -28,6 +28,7 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
             var patient = PatientEndControllerService.getPatient();
             PatientHttpService.updatePatient(patient).then(function(success) {
                 if (success) {
+                    showPatientSaveSucceededPopup();
                     reset();
                 }
                 else {
@@ -42,7 +43,15 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
         TabStateCacheService.clearAll();
         BpStateCacheService.clearAll();
         
-        $state.go('patient-start');
+        $state.go(STATE_PATIENT_START);
+    }
+
+    function showPatientSaveSucceededPopup() {
+        var popupTemplate = {
+            title: 'Patient save succeeded',
+            cssClass: 'chi-wide-popup'
+        };
+        $ionicPopup.alert(popupTemplate);
     }
 
     function showPatientSaveFailedPopup() {

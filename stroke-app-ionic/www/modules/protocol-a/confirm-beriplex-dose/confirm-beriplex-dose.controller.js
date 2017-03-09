@@ -2,13 +2,13 @@
 
 angular.module('app.protocolA').controller('ConfirmBeriplexDoseController', ConfirmBeriplexDoseController);
 
-ConfirmBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService']; 
+ConfirmBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_ADMINISTER_BERIPLEX']; 
 
-function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService) {
+function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, STATE_CONFIRM_BERIPLEX_DOSE, STATE_ADMINISTER_BERIPLEX) {
  
     var vm = this; //S8
 
-    TabStateCacheService.setCurrentState('tabs.confirm-beriplex-dose');
+    TabStateCacheService.setCurrentState(STATE_CONFIRM_BERIPLEX_DOSE);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -27,7 +27,7 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, PatientCache
 
     function handleDataValid() {
         saveData();
-        $state.go('tabs.administer-beriplex');
+        $state.go(STATE_ADMINISTER_BERIPLEX);
     }
 
     function saveData() {

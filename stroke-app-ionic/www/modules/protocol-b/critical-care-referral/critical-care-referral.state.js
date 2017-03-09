@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(CriticalCareReferralState);
 
-CriticalCareReferralState.$inject = ['$stateProvider', '$urlRouterProvider'];
+CriticalCareReferralState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_CRITICAL_CARE_REFERRAL'];
 
-function CriticalCareReferralState($stateProvider, $urlRouterProvider) {
+function CriticalCareReferralState($stateProvider, $urlRouterProvider, STATE_CRITICAL_CARE_REFERRAL) {
 
-  $stateProvider.state('tabs.critical-care-referral', {
+  $stateProvider.state(STATE_CRITICAL_CARE_REFERRAL, {
     cache: false,
     url: '/critical-care-referral',
     views: {

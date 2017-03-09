@@ -35,35 +35,50 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         var weightInStones = Math.round(weightInKg * _NUM_STONES_IN_KG_);
 
         return weightInStones;
-     }
+    }
 
-    function isNextButtonEnabled(administerBeriplexWithoutInr, anticoagulantType, inrType, inrDate, inrTime, estimatedWeightInKg, inrValue, forceAdministerWhenUnknown) {
+    function isNextButtonEnabled(
+        reversalAgentAdministeredAtExternalHospital,
+        administerBeriplexWithoutInr,
+        anticoagulantType,
+        inrType,
+        inrDate,
+        inrTime,
+        estimatedWeightInKg,
+        inrValue,
+        forceAdministerWhenUnknown) {
+        
         var isEnabled = false;
 
-        if (anticoagulantType === "UNKNOWN") {
-            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue <= INR_THRESHOLD) {
-                isEnabled = true;
-            }
+        if (reversalAgentAdministeredAtExternalHospital) {
+            isEnabled = true;
+        }
+        else {
 
-            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue > INR_THRESHOLD) {
-                if (forceAdministerWhenUnknown !== null) {
+            if (anticoagulantType === "UNKNOWN") {
+                if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue <= INR_THRESHOLD) {
                     isEnabled = true;
                 }
-            }
 
-        } else {
-            if (administerBeriplexWithoutInr != null) {
-                if (administerBeriplexWithoutInr) {
-                    if (estimatedWeightInKg) {
-                        isEnabled = true;
-                    }
-                }
-                else {
-                    if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue) {
+                if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue > INR_THRESHOLD) {
+                    if (forceAdministerWhenUnknown !== null) {
                         isEnabled = true;
                     }
                 }
 
+            } else {
+                if (administerBeriplexWithoutInr != null) {
+                    if (administerBeriplexWithoutInr) {
+                        if (estimatedWeightInKg) {
+                            isEnabled = true;
+                        }
+                    }
+                    else {
+                        if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue) {
+                            isEnabled = true;
+                        }
+                    }
+                }
             }
         }
 

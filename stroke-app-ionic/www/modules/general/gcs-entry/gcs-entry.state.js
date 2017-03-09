@@ -2,11 +2,11 @@
 
 angular.module('app.general').config(GcsEntryState);
 
-GcsEntryState.$inject = ['$stateProvider', '$urlRouterProvider'];
+GcsEntryState.$inject = ['$stateProvider', '$urlRouterProvider', "STATE_GCS_ENTRY"];
 
-function GcsEntryState($stateProvider, $urlRouterProvider) {
+function GcsEntryState($stateProvider, $urlRouterProvider, STATE_GCS_ENTRY) {
 
-  $stateProvider.state('gcs-entry', {
+  $stateProvider.state(STATE_GCS_ENTRY, {
     cache: false,
     url: '/gcs-entry',
     templateUrl: 'modules/general/gcs-entry/gcs-entry.html',

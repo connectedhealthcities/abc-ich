@@ -158,18 +158,26 @@
         {
             "fieldName": "administerBeriplexWhenAnticoagulantUnknown",
             "fieldType": "Boolean"
+        },        
+        {
+            "fieldName": "reversalAgentAdministeredAtExternalHospital",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "reversalAgentAdministeredTimeKnown",
+            "fieldType": "Boolean"
         },
         {
             "fieldName": "administerBeriplexWithoutInr",
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "doacReversalAgentType",
-            "fieldType": "DoacReversalAgentType",
+            "fieldName": "reversalAgentType",
+            "fieldType": "ReversalAgentType",
             "fieldValues": "NONE,IDARUCIZUMAB,PCC"
         },
         {
-            "fieldName": "doacReversalAgentDateTime",
+            "fieldName": "reversalAgentDateTime",
             "fieldType": "ZonedDateTime"
         },
         {

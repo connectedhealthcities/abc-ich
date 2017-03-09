@@ -2,17 +2,17 @@
 
 angular.module('app.protocolB') .controller('CriticalCareReferralController', CriticalCareReferralController);
 
-CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
+CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'EnumService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
 
-function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD, DemoModeCacheService) {
+function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, EnumService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
     var vm = this; // S4
 
-    TabStateCacheService.setCurrentState('tabs.critical-care-referral');
+    TabStateCacheService.setCurrentState(STATE_CRITICAL_CARE_REFERRAL);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-    vm.destination = displayValueFromEnumValueForDestination(PatientCacheService.getDestination());
+    vm.destination = EnumService.displayValueFromEnumValueForDestination(PatientCacheService.getDestination());
     vm.destinationOther = PatientCacheService.getOtherDestination();
 
     vm.onNext = onNext;
@@ -45,7 +45,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     function goNextState(){
 
         if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-            $state.go('patient-end');
+            $state.go(STATE_PATIENT_END);
         }
         else {
             TabStateCacheService.goLatestStateTabC();
@@ -59,58 +59,10 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     }
 
     function saveData() {
-        PatientCacheService.setDestination(enumValueFromDisplayValueForDestination(vm.destination));
+        PatientCacheService.setDestination(EnumService.enumValueFromDisplayValueForDestination(vm.destination));
         if (vm.destination === "None of the above") {
             PatientCacheService.setOtherDestination(vm.destinationOther);
         }
-    }
-
-    function displayValueFromEnumValueForDestination(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "STROKE_UNIT":
-                displayValue = "Stroke unit";
-                break;
-            case "ICU":
-                displayValue = "ICU";
-                break;
-            case "HDU":
-                displayValue = "HDU";
-                break;
-            case "NOT_YET_DECIDED":
-                displayValue = "Not yet decided";
-                break;
-            case "OTHER":
-                displayValue = "None of the above";
-                break;
-            default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForDestination(displayValue) {
-        var enumValue;
-        switch(displayValue) {
-            case "Stroke unit":
-                enumValue = "STROKE_UNIT";
-                break;
-            case "ICU":
-                enumValue = "ICU";
-                break;
-            case "HDU":
-                enumValue = "HDU";
-                break;
-            case "Not yet decided":
-                enumValue = "NOT_YET_DECIDED";
-                break;
-            case "None of the above":
-                enumValue = "OTHER";
-                break;
-            default:
-                enumValue = null;                
-        }
-        return enumValue;
     }
 
     function showDataValidationPopup(okHandler) {

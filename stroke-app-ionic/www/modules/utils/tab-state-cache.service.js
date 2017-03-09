@@ -2,14 +2,14 @@
 
 angular.module('utils').service('TabStateCacheService', TabStateCacheService);
 
-TabStateCacheService.$inject = ['$state', 'LocalStorageService'];
+TabStateCacheService.$inject = ['$state', 'LocalStorageService', 'STATE_PATIENT_START', 'STATE_ADMINISTER_BERIPLEX', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_MRS_ENTRY', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY'];
 
-function TabStateCacheService($state, LocalStorageService) {
+function TabStateCacheService($state, LocalStorageService, STATE_PATIENT_START, STATE_ADMINISTER_BERIPLEX, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_MRS_ENTRY, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY) {
 
-    var DEFAULT_STATE_TAB_A = 'tabs.anticoagulant-identification';
-    var DEFAULT_STATE_TAB_B = 'tabs.bp-management';
-    var DEFAULT_STATE_TAB_C = 'tabs.mrs-entry';
-    var DEFAULT_CURRENT_STATE = 'patient-start';
+    var DEFAULT_STATE_TAB_A = STATE_ANTICOAGULANT_IDENTIFICATION;
+    var DEFAULT_STATE_TAB_B = STATE_BP_MANAGEMENT;
+    var DEFAULT_STATE_TAB_C = STATE_MRS_ENTRY;
+    var DEFAULT_CURRENT_STATE = STATE_PATIENT_START;
     
     var state_tab_a_key = "tabs-state-tab-a";
     var state_tab_b_key = "tabs-state-tab-b";
@@ -33,20 +33,20 @@ function TabStateCacheService($state, LocalStorageService) {
 
     function setCurrentState(state) {
         LocalStorageService.setItem(current_state_key, state);
-        if (state === "tabs.administer-beriplex" ||
-            state === "tabs.anticoagulant-identification" ||
-            state === "tabs.calculate-beriplex-dose" ||
-            state === "tabs.confirm-beriplex-dose" ||
-            state === "tabs.doac-reversal-agent-details") {
+        if (state === STATE_ADMINISTER_BERIPLEX ||
+            state === STATE_ANTICOAGULANT_IDENTIFICATION ||
+            state === STATE_CALCULATE_BERIPLEX_DOSE ||
+            state === STATE_CONFIRM_BERIPLEX_DOSE ||
+            state === STATE_REVERSAL_AGENT_DETAILS) {
             setStateTabA(state);
         }
-        else if (state === "tabs.bp-management" ||
-                 state === "tabs.critical-care-referral" ) {
+        else if (state === STATE_BP_MANAGEMENT ||
+                 state === STATE_CRITICAL_CARE_REFERRAL ) {
             setStateTabB(state);
         }
-        else if (state === "tabs.mrs-entry" ||
-                 state === "tabs.neurosurgery-referral-criteria" ||
-                 state === "tabs.neurosurgery-referral-summary" ) {
+        else if (state === STATE_MRS_ENTRY ||
+                 state === STATE_NEUROSURGERY_REFERRAL_CRITERIA ||
+                 state === STATE_NEUROSURGERY_REFERRAL_SUMMARY ) {
             setStateTabC(state);
         }
     }

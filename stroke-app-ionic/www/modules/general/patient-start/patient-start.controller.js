@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'DemoModeCacheService'];
+PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT'];
 
-function PatientStartController($scope, $state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, DemoModeCacheService) {
+function PatientStartController($scope, $state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT) {
  
     var vm = this; // S17
 
@@ -30,7 +30,7 @@ function PatientStartController($scope, $state, $ionicPopup, TabStateCacheServic
  
         PatientCacheService.setAppStartDateTime(new Date());
  
-        $state.go('register-patient');
+        $state.go(STATE_REGISTER_PATIENT);
     }
 
     function onResumePatient() {

@@ -15,7 +15,7 @@ import org.nibhi.strokeapp.domain.enumeration.Destination;
 
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 
-import org.nibhi.strokeapp.domain.enumeration.DoacReversalAgentType;
+import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 
@@ -353,6 +353,12 @@ public class Patient implements Serializable {
     
     //
     // calculate-beriplex-dose ////////////////////////////////////////////////////////////////////
+    
+    @Column(name = "reversal_agent_administered_at_external_hospital")
+    private Boolean reversalAgentAdministeredAtExternalHospital;
+
+    @Column(name = "reversal_agent_administered_time_known")
+    private Boolean reversalAgentAdministeredTimeKnown;
 
     @Column(name = "administer_beriplex_without_inr")
     private Boolean administerBeriplexWithoutInr;
@@ -377,6 +383,32 @@ public class Patient implements Serializable {
 
     @Column(name = "administer_beriplex_when_anticoagulant_unknown")
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
+
+    public Boolean isReversalAgentAdministeredAtExternalHospital() {
+        return reversalAgentAdministeredAtExternalHospital;
+    }
+
+    public Patient reversalAgentAdministeredAtExternalHospital(Boolean reversalAgentAdministeredAtExternalHospital) {
+        this.reversalAgentAdministeredAtExternalHospital = reversalAgentAdministeredAtExternalHospital;
+        return this;
+    }
+
+    public void setReversalAgentAdministeredAtExternalHospital(Boolean reversalAgentAdministeredAtExternalHospital) {
+        this.reversalAgentAdministeredAtExternalHospital = reversalAgentAdministeredAtExternalHospital;
+    }
+
+    public Boolean isReversalAgentAdministeredTimeKnown() {
+        return reversalAgentAdministeredTimeKnown;
+    }
+
+    public Patient reversalAgentAdministeredTimeKnown(Boolean reversalAgentAdministeredTimeKnown) {
+        this.reversalAgentAdministeredTimeKnown = reversalAgentAdministeredTimeKnown;
+        return this;
+    }
+
+    public void setReversalAgentAdministeredTimeKnown(Boolean reversalAgentAdministeredTimeKnown) {
+        this.reversalAgentAdministeredTimeKnown = reversalAgentAdministeredTimeKnown;
+    }
 
     public Boolean isAdministerBeriplexWithoutInr() {
         return administerBeriplexWithoutInr;
@@ -546,36 +578,36 @@ public class Patient implements Serializable {
     // doac-reversal-agent-details ////////////////////////////////////////////////////////////////
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "doac_reversal_agent_type")
-    private DoacReversalAgentType doacReversalAgentType;
+    @Column(name = "reversal_agent_type")
+    private ReversalAgentType reversalAgentType;
 
-    @Column(name = "doac_reversal_agent_date_time")
-    private ZonedDateTime doacReversalAgentDateTime;
+    @Column(name = "reversal_agent_date_time")
+    private ZonedDateTime reversalAgentDateTime;
 
-    public DoacReversalAgentType getDoacReversalAgentType() {
-        return doacReversalAgentType;
+    public ReversalAgentType getReversalAgentType() {
+        return reversalAgentType;
     }
 
-    public Patient doacReversalAgentType(DoacReversalAgentType doacReversalAgentType) {
-        this.doacReversalAgentType = doacReversalAgentType;
+    public Patient reversalAgentType(ReversalAgentType reversalAgentType) {
+        this.reversalAgentType = reversalAgentType;
         return this;
     }
 
-    public void setDoacReversalAgentType(DoacReversalAgentType doacReversalAgentType) {
-        this.doacReversalAgentType = doacReversalAgentType;
+    public void setReversalAgentType(ReversalAgentType reversalAgentType) {
+        this.reversalAgentType = reversalAgentType;
     }
 
-    public ZonedDateTime getDoacReversalAgentDateTime() {
-        return doacReversalAgentDateTime;
+    public ZonedDateTime getReversalAgentDateTime() {
+        return reversalAgentDateTime;
     }
 
-    public Patient doacReversalAgentDateTime(ZonedDateTime doacReversalAgentDateTime) {
-        this.doacReversalAgentDateTime = doacReversalAgentDateTime;
+    public Patient reversalAgentDateTime(ZonedDateTime reversalAgentDateTime) {
+        this.reversalAgentDateTime = reversalAgentDateTime;
         return this;
     }
 
-    public void setDoacReversalAgentDateTime(ZonedDateTime doacReversalAgentDateTime) {
-        this.doacReversalAgentDateTime = doacReversalAgentDateTime;
+    public void setReversalAgentDateTime(ZonedDateTime reversalAgentDateTime) {
+        this.reversalAgentDateTime = reversalAgentDateTime;
     }
 
     
@@ -899,7 +931,9 @@ public class Patient implements Serializable {
             ", gcsScoreVerbal='" + gcsScoreVerbal + "'" +
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
-            ", anticoagulantName='" + anticoagulantName + "'" +
+            ", anticoagulantName='" + anticoagulantName + "'" +                        
+            ", reversalAgentAdministeredAtExternalHospital='" + reversalAgentAdministeredAtExternalHospital + "'" +
+            ", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +
             ", estimatedWeightInKg='" + estimatedWeightInKg + "'" +
             ", inrValue='" + inrValue + "'" +
@@ -911,8 +945,8 @@ public class Patient implements Serializable {
             ", beriplexStartDateTime='" + beriplexStartDateTime + "'" +
             ", vitaminkDateTime='" + vitaminkDateTime + "'" +
             ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
-            ", doacReversalAgentType='" + doacReversalAgentType + "'" +
-            ", doacReversalAgentDateTime='" + doacReversalAgentDateTime + "'" +
+            ", reversalAgentType='" + reversalAgentType + "'" +
+            ", reversalAgentDateTime='" + reversalAgentDateTime + "'" +
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", bpTreatmentThreshold='" + bpTreatmentThreshold + "'" +
             ", bpTarget='" + bpTarget + "'" +

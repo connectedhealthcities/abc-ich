@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(AdministerBeriplexState);
 
-AdministerBeriplexState.$inject = ['$stateProvider', '$urlRouterProvider'];
+AdministerBeriplexState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_ADMINISTER_BERIPLEX'];
 
-function AdministerBeriplexState($stateProvider, $urlRouterProvider) {
+function AdministerBeriplexState($stateProvider, $urlRouterProvider, STATE_ADMINISTER_BERIPLEX) {
 
-  $stateProvider.state('tabs.administer-beriplex', {
+  $stateProvider.state(STATE_ADMINISTER_BERIPLEX, {
     cache: false,
     url: '/administer-beriplex',
     views: {

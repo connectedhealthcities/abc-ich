@@ -1,8 +1,8 @@
 package org.nibhi.strokeapp.domain.enumeration;
 
 /**
- * The DoacReversalAgentType enumeration.
+ * The ReversalAgentType enumeration.
  */
-public enum DoacReversalAgentType {
+public enum ReversalAgentType {
     NONE,IDARUCIZUMAB,PCC
 }

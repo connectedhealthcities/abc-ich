@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(MrsEntryState);
 
-MrsEntryState.$inject = ['$stateProvider', '$urlRouterProvider'];
+MrsEntryState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_MRS_ENTRY'];
 
-function MrsEntryState($stateProvider, $urlRouterProvider) {
+function MrsEntryState($stateProvider, $urlRouterProvider, STATE_MRS_ENTRY) {
 
-  $stateProvider.state('tabs.mrs-entry', {
+  $stateProvider.state(STATE_MRS_ENTRY, {
     cache: false,
     url: '/mrs-entry',
     views: {

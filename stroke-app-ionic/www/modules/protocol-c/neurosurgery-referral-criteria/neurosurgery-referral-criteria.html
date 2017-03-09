@@ -1,4 +1,4 @@
-<ion-view title="Neurosurgery referral criteria">
+<ion-view title="Neurosurgery referral criteria" hide-nav-bar="true">
   <ion-content padding="true">
     
     <!-- Patient id-->
@@ -37,7 +37,7 @@
     <div class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Posterior fossa ICH
+          <i class="icon ion-ionic"></i>Posterior fossa ICH?
         </ion-item>
         <ion-radio ng-model="vm.isPosteriorFossaIch" name="posterior-fossa" ng-value="true">
           <span class="input-blue">Yes</span>
@@ -51,7 +51,7 @@
 
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">
-          <i class="icon ion-ionic"></i>Obstruction of the third and/or fourth ventricle
+          <i class="icon ion-ionic"></i>Obstruction of the third and/or fourth ventricle?
         </ion-item>
         <ion-radio ng-model="vm.isObstruction" name="obstruction" ng-value="true">
           <span class="input-blue">Yes</span>

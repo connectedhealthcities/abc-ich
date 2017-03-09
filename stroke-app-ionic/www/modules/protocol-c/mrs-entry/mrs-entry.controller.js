@@ -2,13 +2,13 @@
 
 angular.module('app.protocolC').controller('MrsEntryController', MrsEntryController);
 
-MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService'];
+MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'STATE_MRS_ENTRY', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA'];
 
-function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService) {
+function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, STATE_MRS_ENTRY, STATE_NEUROSURGERY_REFERRAL_CRITERIA) {
  
     var vm = this; // S5
 
-    TabStateCacheService.setCurrentState('tabs.mrs-entry');
+    TabStateCacheService.setCurrentState(STATE_MRS_ENTRY);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -24,7 +24,7 @@ function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, Ta
     function handleDataValid() {
         saveData();
 
-        $state.go('tabs.neurosurgery-referral-criteria');
+        $state.go(STATE_NEUROSURGERY_REFERRAL_CRITERIA);
      }
 
     function saveData() {

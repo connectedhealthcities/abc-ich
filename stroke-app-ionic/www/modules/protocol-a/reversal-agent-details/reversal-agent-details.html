@@ -1,4 +1,4 @@
-<ion-view title="DOAC reversal agent details">
+<ion-view title="Reversal agent details" hide-nav-bar="true">
   <ion-content padding="true">
 
     <!-- Patient id-->
@@ -25,12 +25,24 @@
         <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'PCC'">
             <span class="input-blue">PCC</span>
         </ion-radio>
-        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">
+        <ion-radio ng-hide="vm.reversalAgentAdministeredAtExternalHospital" ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">
             <span class="input-blue">None</span>
         </ion-radio>
     </div>
 
-    <div class="list card" ng-show="vm.reversalAgent === 'Idarucizumab' || vm.reversalAgent === 'PCC'">
+    <div class="card list" ng-show="vm.reversalAgentAdministeredAtExternalHospital">
+        <div class="item item-icon-left item-text-wrap card-header card-header-green">
+            <i class="icon ion-ionic"></i>Time reversal agent was administered is known?
+        </div>
+        <ion-radio ng-model="vm.reversalAgentAdministeredTimeKnown" ng-change="vm.onReversalAgentAdministeredTimeKnownChanged()" name="reversal-time-known" ng-value="true">
+            <span class="input-blue">Yes</span>
+        </ion-radio>
+        <ion-radio ng-model="vm.reversalAgentAdministeredTimeKnown" ng-change="vm.onReversalAgentAdministeredTimeKnownChanged()" name="reversal-time-known" ng-value="false">
+            <span class="input-blue">No</span>
+        </ion-radio>
+    </div>
+
+    <div class="list card" ng-hide="vm.reversalAgentAdministeredAtExternalHospital && (vm.reversalAgentAdministeredTimeKnown == null || (vm.reversalAgentAdministeredTimeKnown != null && !vm.reversalAgentAdministeredTimeKnown))">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Reversal time

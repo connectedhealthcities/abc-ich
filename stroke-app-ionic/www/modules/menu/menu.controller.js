@@ -2,11 +2,21 @@
 
 angular.module('app').controller('MenuController', MenuController);
 
-MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'TabStateCacheService', 'DemoModeCacheService'];
+MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_EMAIL_CONFIGURATION', 'STATE_REGISTER_PATIENT'];
 
-function MenuController($scope, $state, PatientCacheService, BpStateCacheService, TabStateCacheService, DemoModeCacheService) {
+function MenuController($scope, $state, PatientCacheService, BpStateCacheService, TabStateCacheService, DemoModeCacheService, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_EMAIL_CONFIGURATION, STATE_REGISTER_PATIENT) {
 
+    $scope.onUserCredentialsConfiguration = onUserCredentialsConfiguration;
+    $scope.onEmailConfiguration = onEmailConfiguration;
     $scope.onDemoMode = onDemoMode;
+
+    function onUserCredentialsConfiguration() {
+        $state.go(STATE_USER_CREDENTIALS_CONFIGURATION);
+    }
+
+    function onEmailConfiguration() {
+        $state.go(STATE_EMAIL_CONFIGURATION);
+    }
 
     function onDemoMode() {
 
@@ -18,6 +28,6 @@ function MenuController($scope, $state, PatientCacheService, BpStateCacheService
         PatientCacheService.clearAll();
 
 
-        $state.go("register-patient");
+        $state.go(STATE_REGISTER_PATIENT);
     }
 }

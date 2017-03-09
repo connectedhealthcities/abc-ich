@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(NeurosurgeryReferralCriteriaState);
 
-NeurosurgeryReferralCriteriaState.$inject = ['$stateProvider', '$urlRouterProvider'];
+NeurosurgeryReferralCriteriaState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA'];
 
-function NeurosurgeryReferralCriteriaState($stateProvider, $urlRouterProvider) {
+function NeurosurgeryReferralCriteriaState($stateProvider, $urlRouterProvider, STATE_NEUROSURGERY_REFERRAL_CRITERIA) {
 
-  $stateProvider.state('tabs.neurosurgery-referral-criteria', {
+  $stateProvider.state(STATE_NEUROSURGERY_REFERRAL_CRITERIA, {
     cache: false,
     url: '/neurosurgery-referral-criteria',
     views: {

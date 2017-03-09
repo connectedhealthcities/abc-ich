@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('GcsEntryController', GcsEntryController);
 
-GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService'];
+GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_GCS_ENTRY', 'STATE_ANTICOAGULANT_IDENTIFICATION'];
 
-function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD, DemoModeCacheService) {
+function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_GCS_ENTRY, STATE_ANTICOAGULANT_IDENTIFICATION) {
 
     var vm = this; // S3
 
-    TabStateCacheService.setCurrentState('gcs-entry');
+    TabStateCacheService.setCurrentState(STATE_GCS_ENTRY);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -46,7 +46,7 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, Ta
      }
 
      function goNextState() {
-        $state.go('tabs.anticoagulant-identification');
+        $state.go(STATE_ANTICOAGULANT_IDENTIFICATION);
      }
 
     function saveData() {

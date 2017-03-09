@@ -2,11 +2,11 @@
 
 angular.module('app.protocolA').config(AnticoagulantIdentificationState);
 
-AnticoagulantIdentificationState.$inject = ['$stateProvider', '$urlRouterProvider'];
+AnticoagulantIdentificationState.$inject = ['$stateProvider', '$urlRouterProvider', 'STATE_ANTICOAGULANT_IDENTIFICATION'];
 
-function AnticoagulantIdentificationState($stateProvider, $urlRouterProvider) {
+function AnticoagulantIdentificationState($stateProvider, $urlRouterProvider, STATE_ANTICOAGULANT_IDENTIFICATION) {
 
-  $stateProvider.state('tabs.anticoagulant-identification', {
+  $stateProvider.state(STATE_ANTICOAGULANT_IDENTIFICATION, {
     cache: false,
     url: '/anticoagulant-identification',
     views: {

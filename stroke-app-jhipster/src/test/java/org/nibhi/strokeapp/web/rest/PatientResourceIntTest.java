@@ -151,6 +151,9 @@
 //    private static final Boolean DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN = false;
 //    private static final Boolean UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN = true;
 //
+//    private static final Boolean DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR = false;
+//    private static final Boolean UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR = true;
+//
 //    private static final DoacReversalAgentType DEFAULT_DOAC_REVERSAL_AGENT_TYPE = DoacReversalAgentType.NONE;
 //    private static final DoacReversalAgentType UPDATED_DOAC_REVERSAL_AGENT_TYPE = DoacReversalAgentType.IDARUCIZUMAB;
 //
@@ -265,6 +268,7 @@
 //                .gcsScoreMotor(DEFAULT_GCS_SCORE_MOTOR)
 //                .anticoagulantType(DEFAULT_ANTICOAGULANT_TYPE)
 //                .administerBeriplexWhenAnticoagulantUnknown(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN)
+//                .administerBeriplexWithoutInr(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR)
 //                .doacReversalAgentType(DEFAULT_DOAC_REVERSAL_AGENT_TYPE)
 //                .doacReversalAgentDateTime(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME)
 //                .bpTreatmentThreshold(DEFAULT_BP_TREATMENT_THRESHOLD)
@@ -333,6 +337,7 @@
 //        assertThat(testPatient.getGcsScoreMotor()).isEqualTo(DEFAULT_GCS_SCORE_MOTOR);
 //        assertThat(testPatient.getAnticoagulantType()).isEqualTo(DEFAULT_ANTICOAGULANT_TYPE);
 //        assertThat(testPatient.isAdministerBeriplexWhenAnticoagulantUnknown()).isEqualTo(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN);
+//        assertThat(testPatient.isAdministerBeriplexWithoutInr()).isEqualTo(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR);
 //        assertThat(testPatient.getDoacReversalAgentType()).isEqualTo(DEFAULT_DOAC_REVERSAL_AGENT_TYPE);
 //        assertThat(testPatient.getDoacReversalAgentDateTime()).isEqualTo(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME);
 //        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(DEFAULT_BP_TREATMENT_THRESHOLD);
@@ -389,6 +394,7 @@
 //                .andExpect(jsonPath("$.[*].gcsScoreMotor").value(hasItem(DEFAULT_GCS_SCORE_MOTOR)))
 //                .andExpect(jsonPath("$.[*].anticoagulantType").value(hasItem(DEFAULT_ANTICOAGULANT_TYPE.toString())))
 //                .andExpect(jsonPath("$.[*].administerBeriplexWhenAnticoagulantUnknown").value(hasItem(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN.booleanValue())))
+//                .andExpect(jsonPath("$.[*].administerBeriplexWithoutInr").value(hasItem(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR.booleanValue())))
 //                .andExpect(jsonPath("$.[*].doacReversalAgentType").value(hasItem(DEFAULT_DOAC_REVERSAL_AGENT_TYPE.toString())))
 //                .andExpect(jsonPath("$.[*].doacReversalAgentDateTime").value(hasItem(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].bpTreatmentThreshold").value(hasItem(DEFAULT_BP_TREATMENT_THRESHOLD)))
@@ -445,6 +451,7 @@
 //            .andExpect(jsonPath("$.gcsScoreMotor").value(DEFAULT_GCS_SCORE_MOTOR))
 //            .andExpect(jsonPath("$.anticoagulantType").value(DEFAULT_ANTICOAGULANT_TYPE.toString()))
 //            .andExpect(jsonPath("$.administerBeriplexWhenAnticoagulantUnknown").value(DEFAULT_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN.booleanValue()))
+//            .andExpect(jsonPath("$.administerBeriplexWithoutInr").value(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR.booleanValue()))
 //            .andExpect(jsonPath("$.doacReversalAgentType").value(DEFAULT_DOAC_REVERSAL_AGENT_TYPE.toString()))
 //            .andExpect(jsonPath("$.doacReversalAgentDateTime").value(DEFAULT_DOAC_REVERSAL_AGENT_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.bpTreatmentThreshold").value(DEFAULT_BP_TREATMENT_THRESHOLD))
@@ -508,6 +515,7 @@
 //                .gcsScoreMotor(UPDATED_GCS_SCORE_MOTOR)
 //                .anticoagulantType(UPDATED_ANTICOAGULANT_TYPE)
 //                .administerBeriplexWhenAnticoagulantUnknown(UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN)
+//                .administerBeriplexWithoutInr(UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR)
 //                .doacReversalAgentType(UPDATED_DOAC_REVERSAL_AGENT_TYPE)
 //                .doacReversalAgentDateTime(UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME)
 //                .bpTreatmentThreshold(UPDATED_BP_TREATMENT_THRESHOLD)
@@ -562,6 +570,7 @@
 //        assertThat(testPatient.getGcsScoreMotor()).isEqualTo(UPDATED_GCS_SCORE_MOTOR);
 //        assertThat(testPatient.getAnticoagulantType()).isEqualTo(UPDATED_ANTICOAGULANT_TYPE);
 //        assertThat(testPatient.isAdministerBeriplexWhenAnticoagulantUnknown()).isEqualTo(UPDATED_ADMINISTER_BERIPLEX_WHEN_ANTICOAGULANT_UNKNOWN);
+//        assertThat(testPatient.isAdministerBeriplexWithoutInr()).isEqualTo(UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR);
 //        assertThat(testPatient.getDoacReversalAgentType()).isEqualTo(UPDATED_DOAC_REVERSAL_AGENT_TYPE);
 //        assertThat(testPatient.getDoacReversalAgentDateTime()).isEqualTo(UPDATED_DOAC_REVERSAL_AGENT_DATE_TIME);
 //        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(UPDATED_BP_TREATMENT_THRESHOLD);

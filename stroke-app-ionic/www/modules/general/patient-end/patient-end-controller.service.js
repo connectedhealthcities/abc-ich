@@ -38,6 +38,7 @@ function PatientEndControllerService(PatientCacheService) {
         patient.anticoagulantType = PatientCacheService.getAnticoagulantType();
         patient.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
+        patient.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();
         patient.estimatedWeightInKg = PatientCacheService.getEstimatedWeightInKg();
         patient.inrValue = PatientCacheService.getInrValue();
         patient.inrType = PatientCacheService.getInrType();

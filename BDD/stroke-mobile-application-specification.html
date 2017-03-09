@@ -182,7 +182,16 @@ Template
 		And: the ABC tabs are displayed
 		And: the selected tab is C
 	</Scenario>
-	<!-- Calculate Beriplex Dose view --> 
+	<!-- Calculate Beriplex Dose view -->
+	<Scenario> #17: Calculate Beriplex Dose view - administer Beriplex without INR 
+		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		And: the user has chosen the option to administer Beriplex without waiting for the INR result
+		When: they select the "Next" button
+		Then: they should see the "Data confirmation" popup
+		And: the "Confirm Beriplex Dose" view is displayed
+		And: the ABC tabs are displayed
+		And: the selected tab is A
+	</Scenario>    
 	<Scenario> #17: Calculate Beriplex Dose view - (INR < 1.3) - (GCS >= 9) 
 		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
 		And: the INR value < 1.3

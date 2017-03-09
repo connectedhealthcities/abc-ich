@@ -160,6 +160,10 @@
             "fieldType": "Boolean"
         },
         {
+            "fieldName": "administerBeriplexWithoutInr",
+            "fieldType": "Boolean"
+        },
+        {
             "fieldName": "doacReversalAgentType",
             "fieldType": "DoacReversalAgentType",
             "fieldValues": "NONE,IDARUCIZUMAB,PCC"

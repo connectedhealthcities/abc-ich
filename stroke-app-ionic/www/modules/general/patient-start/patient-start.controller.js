@@ -46,6 +46,10 @@ function PatientStartController($scope, $state, $ionicPopup, TabStateCacheServic
         };
         var popup = $ionicPopup.confirm(popupTemplate);
 
-        popup.then(okHandler);
+        popup.then(function(res) {
+            if (res) {
+                okHandler();
+            }
+        });
     }
 }

@@ -41,6 +41,7 @@ function PatientCacheService(LocalStorageService) {
     var anticoagulant_type_key = "patient-anticoagulant-type";
     var anticoagulant_name_key = "patient-anticoagulant-name";
     // calculate-beriplex-dose
+    var administer_beriplex_without_inr_key = "administer-beriplex-without-inr";
     var estimated_weight_in_kg_key = "patient-estimated-weight-in-kg";
     var calculated_beriplex_dose_key = "patient-calculated-beriplex-dose";
     var inr_value_key = "patient-inr-value";
@@ -170,6 +171,9 @@ function PatientCacheService(LocalStorageService) {
         setAnticoagulantName: setAnticoagulantName,
 
         // calculate-beriplex-dose
+        getAdministerBeriplexWithoutInr: getAdministerBeriplexWithoutInr,
+        setAdministerBeriplexWithoutInr: setAdministerBeriplexWithoutInr,
+        
         getEstimatedWeightInKg: getEstimatedWeightInKg,
         setEstimatedWeightInKg: setEstimatedWeightInKg,
 
@@ -460,6 +464,14 @@ function PatientCacheService(LocalStorageService) {
     }
 
     // calculate-beriplex-dose
+    function getAdministerBeriplexWithoutInr() {
+        return LocalStorageService.getItem(administer_beriplex_without_inr_key);
+    }
+    
+    function setAdministerBeriplexWithoutInr(administerBeriplexWithoutInr) {
+        LocalStorageService.setItem(administer_beriplex_without_inr_key, administerBeriplexWithoutInr);
+    }
+
     function getEstimatedWeightInKg() {
         return LocalStorageService.getItem(estimated_weight_in_kg_key);
     }
@@ -773,7 +785,8 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(gcs_score_motor_key, null);
         LocalStorageService.setItem(summary_email_address_key, null);
         LocalStorageService.setItem(anticoagulant_type_key, null);
-        LocalStorageService.setItem(anticoagulant_name_key, null);
+        LocalStorageService.setItem(anticoagulant_name_key, null);        
+        LocalStorageService.setItem(administer_beriplex_without_inr_key, null);
         LocalStorageService.setItem(estimated_weight_in_kg_key, null);
         LocalStorageService.setItem(calculated_beriplex_dose_key, null);
         LocalStorageService.setItem(inr_value_key, null);

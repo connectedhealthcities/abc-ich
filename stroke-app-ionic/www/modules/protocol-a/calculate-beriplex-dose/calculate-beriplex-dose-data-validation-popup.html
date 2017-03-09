@@ -1,23 +1,29 @@
 <ion-list>
     <ion-item>
         <div class="row">
+            <div class="col-50 item-text-wrap">Do you plan to administer Beriplex without waiting for INR?</div>
+            <div class="col-50 text-right">{{vm.administerBeriplexWithoutInr}}</div>
+        </div>
+    </ion-item>
+    <ion-item ng-show="!vm.administerBeriplexWithoutInr">
+        <div class="row">
             <div class="col-50 item-text-wrap">INR value:</div>
             <div class="col-50 text-right">{{vm.inrValue}}</div>
         </div>
     </ion-item>
-    <ion-item>
+    <ion-item ng-show="vm.inrType != null">
         <div class="row">
             <div class="col-50 item-text-wrap">INR type:</div>
             <div class="col-50 text-right">{{vm.inrType}}</div>
         </div>
     </ion-item>
-    <ion-item>
+    <ion-item ng-show="vm.inrDate != null">
         <div class="row">
             <div class="col-50 item-text-wrap">INR date:</div>
             <div class="col-50 text-right">{{vm.inrDate | date: 'dd MMM yyyy'}}</div>
         </div>
     </ion-item>
-    <ion-item>
+    <ion-item ng-show="vm.inrTime != null">
         <div class="row">
             <div class="col-50 item-text-wrap">INR time:</div>
             <div class="col-50 text-right">{{vm.inrTime | date: 'HH:mm'}}</div>

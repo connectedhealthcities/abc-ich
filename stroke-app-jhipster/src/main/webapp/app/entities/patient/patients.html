@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat="patient in vm.patients track by patient.uniqueId">
                     <td>{{patient.uniqueId}}</td>
-                    <td>{{patient.doorDateTime | date:'medium'}}</td>                    
+                    <td>{{patient.doorDateTime | date:'dd MMM yyyy HH:mm'}}</td>                    
                     <td>{{patient.antiCoagulant}}</td>
                     <td>{{patient.beriplexAdministered}}</td>
  	                <td>{{patient.dnt}}</td>   

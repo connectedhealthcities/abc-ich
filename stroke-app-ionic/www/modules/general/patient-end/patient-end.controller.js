@@ -26,7 +26,7 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
         }
         else {
             var patient = PatientEndControllerService.getPatient();
-            PatientHttpService.savePatient(patient).then(function(success) {
+            PatientHttpService.updatePatient(patient).then(function(success) {
                 if (success) {
                     reset();
                 }

@@ -37,7 +37,7 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         return weightInStones;
      }
 
-    function isNextButtonEnabled(anticoagulantType, inrType, inrDate, inrTime, estimatedWeightInKg, inrValue, forceAdministerWhenUnknown) {
+    function isNextButtonEnabled(administerBeriplexWithoutInr, anticoagulantType, inrType, inrDate, inrTime, estimatedWeightInKg, inrValue, forceAdministerWhenUnknown) {
         var isEnabled = false;
 
         if (anticoagulantType === "UNKNOWN") {
@@ -52,8 +52,18 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
             }
 
         } else {
-            if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue) {
-                isEnabled = true;
+            if (administerBeriplexWithoutInr != null) {
+                if (administerBeriplexWithoutInr) {
+                    if (estimatedWeightInKg) {
+                        isEnabled = true;
+                    }
+                }
+                else {
+                    if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue) {
+                        isEnabled = true;
+                    }
+                }
+
             }
         }
 

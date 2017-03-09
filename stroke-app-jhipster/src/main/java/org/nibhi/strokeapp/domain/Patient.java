@@ -353,7 +353,10 @@ public class Patient implements Serializable {
     
     //
     // calculate-beriplex-dose ////////////////////////////////////////////////////////////////////
-    
+
+    @Column(name = "administer_beriplex_without_inr")
+    private Boolean administerBeriplexWithoutInr;
+
     @Column(name = "estimated_weight_in_kg")
     private Float estimatedWeightInKg;
 
@@ -374,6 +377,19 @@ public class Patient implements Serializable {
 
     @Column(name = "administer_beriplex_when_anticoagulant_unknown")
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
+
+    public Boolean isAdministerBeriplexWithoutInr() {
+        return administerBeriplexWithoutInr;
+    }
+
+    public Patient administerBeriplexWithoutInr(Boolean administerBeriplexWithoutInr) {
+        this.administerBeriplexWithoutInr = administerBeriplexWithoutInr;
+        return this;
+    }
+
+    public void setAdministerBeriplexWithoutInr(Boolean administerBeriplexWithoutInr) {
+        this.administerBeriplexWithoutInr = administerBeriplexWithoutInr;
+    }
 
     public Float getEstimatedWeightInKg() {
         return estimatedWeightInKg;
@@ -884,6 +900,7 @@ public class Patient implements Serializable {
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
             ", anticoagulantName='" + anticoagulantName + "'" +
+            ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +
             ", estimatedWeightInKg='" + estimatedWeightInKg + "'" +
             ", inrValue='" + inrValue + "'" +
             ", inrType='" + inrType + "'" +

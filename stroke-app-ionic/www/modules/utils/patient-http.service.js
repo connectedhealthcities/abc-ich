@@ -8,7 +8,7 @@ function PatientHttpService($http, ServerUrlService, $q) {
 
     var service = {
         registerPatient: registerPatient,
-        savePatient: savePatient
+        updatePatient: updatePatient
      };
 
     return service;
@@ -41,7 +41,7 @@ function PatientHttpService($http, ServerUrlService, $q) {
                
     }
 
-    function savePatient(patient) {
+    function updatePatient(patient) {
        //cjd ToDo - replace $q with http request
  
         // return $q.when(true);

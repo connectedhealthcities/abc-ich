@@ -141,6 +141,10 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="administer_beriplex_without_inr" type="bit">
+                <constraints nullable="true" />
+            </column>
+
             <column name="administer_beriplex_when_anticoagulant_unknown" type="bit">
                 <constraints nullable="true" />
             </column>

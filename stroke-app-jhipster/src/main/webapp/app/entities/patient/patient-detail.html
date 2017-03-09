@@ -11,7 +11,7 @@
 		    
 		        <dt><span>App Start Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.appStartDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.appStartDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>Initials</span></dt>
 		        <dd>
@@ -19,7 +19,7 @@
 		        </dd>
 		        <dt><span>Birth Date</span></dt>
 		        <dd>
-		            <span>{{vm.patient.birthDate | date:'mediumDate'}}</span>
+		            <span>{{vm.patient.birthDate | date:'dd MMM yyyy'}}</span>
 		        </dd>
 		        <dt><span>Estimated Age</span></dt>
 		        <dd>
@@ -27,7 +27,7 @@
 		        </dd>
 		        <dt><span>Scan Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.scanDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.scanDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>External Scan Hospital</span></dt>
 		        <dd>
@@ -35,11 +35,11 @@
 		        </dd>
 		        <dt><span>Onset Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.onsetDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.onsetDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>Door Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.doorDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.doorDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>Last Seen Well Onset</span></dt>
 		        <dd>
@@ -84,6 +84,10 @@
 		        <dd>
 		            <span>{{vm.patient.antiCoagulantName}}</span>
 		        </dd>
+        		<dt><span>Administer Beriplex without waiting for INR</span></dt>
+        		<dd>
+            		<span>{{vm.patient.administerBeriplexWithoutInr}}</span>
+        		</dd>
 		        <dt><span>Estimated Weight In Kg</span></dt>
 		        <dd>
 		            <span>{{vm.patient.estimatedWeightInKg}}</span>
@@ -98,7 +102,7 @@
         		</dd>
         		<dt><span>Inr Date Time</span></dt>
         		<dd>
-            		<span>{{vm.patient.inrDateTime | date:'medium'}}</span>
+            		<span>{{vm.patient.inrDateTime | date:'dd MMM yyyy HH:mm'}}</span>
         		</dd>
 		        <dt><span>Calculated Beriplex Dose</span></dt>
 		        <dd>
@@ -114,11 +118,11 @@
 		        </dd>
 		        <dt><span>Beriplex Start Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.beriplexStartDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.beriplexStartDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>Vitamink Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.vitaminkDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.vitaminkDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>Infusion Instructions Viewed</span></dt>
 		        <dd>
@@ -130,7 +134,7 @@
         		</dd>
         		<dt><span>DOAC Reversal Agent Date Time</span></dt>
         		<dd>
-            		<span>{{vm.patient.doacAgentDateTime | date:'medium'}}</span>
+            		<span>{{vm.patient.doacAgentDateTime | date:'dd MMM yyyy HH:mm'}}</span>
         		</dd>	
 		    </dl>
 		    </div>
@@ -141,7 +145,7 @@
 
 		        <dt><span>BP Target Reached Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.bpTargetReachedDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.bpTargetReachedDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>
 		        <dt><span>BP Treatment Threshold</span></dt>
 		        <dd>
@@ -177,8 +181,8 @@
 		    </thead>
 		    <tbody>
 		        <tr ng-repeat="bpManagementEntry in vm.bpManagementEntries track by bpManagementEntry.id">
-		            <td>{{bpManagementEntry.dateTime | date:'mediumDate'}}</td>
-		            <td>{{bpManagementEntry.dateTime | date:'shortTime'}}</td>
+		            <td>{{bpManagementEntry.dateTime | date:'dd MMM yyyy'}}</td>
+		            <td>{{bpManagementEntry.dateTime | date:'HH:mm'}}</td>
 		            <td>{{bpManagementEntry.systolicBp}}</td>
 		            <td>{{bpManagementEntry.gtnRate}}</td>
 		            <td>{{bpManagementEntry.labetalolDose}}</td>
@@ -214,7 +218,7 @@
 		        </dd>
 		        <dt><span>Referral To Neurosurgery Date Time</span></dt>
 		        <dd>
-		            <span>{{vm.patient.referralToNeurosurgeryDateTime | date:'medium'}}</span>
+		            <span>{{vm.patient.referralToNeurosurgeryDateTime | date:'dd MMM yyyy HH:mm'}}</span>
 		        </dd>		        
 		        <dt><span>Neurosurgeon Name</span></dt>
 		        <dd>

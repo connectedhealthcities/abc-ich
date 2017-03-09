@@ -93,6 +93,8 @@ public class PatientDTO implements Serializable {
 
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
 
+    private Boolean administerBeriplexWithoutInr;
+
     private DoacReversalAgentType doacReversalAgentType;
 
     private ZonedDateTime doacReversalAgentDateTime;
@@ -396,7 +398,15 @@ public class PatientDTO implements Serializable {
     public void setAdministerBeriplexWhenAnticoagulantUnknown(Boolean administerBeriplexWhenAnticoagulantUnknown) {
         this.administerBeriplexWhenAnticoagulantUnknown = administerBeriplexWhenAnticoagulantUnknown;
     }
-    
+
+    public Boolean getAdministerBeriplexWithoutInr() {
+        return administerBeriplexWithoutInr;
+    }
+
+    public void setAdministerBeriplexWithoutInr(Boolean administerBeriplexWithoutInr) {
+        this.administerBeriplexWithoutInr = administerBeriplexWithoutInr;
+    }
+
     public DoacReversalAgentType getDoacReversalAgentType() {
         return doacReversalAgentType;
     }
@@ -574,6 +584,7 @@ public class PatientDTO implements Serializable {
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
             ", administerBeriplexWhenAnticoagulantUnknown='" + administerBeriplexWhenAnticoagulantUnknown + "'" +
+            ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +
             ", doacReversalAgentType='" + doacReversalAgentType + "'" +
             ", doacReversalAgentDateTime='" + doacReversalAgentDateTime + "'" +
             ", bpTreatmentThreshold='" + bpTreatmentThreshold + "'" +

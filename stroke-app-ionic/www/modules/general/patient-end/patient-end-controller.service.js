@@ -50,6 +50,13 @@ function PatientEndControllerService(PatientCacheService) {
 
         patient.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
+        var isBeriplexAdministered = PatientCacheService.getIsBeriplexAdministered();
+        if (isBeriplexAdministered) {
+            patient.reversalAgentType = "PCC";
+        }
+        else {
+            patient.reversalAgentType = "NONE";
+        }
         patient.beriplexStartDateTime = PatientCacheService.getBeriplexStartDateTime();
         patient.vitaminkDateTime = PatientCacheService.getVitaminkDateTime();
         patient.infusionInstructionsViewed = PatientCacheService.getIsInfusionInstructionsViewed();

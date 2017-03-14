@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
+PatientEndController.$inject = ['$state', '$scope', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService', 'EmailCacheService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
 
-function PatientEndController($state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService, STATE_PATIENT_END, STATE_PATIENT_START) {
+function PatientEndController($state, $scope, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService, EmailCacheService, STATE_PATIENT_END, STATE_PATIENT_START) {
  
     var vm = this; // S14
 
@@ -13,11 +13,6 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
     
     vm.onFinish = onFinish;
-    vm.onSend = onSend;
-
-    function onSend() {
-        EmailService.sendEmail();
-    }
 
     function onFinish() {
         
@@ -26,10 +21,16 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
         }
         else {
             var patient = PatientEndControllerService.getPatient();
+
             PatientHttpService.updatePatient(patient).then(function(success) {
                 if (success) {
-                    showPatientSaveSucceededPopup();
-                    reset();
+                    showPatientSaveSucceededPopup(function () {
+                        showEmailPatientPopup(function () {
+                            EmailService.setPatientDisplayLabelsAndValues(PatientCacheService);
+                            EmailService.sendEmail(reset, showEmailClientNotInstalledOnDevicePopup);
+                        })
+                    }
+                    );
                 }
                 else {
                     showPatientSaveFailedPopup();
@@ -46,12 +47,16 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
         $state.go(STATE_PATIENT_START);
     }
 
-    function showPatientSaveSucceededPopup() {
+    function showPatientSaveSucceededPopup(okHandler) {
         var popupTemplate = {
             title: 'Patient save succeeded',
             cssClass: 'chi-wide-popup'
         };
-        $ionicPopup.alert(popupTemplate);
+        var popup = $ionicPopup.alert(popupTemplate);
+
+        popup.then(function () {
+            okHandler();
+        });
     }
 
     function showPatientSaveFailedPopup() {
@@ -62,4 +67,29 @@ function PatientEndController($state, $ionicPopup, TabStateCacheService, Patient
         };
         $ionicPopup.alert(popupTemplate);
     }
+
+    function showEmailPatientPopup(sendHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/general/patient-end/email-patient-popup.html',
+            title: 'Email patient details',
+            cssClass: 'chi-wide-popup'
+        };
+        var popup = $ionicPopup.confirm(popupTemplate);
+
+        popup.then(function (res) {
+            if (res) {
+                sendHandler();
+            }
+        });
+    }
+
+    function showEmailClientNotInstalledOnDevicePopup() {
+        var popupTemplate = {
+            templateUrl: 'modules/general/patient-end/email-client-not-installed-on-device-popup.html',
+            title: 'Email error',
+            cssClass: 'chi-wide-popup'
+        };
+        $ionicPopup.alert(popupTemplate);
+    }
+    
 }

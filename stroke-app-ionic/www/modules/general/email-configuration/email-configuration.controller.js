@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('EmailConfigurationController', EmailConfigurationController);
 
-EmailConfigurationController.$inject = ['$window', 'EmailCacheService'];
+EmailConfigurationController.$inject = ['$window', '$scope', '$ionicPopup', 'EmailCacheService', 'EmailService'];
 
-function EmailConfigurationController($window, EmailCacheService) {
+function EmailConfigurationController($window, $scope, $ionicPopup, EmailCacheService, EmailService) {
  
     var vm = this;
 
@@ -12,6 +12,9 @@ function EmailConfigurationController($window, EmailCacheService) {
 
     vm.onCancel = onCancel;
     vm.onSave = onSave;
+    vm.onSendTestEmail = onSendTestEmail;
+    vm.isSendTestEmailButtonEnabled = isSendTestEmailButtonEnabled;
+    vm.isSaveButtonEnabled = isSaveButtonEnabled;
 
     function onCancel() {
         $window.history.back();
@@ -20,5 +23,46 @@ function EmailConfigurationController($window, EmailCacheService) {
     function onSave() {
         EmailCacheService.setEmail(vm.email);
         $window.history.back();
-    } 
+    }
+
+    function onSendTestEmail() {
+        EmailService.sendTestEmail(vm.email, showEmailOKPopup, showEmailClientNotInstalledOnDevicePopup);
+    }
+
+    function showEmailOKPopup() {
+        var popupTemplate = {
+            templateUrl: 'modules/general/email-configuration/email-ok-popup.html',
+            title: 'Email configuration',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+    }
+
+    function showEmailClientNotInstalledOnDevicePopup() {
+        var popupTemplate = {
+            templateUrl: 'modules/general/email-configuration/email-client-not-installed-on-device-popup.html',
+            title: 'Email error',
+            cssClass: 'chi-wide-popup'
+        };
+        $ionicPopup.alert(popupTemplate);
+    }
+
+    function isSendTestEmailButtonEnabled() {
+        var isEnabled = false;
+        
+        if (vm.email) {
+            isEnabled = true;
+        }
+        return isEnabled;
+    }
+
+    function isSaveButtonEnabled() {
+        var isEnabled = false;
+
+        if (vm.email) {
+            isEnabled = true;
+        }
+        return isEnabled;
+    }
 }

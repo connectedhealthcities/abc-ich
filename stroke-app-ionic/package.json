@@ -27,8 +27,7 @@
     "cordova-plugin-console",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-email-composer"
+    "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "android",

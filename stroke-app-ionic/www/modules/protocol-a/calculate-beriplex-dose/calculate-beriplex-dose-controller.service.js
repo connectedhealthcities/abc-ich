@@ -17,7 +17,7 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
     return service
 
     function showBeriplexAdministrationOverride(anticoagulantType, inrValue) {
-        if (anticoagulantType === "UNKNOWN" && inrValue > INR_THRESHOLD) {
+        if (anticoagulantType === "Unknown" && inrValue > INR_THRESHOLD) {
             return true;
         }
         return false
@@ -55,7 +55,7 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         }
         else {
 
-            if (anticoagulantType === "UNKNOWN") {
+            if (anticoagulantType === "Unknown") {
                 if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue <= INR_THRESHOLD) {
                     isEnabled = true;
                 }

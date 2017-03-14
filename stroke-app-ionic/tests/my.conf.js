@@ -21,6 +21,7 @@ module.exports = function(config) {
       '../www/modules/app/app.modules.js',
 
       '../www/modules/general/patient-start/patient-start.controller.js',
+      '../www/modules/general/patient-start/patient-start-controller.service.js',
       '../www/modules/general/register-patient/register-patient.controller.js',
       '../www/modules/general/patient-details/patient-details.controller.js',
       '../www/modules/general/gcs-entry/gcs-entry.controller.js',
@@ -30,7 +31,7 @@ module.exports = function(config) {
       '../www/modules/protocol-a/calculate-beriplex-dose/calculate-beriplex-dose.controller.js',
       '../www/modules/protocol-a/confirm-beriplex-dose/confirm-beriplex-dose.controller.js',
       '../www/modules/protocol-a/administer-beriplex/administer-beriplex.controller.js',
-      '../www/modules/protocol-a/doac-reversal-agent-details/doac-reversal-agent-details.controller.js',
+      '../www/modules/protocol-a/reversal-agent-details/reversal-agent-details.controller.js',
  
       '../www/modules/protocol-b/bp-management/bp-management.controller.js',
       '../www/modules/protocol-b/critical-care-referral/critical-care-referral.controller.js',
@@ -41,6 +42,7 @@ module.exports = function(config) {
 
       '../www/lib/angular-mocks/angular-mocks.js',
 
+      // load all tests
       '**/*spec.js'
     ],
 

@@ -20,7 +20,7 @@
           
           <div class="chi-spacer"></div>
           
-          <div ng-show="vm.patientId" class="col-offset-10 col-80">
+          <div ng-show="vm.isShowResumePatient()" class="col-offset-10 col-80">
             <button ng-click="vm.onResumePatient()" class="button button-large button-calm button-block icon-right ion-chevron-right">Resume Patient: {{vm.patientId}}</button>
           </div>
         </ion-content>

@@ -7,39 +7,17 @@ EnumService.$inject = [];
 function EnumService() {
 
     var service = {
-        displayValueFromEnumValueForInrType: displayValueFromEnumValueForInrType,
-        enumValueFromDisplayValueForInrType: enumValueFromDisplayValueForInrType,
-       
-        displayValueFromEnumValueForReversalAgentType: displayValueFromEnumValueForReversalAgentType,
-        enumValueFromDisplayValueForReversalAgentType: enumValueFromDisplayValueForReversalAgentType,
-
-        displayValueFromEnumValueForAnticoagulantType: displayValueFromEnumValueForAnticoagulantType,
-        enumValueFromDisplayValueForAnticoagulantType: enumValueFromDisplayValueForAnticoagulantType,
-
-        displayValueFromEnumValueForDestination: displayValueFromEnumValueForDestination,
-        enumValueFromDisplayValueForDestination: enumValueFromDisplayValueForDestination
+        getServerEnumForInrType: getServerEnumForInrType,      
+        getServerEnumForReversalAgentType: getServerEnumForReversalAgentType,
+        getServerEnumForAnticoagulantType: getServerEnumForAnticoagulantType,
+        getServerEnumForDestination: getServerEnumForDestination
      };
 
     return service;
 
-    function displayValueFromEnumValueForInrType(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "POINT_OF_CARE":
-                displayValue = "Point of care";
-                break;
-            case "LABORATORY":
-                displayValue = "Laboratory";
-                break;
-            default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForInrType(displayValue) {
+    function getServerEnumForInrType(value) {
         var enumValue;
-        switch(displayValue) {
+        switch(value) {
             case "Point of care":
                 enumValue = "POINT_OF_CARE";
                 break;
@@ -52,27 +30,9 @@ function EnumService() {
         return enumValue;
     }
 
-    function displayValueFromEnumValueForReversalAgentType(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "IDARUCIZUMAB":
-                displayValue = "Idarucizumab";
-                break;
-            case "PCC":
-                displayValue = "PCC";
-                break;
-            case "NONE":
-                displayValue = "None";
-                break;
-            default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForReversalAgentType(displayValue) {
+    function getServerEnumForReversalAgentType(value) {
         var enumValue;
-        switch(displayValue) {
+        switch(value) {
             case "Idarucizumab":
                 enumValue = "IDARUCIZUMAB";
                 break;
@@ -88,30 +48,9 @@ function EnumService() {
         return enumValue;
     }
 
-    function displayValueFromEnumValueForAnticoagulantType(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "VITK":
-                displayValue = "Vitamin K antagonist";
-                break;
-            case "DOAC":
-                displayValue = "DOAC";
-                break;
-            case "UNKNOWN":
-                displayValue = "Unknown";
-                break;
-            case "NONE":
-                displayValue = "None";
-                break;
-           default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForAnticoagulantType(displayValue) {
+    function getServerEnumForAnticoagulantType(value) {
         var enumValue;
-        switch(displayValue) {
+        switch(value) {
             case "Vitamin K antagonist":
                 enumValue = "VITK";
                 break;
@@ -130,33 +69,9 @@ function EnumService() {
         return enumValue;
     }
 
-    function displayValueFromEnumValueForDestination(enumValue) {
-        var displayValue;
-        switch(enumValue) {
-            case "STROKE_UNIT":
-                displayValue = "Stroke unit";
-                break;
-            case "ICU":
-                displayValue = "ICU";
-                break;
-            case "HDU":
-                displayValue = "HDU";
-                break;
-            case "NOT_YET_DECIDED":
-                displayValue = "Not yet decided";
-                break;
-            case "OTHER":
-                displayValue = "None of the above";
-                break;
-            default:
-                displayValue = null;                
-        }
-        return displayValue;
-    }
-
-    function enumValueFromDisplayValueForDestination(displayValue) {
+    function getServerEnumForDestination(value) {
         var enumValue;
-        switch(displayValue) {
+        switch(value) {
             case "Stroke unit":
                 enumValue = "STROKE_UNIT";
                 break;

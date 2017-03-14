@@ -2,18 +2,29 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT'];
+PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientStartControllerService', 'PatientCacheService', 'TabStateCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT'];
 
-function PatientStartController($scope, $state, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT) {
+function PatientStartController($scope, $state, $ionicPopup, PatientStartControllerService, PatientCacheService, TabStateCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT) {
  
-    var vm = this; // S17
+    var vm = this;
 
-    DemoModeCacheService.setIsDemoMode(false);
-    vm.patientId = PatientCacheService.getUniqueId();
+    function init() {
+        DemoModeCacheService.setIsDemoMode(false);
 
-    vm.onNewPatient = onNewPatient;
-    vm.onResumePatient = onResumePatient;
+        // initialise vm parameters
+        vm.patientId = PatientCacheService.getUniqueId();
 
+        // Setup click handlers
+        vm.onNewPatient = onNewPatient;
+        vm.onResumePatient = onResumePatient;
+
+        // Setup show/hide handlers
+        vm.isShowResumePatient = isShowResumePatient
+    }
+
+    init();
+
+    // Click handlers
     function onNewPatient() {
         if (vm.patientId) {
             showConfirmNewPatientPopup(startNewPatient);
@@ -21,22 +32,33 @@ function PatientStartController($scope, $state, $ionicPopup, TabStateCacheServic
         else {
             startNewPatient();
         }
-     }
-
-    function startNewPatient() {
-        PatientCacheService.clearAll();
-        TabStateCacheService.clearAll();
-        BpStateCacheService.clearAll();
- 
-        PatientCacheService.setAppStartDateTime(new Date());
- 
-        $state.go(STATE_REGISTER_PATIENT);
     }
 
     function onResumePatient() {
         TabStateCacheService.goCurrentState();
     }
 
+    // Show/hide handlers
+    function isShowResumePatient() {
+        return PatientStartControllerService.isShowResumePatient(vm.patientId);
+    }
+
+    // Private functions
+    function startNewPatient() {
+        PatientCacheService.clearAll();
+        TabStateCacheService.clearAll();
+        BpStateCacheService.clearAll();
+ 
+        saveData();
+
+        $state.go(STATE_REGISTER_PATIENT);
+    }
+
+    function saveData() {
+       PatientCacheService.setAppStartDateTime(new Date());
+    }
+
+    // Popups
     function showConfirmNewPatientPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/general/patient-start/confirm-new-patient-popup.html',

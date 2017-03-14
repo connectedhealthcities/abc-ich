@@ -2,9 +2,9 @@
 
 angular.module('app.general').service('PatientEndControllerService', PatientEndControllerService);
 
-PatientEndControllerService.$inject = ['PatientCacheService'];
+PatientEndControllerService.$inject = ['PatientCacheService', 'EnumService'];
 
-function PatientEndControllerService(PatientCacheService) {
+function PatientEndControllerService(PatientCacheService, EnumService) {
  
      var service = {
         getPatient: getPatient
@@ -35,7 +35,7 @@ function PatientEndControllerService(PatientCacheService) {
         patient.gcsScoreVerbal = PatientCacheService.getGcsScoreVerbal();
         patient.gcsScoreMotor = PatientCacheService.getGcsScoreMotor();
 
-        patient.anticoagulantType = PatientCacheService.getAnticoagulantType();
+        patient.anticoagulantType = EnumService.getServerEnumForAnticoagulantType(PatientCacheService.getAnticoagulantType()); // Enum
         patient.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
         patient.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
@@ -43,33 +43,31 @@ function PatientEndControllerService(PatientCacheService) {
         patient.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();
         patient.estimatedWeightInKg = PatientCacheService.getEstimatedWeightInKg();
         patient.inrValue = PatientCacheService.getInrValue();
-        patient.inrType = PatientCacheService.getInrType();
+        patient.inrType = EnumService.getServerEnumForInrType(PatientCacheService.getInrType()); // Enum
         patient.inrDateTime = PatientCacheService.getInrDateTime();
         patient.calculatedBeriplexDose = PatientCacheService.getCalculatedBeriplexDose();
         patient.administerBeriplexWhenAnticoagulantUnknown = PatientCacheService.getAdministerBeriplexWhenUnknown();
 
         patient.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
-        var isBeriplexAdministered = PatientCacheService.getIsBeriplexAdministered();
-        if (isBeriplexAdministered) {
-            patient.reversalAgentType = "PCC";
-        }
-        else {
-            patient.reversalAgentType = "NONE";
-        }
         patient.beriplexStartDateTime = PatientCacheService.getBeriplexStartDateTime();
         patient.vitaminkDateTime = PatientCacheService.getVitaminkDateTime();
         patient.infusionInstructionsViewed = PatientCacheService.getIsInfusionInstructionsViewed();
 
-        patient.reversalAgentType = PatientCacheService.getReversalAgentType();
-        patient.reversalAgentDateTime = PatientCacheService.getReversalAgentDateTime();
+        patient.reversalAgentType = EnumService.getServerEnumForReversalAgentType(PatientCacheService.getReversalAgentType()); // Enum
+        var isBeriplexAdministered = PatientCacheService.getIsBeriplexAdministered();
+        if (isBeriplexAdministered != null) {
+            patient.reversalAgentType = isBeriplexAdministered ? "PCC" : "NONE";
+        } 
+       
+        patient.reversalAgentDateTime = PatientCacheService.getReversalAgentDateTime(); //cjd - is this a duplicate of beriplexStartDateTime?
 
         patient.bpTargetReachedDateTime = PatientCacheService.getBpTargetReachedDateTime();
         patient.bpTreatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
         patient.bpTarget = PatientCacheService.getBpTarget();
         patient.bpManagementEntries = PatientCacheService.getBpMeasurementEntries();
 
-        patient.destination = PatientCacheService.getDestination();
+        patient.destination = EnumService.getServerEnumForDestination(PatientCacheService.getDestination()); // Enum
         patient.otherDestination = PatientCacheService.getOtherDestination();
 
         patient.premorbidMrsScore = PatientCacheService.getPremorbidMrsScore();    

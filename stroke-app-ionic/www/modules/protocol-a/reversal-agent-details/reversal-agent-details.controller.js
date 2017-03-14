@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('ReversalAgentDetailsController', ReversalAgentDetailsController);
 
-ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'EnumService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_REVERSAL_AGENT_DETAILS'];
+ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_REVERSAL_AGENT_DETAILS'];
 
-function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, EnumService, GCS_THRESHOLD, DemoModeCacheService, STATE_REVERSAL_AGENT_DETAILS) {
+function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_REVERSAL_AGENT_DETAILS) {
 
     var vm = this; // S7
 
@@ -13,7 +13,7 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
-    vm.reversalAgent = EnumService.displayValueFromEnumValueForReversalAgentType(PatientCacheService.getReversalAgentType());
+    vm.reversalAgent = PatientCacheService.getReversalAgentType();
     vm.reversalAgentAdministeredTimeKnown = PatientCacheService.getReversalAgentAdministeredTimeKnown();
     vm.reversalDate = PatientCacheService.getReversalAgentDateTime();
     vm.reversalTime = PatientCacheService.getReversalAgentDateTime();
@@ -40,7 +40,7 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
      }
 
     function saveData() {
-        PatientCacheService.setReversalAgentType(EnumService.enumValueFromDisplayValueForReversalAgentType(vm.reversalAgent));
+        PatientCacheService.setReversalAgentType(vm.reversalAgent);
         if (vm.reversalAgent === "Idarucizumab" || vm.reversalAgent === "PCC") {
             var reversalDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.reversalDate, vm.reversalTime);
             PatientCacheService.setReversalAgentDateTime(reversalDateTime);

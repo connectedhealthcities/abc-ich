@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AnticoagulantIdentificationController', AnticoagulantIdentificationController);
 
-AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'EnumService', 'GCS_THRESHOLD', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
+AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
 
-function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, EnumService, GCS_THRESHOLD, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) { 
+function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) { 
  
     var vm = this; // S6
 
@@ -37,7 +37,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         speed: 500
     }
 
-    vm.anticoagulantType = EnumService.displayValueFromEnumValueForAnticoagulantType(PatientCacheService.getAnticoagulantType());
+    vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
     vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
     vm.onNext = onNext;
@@ -90,7 +90,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
     }
 
     function saveData() {
-        PatientCacheService.setAnticoagulantType(EnumService.enumValueFromDisplayValueForAnticoagulantType(vm.anticoagulantType));
+        PatientCacheService.setAnticoagulantType(vm.anticoagulantType);
 
         if (vm.anticoagulantType === "Vitamin K antagonist" || vm.anticoagulantType === "DOAC") {
             PatientCacheService.setAnticoagulantName(vm.anticoagulantName);

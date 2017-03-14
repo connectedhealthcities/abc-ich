@@ -1,34 +1,34 @@
-'use strict';
+// 'use strict';
 
-describe('MrsEntryController', function() {
+// describe('MrsEntryController', function() {
 
-    var vm;
-    var tabStateCacheService, state;
+//     var vm;
+//     var tabStateCacheService, state;
 
-    beforeEach(function() {
+//     beforeEach(function() {
 
-        module('app.protocolC');
-		module('ui.router');
+//         module('app.protocolC');
+// 		module('ui.router');
 
-		angular.mock.inject(function($controller, _$state_) {
+// 		angular.mock.inject(function($controller, _$state_) {
 
-			state = _$state_;
-			tabStateCacheService = {
-				setStateTabC: function() {}
-			};			
+// 			state = _$state_;
+// 			tabStateCacheService = {
+// 				setStateTabC: function() {}
+// 			};			
 
-			vm = $controller('MrsEntryController', {'TabStateCacheService': tabStateCacheService});				
-		});
-     });
+// 			vm = $controller('MrsEntryController', {'TabStateCacheService': tabStateCacheService});				
+// 		});
+//      });
 
-	it("should go to state 'neurosurgery-referral-criteria' on 'Next' button click", function() {
+// 	it("should go to state 'neurosurgery-referral-criteria' on 'Next' button click", function() {
 			
-		spyOn(tabStateCacheService, 'setStateTabC');
-		spyOn(state, 'go');
+// 		spyOn(tabStateCacheService, 'setStateTabC');
+// 		spyOn(state, 'go');
 
-		vm.onNext(); // call the click handler
+// 		vm.onNext(); // call the click handler
 
-	    expect(tabStateCacheService.setStateTabC).toHaveBeenCalledWith('tabs.neurosurgery-referral-criteria');		
-	    expect(state.go).toHaveBeenCalledWith('tabs.neurosurgery-referral-criteria');		
-    });
-});
+// 	    expect(tabStateCacheService.setStateTabC).toHaveBeenCalledWith('tabs.neurosurgery-referral-criteria');		
+// 	    expect(state.go).toHaveBeenCalledWith('tabs.neurosurgery-referral-criteria');		
+//     });
+// });

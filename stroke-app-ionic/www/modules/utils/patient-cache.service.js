@@ -165,7 +165,7 @@ function PatientCacheService(LocalStorageService) {
         //
 
         // anticoagulant-identification
-        //DOAC, VITK, UNKNOWN, NONE
+        // Enum: DOAC, Vitamin K antagonist, Unknown, None
         getAnticoagulantType: getAnticoagulantType,
         setAnticoagulantType: setAnticoagulantType,
 
@@ -191,6 +191,7 @@ function PatientCacheService(LocalStorageService) {
         getInrValue: getInrValue,
         setInrValue: setInrValue,
 
+        // Enum: Point of care, Laboratory
         getInrType: getInrType,
         setInrType: setInrType,
 
@@ -224,6 +225,7 @@ function PatientCacheService(LocalStorageService) {
         setIsInfusionInstructionsViewed: setIsInfusionInstructionsViewed,
 
         // reversal-agent-details
+        // Enum: Idarucizumab, PCC, None
         getReversalAgentType: getReversalAgentType,
         setReversalAgentType: setReversalAgentType,
 
@@ -248,6 +250,7 @@ function PatientCacheService(LocalStorageService) {
         addBpMeasurementEntry: addBpMeasurementEntry,
 
         // critical-care-referral
+        // Enum: Stroke unit, ICU, HDU, Not yet decided, None of the above
         getDestination: getDestination,
         setDestination: setDestination,
 

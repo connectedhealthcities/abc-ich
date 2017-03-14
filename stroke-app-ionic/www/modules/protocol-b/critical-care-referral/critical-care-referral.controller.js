@@ -2,9 +2,9 @@
 
 angular.module('app.protocolB') .controller('CriticalCareReferralController', CriticalCareReferralController);
 
-CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'EnumService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
+CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
 
-function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, EnumService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
+function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
     var vm = this; // S4
 
@@ -12,7 +12,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-    vm.destination = EnumService.displayValueFromEnumValueForDestination(PatientCacheService.getDestination());
+    vm.destination = PatientCacheService.getDestination();
     vm.destinationOther = PatientCacheService.getOtherDestination();
 
     vm.onNext = onNext;
@@ -59,7 +59,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     }
 
     function saveData() {
-        PatientCacheService.setDestination(EnumService.enumValueFromDisplayValueForDestination(vm.destination));
+        PatientCacheService.setDestination(vm.destination);
         if (vm.destination === "None of the above") {
             PatientCacheService.setOtherDestination(vm.destinationOther);
         }

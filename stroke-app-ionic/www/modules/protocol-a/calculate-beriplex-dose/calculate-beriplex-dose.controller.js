@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('CalculateBeriplexDoseController', CalculateBeriplexDoseController);
 
-CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService', 'EnumService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
+CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
 
-function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService, EnumService, INR_THRESHOLD, GCS_THRESHOLD, DemoModeCacheService, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) {
+function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService, INR_THRESHOLD, GCS_THRESHOLD, DemoModeCacheService, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) {
  
     var vm = this; // S9
 
@@ -17,7 +17,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
 
     vm.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();
     vm.inrValue = PatientCacheService.getInrValue();
-    vm.inrType = EnumService.displayValueFromEnumValueForInrType(PatientCacheService.getInrType());
+    vm.inrType = PatientCacheService.getInrType();
     vm.inrDate = PatientCacheService.getInrDateTime();
     vm.inrTime = PatientCacheService.getInrDateTime();
     
@@ -149,10 +149,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
                     }
                 }
                 else {
-                    if (PatientCacheService.getAnticoagulantType() === "VITK") {
+                    if (PatientCacheService.getAnticoagulantType() === "Vitamin K antagonist") {
                         $state.go(STATE_CONFIRM_BERIPLEX_DOSE);
                     }
-                    else if (PatientCacheService.getAnticoagulantType() === "UNKNOWN") {
+                    else if (PatientCacheService.getAnticoagulantType() === "Unknown") {
                         if (PatientCacheService.getAdministerBeriplexWhenUnknown()) {
                             $state.go(STATE_CONFIRM_BERIPLEX_DOSE);
                         }
@@ -179,13 +179,13 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
                 var beriplexAdministeredDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.inrDate, vm.inrTime);
                 PatientCacheService.setInrDateTime(beriplexAdministeredDateTime);
                 PatientCacheService.setInrValue(vm.inrValue);
-                PatientCacheService.setInrType(EnumService.enumValueFromDisplayValueForInrType(vm.inrType));
+                PatientCacheService.setInrType(vm.inrType);
             }
             PatientCacheService.setEstimatedWeightInKg(vm.estimatedWeightInKg);
             PatientCacheService.setIsWeightGivenInKg(vm.weightGivenInKg);
             PatientCacheService.setCalculatedBeriplexDose(vm.calculatedDose);
 
-            if (PatientCacheService.getAnticoagulantType() === "UNKNOWN" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
+            if (PatientCacheService.getAnticoagulantType() === "Unknown" && PatientCacheService.getInrValue() > INR_THRESHOLD) {
                 PatientCacheService.setAdministerBeriplexWhenUnknown(vm.administerBeriplexWhenUnknown);
             }
         }

@@ -92,6 +92,9 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
             if (weight > 100) {
                 weight = 100;
             }
+            if (weight < 30) {
+                weight = 30;
+            }
             var inr = inrValue.toFixed(1);
             dose = 0;
 

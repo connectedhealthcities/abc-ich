@@ -69,11 +69,22 @@ function AppRun($ionicPlatform, $ionicPopup) {
       var popup = $ionicPopup.confirm(popupTemplate);
 
       popup.then(function(res) {
-            if (res) {
-                okHandler();
-            }
+          if (res) {
+              okHandler();
+          }
       });
     }
+
+    function showDisclaimerPopup() {
+        var popupTemplate = {
+            templateUrl: 'modules/app/disclaimer-popup.html',
+            title: 'Disclaimer',
+            cssClass: 'chi-wide-popup'
+        };
+        $ionicPopup.alert(popupTemplate);
+    }
+
+    showDisclaimerPopup();
 
   });
 }

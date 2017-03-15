@@ -20,6 +20,14 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
         {
       	    'src' : 'img/occluded-4th.jpg', 
       	    'title' : 'occluded 4th'
+    	}, 
+        {
+      	    'src' : 'img/externally-compressed-3rd.jpg', 
+      	    'title' : 'externally compressed 3rd'
+    	}, 
+        {
+      	    'src' : 'img/externally-compressed-4th.jpg', 
+      	    'title' : 'externally compressed 4th'
     	}
     ];
 

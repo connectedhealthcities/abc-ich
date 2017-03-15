@@ -7,6 +7,7 @@ angular.module('utils').constant('ICH_VOLUME_THRESHOLD', 30);
 
 angular.module('utils').constant('IS_DEMO_MODE_KEY', "is_demo_mode");
 
+angular.module('utils').constant('STATE_ABOUT', 'about');
 angular.module('utils').constant('STATE_EMAIL_CONFIGURATION', 'email-configuration');
 angular.module('utils').constant('STATE_USER_CREDENTIALS_CONFIGURATION', 'user-credentials-configuration');
 angular.module('utils').constant('STATE_GCS_ENTRY', 'gcs-entry');

@@ -25,29 +25,33 @@ function DateTimeService($filter) {
     }
 
     function getTimeSinceOnsetText(now, onsetDate, onsetTime) {
-        var onsetDateTime = getDateTimeFromDateAndTime(onsetDate, onsetTime);
-        var millis = now.getTime() - onsetDateTime.getTime();
 
-        var ONE_MINUTE_IN_MILLIS = 60 * 1000; 
-        var ONE_HOUR_IN_MILLIS = 60 * ONE_MINUTE_IN_MILLIS;
-        var ONE_DAY_IN_MILLIS = 24 * ONE_HOUR_IN_MILLIS;
+        var timeSinceOnsetText = "";
+        if (onsetDate !== null && onsetTime !== null) {
+            var onsetDateTime = getDateTimeFromDateAndTime(onsetDate, onsetTime);
+            var millis = now.getTime() - onsetDateTime.getTime();
 
-        var days = Math.floor(millis / ONE_DAY_IN_MILLIS);
-        millis = millis % ONE_DAY_IN_MILLIS;
-        var hours = Math.floor(millis / ONE_HOUR_IN_MILLIS);
-        millis = millis % ONE_HOUR_IN_MILLIS;
-        var minutes = Math.floor(millis / ONE_MINUTE_IN_MILLIS);
+            var ONE_MINUTE_IN_MILLIS = 60 * 1000; 
+            var ONE_HOUR_IN_MILLIS = 60 * ONE_MINUTE_IN_MILLIS;
+            var ONE_DAY_IN_MILLIS = 24 * ONE_HOUR_IN_MILLIS;
 
-        var timeSinceOnsetText = "Time since onset is ";
+            var days = Math.floor(millis / ONE_DAY_IN_MILLIS);
+            millis = millis % ONE_DAY_IN_MILLIS;
+            var hours = Math.floor(millis / ONE_HOUR_IN_MILLIS);
+            millis = millis % ONE_HOUR_IN_MILLIS;
+            var minutes = Math.floor(millis / ONE_MINUTE_IN_MILLIS);
 
-        if (days > 0) {
-            timeSinceOnsetText += days + " days, " + hours + " hours, " + minutes + " minutes.";
-        }
-        else if (hours > 0) {
-            timeSinceOnsetText += hours + " hours, " + minutes + " minutes.";
-        }
-        else {
-            timeSinceOnsetText += minutes + " minutes.";
+            var timeSinceOnsetText = "Time since onset is ";
+
+            if (days > 0) {
+                timeSinceOnsetText += days + " days, " + hours + " hours, " + minutes + " minutes.";
+            }
+            else if (hours > 0) {
+                timeSinceOnsetText += hours + " hours, " + minutes + " minutes.";
+            }
+            else {
+                timeSinceOnsetText += minutes + " minutes.";
+            }
         }
            
         return timeSinceOnsetText;

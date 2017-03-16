@@ -25,7 +25,7 @@ describe("PatientStartControllerService", function() {
 
 		it("should return true if patientId is not null", inject(function(PatientStartControllerService) {
 
-			var isShow = PatientStartControllerService.isShowResumePatient("");
+			var isShow = PatientStartControllerService.isShowResumePatient("not-null");
 			expect(isShow).toBe(true);
 		}));
 	});

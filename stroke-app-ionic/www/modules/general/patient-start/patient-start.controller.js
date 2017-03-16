@@ -26,13 +26,13 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
 
     // Click handlers
     function onNewPatient() {
-        if (vm.patientId) {
+        if (vm.patientId !== null) {
             showConfirmNewPatientPopup(startNewPatient);
         }
         else {
             startNewPatient();
         }
-    }
+   }
 
     function onResumePatient() {
         TabStateCacheService.goCurrentState();
@@ -68,7 +68,7 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
         };
         var popup = $ionicPopup.confirm(popupTemplate);
 
-        popup.then(function(res) {
+        popup.then(function(res) {            
             if (res) {
                 okHandler();
             }

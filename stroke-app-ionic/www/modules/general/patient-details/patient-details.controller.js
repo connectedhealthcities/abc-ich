@@ -2,50 +2,46 @@
 
 angular.module('app.general').controller('PatientDetailsController', PatientDetailsController);
 
-PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'DemoModeCacheService', 'STATE_PATIENT_DETAILS', 'STATE_GCS_ENTRY']; 
+PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientDetailsControllerService', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'DemoModeCacheService', 'STATE_PATIENT_DETAILS', 'STATE_GCS_ENTRY']; 
 
-function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, DemoModeCacheService, STATE_PATIENT_DETAILS, STATE_GCS_ENTRY) {
+function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsControllerService, PatientCacheService, TabStateCacheService, DateTimeService, DemoModeCacheService, STATE_PATIENT_DETAILS, STATE_GCS_ENTRY) {
  
-    var vm = this; // S2
+    var vm = this;
 
-    TabStateCacheService.setCurrentState(STATE_PATIENT_DETAILS);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    function init() {
+        // set current state
+        TabStateCacheService.setCurrentState(STATE_PATIENT_DETAILS);
 
-    vm.doorDate = null;
-    vm.doorTime = null;
-    vm.onsetDate = null;
-    vm.onsetTime = null;
-    vm.timeSinceOnsetText = "";
-    vm.isOnsetLastSeenWell = null;
-    vm.isOnsetBestEstimate = null;
+        // initialise vm parameters
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+        vm.doorDate = null;
+        vm.doorTime = null;
+        vm.onsetDate = null;
+        vm.onsetTime = null;
+        vm.timeSinceOnsetText = "";
+        vm.isOnsetLastSeenWell = null;
+        vm.isOnsetBestEstimate = null;
 
-    vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.onNext = onNext;
-    vm.onDoorNow = onDoorNow;
-    vm.onOnsetNow = onOnsetNow;
-    vm.onOnsetChanged = onOnsetChanged;
 
-    function isNextButtonEnabled() {
-        var isEnabled = false;
-        if( vm.doorDate != null &&
-            vm.doorTime != null && 
-            vm.onsetDate != null && 
-            vm.onsetTime != null && 
-            vm.isOnsetLastSeenWell != null 
-            && vm.isOnsetBestEstimate != null) {
-    		isEnabled = true;
-    	}
-        return isEnabled;
-    }
+        // Setup click handlers
+        vm.onNext = onNext;
+        vm.onDoorNow = onDoorNow;
+        vm.onOnsetNow = onOnsetNow;
+        vm.onOnsetChanged = onOnsetChanged;
 
+        // Setup enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
+
+        // Setup show/hide handlers
+        vm.isShowTimeSinceOnsetText = isShowTimeSinceOnsetText;
+   }
+
+    init();
+ 
+    // Click handlers
     function onNext() {
         showDataValidationPopup(handleDataValid);
-    }
-
-    function handleDataValid() {
-        saveData();
-        $state.go(STATE_GCS_ENTRY);
     }
 
     function onDoorNow() {
@@ -62,9 +58,31 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
     }
 
     function onOnsetChanged() {
-        if (vm.onsetDate && vm.onsetTime) {
-            vm.timeSinceOnsetText = DateTimeService.getTimeSinceOnsetText(new Date(), vm.onsetDate, vm.onsetTime);
-        }
+        vm.timeSinceOnsetText = DateTimeService.getTimeSinceOnsetText(new Date(), vm.onsetDate, vm.onsetTime);
+    }
+
+    // Enable/disable handlers
+    function isNextButtonEnabled() {
+
+        return PatientDetailsControllerService.isNextButtonEnabled(
+            vm.doorDate,
+            vm.doorTime,
+            vm.onsetDate,
+            vm.onsetTime,
+            vm.isOnsetLastSeenWell,
+            vm.isOnsetBestEstimate
+        );
+     }
+
+    // Show/hide handlers
+    function isShowTimeSinceOnsetText() {
+        return PatientDetailsControllerService.isShowTimeSinceOnsetText(vm.timeSinceOnsetText);
+    }
+
+    // Private functions
+    function handleDataValid() {
+        saveData();
+        $state.go(STATE_GCS_ENTRY);
     }
 
     function saveData() {
@@ -76,6 +94,7 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
         PatientCacheService.setIsBestEstimateOnset(vm.isOnsetBestEstimate);
     }
 
+    // Popups
     function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/general/patient-details/patient-details-data-validation-popup.html',
@@ -92,5 +111,4 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientCacheServi
             }
         });
     }
-
 }

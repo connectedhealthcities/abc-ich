@@ -24,6 +24,7 @@ module.exports = function(config) {
       '../www/modules/general/patient-start/patient-start-controller.service.js',
       '../www/modules/general/register-patient/register-patient.controller.js',
       '../www/modules/general/patient-details/patient-details.controller.js',
+      '../www/modules/general/patient-details/patient-details-controller.service.js',
       '../www/modules/general/gcs-entry/gcs-entry.controller.js',
       '../www/modules/general/patient-end/patient-end.controller.js',
 

@@ -2,13 +2,13 @@
 
 angular.module('app.protocolB') .controller('CriticalCareReferralController', CriticalCareReferralController);
 
-CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
+CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
 
-function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
+function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
     var vm = this;
 
-    TabStateCacheService.setCurrentState(STATE_CRITICAL_CARE_REFERRAL);
+    StateCacheService.setCurrentState(STATE_CRITICAL_CARE_REFERRAL);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -35,7 +35,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
             $state.go(STATE_PATIENT_END);
         }
         else {
-            TabStateCacheService.goLatestStateTabC();
+            StateCacheService.goLatestStateTabC();
         }
 
     }

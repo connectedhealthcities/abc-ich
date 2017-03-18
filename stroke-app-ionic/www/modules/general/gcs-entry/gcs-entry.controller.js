@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('GcsEntryController', GcsEntryController);
 
-GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_GCS_ENTRY', 'STATE_ANTICOAGULANT_IDENTIFICATION'];
+GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_GCS_ENTRY', 'STATE_ANTICOAGULANT_IDENTIFICATION'];
 
-function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_GCS_ENTRY, STATE_ANTICOAGULANT_IDENTIFICATION) {
+function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_GCS_ENTRY, STATE_ANTICOAGULANT_IDENTIFICATION) {
 
     var vm = this; // S3
 
-    TabStateCacheService.setCurrentState(STATE_GCS_ENTRY);
+    StateCacheService.setCurrentState(STATE_GCS_ENTRY);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 

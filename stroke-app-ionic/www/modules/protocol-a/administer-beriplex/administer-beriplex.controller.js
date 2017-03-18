@@ -2,13 +2,13 @@
 
 angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
 
-AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_ADMINISTER_BERIPLEX'];
+AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_ADMINISTER_BERIPLEX', 'STATE_BP_MANAGEMENT'];
 
-function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_ADMINISTER_BERIPLEX) {
+function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_ADMINISTER_BERIPLEX, STATE_BP_MANAGEMENT) {
 
     var vm = this;
 
-    TabStateCacheService.setCurrentState(STATE_ADMINISTER_BERIPLEX);
+    StateCacheService.setCurrentState(STATE_ADMINISTER_BERIPLEX);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -49,10 +49,10 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
         saveData();
 
         if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-            TabStateCacheService.goLatestStateTabC();
+            StateCacheService.goLatestStateTabC();
          }
         else {
-            TabStateCacheService.goLatestStateTabB();
+            $state.go(STATE_BP_MANAGEMENT);
         }
     }
 
@@ -124,13 +124,13 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     }
 
     function onBeriplexNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.beriplexDate = now;
         vm.beriplexTime = now;
     }
 
     function onVitkNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.vitkDate = now;
         vm.vitkTime = now;
     }

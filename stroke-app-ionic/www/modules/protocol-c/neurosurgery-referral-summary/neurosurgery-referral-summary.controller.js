@@ -2,13 +2,13 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralSummaryController', NeurosurgeryReferralSummaryController);
 
-NeurosurgeryReferralSummaryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService','DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY', 'STATE_PATIENT_END'];
+NeurosurgeryReferralSummaryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService','DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY', 'STATE_PATIENT_END', 'STATE_BP_MANAGEMENT'];
 
-function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END) {
+function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END, STATE_BP_MANAGEMENT) {
 
     var vm = this; // S13
 
-    TabStateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_SUMMARY);
+    StateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_SUMMARY);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -81,7 +81,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
         saveData();
 
          if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-            TabStateCacheService.goLatestStateTabB();
+            $state.go(STATE_BP_MANAGEMENT);
         }
         else {
             $state.go(STATE_PATIENT_END);
@@ -99,7 +99,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Pati
     }
 
     function onReferralNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.referralDate = now;
         vm.referralTime = now;
     }

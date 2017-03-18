@@ -2,9 +2,9 @@
 
 angular.module('app').controller('TabsController', TabsController);
 
-TabsController.$inject = ['$state', 'TabStateCacheService'];
+TabsController.$inject = ['$state', 'StateCacheService', 'STATE_BP_MANAGEMENT'];
 
-function TabsController($state, TabStateCacheService) {
+function TabsController($state, StateCacheService, STATE_BP_MANAGEMENT) {
 
     var vm = this;
 
@@ -13,14 +13,14 @@ function TabsController($state, TabStateCacheService) {
     vm.cTabClicked = cTabClicked;
 
     function aTabClicked() {
-        TabStateCacheService.goLatestStateTabA()
+        StateCacheService.goLatestStateTabA()
     }
 
     function bTabClicked() {
-        TabStateCacheService.goLatestStateTabB()
+        $state.go(STATE_BP_MANAGEMENT);
     }
 
     function cTabClicked() {
-        TabStateCacheService.goLatestStateTabC()
+        StateCacheService.goLatestStateTabC()
     }    
 }

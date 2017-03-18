@@ -7,7 +7,6 @@ DateTimeService.$inject = ['$filter'];
 function DateTimeService($filter) {
 
     var service = {
-        getNowWithZeroSeconds: getNowWithZeroSeconds,
         getTimeSinceOnsetText: getTimeSinceOnsetText,
         getDateTimeFromDateAndTime: getDateTimeFromDateAndTime,
         getAgeFromBirthDate: getAgeFromBirthDate,
@@ -16,13 +15,6 @@ function DateTimeService($filter) {
     };
 
     return service;
-
-    function getNowWithZeroSeconds() {
-        var now = new Date();
-        now.setSeconds(0);
-        now.setMilliseconds(0);
-        return now;
-    }
 
     function getTimeSinceOnsetText(now, onsetDate, onsetTime) {
 

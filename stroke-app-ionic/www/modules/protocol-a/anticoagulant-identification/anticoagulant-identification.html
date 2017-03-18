@@ -39,13 +39,13 @@
 
     <div class="row">
       <div class="col-33 col-offset-67 text-right">
-        <button ng-click="vm.showDoacExamplesPopup()" class="button button-energized  button-block icon-left ion-information-circled">View DOACs</button>
+        <button ng-click="vm.onViewDoacs()" class="button button-energized  button-block icon-left ion-information-circled">View DOACs</button>
       </div>
     </div>
 
     <div class="chi-spacer"></div>
 
-    <div class="list card" ng-show="vm.anticoagulantType === 'DOAC'">
+    <div class="list card" ng-show="vm.isShowDoacList()">
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>DOAC
         </ion-item>
@@ -64,7 +64,7 @@
         </ion-radio>
     </div>
 
-    <div class="list card" ng-show="vm.anticoagulantType === 'Vitamin K antagonist'">
+    <div class="list card" ng-show="vm.isShowVitkList()">
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>Vitamin K antagonist
         </ion-item>

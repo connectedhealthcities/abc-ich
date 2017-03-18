@@ -2,13 +2,13 @@
 
 angular.module('app.protocolA').controller('CalculateBeriplexDoseController', CalculateBeriplexDoseController);
 
-CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'TabStateCacheService', 'CalculateBeriplexDoseControllerService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
+CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'DateTimeService', 'StateCacheService', 'CalculateBeriplexDoseControllerService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT'];
 
-function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, TabStateCacheService, CalculateBeriplexDoseControllerService, INR_THRESHOLD, GCS_THRESHOLD, DemoModeCacheService, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) {
+function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCacheService, DateTimeService, StateCacheService, CalculateBeriplexDoseControllerService, INR_THRESHOLD, GCS_THRESHOLD, DemoModeCacheService, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT) {
  
     var vm = this; // S9
 
-    TabStateCacheService.setCurrentState(STATE_CALCULATE_BERIPLEX_DOSE);
+    StateCacheService.setCurrentState(STATE_CALCULATE_BERIPLEX_DOSE);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -57,7 +57,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     }
 
     function onInrNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.inrDate = now;
         vm.inrTime = now;
     }
@@ -142,10 +142,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
         else {
                 if (PatientCacheService.getInrValue() <= INR_THRESHOLD) {
                     if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-                        TabStateCacheService.goLatestStateTabC();
+                        StateCacheService.goLatestStateTabC();
                     }
                     else {
-                        TabStateCacheService.goLatestStateTabB();
+                        $state.go(STATE_BP_MANAGEMENT);
                     }
                 }
                 else {
@@ -158,10 +158,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
                         }
                         else {
                             if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-                                TabStateCacheService.goLatestStateTabC();
+                                StateCacheService.goLatestStateTabC();
                             }
                             else {
-                                TabStateCacheService.goLatestStateTabB();
+                                $state.go(STATE_BP_MANAGEMENT);
                             }
                         }
                     }

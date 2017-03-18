@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$state', '$scope', '$ionicPopup', 'TabStateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService', 'EmailCacheService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
+PatientEndController.$inject = ['$state', '$scope', '$ionicPopup', 'StateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService', 'EmailCacheService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
 
-function PatientEndController($state, $scope, $ionicPopup, TabStateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService, EmailCacheService, STATE_PATIENT_END, STATE_PATIENT_START) {
+function PatientEndController($state, $scope, $ionicPopup, StateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService, EmailCacheService, STATE_PATIENT_END, STATE_PATIENT_START) {
  
     var vm = this; // S14
 
-    TabStateCacheService.setCurrentState(STATE_PATIENT_END);
+    StateCacheService.setCurrentState(STATE_PATIENT_END);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
     
@@ -39,7 +39,7 @@ function PatientEndController($state, $scope, $ionicPopup, TabStateCacheService,
 
     function reset() {
         PatientCacheService.clearAll();
-        TabStateCacheService.clearAll();
+        StateCacheService.clearAll();
         BpStateCacheService.clearAll();
         
         $state.go(STATE_PATIENT_START);

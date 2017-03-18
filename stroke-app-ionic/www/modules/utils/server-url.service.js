@@ -20,7 +20,7 @@ function ServerUrlService() {
 //    var _urlPrefix = _scheme + "://" + _serverAddress;
 
     var service = {
-        getUrlPrefix: getUrlPrefix,
+        getUrlPrefix: getUrlPrefix
      };
 
     return service;

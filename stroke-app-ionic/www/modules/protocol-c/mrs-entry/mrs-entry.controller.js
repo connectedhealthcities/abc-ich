@@ -2,13 +2,13 @@
 
 angular.module('app.protocolC').controller('MrsEntryController', MrsEntryController);
 
-MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'STATE_MRS_ENTRY', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA'];
+MrsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_MRS_ENTRY', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA'];
 
-function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, STATE_MRS_ENTRY, STATE_NEUROSURGERY_REFERRAL_CRITERIA) {
+function MrsEntryController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DemoModeCacheService, STATE_MRS_ENTRY, STATE_NEUROSURGERY_REFERRAL_CRITERIA) {
  
     var vm = this; // S5
 
-    TabStateCacheService.setCurrentState(STATE_MRS_ENTRY);
+    StateCacheService.setCurrentState(STATE_MRS_ENTRY);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 

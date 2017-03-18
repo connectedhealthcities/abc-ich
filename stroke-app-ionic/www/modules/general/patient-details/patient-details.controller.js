@@ -2,15 +2,15 @@
 
 angular.module('app.general').controller('PatientDetailsController', PatientDetailsController);
 
-PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientDetailsControllerService', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'DemoModeCacheService', 'STATE_PATIENT_DETAILS', 'STATE_GCS_ENTRY']; 
+PatientDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientDetailsControllerService', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'DemoModeCacheService', 'STATE_PATIENT_DETAILS', 'STATE_GCS_ENTRY']; 
 
-function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsControllerService, PatientCacheService, TabStateCacheService, DateTimeService, DemoModeCacheService, STATE_PATIENT_DETAILS, STATE_GCS_ENTRY) {
+function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsControllerService, PatientCacheService, StateCacheService, DateTimeService, DemoModeCacheService, STATE_PATIENT_DETAILS, STATE_GCS_ENTRY) {
  
     var vm = this;
 
     function init() {
         // set current state
-        TabStateCacheService.setCurrentState(STATE_PATIENT_DETAILS);
+        StateCacheService.setCurrentState(STATE_PATIENT_DETAILS);
 
         // initialise vm parameters
         vm.patientId = PatientCacheService.getUniqueId();
@@ -28,6 +28,8 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsCon
         vm.onNext = onNext;
         vm.onDoorNow = onDoorNow;
         vm.onOnsetNow = onOnsetNow;
+
+        // Setup change handlers
         vm.onOnsetChanged = onOnsetChanged;
 
         // Setup enable/disable handlers
@@ -45,18 +47,19 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsCon
     }
 
     function onDoorNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.doorDate = now;
         vm.doorTime = now;
     }
 
     function onOnsetNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.onsetDate = now;
         vm.onsetTime = now;
         onOnsetChanged();
     }
 
+    // Change handlers
     function onOnsetChanged() {
         vm.timeSinceOnsetText = DateTimeService.getTimeSinceOnsetText(new Date(), vm.onsetDate, vm.onsetTime);
     }

@@ -2,13 +2,13 @@
 
 angular.module('app.protocolB').controller('BpManagementController', BpManagementController);
 
-BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_BP_MANAGEMENT', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
+BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_BP_MANAGEMENT', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
 
-function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
+function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
     var vm = this; // S10
 
-    TabStateCacheService.setCurrentState(STATE_BP_MANAGEMENT);
+    StateCacheService.setCurrentState(STATE_BP_MANAGEMENT);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -61,7 +61,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
                 $state.go(STATE_PATIENT_END);
             }
             else {
-                TabStateCacheService.goLatestStateTabC();
+                StateCacheService.goLatestStateTabC();
             }
         }
         else {
@@ -118,7 +118,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function onEntryNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.entryDate = now;
         vm.entryTime = now;       
     }

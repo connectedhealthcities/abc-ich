@@ -2,13 +2,13 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS) {
+function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS) {
 
     var vm = this; // S1
 
-    TabStateCacheService.setCurrentState(STATE_REGISTER_PATIENT);
+    StateCacheService.setCurrentState(STATE_REGISTER_PATIENT);
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
     vm.hospitals = [];
@@ -165,7 +165,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function onScanNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.scanDate = now;
         vm.scanTime = now;
     }

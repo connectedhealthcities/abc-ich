@@ -2,57 +2,73 @@
 
 angular.module('app.protocolA').controller('AnticoagulantIdentificationController', AnticoagulantIdentificationController);
 
-AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS'];
+AnticoagulantIdentificationController.$inject = ['$scope', '$state', '$ionicPopup', 'AnticoagulantIdentificationControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT'];
 
-function AnticoagulantIdentificationController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS) { 
+function AnticoagulantIdentificationController($scope, $state, $ionicPopup, AnticoagulantIdentificationControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT) { 
  
-    var vm = this; // S6
+    var vm = this;
 
-    TabStateCacheService.setCurrentState(STATE_ANTICOAGULANT_IDENTIFICATION);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_ANTICOAGULANT_IDENTIFICATION);
 
-    vm.sliderImages = [
-        {
-      	    'src' : 'img/apixaban.png', 
-      	    'title' : 'Apixaban'
-    	}, 
-        {
-      	    'src' : 'img/dabigatran.png', 
-      	    'title' : 'Dabigatran'
-    	}, 
-        {
-      	    'src' : 'img/edoxaban.png', 
-      	    'title' : 'Edoxaban'
-    	}, 
-        {
-      	    'src' : 'img/rivaroxaban.png', 
-      	    'title' : 'Rivaroxaban'
-    	}
-    ];
+        // initialise vm parameters
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+        vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
+        vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
-    vm.sliderOptions = {
-        loop: false,
-        effect: 'fade',
-        speed: 500
+        // Setup click handlers
+        vm.onNext = onNext;
+        vm.onViewDoacs = onViewDoacs;
+
+        // Setup change handlers
+        vm.anticoagulantTypeChanged = anticoagulantTypeChanged;
+
+        // Setup enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
+
+        // Setup show/hide handlers
+        vm.isShowVitkList = isShowVitkList;
+        vm.isShowDoacList = isShowDoacList;
+
+        // Setup slider
+        var sliderConfig = AnticoagulantIdentificationControllerService.getSliderConfig();
+        vm.sliderImages = sliderConfig.images;
+        vm.sliderOptions = sliderConfig.options;
     }
 
-    vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
-    vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
+    init();
 
-    vm.onNext = onNext;
-    vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.anticoagulantTypeChanged = anticoagulantTypeChanged;
-    vm.showDoacExamplesPopup = showDoacExamplesPopup;
-
+    // Click handlers
     function onNext() {
         showDataValidationPopup(handleDataValid);
     }
 
+    function onViewDoacs() {
+        showDoacExamplesPopup();
+    }
+
+    // Change handlers
     function anticoagulantTypeChanged() {
         vm.anticoagulantName = null;
     }
 
+    // Enable/disable handlers
+    function isNextButtonEnabled() {
+        return AnticoagulantIdentificationControllerService.isNextButtonEnabled(vm.anticoagulantType, vm.anticoagulantName);
+    }
+
+    // Show/hide handlers
+    function isShowVitkList() {
+        return AnticoagulantIdentificationControllerService.isShowVitkList(vm.anticoagulantType);
+    }
+
+    function isShowDoacList() {
+        return AnticoagulantIdentificationControllerService.isShowDoacList(vm.anticoagulantType);
+    }
+
+    // Private functions
     function handleDataValid() {
         saveData();
 
@@ -70,31 +86,9 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
         }
      }
 
-    function onNext() {
-       showDataValidationPopup(handleDataValid);
-    }
-
-    function isNextButtonEnabled() {
-        var isEnabled = false;
-
-        if (vm.anticoagulantType != null) {
-            if ( (vm.anticoagulantType === "Unknown") ||
-                 (vm.anticoagulantType === "None") ||
-                 (vm.anticoagulantType == "Vitamin K antagonist" && vm.anticoagulantName != null) ||
-                 (vm.anticoagulantType == "DOAC" && vm.anticoagulantName != null) ) {
-                isEnabled = true;
-            }
-        }
-
-        return isEnabled;
-    }
-
     function saveData() {
         PatientCacheService.setAnticoagulantType(vm.anticoagulantType);
-
-        if (vm.anticoagulantType === "Vitamin K antagonist" || vm.anticoagulantType === "DOAC") {
-            PatientCacheService.setAnticoagulantName(vm.anticoagulantName);
-        }
+        PatientCacheService.setAnticoagulantName(vm.anticoagulantName);
     }
 
     function goNextStateWhenVitkOrUnknown() {
@@ -107,13 +101,14 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Pati
 
     function goNextStateWhenNone() {
         if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-            TabStateCacheService.goLatestStateTabC();
+            StateCacheService.goLatestStateTabC();
         }
         else {
-            TabStateCacheService.goLatestStateTabB();
+            $state.go(STATE_BP_MANAGEMENT);
         }
     }
 
+    // Popups
     function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/anticoagulant-identification/anticoagulant-identification-data-validation-popup.html',

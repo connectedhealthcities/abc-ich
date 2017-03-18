@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientStartControllerService', 'PatientCacheService', 'TabStateCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT'];
+PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientStartControllerService', 'PatientCacheService', 'StateCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT'];
 
-function PatientStartController($scope, $state, $ionicPopup, PatientStartControllerService, PatientCacheService, TabStateCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT) {
+function PatientStartController($scope, $state, $ionicPopup, PatientStartControllerService, PatientCacheService, StateCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT) {
  
     var vm = this;
 
@@ -35,7 +35,7 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
    }
 
     function onResumePatient() {
-        TabStateCacheService.goCurrentState();
+        StateCacheService.goCurrentState();
     }
 
     // Show/hide handlers
@@ -46,7 +46,7 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
     // Private functions
     function startNewPatient() {
         PatientCacheService.clearAll();
-        TabStateCacheService.clearAll();
+        StateCacheService.clearAll();
         BpStateCacheService.clearAll();
  
         saveData();

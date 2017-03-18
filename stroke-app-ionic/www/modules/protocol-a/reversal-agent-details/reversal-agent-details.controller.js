@@ -2,13 +2,13 @@
 
 angular.module('app.protocolA').controller('ReversalAgentDetailsController', ReversalAgentDetailsController);
 
-ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'TabStateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_REVERSAL_AGENT_DETAILS'];
+ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT'];
 
-function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_REVERSAL_AGENT_DETAILS) {
+function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT) {
 
     var vm = this;
 
-    TabStateCacheService.setCurrentState(STATE_REVERSAL_AGENT_DETAILS);
+    StateCacheService.setCurrentState(STATE_REVERSAL_AGENT_DETAILS);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
@@ -33,10 +33,10 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
         saveData();
 
         if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-            TabStateCacheService.goLatestStateTabC();
+            StateCacheService.goLatestStateTabC();
         }
         else {
-            TabStateCacheService.goLatestStateTabB();
+            $state.go(STATE_BP_MANAGEMENT);
         }
      }
 
@@ -87,7 +87,7 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
      }
 
      function onReversalNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
+        var now = new Date();
         vm.reversalDate = now;
         vm.reversalTime = now;
      }

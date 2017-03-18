@@ -27,7 +27,7 @@ describe('PatientStartController - Initialisation', function() {
 
     var vm;
 	var STATE_REGISTER_PATIENT_MOCK;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, tabStateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
+    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
 
     beforeEach(function() {
 
@@ -40,7 +40,7 @@ describe('PatientStartController - Initialisation', function() {
 			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['clearAll', 'goCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
 			
@@ -50,7 +50,7 @@ describe('PatientStartController - Initialisation', function() {
 				'$ionicPopup': ionicPopupMock,
 				'PatientStartControllerService': patientStartControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'BpStateCacheService': bpStateCacheServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
@@ -73,7 +73,7 @@ describe("PatientStartController - No patient in progress - User selects 'New pa
 
     var vm;
 	var STATE_REGISTER_PATIENT_MOCK;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, tabStateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
+    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
 
     beforeEach(function() {
 
@@ -86,7 +86,7 @@ describe("PatientStartController - No patient in progress - User selects 'New pa
 			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['clearAll', 'goCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
 			
@@ -98,7 +98,7 @@ describe("PatientStartController - No patient in progress - User selects 'New pa
 				'$ionicPopup': ionicPopupMock,
 				'PatientStartControllerService': patientStartControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'BpStateCacheService': bpStateCacheServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
@@ -111,7 +111,7 @@ describe("PatientStartController - No patient in progress - User selects 'New pa
 		vm.onNewPatient(); // call the click handler
 
 		expect(patientCacheServiceMock.clearAll).toHaveBeenCalled();		
-		expect(tabStateCacheServiceMock.clearAll).toHaveBeenCalled();		
+		expect(stateCacheServiceMock.clearAll).toHaveBeenCalled();		
 		expect(bpStateCacheServiceMock.clearAll).toHaveBeenCalled();		
 	});
 
@@ -137,7 +137,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
     var vm;
 	var STATE_REGISTER_PATIENT_MOCK;
 	var $q;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, tabStateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
+    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
 
     beforeEach(function() {
 
@@ -151,7 +151,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['clearAll', 'goCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
 			
@@ -169,7 +169,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 				'$ionicPopup': ionicPopupMock,
 				'PatientStartControllerService': patientStartControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'BpStateCacheService': bpStateCacheServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
@@ -184,7 +184,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
 
 		expect(patientCacheServiceMock.clearAll).toHaveBeenCalled();		
-		expect(tabStateCacheServiceMock.clearAll).toHaveBeenCalled();		
+		expect(stateCacheServiceMock.clearAll).toHaveBeenCalled();		
 		expect(bpStateCacheServiceMock.clearAll).toHaveBeenCalled();		
 	});
 
@@ -213,7 +213,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
     var vm;
 	var STATE_REGISTER_PATIENT_MOCK;
 	var $q;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, tabStateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
+    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
 
     beforeEach(function() {
 
@@ -227,7 +227,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['clearAll', 'goCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
 			
@@ -245,7 +245,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 				'$ionicPopup': ionicPopupMock,
 				'PatientStartControllerService': patientStartControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'BpStateCacheService': bpStateCacheServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
@@ -260,7 +260,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
 
 		expect(patientCacheServiceMock.clearAll).not.toHaveBeenCalled();		
-		expect(tabStateCacheServiceMock.clearAll).not.toHaveBeenCalled();		
+		expect(stateCacheServiceMock.clearAll).not.toHaveBeenCalled();		
 		expect(bpStateCacheServiceMock.clearAll).not.toHaveBeenCalled();		
 	});
 
@@ -289,7 +289,7 @@ describe("PatientStartController - User selects 'Resume patient' button", functi
     var vm;
 	var STATE_REGISTER_PATIENT_MOCK;
 	var $q;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, tabStateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
+    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
 
     beforeEach(function() {
 
@@ -303,7 +303,7 @@ describe("PatientStartController - User selects 'Resume patient' button", functi
 			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['clearAll', 'goCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
 			
@@ -313,7 +313,7 @@ describe("PatientStartController - User selects 'Resume patient' button", functi
 				'$ionicPopup': ionicPopupMock,
 				'PatientStartControllerService': patientStartControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'BpStateCacheService': bpStateCacheServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
@@ -327,7 +327,7 @@ describe("PatientStartController - User selects 'Resume patient' button", functi
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
 
-		expect(tabStateCacheServiceMock.goCurrentState).toHaveBeenCalled();		
+		expect(stateCacheServiceMock.goCurrentState).toHaveBeenCalled();		
 	});
 
 });

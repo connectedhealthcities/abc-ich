@@ -2,9 +2,9 @@
 
 angular.module('app').controller('MenuController', MenuController);
 
-MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'TabStateCacheService', 'DemoModeCacheService', 'STATE_ABOUT', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_EMAIL_CONFIGURATION', 'STATE_REGISTER_PATIENT'];
+MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_ABOUT', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_EMAIL_CONFIGURATION', 'STATE_REGISTER_PATIENT'];
 
-function MenuController($scope, $state, PatientCacheService, BpStateCacheService, TabStateCacheService, DemoModeCacheService, STATE_ABOUT, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_EMAIL_CONFIGURATION, STATE_REGISTER_PATIENT) {
+function MenuController($scope, $state, PatientCacheService, BpStateCacheService, StateCacheService, DemoModeCacheService, STATE_ABOUT, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_EMAIL_CONFIGURATION, STATE_REGISTER_PATIENT) {
 
     $scope.onUserCredentialsConfiguration = onUserCredentialsConfiguration;
     $scope.onEmailConfiguration = onEmailConfiguration;
@@ -30,7 +30,7 @@ function MenuController($scope, $state, PatientCacheService, BpStateCacheService
         DemoModeCacheService.setIsDemoMode(true);
         
         BpStateCacheService.clearAll();
-        TabStateCacheService.clearAll();
+        StateCacheService.clearAll();
         PatientCacheService.clearAll();
 
 

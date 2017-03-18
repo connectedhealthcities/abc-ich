@@ -1,25 +1,24 @@
 'use strict';
 
-angular.module('utils').service('TabStateCacheService', TabStateCacheService);
+angular.module('utils').service('StateCacheService', StateCacheService);
 
-TabStateCacheService.$inject = ['$state', 'LocalStorageService', 'PatientCacheService', 'STATE_PATIENT_START', 'STATE_ADMINISTER_BERIPLEX', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT', 'STATE_MRS_ENTRY', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY'];
+StateCacheService.$inject = ['$state', 'LocalStorageService', 'PatientCacheService', 'STATE_PATIENT_START', 'STATE_ADMINISTER_BERIPLEX', 'STATE_ANTICOAGULANT_IDENTIFICATION', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_MRS_ENTRY', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY'];
 
-function TabStateCacheService($state, LocalStorageService, PatientCacheService, STATE_PATIENT_START, STATE_ADMINISTER_BERIPLEX, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT, STATE_MRS_ENTRY, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY) {
+function StateCacheService($state, LocalStorageService, PatientCacheService, STATE_PATIENT_START, STATE_ADMINISTER_BERIPLEX, STATE_ANTICOAGULANT_IDENTIFICATION, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_MRS_ENTRY, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY) {
 
     var DEFAULT_STATE_TAB_A = STATE_ANTICOAGULANT_IDENTIFICATION;
     var DEFAULT_STATE_TAB_C = STATE_MRS_ENTRY;
     var DEFAULT_CURRENT_STATE = STATE_PATIENT_START;
     
-    var state_tab_a_key = "tabs-state-tab-a";
-    var state_tab_c_key = "tabs-state-tab-c";
-    var current_state_key = "current-state";
+    var state_tab_a_key = "state-tab-a";
+    var state_tab_c_key = "state-tab-c";
+    var current_state_key = "state-current";
 
     var service = {
 
         setCurrentState: setCurrentState,
 
         goLatestStateTabA: goLatestStateTabA,
-        goLatestStateTabB: goLatestStateTabB,
         goLatestStateTabC: goLatestStateTabC,
 
         goCurrentState: goCurrentState,
@@ -47,10 +46,6 @@ function TabStateCacheService($state, LocalStorageService, PatientCacheService, 
 
     function goLatestStateTabA() {
         $state.go(getStateTabA());
-    }
-
-    function goLatestStateTabB() {
-        $state.go(STATE_BP_MANAGEMENT);
     }
 
     function goLatestStateTabC() {

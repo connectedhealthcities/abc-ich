@@ -55,7 +55,7 @@ describe("PatientDetailsControllerService", function() {
 
 		it("should return true if none are null", inject(function(PatientDetailsControllerService) {
 
-			var isShow = PatientDetailsControllerService.isShowTimeSinceOnsetText("not-null", "not-null", "not-null", "not-null", "not-null", "not-null");
+			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", "not-null");
 			expect(isShow).toBe(true);
 		}));
 	});

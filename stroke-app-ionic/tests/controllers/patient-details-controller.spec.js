@@ -19,7 +19,7 @@ describe('PatientDetailsController - Initialisation', function() {
 	var $q;
 	var STATE_PATIENT_DETAILS_MOCK, STATE_GCS_ENTRY_MOCK;
     var scopeMock, stateMock, ionicPopupMock, patientDetailsControllerServiceMock; 
-    var patientCacheServiceMock, tabStateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
+    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
 
     beforeEach(function() {
 
@@ -34,7 +34,7 @@ describe('PatientDetailsController - Initialisation', function() {
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientDetailsControllerServiceMock = jasmine.createSpyObj('PatientDetailsControllerService spy', ['isNextButtonEnabled', 'isShowTimeSinceOnsetText']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'setDoorDateTime', 'setOnsetDateTime', 'setIsLastSeenWellOnset', 'setIsBestEstimateOnset']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['setCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 			
@@ -44,7 +44,7 @@ describe('PatientDetailsController - Initialisation', function() {
 				'$ionicPopup': ionicPopupMock,
 				'PatientDetailsControllerService': patientDetailsControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'DateTimeService': dateTimeServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_PATIENT_DETAILS': STATE_PATIENT_DETAILS_MOCK,
@@ -55,7 +55,7 @@ describe('PatientDetailsController - Initialisation', function() {
 
 	it("initialise the view model correctly", function() {
 				
-		expect(tabStateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_PATIENT_DETAILS_MOCK);
+		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_PATIENT_DETAILS_MOCK);
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
 		expect(demoModeCacheServiceMock.getIsDemoMode).toHaveBeenCalled();		
 		expect(vm.doorDate).toBe(null);
@@ -64,7 +64,7 @@ describe('PatientDetailsController - Initialisation', function() {
 		expect(vm.onsetTime).toBe(null);
 		expect(vm.isOnsetLastSeenWell).toBe(null);
 		expect(vm.isOnsetBestEstimate).toBe(null);
-		expect(vm.timeSinceOnsetText).toBe("");
+		expect(vm.timeSinceOnsetText).toBe(null);
          
 		expect(vm.onNext).toBeDefined();
 		expect(vm.onDoorNow).toBeDefined();
@@ -81,7 +81,7 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 	var $q;
 	var STATE_PATIENT_DETAILS_MOCK, STATE_GCS_ENTRY_MOCK;
     var scopeMock, stateMock, ionicPopupMock, patientDetailsControllerServiceMock; 
-    var patientCacheServiceMock, tabStateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
+    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
 
     beforeEach(function() {
 
@@ -96,7 +96,7 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientDetailsControllerServiceMock = jasmine.createSpyObj('PatientDetailsControllerService spy', ['isNextButtonEnabled', 'isShowTimeSinceOnsetText']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'setDoorDateTime', 'setOnsetDateTime', 'setIsLastSeenWellOnset', 'setIsBestEstimateOnset']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['setCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 			
@@ -112,7 +112,7 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 				'$ionicPopup': ionicPopupMock,
 				'PatientDetailsControllerService': patientDetailsControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'DateTimeService': dateTimeServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_PATIENT_DETAILS': STATE_PATIENT_DETAILS_MOCK,
@@ -125,7 +125,9 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 
 		vm.onNext(); // call the click handler
 
-		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
+		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Data validation");
+		scopeMock.$apply(); // Propagate promise resolution for data confirmation popup.				
 
 		expect(dateTimeServiceMock.getDateTimeFromDateAndTime.calls.count()).toBe(2);
 		expect(patientCacheServiceMock.setDoorDateTime).toHaveBeenCalled();		
@@ -138,7 +140,9 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 
 		vm.onNext(); // call the click handler
 
-		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
+		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Data validation");
+		scopeMock.$apply(); // Propagate promise resolution for data confirmation popup.				
 				
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_GCS_ENTRY_MOCK);		
 	});
@@ -150,7 +154,7 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 	var $q;
 	var STATE_PATIENT_DETAILS_MOCK, STATE_GCS_ENTRY_MOCK;
     var scopeMock, stateMock, ionicPopupMock, patientDetailsControllerServiceMock; 
-    var patientCacheServiceMock, tabStateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
+    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
 
     beforeEach(function() {
 
@@ -165,7 +169,7 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientDetailsControllerServiceMock = jasmine.createSpyObj('PatientDetailsControllerService spy', ['isNextButtonEnabled', 'isShowTimeSinceOnsetText']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'setDoorDateTime', 'setOnsetDateTime', 'setIsLastSeenWellOnset', 'setIsBestEstimateOnset']);
-			tabStateCacheServiceMock = jasmine.createSpyObj('TabStateCacheService spy', ['setCurrentState']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 			
@@ -181,7 +185,7 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 				'$ionicPopup': ionicPopupMock,
 				'PatientDetailsControllerService': patientDetailsControllerServiceMock,
 				'PatientCacheService': patientCacheServiceMock,
-				'TabStateCacheService': tabStateCacheServiceMock, 
+				'StateCacheService': stateCacheServiceMock, 
 				'DateTimeService': dateTimeServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_PATIENT_DETAILS': STATE_PATIENT_DETAILS_MOCK,
@@ -194,7 +198,9 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 
 		vm.onNext(); // call the click handler
 
-		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
+		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Data validation");
+		scopeMock.$apply(); // Propagate promise resolution for data confirmation popup.				
 
 		expect(dateTimeServiceMock.getDateTimeFromDateAndTime).not.toHaveBeenCalled();
 		expect(patientCacheServiceMock.setDoorDateTime).not.toHaveBeenCalled();		
@@ -207,7 +213,9 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 
 		vm.onNext(); // call the click handler
 
-		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
+		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Data validation");
+		scopeMock.$apply(); // Propagate promise resolution for data confirmation popup.				
 				
 		expect(stateMock.go).not.toHaveBeenCalled();		
 	});

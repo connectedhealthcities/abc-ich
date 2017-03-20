@@ -32,11 +32,12 @@ function HospitalHttpService($http, ServerUrlService) {
 	function getHospitals() {
             
         var urlPrefix = ServerUrlService.getUrlPrefix();
-        return $http.get(urlPrefix + '/api/external-hospitals')
-            .then(function(response) {
+        return $http.get(urlPrefix + '/api/external-hospitals').then(
+            function(response) {
                 // server returns all hospitals except the current hospital
                 return response.data;
-            }, function(response) {
+            },
+            function(response) {
                 // return full list of hospitals if comms fails
                 return _hospitals;
             });

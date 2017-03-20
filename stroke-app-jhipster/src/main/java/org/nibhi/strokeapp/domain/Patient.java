@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import org.nibhi.strokeapp.domain.enumeration.Destination;
 
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 
@@ -525,27 +524,11 @@ public class Patient implements Serializable {
     //
     // administer-beriplex ////////////////////////////////////////////////////////////////////////
 
-    @Column(name = "beriplex_start_date_time")
-    private ZonedDateTime beriplexStartDateTime;
-
     @Column(name = "vitamink_date_time")
     private ZonedDateTime vitaminkDateTime;
 
     @Column(name = "infusion_instructions_viewed")
     private Boolean infusionInstructionsViewed;
-
-    public ZonedDateTime getBeriplexStartDateTime() {
-        return beriplexStartDateTime;
-    }
-
-    public Patient beriplexStartDateTime(ZonedDateTime beriplexStartDateTime) {
-        this.beriplexStartDateTime = beriplexStartDateTime;
-        return this;
-    }
-
-    public void setBeriplexStartDateTime(ZonedDateTime beriplexStartDateTime) {
-        this.beriplexStartDateTime = beriplexStartDateTime;
-    }
 
     public ZonedDateTime getVitaminkDateTime() {
         return vitaminkDateTime;
@@ -575,14 +558,14 @@ public class Patient implements Serializable {
 
     
     //
-    // doac-reversal-agent-details ////////////////////////////////////////////////////////////////
+    // reversal-agent-details ////////////////////////////////////////////////////////////////
 
     @Enumerated(EnumType.STRING)
     @Column(name = "reversal_agent_type")
     private ReversalAgentType reversalAgentType;
 
-    @Column(name = "reversal_agent_date_time")
-    private ZonedDateTime reversalAgentDateTime;
+    @Column(name = "reversal_agent_start_date_time")
+    private ZonedDateTime reversalAgentStartDateTime;
 
     public ReversalAgentType getReversalAgentType() {
         return reversalAgentType;
@@ -597,17 +580,17 @@ public class Patient implements Serializable {
         this.reversalAgentType = reversalAgentType;
     }
 
-    public ZonedDateTime getReversalAgentDateTime() {
-        return reversalAgentDateTime;
+    public ZonedDateTime getReversalAgentStartDateTime() {
+        return reversalAgentStartDateTime;
     }
 
-    public Patient reversalAgentDateTime(ZonedDateTime reversalAgentDateTime) {
-        this.reversalAgentDateTime = reversalAgentDateTime;
+    public Patient reversalAgentStartDateTime(ZonedDateTime reversalAgentStartDateTime) {
+        this.reversalAgentStartDateTime = reversalAgentStartDateTime;
         return this;
     }
 
-    public void setReversalAgentDateTime(ZonedDateTime reversalAgentDateTime) {
-        this.reversalAgentDateTime = reversalAgentDateTime;
+    public void setReversalAgentStartDateTime(ZonedDateTime reversalAgentStartDateTime) {
+        this.reversalAgentStartDateTime = reversalAgentStartDateTime;
     }
 
     
@@ -694,38 +677,20 @@ public class Patient implements Serializable {
     
     //
     // critical-care-referral /////////////////////////////////////////////////////////////////////
+    @Column(name = "referred_to_critical_care")
+    private Boolean referredToCriticalCare;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "destination")
-    private Destination destination;
-
-    @Column(name = "other_destination")
-    private String otherDestination;
-
-    public Destination getDestination() {
-        return destination;
+    public Boolean isReferredToCriticalCare() {
+        return referredToCriticalCare;
     }
 
-    public Patient destination(Destination destination) {
-        this.destination = destination;
+    public Patient referredToCriticalCare(Boolean referredToCriticalCare) {
+        this.referredToCriticalCare = referredToCriticalCare;
         return this;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
-    }
-
-    public String getOtherDestination() {
-        return otherDestination;
-    }
-
-    public Patient otherDestination(String otherDestination) {
-        this.otherDestination = otherDestination;
-        return this;
-    }
-
-    public void setOtherDestination(String otherDestination) {
-        this.otherDestination = otherDestination;
+    public void setReferredToCriticalCare(Boolean referredToCriticalCare) {
+        this.referredToCriticalCare = referredToCriticalCare;
     }
 
     
@@ -942,16 +907,14 @@ public class Patient implements Serializable {
             ", calculatedBeriplexDose='" + calculatedBeriplexDose + "'" +
             ", administerBeriplexWhenAnticoagulantUnknown='" + administerBeriplexWhenAnticoagulantUnknown + "'" +
             ", actualBeriplexDose='" + actualBeriplexDose + "'" +
-            ", beriplexStartDateTime='" + beriplexStartDateTime + "'" +
             ", vitaminkDateTime='" + vitaminkDateTime + "'" +
             ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
             ", reversalAgentType='" + reversalAgentType + "'" +
-            ", reversalAgentDateTime='" + reversalAgentDateTime + "'" +
+            ", reversalAgentStartDateTime='" + reversalAgentStartDateTime + "'" +
             ", bpTargetReachedDateTime='" + bpTargetReachedDateTime + "'" +
             ", bpTreatmentThreshold='" + bpTreatmentThreshold + "'" +
-            ", bpTarget='" + bpTarget + "'" +
-            ", destination='" + destination + "'" +
-            ", otherDestination='" + otherDestination + "'" +
+            ", bpTarget='" + bpTarget + "'" +            
+            ", referredToCriticalCare='" + referredToCriticalCare + "'" +
             ", premorbidMrsScore='" + premorbidMrsScore + "'" +
             ", ichVolume='" + ichVolume + "'" +
             ", posteriorFossaIch='" + posteriorFossaIch + "'" +

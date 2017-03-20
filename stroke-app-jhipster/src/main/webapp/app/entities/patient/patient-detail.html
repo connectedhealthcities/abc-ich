@@ -124,10 +124,6 @@
 		        <dd>
 		            <span>{{vm.patient.actualBeriplexDose}}</span>
 		        </dd>
-		        <dt><span>Beriplex Start Date Time</span></dt>
-		        <dd>
-		            <span>{{vm.patient.beriplexStartDateTime | date:'dd MMM yyyy HH:mm'}}</span>
-		        </dd>
 		        <dt><span>Vitamink Date Time</span></dt>
 		        <dd>
 		            <span>{{vm.patient.vitaminkDateTime | date:'dd MMM yyyy HH:mm'}}</span>
@@ -140,9 +136,9 @@
         		<dd>
             		<span>{{vm.patient.reversalAgentType}}</span>
         		</dd>
-        		<dt><span>Reversal Agent Date Time</span></dt>
+        		<dt><span>Reversal Agent Start Date Time</span></dt>
         		<dd>
-            		<span>{{vm.patient.reversalAgentDateTime | date:'dd MMM yyyy HH:mm'}}</span>
+            		<span>{{vm.patient.reversalAgentStartDateTime | date:'dd MMM yyyy HH:mm'}}</span>
         		</dd>	
 		    </dl>
 		    </div>
@@ -163,13 +159,9 @@
 		        <dd>
 		            <span>{{vm.patient.bpTarget}}</span>
 		        </dd>		        		        
-		        <dt><span>Destination</span></dt>
+		        <dt><span>Referred to Critical Care</span></dt>
 		        <dd>
-		            <span>{{vm.patient.destination}}</span>
-		        </dd>
-		        <dt><span>Other Destination</span></dt>
-		        <dd>
-		            <span>{{vm.patient.otherDestination}}</span>
+		            <span>{{vm.patient.referredToCriticalCare}}</span>
 		        </dd>
 		    </dl>
 

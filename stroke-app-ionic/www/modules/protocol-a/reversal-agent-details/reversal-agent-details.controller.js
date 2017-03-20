@@ -6,7 +6,7 @@ ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'Pa
 
 function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_REVERSAL_AGENT_DETAILS) {
 
-    var vm = this; // S7
+    var vm = this;
 
     TabStateCacheService.setCurrentState(STATE_REVERSAL_AGENT_DETAILS);
     vm.patientId = PatientCacheService.getUniqueId();
@@ -15,8 +15,9 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
     vm.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
     vm.reversalAgent = PatientCacheService.getReversalAgentType();
     vm.reversalAgentAdministeredTimeKnown = PatientCacheService.getReversalAgentAdministeredTimeKnown();
-    vm.reversalDate = PatientCacheService.getReversalAgentDateTime();
-    vm.reversalTime = PatientCacheService.getReversalAgentDateTime();
+    var reversalDateTime = PatientCacheService.getReversalAgentStartDateTime();
+    vm.reversalDate = reversalDateTime;
+    vm.reversalTime = reversalDateTime;
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
@@ -41,9 +42,10 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
 
     function saveData() {
         PatientCacheService.setReversalAgentType(vm.reversalAgent);
-        if (vm.reversalAgent === "Idarucizumab" || vm.reversalAgent === "PCC") {
+        PatientCacheService.setReversalAgentAdministeredTimeKnown(vm.reversalAgentAdministeredTimeKnown);
+        if (vm.reversalAgentAdministeredTimeKnown) {
             var reversalDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.reversalDate, vm.reversalTime);
-            PatientCacheService.setReversalAgentDateTime(reversalDateTime);
+            PatientCacheService.setReversalAgentStartDateTime(reversalDateTime);
         }
      }
 

@@ -50,26 +50,19 @@ function PatientEndControllerService(PatientCacheService, EnumService) {
 
         patient.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
-        patient.beriplexStartDateTime = PatientCacheService.getBeriplexStartDateTime();
         patient.vitaminkDateTime = PatientCacheService.getVitaminkDateTime();
         patient.infusionInstructionsViewed = PatientCacheService.getIsInfusionInstructionsViewed();
 
-        patient.reversalAgentType = EnumService.getServerEnumForReversalAgentType(PatientCacheService.getReversalAgentType()); // Enum
-        var isBeriplexAdministered = PatientCacheService.getIsBeriplexAdministered();
-        if (isBeriplexAdministered != null) {
-            patient.reversalAgentType = isBeriplexAdministered ? "PCC" : "NONE";
-        } 
-       
-        patient.reversalAgentDateTime = PatientCacheService.getReversalAgentDateTime(); //cjd - is this a duplicate of beriplexStartDateTime?
+        patient.reversalAgentType = EnumService.getServerEnumForReversalAgentType(PatientCacheService.getReversalAgentType()); // Enum       
+        patient.reversalAgentStartDateTime = PatientCacheService.getReversalAgentStartDateTime(); 
 
         patient.bpTargetReachedDateTime = PatientCacheService.getBpTargetReachedDateTime();
         patient.bpTreatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
         patient.bpTarget = PatientCacheService.getBpTarget();
         patient.bpManagementEntries = PatientCacheService.getBpMeasurementEntries();
 
-        patient.destination = EnumService.getServerEnumForDestination(PatientCacheService.getDestination()); // Enum
-        patient.otherDestination = PatientCacheService.getOtherDestination();
-
+        patient.referredToCriticalCare = PatientCacheService.getIsReferredToCriticalCare()
+ 
         patient.premorbidMrsScore = PatientCacheService.getPremorbidMrsScore();    
 
         patient.ichVolume = PatientCacheService.getIchVolume();

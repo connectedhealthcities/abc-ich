@@ -26,7 +26,7 @@
                         data.doorDateTime = DateUtils.convertDateTimeFromServer(data.doorDateTime);
                         data.appStartDateTime = DateUtils.convertDateTimeFromServer(data.appStartDateTime);
                         data.bpTargetReachedDateTime = DateUtils.convertDateTimeFromServer(data.bpTargetReachedDateTime);
-                        data.beriplexStartDateTime = DateUtils.convertDateTimeFromServer(data.beriplexStartDateTime);
+                        data.reversalAgentStartDateTime = DateUtils.convertDateTimeFromServer(data.reversalAgentStartDateTime);
                         data.vitaminkDateTime = DateUtils.convertDateTimeFromServer(data.vitaminkDateTime);
                         data.scanDateTime = DateUtils.convertDateTimeFromServer(data.scanDateTime);
                     }

@@ -19,7 +19,7 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsCon
         vm.doorTime = null;
         vm.onsetDate = null;
         vm.onsetTime = null;
-        vm.timeSinceOnsetText = "";
+        vm.timeSinceOnsetText = null;
         vm.isOnsetLastSeenWell = null;
         vm.isOnsetBestEstimate = null;
 

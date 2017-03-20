@@ -38,7 +38,6 @@
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 //
-//import org.nibhi.strokeapp.domain.enumeration.Destination;
 //import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 //import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 //import org.nibhi.strokeapp.domain.enumeration.InrType;
@@ -91,10 +90,6 @@
 //    private static final Integer DEFAULT_ACTUAL_BERIPLEX_DOSE = 1;
 //    private static final Integer UPDATED_ACTUAL_BERIPLEX_DOSE = 2;
 //
-//    private static final ZonedDateTime DEFAULT_BERIPLEX_START_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-//    private static final ZonedDateTime UPDATED_BERIPLEX_START_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-//    private static final String DEFAULT_BERIPLEX_START_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_BERIPLEX_START_DATE_TIME);
-//
 //    private static final ZonedDateTime DEFAULT_VITAMINK_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
 //    private static final ZonedDateTime UPDATED_VITAMINK_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 //    private static final String DEFAULT_VITAMINK_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_VITAMINK_DATE_TIME);
@@ -105,18 +100,15 @@
 //    private static final Float DEFAULT_ICH_VOLUME = 1F;
 //    private static final Float UPDATED_ICH_VOLUME = 2F;
 //
-//    private static final Destination DEFAULT_DESTINATION = Destination.ICU;
-//    private static final Destination UPDATED_DESTINATION = Destination.HDU;
-//
-//    private static final String DEFAULT_OTHER_DESTINATION = "AAAAAAAAAA";
-//    private static final String UPDATED_OTHER_DESTINATION = "BBBBBBBBBB";
-//
 //    private static final ZonedDateTime DEFAULT_SCAN_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
 //    private static final ZonedDateTime UPDATED_SCAN_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 //    private static final String DEFAULT_SCAN_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_SCAN_DATE_TIME);
 //
 //    private static final Boolean DEFAULT_INFUSION_INSTRUCTIONS_VIEWED = false;
 //    private static final Boolean UPDATED_INFUSION_INSTRUCTIONS_VIEWED = true;
+//
+//    private static final Boolean DEFAULT_REFERRED_TO_CRITICAL_CARE = false;
+//    private static final Boolean UPDATED_REFERRED_TO_CRITICAL_CARE = true;
 //
 //    private static final Boolean DEFAULT_POSTERIOR_FOSSA_ICH = false;
 //    private static final Boolean UPDATED_POSTERIOR_FOSSA_ICH = true;
@@ -163,9 +155,9 @@
 //    private static final ReversalAgentType DEFAULT_REVERSAL_AGENT_TYPE = ReversalAgentType.NONE;
 //    private static final ReversalAgentType UPDATED_REVERSAL_AGENT_TYPE = ReversalAgentType.IDARUCIZUMAB;
 //
-//    private static final ZonedDateTime DEFAULT_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-//    private static final ZonedDateTime UPDATED_REVERSAL_AGENT_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-//    private static final String DEFAULT_REVERSAL_AGENT_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_REVERSAL_AGENT_DATE_TIME);
+//    private static final ZonedDateTime DEFAULT_REVERSAL_AGENT_START_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+//    private static final ZonedDateTime UPDATED_REVERSAL_AGENT_START_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+//    private static final String DEFAULT_REVERSAL_AGENT_START_DATE_TIME_STR = DateTimeFormatter.ISO_INSTANT.format(DEFAULT_REVERSAL_AGENT_START_DATE_TIME);
 //
 //    private static final Integer DEFAULT_BP_TREATMENT_THRESHOLD = 1;
 //    private static final Integer UPDATED_BP_TREATMENT_THRESHOLD = 2;
@@ -255,14 +247,12 @@
 //                .estimatedWeightInKg(DEFAULT_ESTIMATED_WEIGHT_IN_KG)
 //                .calculatedBeriplexDose(DEFAULT_CALCULATED_BERIPLEX_DOSE)
 //                .actualBeriplexDose(DEFAULT_ACTUAL_BERIPLEX_DOSE)
-//                .beriplexStartDateTime(DEFAULT_BERIPLEX_START_DATE_TIME)
 //                .vitaminkDateTime(DEFAULT_VITAMINK_DATE_TIME)
 //                .premorbidMrsScore(DEFAULT_PREMORBID_MRS_SCORE)
 //                .ichVolume(DEFAULT_ICH_VOLUME)
-//                .destination(DEFAULT_DESTINATION)
-//                .otherDestination(DEFAULT_OTHER_DESTINATION)
 //                .scanDateTime(DEFAULT_SCAN_DATE_TIME)
 //                .infusionInstructionsViewed(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED)
+//                .referredToCriticalCare(DEFAULT_REFERRED_TO_CRITICAL_CARE)
 //                .posteriorFossaIch(DEFAULT_POSTERIOR_FOSSA_ICH)
 //                .ventricleObstructed(DEFAULT_VENTRICLE_OBSTRUCTED)
 //                .forActiveTreatment(DEFAULT_FOR_ACTIVE_TREATMENT)
@@ -278,7 +268,7 @@
 //                .reversalAgentAdministeredTimeKnown(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN)
 //                .administerBeriplexWithoutInr(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR)
 //                .reversalAgentType(DEFAULT_REVERSAL_AGENT_TYPE)
-//                .reversalAgentDateTime(DEFAULT_REVERSAL_AGENT_DATE_TIME)
+//                .reversalAgentStartDateTime(DEFAULT_REVERSAL_AGENT_START_DATE_TIME)
 //                .bpTreatmentThreshold(DEFAULT_BP_TREATMENT_THRESHOLD)
 //                .bpTarget(DEFAULT_BP_TARGET)
 //                .referralToNeurosurgeryDateTime(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
@@ -326,14 +316,12 @@
 //        assertThat(testPatient.getEstimatedWeightInKg()).isEqualTo(DEFAULT_ESTIMATED_WEIGHT_IN_KG);
 //        assertThat(testPatient.getCalculatedBeriplexDose()).isEqualTo(DEFAULT_CALCULATED_BERIPLEX_DOSE);
 //        assertThat(testPatient.getActualBeriplexDose()).isEqualTo(DEFAULT_ACTUAL_BERIPLEX_DOSE);
-//        assertThat(testPatient.getBeriplexStartDateTime()).isEqualTo(DEFAULT_BERIPLEX_START_DATE_TIME);
 //        assertThat(testPatient.getVitaminkDateTime()).isEqualTo(DEFAULT_VITAMINK_DATE_TIME);
 //        assertThat(testPatient.getPremorbidMrsScore()).isEqualTo(DEFAULT_PREMORBID_MRS_SCORE);
 //        assertThat(testPatient.getIchVolume()).isEqualTo(DEFAULT_ICH_VOLUME);
-//        assertThat(testPatient.getDestination()).isEqualTo(DEFAULT_DESTINATION);
-//        assertThat(testPatient.getOtherDestination()).isEqualTo(DEFAULT_OTHER_DESTINATION);
 //        assertThat(testPatient.getScanDateTime()).isEqualTo(DEFAULT_SCAN_DATE_TIME);
 //        assertThat(testPatient.isInfusionInstructionsViewed()).isEqualTo(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED);
+//        assertThat(testPatient.isReferredToCriticalCare()).isEqualTo(DEFAULT_REFERRED_TO_CRITICAL_CARE);
 //        assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(DEFAULT_POSTERIOR_FOSSA_ICH);
 //        assertThat(testPatient.isVentricleObstructed()).isEqualTo(DEFAULT_VENTRICLE_OBSTRUCTED);
 //        assertThat(testPatient.isForActiveTreatment()).isEqualTo(DEFAULT_FOR_ACTIVE_TREATMENT);
@@ -349,7 +337,7 @@
 //        assertThat(testPatient.isReversalAgentAdministeredTimeKnown()).isEqualTo(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN);
 //        assertThat(testPatient.isAdministerBeriplexWithoutInr()).isEqualTo(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR);
 //        assertThat(testPatient.getReversalAgentType()).isEqualTo(DEFAULT_REVERSAL_AGENT_TYPE);
-//        assertThat(testPatient.getReversalAgentDateTime()).isEqualTo(DEFAULT_REVERSAL_AGENT_DATE_TIME);
+//        assertThat(testPatient.getReversalAgentStartDateTime()).isEqualTo(DEFAULT_REVERSAL_AGENT_START_DATE_TIME);
 //        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(DEFAULT_BP_TREATMENT_THRESHOLD);
 //        assertThat(testPatient.getBpTarget()).isEqualTo(DEFAULT_BP_TARGET);
 //        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
@@ -385,14 +373,12 @@
 //                .andExpect(jsonPath("$.[*].estimatedWeightInKg").value(hasItem(DEFAULT_ESTIMATED_WEIGHT_IN_KG.doubleValue())))
 //                .andExpect(jsonPath("$.[*].calculatedBeriplexDose").value(hasItem(DEFAULT_CALCULATED_BERIPLEX_DOSE)))
 //                .andExpect(jsonPath("$.[*].actualBeriplexDose").value(hasItem(DEFAULT_ACTUAL_BERIPLEX_DOSE)))
-//                .andExpect(jsonPath("$.[*].beriplexStartDateTime").value(hasItem(DEFAULT_BERIPLEX_START_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].vitaminkDateTime").value(hasItem(DEFAULT_VITAMINK_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].premorbidMrsScore").value(hasItem(DEFAULT_PREMORBID_MRS_SCORE)))
 //                .andExpect(jsonPath("$.[*].ichVolume").value(hasItem(DEFAULT_ICH_VOLUME.doubleValue())))
-//                .andExpect(jsonPath("$.[*].destination").value(hasItem(DEFAULT_DESTINATION.toString())))
-//                .andExpect(jsonPath("$.[*].otherDestination").value(hasItem(DEFAULT_OTHER_DESTINATION.toString())))
 //                .andExpect(jsonPath("$.[*].scanDateTime").value(hasItem(DEFAULT_SCAN_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].infusionInstructionsViewed").value(hasItem(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED.booleanValue())))
+//                .andExpect(jsonPath("$.[*].referredToCriticalCare").value(hasItem(DEFAULT_REFERRED_TO_CRITICAL_CARE.booleanValue())))
 //                .andExpect(jsonPath("$.[*].posteriorFossaIch").value(hasItem(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue())))
 //                .andExpect(jsonPath("$.[*].ventricleObstructed").value(hasItem(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue())))
 //                .andExpect(jsonPath("$.[*].forActiveTreatment").value(hasItem(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue())))
@@ -408,7 +394,7 @@
 //                .andExpect(jsonPath("$.[*].reversalAgentAdministeredTimeKnown").value(hasItem(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN.booleanValue())))
 //                .andExpect(jsonPath("$.[*].administerBeriplexWithoutInr").value(hasItem(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR.booleanValue())))
 //                .andExpect(jsonPath("$.[*].reversalAgentType").value(hasItem(DEFAULT_REVERSAL_AGENT_TYPE.toString())))
-//                .andExpect(jsonPath("$.[*].reversalAgentDateTime").value(hasItem(DEFAULT_REVERSAL_AGENT_DATE_TIME_STR)))
+//                .andExpect(jsonPath("$.[*].reversalAgentStartDateTime").value(hasItem(DEFAULT_REVERSAL_AGENT_START_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].bpTreatmentThreshold").value(hasItem(DEFAULT_BP_TREATMENT_THRESHOLD)))
 //                .andExpect(jsonPath("$.[*].bpTarget").value(hasItem(DEFAULT_BP_TARGET)))
 //                .andExpect(jsonPath("$.[*].referralToNeurosurgeryDateTime").value(hasItem(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR)))
@@ -444,14 +430,12 @@
 //            .andExpect(jsonPath("$.estimatedWeightInKg").value(DEFAULT_ESTIMATED_WEIGHT_IN_KG.doubleValue()))
 //            .andExpect(jsonPath("$.calculatedBeriplexDose").value(DEFAULT_CALCULATED_BERIPLEX_DOSE))
 //            .andExpect(jsonPath("$.actualBeriplexDose").value(DEFAULT_ACTUAL_BERIPLEX_DOSE))
-//            .andExpect(jsonPath("$.beriplexStartDateTime").value(DEFAULT_BERIPLEX_START_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.vitaminkDateTime").value(DEFAULT_VITAMINK_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.premorbidMrsScore").value(DEFAULT_PREMORBID_MRS_SCORE))
 //            .andExpect(jsonPath("$.ichVolume").value(DEFAULT_ICH_VOLUME.doubleValue()))
-//            .andExpect(jsonPath("$.destination").value(DEFAULT_DESTINATION.toString()))
-//            .andExpect(jsonPath("$.otherDestination").value(DEFAULT_OTHER_DESTINATION.toString()))
 //            .andExpect(jsonPath("$.scanDateTime").value(DEFAULT_SCAN_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.infusionInstructionsViewed").value(DEFAULT_INFUSION_INSTRUCTIONS_VIEWED.booleanValue()))
+//            .andExpect(jsonPath("$.referredToCriticalCare").value(DEFAULT_REFERRED_TO_CRITICAL_CARE.booleanValue()))
 //            .andExpect(jsonPath("$.posteriorFossaIch").value(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue()))
 //            .andExpect(jsonPath("$.ventricleObstructed").value(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue()))
 //            .andExpect(jsonPath("$.forActiveTreatment").value(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue()))
@@ -467,7 +451,7 @@
 //            .andExpect(jsonPath("$.reversalAgentAdministeredTimeKnown").value(DEFAULT_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN.booleanValue()))
 //            .andExpect(jsonPath("$.administerBeriplexWithoutInr").value(DEFAULT_ADMINISTER_BERIPLEX_WITHOUT_INR.booleanValue()))
 //            .andExpect(jsonPath("$.reversalAgentType").value(DEFAULT_REVERSAL_AGENT_TYPE.toString()))
-//            .andExpect(jsonPath("$.reversalAgentDateTime").value(DEFAULT_REVERSAL_AGENT_DATE_TIME_STR))
+//            .andExpect(jsonPath("$.reversalAgentStartDateTime").value(DEFAULT_REVERSAL_AGENT_START_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.bpTreatmentThreshold").value(DEFAULT_BP_TREATMENT_THRESHOLD))
 //            .andExpect(jsonPath("$.bpTarget").value(DEFAULT_BP_TARGET))
 //            .andExpect(jsonPath("$.referralToNeurosurgeryDateTime").value(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR))
@@ -510,14 +494,12 @@
 //                .estimatedWeightInKg(UPDATED_ESTIMATED_WEIGHT_IN_KG)
 //                .calculatedBeriplexDose(UPDATED_CALCULATED_BERIPLEX_DOSE)
 //                .actualBeriplexDose(UPDATED_ACTUAL_BERIPLEX_DOSE)
-//                .beriplexStartDateTime(UPDATED_BERIPLEX_START_DATE_TIME)
 //                .vitaminkDateTime(UPDATED_VITAMINK_DATE_TIME)
 //                .premorbidMrsScore(UPDATED_PREMORBID_MRS_SCORE)
 //                .ichVolume(UPDATED_ICH_VOLUME)
-//                .destination(UPDATED_DESTINATION)
-//                .otherDestination(UPDATED_OTHER_DESTINATION)
 //                .scanDateTime(UPDATED_SCAN_DATE_TIME)
 //                .infusionInstructionsViewed(UPDATED_INFUSION_INSTRUCTIONS_VIEWED)
+//                .referredToCriticalCare(UPDATED_REFERRED_TO_CRITICAL_CARE)
 //                .posteriorFossaIch(UPDATED_POSTERIOR_FOSSA_ICH)
 //                .ventricleObstructed(UPDATED_VENTRICLE_OBSTRUCTED)
 //                .forActiveTreatment(UPDATED_FOR_ACTIVE_TREATMENT)
@@ -533,7 +515,7 @@
 //                .reversalAgentAdministeredTimeKnown(UPDATED_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN)
 //                .administerBeriplexWithoutInr(UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR)
 //                .reversalAgentType(UPDATED_REVERSAL_AGENT_TYPE)
-//                .reversalAgentDateTime(UPDATED_REVERSAL_AGENT_DATE_TIME)
+//                .reversalAgentStartDateTime(UPDATED_REVERSAL_AGENT_START_DATE_TIME)
 //                .bpTreatmentThreshold(UPDATED_BP_TREATMENT_THRESHOLD)
 //                .bpTarget(UPDATED_BP_TARGET)
 //                .referralToNeurosurgeryDateTime(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
@@ -567,14 +549,12 @@
 //        assertThat(testPatient.getEstimatedWeightInKg()).isEqualTo(UPDATED_ESTIMATED_WEIGHT_IN_KG);
 //        assertThat(testPatient.getCalculatedBeriplexDose()).isEqualTo(UPDATED_CALCULATED_BERIPLEX_DOSE);
 //        assertThat(testPatient.getActualBeriplexDose()).isEqualTo(UPDATED_ACTUAL_BERIPLEX_DOSE);
-//        assertThat(testPatient.getBeriplexStartDateTime()).isEqualTo(UPDATED_BERIPLEX_START_DATE_TIME);
 //        assertThat(testPatient.getVitaminkDateTime()).isEqualTo(UPDATED_VITAMINK_DATE_TIME);
 //        assertThat(testPatient.getPremorbidMrsScore()).isEqualTo(UPDATED_PREMORBID_MRS_SCORE);
 //        assertThat(testPatient.getIchVolume()).isEqualTo(UPDATED_ICH_VOLUME);
-//        assertThat(testPatient.getDestination()).isEqualTo(UPDATED_DESTINATION);
-//        assertThat(testPatient.getOtherDestination()).isEqualTo(UPDATED_OTHER_DESTINATION);
 //        assertThat(testPatient.getScanDateTime()).isEqualTo(UPDATED_SCAN_DATE_TIME);
 //        assertThat(testPatient.isInfusionInstructionsViewed()).isEqualTo(UPDATED_INFUSION_INSTRUCTIONS_VIEWED);
+//        assertThat(testPatient.isReferredToCriticalCare()).isEqualTo(UPDATED_REFERRED_TO_CRITICAL_CARE);
 //        assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(UPDATED_POSTERIOR_FOSSA_ICH);
 //        assertThat(testPatient.isVentricleObstructed()).isEqualTo(UPDATED_VENTRICLE_OBSTRUCTED);
 //        assertThat(testPatient.isForActiveTreatment()).isEqualTo(UPDATED_FOR_ACTIVE_TREATMENT);
@@ -590,7 +570,7 @@
 //        assertThat(testPatient.isReversalAgentAdministeredTimeKnown()).isEqualTo(UPDATED_REVERSAL_AGENT_ADMINISTERED_TIME_KNOWN);
 //        assertThat(testPatient.isAdministerBeriplexWithoutInr()).isEqualTo(UPDATED_ADMINISTER_BERIPLEX_WITHOUT_INR);
 //        assertThat(testPatient.getReversalAgentType()).isEqualTo(UPDATED_REVERSAL_AGENT_TYPE);
-//        assertThat(testPatient.getReversalAgentDateTime()).isEqualTo(UPDATED_REVERSAL_AGENT_DATE_TIME);
+//        assertThat(testPatient.getReversalAgentStartDateTime()).isEqualTo(UPDATED_REVERSAL_AGENT_START_DATE_TIME);
 //        assertThat(testPatient.getBpTreatmentThreshold()).isEqualTo(UPDATED_BP_TREATMENT_THRESHOLD);
 //        assertThat(testPatient.getBpTarget()).isEqualTo(UPDATED_BP_TARGET);
 //        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME);

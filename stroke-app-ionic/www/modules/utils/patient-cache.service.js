@@ -54,14 +54,12 @@ function PatientCacheService(LocalStorageService) {
     // confirm-beriplex-dose
     var actual_beriplex_dose_key = "patient-actual-beriplex-dose";
     // administer-beriplex
-    var is_beriplex_administered_key = "patient-is-beriplex-administered"; // Local
-    var beriplex_start_date_time_key = "patient-beriplex-start-date-time";
     var is_vitamink_administered_key = "patient-is-vitamink-administered"; // Local
     var vitamink_date_time_key = "patient-vitamink-date-time";
     var is_infusion_instructions_viewed_key = "patient-is-infusion-instructions-viewed";
     // reversal-agent-details
     var reversal_agent_type_key = "patient-reversal-agent-type";
-    var reversal_agent_date_time_key = "patient-reversal-agent-date-time";
+    var reversal_agent_start_date_time_key = "patient-reversal-agent-start-date-time";
 
     //
     // protocol B
@@ -73,9 +71,7 @@ function PatientCacheService(LocalStorageService) {
     var bp_target_key = "patient-bp-target";
     var bp_measurement_entries_key = "patient-bp-measurement-entries";
     // critical-care-referral
-    var destination_key = "patient-destination";
-    var other_destination_key = "patient-other-destination";
-
+    var is_referred_to_critical_care_key = "patient-is-referred-to-critical-care";
 
     //
     // protocol C
@@ -209,12 +205,6 @@ function PatientCacheService(LocalStorageService) {
         setActualBeriplexDose: setActualBeriplexDose,
 
         // administer-beriplex
-        getIsBeriplexAdministered: getIsBeriplexAdministered,
-        setIsBeriplexAdministered: setIsBeriplexAdministered,
-
-        getBeriplexStartDateTime: getBeriplexStartDateTime,
-        setBeriplexStartDateTime: setBeriplexStartDateTime,
-
         getIsVitaminkAdministered: getIsVitaminkAdministered,
         setIsVitaminkAdministered: setIsVitaminkAdministered,
 
@@ -229,8 +219,8 @@ function PatientCacheService(LocalStorageService) {
         getReversalAgentType: getReversalAgentType,
         setReversalAgentType: setReversalAgentType,
 
-        getReversalAgentDateTime: getReversalAgentDateTime,
-        setReversalAgentDateTime: setReversalAgentDateTime,
+        getReversalAgentStartDateTime: getReversalAgentStartDateTime,
+        setReversalAgentStartDateTime: setReversalAgentStartDateTime,
 
         //
         // protocol B
@@ -250,12 +240,8 @@ function PatientCacheService(LocalStorageService) {
         addBpMeasurementEntry: addBpMeasurementEntry,
 
         // critical-care-referral
-        // Enum: Stroke unit, ICU, HDU, Not yet decided, None of the above
-        getDestination: getDestination,
-        setDestination: setDestination,
-
-        getOtherDestination: getOtherDestination,
-        setOtherDestination: setOtherDestination,
+        getIsReferredToCriticalCare: getIsReferredToCriticalCare,
+        setIsReferredToCriticalCare: setIsReferredToCriticalCare,
 
         //
         // protocol C
@@ -567,22 +553,6 @@ function PatientCacheService(LocalStorageService) {
 
     // administer-beriplex
 
-     function getIsBeriplexAdministered() {
-        return LocalStorageService.getItem(is_beriplex_administered_key);
-    }
-    
-    function setIsBeriplexAdministered(isBeriplexAdministered) {
-        LocalStorageService.setItem(is_beriplex_administered_key, isBeriplexAdministered);
-    }
-  
-    function getBeriplexStartDateTime() {
-        return getDate(beriplex_start_date_time_key);
-    }
-    
-    function setBeriplexStartDateTime(beriplexStartDateTime) {
-        LocalStorageService.setItem(beriplex_start_date_time_key, beriplexStartDateTime);
-    }
-
     function getIsVitaminkAdministered() {
         return LocalStorageService.getItem(is_vitamink_administered_key);
     }
@@ -616,12 +586,12 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(reversal_agent_type_key, reversalAgentType);
     }
 
-    function getReversalAgentDateTime() {
-        return getDate(reversal_agent_date_time_key);
+    function getReversalAgentStartDateTime() {
+        return getDate(reversal_agent_start_date_time_key);
     }
 
-    function setReversalAgentDateTime(reversalAgentDateTime) {
-        LocalStorageService.setItem(reversal_agent_date_time_key, reversalAgentDateTime);
+    function setReversalAgentStartDateTime(reversalAgentStartDateTime) {
+        LocalStorageService.setItem(reversal_agent_start_date_time_key, reversalAgentStartDateTime);
     }
 
     //
@@ -674,22 +644,14 @@ function PatientCacheService(LocalStorageService) {
     }
     
     // critical-care-referral
-    function getDestination() {
-        return LocalStorageService.getItem(destination_key);
+    function getIsReferredToCriticalCare() {
+        return LocalStorageService.getItem(is_referred_to_critical_care_key);
     }
     
-    function setDestination(destination) {
-        LocalStorageService.setItem(destination_key, destination);
+    function setIsReferredToCriticalCare(isReferredToCriticalCare) {
+        LocalStorageService.setItem(is_referred_to_critical_care_key, isReferredToCriticalCare);
     }
     
-    function getOtherDestination() {
-        return LocalStorageService.getItem(other_destination_key);
-    }
-    
-    function setOtherDestination(otherDestination) {
-        LocalStorageService.setItem(other_destination_key, otherDestination);
-    }
-
     //
     // protocol C
     //
@@ -825,19 +787,16 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(administer_beriplex_when_unknown_key, null);
         LocalStorageService.setItem(is_weight_given_in_kg_key, null);        
         LocalStorageService.setItem(actual_beriplex_dose_key, null);           
-        LocalStorageService.setItem(is_beriplex_administered_key, null);
-        LocalStorageService.setItem(beriplex_start_date_time_key, null);
         LocalStorageService.setItem(is_vitamink_administered_key, null);
         LocalStorageService.setItem(vitamink_date_time_key, null);
         LocalStorageService.setItem(is_infusion_instructions_viewed_key, null);
         LocalStorageService.setItem(reversal_agent_type_key, null);
-        LocalStorageService.setItem(reversal_agent_date_time_key, null);
+        LocalStorageService.setItem(reversal_agent_start_date_time_key, null);
         LocalStorageService.setItem(bp_target_reached_date_time_key, null);
         LocalStorageService.setItem(bp_treatment_threshold_key, null);
         LocalStorageService.setItem(bp_target_key, null);
         LocalStorageService.setItem(bp_measurement_entries_key, null);
-        LocalStorageService.setItem(destination_key, null);
-        LocalStorageService.setItem(other_destination_key, null);
+        LocalStorageService.setItem(is_referred_to_critical_care_key, null);
         LocalStorageService.setItem(premorbid_mrs_score_key, null);
         LocalStorageService.setItem(ich_volume_key, null);
         LocalStorageService.setItem(is_posterior_fossa_ich_key, null);

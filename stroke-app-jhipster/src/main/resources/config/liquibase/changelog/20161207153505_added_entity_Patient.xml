@@ -69,10 +69,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="beriplex_start_date_time" type="timestamp">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="vitamink_date_time" type="timestamp">
                 <constraints nullable="true" />
             </column>
@@ -85,11 +81,7 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="destination" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="other_destination" type="varchar(255)">
+            <column name="referred_to_critical_care" type="bit">
                 <constraints nullable="true" />
             </column>
             
@@ -161,7 +153,7 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="reversal_agent_date_time" type="timestamp">
+            <column name="reversal_agent_start_date_time" type="timestamp">
                 <constraints nullable="true" />
             </column>
             
@@ -215,10 +207,9 @@
         <dropDefaultValue tableName="patient" columnName="door_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="app_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="bp_target_reached_date_time" columnDataType="datetime"/>
-        <dropDefaultValue tableName="patient" columnName="beriplex_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="vitamink_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="scan_date_time" columnDataType="datetime"/>
-        <dropDefaultValue tableName="patient" columnName="reversal_agent_date_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="patient" columnName="reversal_agent_start_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="referral_to_neurosurgery_date_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="patient" columnName="inr_date_time" columnDataType="datetime"/>
         

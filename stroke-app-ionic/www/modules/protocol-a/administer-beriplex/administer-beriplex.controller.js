@@ -6,7 +6,7 @@ AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'Pati
 
 function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_ADMINISTER_BERIPLEX) {
 
-    var vm = this; // S11
+    var vm = this;
 
     TabStateCacheService.setCurrentState(STATE_ADMINISTER_BERIPLEX);
     vm.patientId = PatientCacheService.getUniqueId();
@@ -14,9 +14,19 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
     vm.actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
 
-    vm.isBeriplexAdministered = PatientCacheService.getIsBeriplexAdministered();
-    vm.beriplexDate = PatientCacheService.getBeriplexStartDateTime();
-    vm.beriplexTime = PatientCacheService.getBeriplexStartDateTime();
+    vm.isBeriplexAdministered = null;
+    var reversalAgentType = PatientCacheService.getReversalAgentType();
+    if (reversalAgentType != null) {
+        if (reversalAgentType === "None") {
+             vm.isBeriplexAdministered = false;
+        }
+        else {
+             vm.isBeriplexAdministered = true;
+        }
+    }
+    var beriplexDateTime = PatientCacheService.getReversalAgentStartDateTime();
+    vm.beriplexDate = beriplexDateTime;
+    vm.beriplexTime = beriplexDateTime;
     vm.isVitkAdministered = PatientCacheService.getIsVitaminkAdministered();
     vm.vitkDate = PatientCacheService.getVitaminkDateTime();
     vm.vitkTime = PatientCacheService.getVitaminkDateTime();
@@ -47,13 +57,13 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
     }
 
     function saveData() {
-        PatientCacheService.setIsBeriplexAdministered(vm.isBeriplexAdministered);
-        if(vm.isBeriplexAdministered) {
+        if (vm.isBeriplexAdministered) {
+            PatientCacheService.setReversalAgentType("PCC");
             var beriplexDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.beriplexDate, vm.beriplexTime);
-            PatientCacheService.setBeriplexStartDateTime(beriplexDateTime);
+            PatientCacheService.setReversalAgentStartDateTime(beriplexDateTime);
         }
         else {
-            PatientCacheService.setBeriplexStartDateTime(null);
+           PatientCacheService.setReversalAgentType("None");
         }
 
         PatientCacheService.setIsVitaminkAdministered(vm.isVitkAdministered);

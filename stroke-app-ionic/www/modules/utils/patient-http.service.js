@@ -2,9 +2,9 @@
 
 angular.module('utils').service('PatientHttpService', PatientHttpService);
 
-PatientHttpService.$inject = ['$http', 'ServerUrlService', '$q'];
+PatientHttpService.$inject = ['$http', 'ServerUrlService', '$ionicLoading'];
 
-function PatientHttpService($http, ServerUrlService, $q) {
+function PatientHttpService($http, ServerUrlService, $ionicLoading) {
 
     var service = {
         registerPatient: registerPatient,
@@ -13,16 +13,7 @@ function PatientHttpService($http, ServerUrlService, $q) {
 
     return service;
 
-	function registerPatient(initials, birthDate, estimatedAge, isDuplicateAllowed) {
-        //cjd ToDo - replace $q with http request
-        
-        // if (isDuplicateAllowed) {
-        //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": 1, "isDuplicate": false } } );
-        // }
-        // else {
-        //     return $q.when( { "success": true, "patient": { "uniqueId": "HOSPID-ABC-67", "id": null, "isDuplicate": false } } );
-        // }
-        
+	function registerPatient(initials, birthDate, estimatedAge, isDuplicateAllowed) {        
 
         var patient = {
             "initials": initials,
@@ -32,25 +23,30 @@ function PatientHttpService($http, ServerUrlService, $q) {
         };
 
         var urlPrefix = ServerUrlService.getUrlPrefix();
-        return $http.post(urlPrefix + '/api/patients', patient)
-            .then(function(response) {
-            return { "success": true, "patient": response.data};
-        }, function() {
-            return { "success": false };
-        });
+        $ionicLoading.show();
+        return $http.post(urlPrefix + '/api/patients', patient).then(
+            function(response) {
+                $ionicLoading.hide();
+                return { "success": true, "patient": response.data};
+            },
+            function() {
+                $ionicLoading.hide();
+                return { "success": false };
+            });
                
     }
 
     function updatePatient(patient) {
-       //cjd ToDo - replace $q with http request
- 
-        // return $q.when(true);
 
         var urlPrefix = ServerUrlService.getUrlPrefix();
-        return $http.put(urlPrefix + '/api/patients', patient)
-            .then(function() {
+        $ionicLoading.show();
+        return $http.put(urlPrefix + '/api/patients', patient).then(
+            function() {
+                $ionicLoading.hide();
                 return true;
-             }, function() {
+             },
+             function() {
+                $ionicLoading.hide();
                 return false;
             });
     }

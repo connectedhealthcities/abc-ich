@@ -76,10 +76,6 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "beriplexStartDateTime",
-            "fieldType": "ZonedDateTime"
-        },
-        {
             "fieldName": "vitaminkDateTime",
             "fieldType": "ZonedDateTime"
         },
@@ -96,15 +92,6 @@
         {
             "fieldName": "ichVolume",
             "fieldType": "Float"
-        },
-        {
-            "fieldName": "destination",
-            "fieldType": "Destination",
-            "fieldValues": "ICU,HDU,STROKE_UNIT,NOT_YET_DECIDED,OTHER"
-        },
-        {
-            "fieldName": "otherDestination",
-            "fieldType": "String"
         },
         {
             "fieldName": "scanDateTime",
@@ -177,7 +164,7 @@
             "fieldValues": "NONE,IDARUCIZUMAB,PCC"
         },
         {
-            "fieldName": "reversalAgentDateTime",
+            "fieldName": "reversalAgentStartDateTime",
             "fieldType": "ZonedDateTime"
         },
         {

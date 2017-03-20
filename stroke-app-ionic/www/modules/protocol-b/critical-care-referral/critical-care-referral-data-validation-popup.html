@@ -1,14 +1,8 @@
 <ion-list>
     <ion-item>
         <div class="row">
-            <div class="col-50 item-text-wrap">Destination:</div>
-            <div class="col-50 text-right">{{vm.destination}}</div>
-        </div>
-    </ion-item>
-    <ion-item ng-hide="vm.destination !== 'None of the above'">
-        <div class="row">
-            <div class="col-50 item-text-wrap">Other destination:</div>
-            <div class="col-50 text-right">{{vm.destinationOther}}</div>
+            <div class="col-80 item-text-wrap">If the blood pressure target has not been achieved despite treatment, has the patient been referred on to critical care for further management of blood pressure?:</div>
+            <div class="col-20 text-right">{{vm.isReferredToCriticalCare}}</div>
         </div>
     </ion-item>
 </ion-list>

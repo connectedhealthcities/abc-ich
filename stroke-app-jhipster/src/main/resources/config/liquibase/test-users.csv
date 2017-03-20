@@ -1,0 +1,23 @@
+id;login;password_hash;first_name;last_name;email;activated;lang_key;activation_key;reset_key;created_by;created_date;reset_date;last_modified_by;last_modified_date;hospital_id
+1;system;$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG;System;System;system@localhost;1;en;NULL;NULL;system;"2017-03-10 16:19:08";NULL;system;NULL;NULL
+2;anonymoususer;$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO;Anonymous;User;anonymous@localhost;1;en;NULL;NULL;system;"2017-03-10 16:19:08";NULL;system;NULL;NULL
+3;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;1;en;NULL;NULL;system;"2017-03-10 16:19:08";NULL;system;NULL;NULL
+4;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;1;en;NULL;NULL;system;"2017-03-10 16:19:08";NULL;system;NULL;NULL
+5;stockport-tablet;$2a$10$aZ0Xokh.THSsdoqiv4UY0uNi7anX4TIvSAmNUN.Pm7EQXR.9C6tEa;NULL;NULL;test1@email.com;1;en;04009356283164373676;NULL;anonymousUser;"2017-03-10 16:24:48";NULL;admin;"2017-03-10 16:34:14";SHH
+6;stockport-user;$2a$10$hZ25BKMzjSZMNs1oBMQpGesSIRTmGvTFNf.06t8Y6.L6nQv3JQJ2i;NULL;NULL;test2@email.com;1;en;37758800377192269429;NULL;anonymousUser;"2017-03-10 16:25:20";NULL;admin;"2017-03-10 16:34:28";SHH
+7;fairfield-tablet;$2a$10$9JsqZgWUH67bf.s6e3jjsOdx0e4KZzJTHU.EujbI6jYqvM3T/Pd9.;NULL;NULL;test3@email.com;1;en;07682969057561477335;NULL;anonymousUser;"2017-03-10 16:25:54";NULL;admin;"2017-03-10 16:34:51";FGH
+8;fairfield-user;$2a$10$BEHCwvvPxpOcy7UOcflF0eTF3UNrBlBhlw4kHJEQs9HAF0JmbHNxC;NULL;NULL;test4@email.com;1;en;44138360537632046510;NULL;anonymousUser;"2017-03-10 16:26:24";NULL;admin;"2017-03-10 16:35:08";FGH
+9;tameside-user;$2a$10$ODkfMSdXnkwzNcGGlvxRae/h3fTYIc2IalBvTz1oKwFQdwqBIC/7K;NULL;NULL;test5@email.com;1;en;17334190287167056005;NULL;anonymousUser;"2017-03-10 16:26:54";NULL;admin;"2017-03-10 16:35:28";Tameside
+10;wythenshawe-user;$2a$10$862TeDX1kfAxMDZNHwNW/uZMxwNWOUMKYhnq7QmRIxE9z4acq5YUK;NULL;NULL;test6@email.com;1;en;46126263182192414825;NULL;anonymousUser;"2017-03-10 16:27:25";NULL;admin;"2017-03-10 16:35:46";Wythenshawe
+11;tablet1;$2a$10$QEjyNs/.Tz9r/ddGcWjn.e2V5JjBHpeNk7xHfq5D8BPP2JoavfdJa;NULL;NULL;test7@email.com;1;en;60733103607809491505;NULL;anonymousUser;"2017-03-10 16:28:00";NULL;admin;"2017-03-10 16:36:24";Rochdale
+12;user1;$2a$10$UqmtARe42dAlWd9FJ0UH.eNzisA3Tw9sAjouMrN5A/6Uj5wgG0xOi;NULL;NULL;test8@email.com;1;en;52724718302921198505;NULL;anonymousUser;"2017-03-10 16:28:26";NULL;admin;"2017-03-10 16:36:43";Rochdale
+13;tablet2;$2a$10$yzFrAeN8hORlO/qWTLteH.LVm8lXducN57.yfFrelNebaj62MJcvC;NULL;NULL;test9@email.com;1;en;72131306912432974828;NULL;anonymousUser;"2017-03-10 16:28:53";NULL;admin;"2017-03-10 16:38:02";Oldham
+14;user2;$2a$10$HYhJLpNHd8HZeS.op9JRAuZJVamM7QVItVbJWr8bX/93pNIJQ12tm;NULL;NULL;test10@email.com;1;en;19755066863776811694;NULL;anonymousUser;"2017-03-10 16:29:42";NULL;admin;"2017-03-10 16:38:16";Oldham
+15;tablet3;$2a$10$Z1h7xM09mlOFCqJFAe9QjeDRgQ7nMhbpEwy98dGBFETe/hdlNr4l6;NULL;NULL;test11@email.com;1;en;21652902749396593563;NULL;anonymousUser;"2017-03-10 16:30:12";NULL;admin;"2017-03-10 16:38:32";Bolton
+16;user3;$2a$10$ejFGPHxP8pMDTqBLpnL9PeXn7MG0g1FEE.iuM3rPIp4Ih74jHE0dq;NULL;NULL;test12@email.com;1;en;94865492380472342996;NULL;anonymousUser;"2017-03-10 16:30:46";NULL;admin;"2017-03-10 16:38:48";Bolton
+17;tablet4;$2a$10$dK0oV6nvHXXfnp6We0JvaeRn5oRXg2De3U2OHj8ZkJo9z5BDaxjL.;NULL;NULL;test13@email.com;1;en;49811397195122962632;NULL;anonymousUser;"2017-03-10 16:31:16";NULL;admin;"2017-03-10 16:39:10";Wigan
+18;user4;$2a$10$IJWRT6XgNWj9D1xau3.dXuRF74hqIVkzcH6mNbweQCG5iwwTDHcmK;NULL;NULL;test14@email.com;1;en;92230710965729760959;NULL;anonymousUser;"2017-03-10 16:31:37";NULL;admin;"2017-03-10 16:39:22";Wigan
+19;tablet5;$2a$10$4qnR57yG/WJXKXD1I6gnC.5gt46epFjETzIbXJHM6yV6PADm25F8W;NULL;NULL;test15@email.com;1;en;62495497527476209715;NULL;anonymousUser;"2017-03-10 16:32:22";NULL;admin;"2017-03-10 16:39:56";Trafford
+20;user5;$2a$10$P20jiAE13TIcQE2j.4zZFeg8GMTkjHx.v4WYDF44PDrSdlTGtONZa;NULL;NULL;test16@email.com;1;en;28025783763700961720;NULL;anonymousUser;"2017-03-10 16:32:45";NULL;admin;"2017-03-10 16:40:09";Trafford
+21;tablet6;$2a$10$M5B4zeLuwjp3PdzJ8N0UsOKjVew9XPwwmpoa/1rsr4BpQJNV6vLx6;NULL;NULL;test17@email.com;1;en;32970160273506535235;NULL;anonymousUser;"2017-03-10 16:33:19";NULL;admin;"2017-03-10 16:40:27";Salford
+22;user6;$2a$10$IoCL2iZ3YmgjHqirjSYncORM34ChLSCkm.nFdhQ3ylAaCazlfkgge;NULL;NULL;test18@email.com;1;en;36691341427074853043;NULL;anonymousUser;"2017-03-10 16:33:38";NULL;admin;"2017-03-10 16:40:42";Salford

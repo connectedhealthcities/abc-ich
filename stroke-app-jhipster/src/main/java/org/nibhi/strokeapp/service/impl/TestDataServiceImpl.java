@@ -5,7 +5,6 @@ import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.Hospital;
 import org.nibhi.strokeapp.domain.Patient;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
-import org.nibhi.strokeapp.domain.enumeration.Destination;
 import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 import org.nibhi.strokeapp.repository.BpManagementEntryRepository;
@@ -81,34 +80,34 @@ public class TestDataServiceImpl implements TestDataService{
 
     private void addPatient(int index, Hospital hospital, ZonedDateTime doorDateTime) {
     	
-    	// onsetDateTime			- 	entered on patient registration 2
-    	// scanDateTime				-	entered on patient registration 1
-    	// appStartDateTime			-	captured automatically when Patient registration 1 is viewed
-    	// inrDateTimes				-	entered explicitly (initial and after 30 minutes)
-    	// beriplexStartDateTime	-	entered explicitly - it's the date/time that the infusion of beriplex is started
-    	// vitaminkDateTime			-	entered explicitly - it's the date/time that the vitamink is administered
-    	// bpDateTimes				-	entered explicitly - every 5 minutes
+    	// onsetDateTime				- 	entered on patient registration 2
+    	// scanDateTime					-	entered on patient registration 1
+    	// appStartDateTime				-	captured automatically when Patient registration 1 is viewed
+    	// inrDateTimes					-	entered explicitly (initial and after 30 minutes)
+    	// reversalAgentStartDateTime	-	entered explicitly - it's the date/time that the infusion of reversal agent is started
+    	// vitaminkDateTime				-	entered explicitly - it's the date/time that the vitamink is administered
+    	// bpDateTimes					-	entered explicitly - every 5 minutes
     	
-        ZonedDateTime onsetDateTime = getOnsetDateTime(doorDateTime); 						// random time within the previous 24 hours of the doorDateTime
-        ZonedDateTime scanDateTime = getScanDateTime(doorDateTime);							// random time between 30 and 60 minutes after the doorDateTime     
-        ZonedDateTime appStartDateTime = getAppStartDateTime(scanDateTime);					// scanDateTime + 5 minutes
-        // ZonedDateTime inrDateTime_1														// appStartDateTime + 1 minute
-        ZonedDateTime beriplexStartDateTime = getBeriplexStartDateTime(appStartDateTime);	// appStartDateTime + 5 minutes
-        ZonedDateTime vitaminkDateTime = getVitaminkDateTime(beriplexStartDateTime);		// appStartDateTime + 6 minutes
-        // ZonedDateTime bpDateTime_1														// appStartDateTime + 7 minutes 	i=0, GTN=1.5, lab=0
-        // ZonedDateTime bpDateTime_2														// appStartDateTime + 12 minutes 	i=1, GTN=2.5, lab=0
-        // ZonedDateTime bpDateTime_3														// appStartDateTime + 17 minutes 	i=2, GTN=3.5, lab=0
-        // ZonedDateTime bpDateTime_4														// appStartDateTime + 22 minutes 	i=3, GTN=4.5, lab=0
-        // ZonedDateTime bpDateTime_5														// appStartDateTime + 27 minutes 	i=4, GTN=5.5, lab=0
-        // ZonedDateTime inrDateTime_2														// appStartDateTime + 31 minutes 	
-        // ZonedDateTime bpDateTime_6														// appStartDateTime + 32 minutes 	i=5, GTN=6.5, lab=0
-        // ZonedDateTime bpDateTime_7														// appStartDateTime + 37 minutes 	i=6, GTN=7.5, lab=10
-        // ZonedDateTime bpDateTime_8														// appStartDateTime + 42 minutes 	i=7, GTN=7.5, lab=10
-        // ZonedDateTime bpDateTime_9														// appStartDateTime + 47 minutes 	i=8, GTN=7.5, lab=20
-        // ZonedDateTime bpDateTime_10														// appStartDateTime + 52 minutes 	i=9, GTN=7.5, lab=40
-        // ZonedDateTime bpDateTime_11														// appStartDateTime + 57 minutes 	i=10, GTN=7.5, lab=40
-        // ZonedDateTime bpDateTime_12														// appStartDateTime + 62 minutes 	i=11, GTN=7.5, lab=40
-        // ZonedDateTime bpDateTime_13														// appStartDateTime + 67 minutes 	i=12, GTN=7.5, lab=40
+        ZonedDateTime onsetDateTime = getOnsetDateTime(doorDateTime); 								// random time within the previous 24 hours of the doorDateTime
+        ZonedDateTime scanDateTime = getScanDateTime(doorDateTime);									// random time between 30 and 60 minutes after the doorDateTime     
+        ZonedDateTime appStartDateTime = getAppStartDateTime(scanDateTime);							// scanDateTime + 5 minutes
+        // ZonedDateTime inrDateTime_1																// appStartDateTime + 1 minute
+        ZonedDateTime reversalAgentStartDateTime = getReversalAgentStartDateTime(appStartDateTime);	// appStartDateTime + 5 minutes
+        ZonedDateTime vitaminkDateTime = getVitaminkDateTime(reversalAgentStartDateTime);			// appStartDateTime + 6 minutes
+        // ZonedDateTime bpDateTime_1																// appStartDateTime + 7 minutes 	i=0, GTN=1.5, lab=0
+        // ZonedDateTime bpDateTime_2																// appStartDateTime + 12 minutes 	i=1, GTN=2.5, lab=0
+        // ZonedDateTime bpDateTime_3																// appStartDateTime + 17 minutes 	i=2, GTN=3.5, lab=0
+        // ZonedDateTime bpDateTime_4																// appStartDateTime + 22 minutes 	i=3, GTN=4.5, lab=0
+        // ZonedDateTime bpDateTime_5																// appStartDateTime + 27 minutes 	i=4, GTN=5.5, lab=0
+        // ZonedDateTime inrDateTime_2																// appStartDateTime + 31 minutes 	
+        // ZonedDateTime bpDateTime_6																// appStartDateTime + 32 minutes 	i=5, GTN=6.5, lab=0
+        // ZonedDateTime bpDateTime_7																// appStartDateTime + 37 minutes 	i=6, GTN=7.5, lab=10
+        // ZonedDateTime bpDateTime_8																// appStartDateTime + 42 minutes 	i=7, GTN=7.5, lab=10
+        // ZonedDateTime bpDateTime_9																// appStartDateTime + 47 minutes 	i=8, GTN=7.5, lab=20
+        // ZonedDateTime bpDateTime_10																// appStartDateTime + 52 minutes 	i=9, GTN=7.5, lab=40
+        // ZonedDateTime bpDateTime_11																// appStartDateTime + 57 minutes 	i=10, GTN=7.5, lab=40
+        // ZonedDateTime bpDateTime_12																// appStartDateTime + 62 minutes 	i=11, GTN=7.5, lab=40
+        // ZonedDateTime bpDateTime_13																// appStartDateTime + 67 minutes 	i=12, GTN=7.5, lab=40
 
         ZonedDateTime bpTargetReachedDateTime = getBpTargetReachedDateTime(vitaminkDateTime); // captured automatically as BpManagementEntries are added
         ZonedDateTime referralToNeurosurgeryDateTime = getReferralToNeurosurgeryDateTime(bpTargetReachedDateTime); // random time within 30 minutes after bpTargetReachedDateTime
@@ -122,7 +121,7 @@ public class TestDataServiceImpl implements TestDataService{
         patient.setScanDateTime(scanDateTime);
         patient.setAppStartDateTime(appStartDateTime);                       
         patient.setBpTargetReachedDateTime(bpTargetReachedDateTime);
-        patient.setBeriplexStartDateTime(beriplexStartDateTime);
+        patient.setReversalAgentStartDateTime(reversalAgentStartDateTime);
         patient.setVitaminkDateTime(vitaminkDateTime);
 
         patient.setUniqueId("Patient_" + (index+1));
@@ -164,11 +163,10 @@ public class TestDataServiceImpl implements TestDataService{
         	patient.setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime);
         	patient.setNeurosurgeonName("Dummy neurosurgeon name");
         	patient.setReferralToNeurosurgeryAccepted(ThreadLocalRandom.current().nextBoolean());
-            patient.setDestination(Destination.STROKE_UNIT);      	
+            patient.setReferredToCriticalCare(true);      	
         }
         else {
-            patient.setDestination(Destination.HDU);
-            //cjd patient.setOtherDestination("otherDestination");        	
+            patient.setReferredToCriticalCare(false);
         }
         
         patient.setSummaryEmailAddress("test@email.com");
@@ -213,17 +211,17 @@ public class TestDataServiceImpl implements TestDataService{
 		return addIntervalToDateTime(scanDateTime, MILLISECONDS_PER_5_MINUTES);
 	}
 
-	private ZonedDateTime getBeriplexStartDateTime(ZonedDateTime appStartDateTime) {
+	private ZonedDateTime getReversalAgentStartDateTime(ZonedDateTime appStartDateTime) {
 
-		// Hard code the beriplex start time to be 5 minutes after the app start time for now!
+		// Hard code the reversal agent start time to be 5 minutes after the app start time for now!
 		long MILLISECONDS_PER_5_MINUTES = 5 * MILLISECONDS_PER_MINUTE;
 		return addIntervalToDateTime(appStartDateTime, MILLISECONDS_PER_5_MINUTES);
 	}
 
-	private ZonedDateTime getVitaminkDateTime(ZonedDateTime beriplexStartDateTime) {
+	private ZonedDateTime getVitaminkDateTime(ZonedDateTime reversalAgentStartDateTime) {
 
-		// Hard code the vitamink time to be 1 minute after the beriplex start time for now!
-		return addIntervalToDateTime(beriplexStartDateTime, MILLISECONDS_PER_MINUTE);
+		// Hard code the vitamink time to be 1 minute after the reversal agent start time for now!
+		return addIntervalToDateTime(reversalAgentStartDateTime, MILLISECONDS_PER_MINUTE);
 	}
 
 	private ZonedDateTime getInrDateTime(ZonedDateTime appStartDateTime) {

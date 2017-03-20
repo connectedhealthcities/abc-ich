@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import org.nibhi.strokeapp.domain.enumeration.Destination;
 import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
@@ -55,8 +54,6 @@ public class PatientDTO implements Serializable {
 
     private Integer actualBeriplexDose;
 
-    private ZonedDateTime beriplexStartDateTime;
-
     private ZonedDateTime vitaminkDateTime;
 
     @Min(value = 0)
@@ -65,13 +62,11 @@ public class PatientDTO implements Serializable {
 
     private Float ichVolume;
 
-    private Destination destination;
-
-    private String otherDestination;
+    private Boolean infusionInstructionsViewed;
 
     private ZonedDateTime scanDateTime;
 
-    private Boolean infusionInstructionsViewed;
+    private Boolean referredToCriticalCare;
 
     private Boolean posteriorFossaIch;
 
@@ -103,7 +98,7 @@ public class PatientDTO implements Serializable {
 
     private ReversalAgentType reversalAgentType;
 
-    private ZonedDateTime reversalAgentDateTime;
+    private ZonedDateTime reversalAgentStartDateTime;
 
     private Integer bpTreatmentThreshold;
 
@@ -253,14 +248,6 @@ public class PatientDTO implements Serializable {
         this.actualBeriplexDose = actualBeriplexDose;
     }
     
-    public ZonedDateTime getBeriplexStartDateTime() {
-        return beriplexStartDateTime;
-    }
-
-    public void setBeriplexStartDateTime(ZonedDateTime beriplexStartDateTime) {
-        this.beriplexStartDateTime = beriplexStartDateTime;
-    }
-    
     public ZonedDateTime getVitaminkDateTime() {
         return vitaminkDateTime;
     }
@@ -285,21 +272,14 @@ public class PatientDTO implements Serializable {
         this.ichVolume = ichVolume;
     }
     
-    public Destination getDestination() {
-        return destination;
+    public Boolean getReferredToCriticalCare() {
+        return referredToCriticalCare;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    public void setReferredToCriticalCare(Boolean referredToCriticalCare) {
+        this.referredToCriticalCare = referredToCriticalCare;
     }
     
-    public String getOtherDestination() {
-        return otherDestination;
-    }
-
-    public void setOtherDestination(String otherDestination) {
-        this.otherDestination = otherDestination;
-    }
     
     public ZonedDateTime getScanDateTime() {
         return scanDateTime;
@@ -437,12 +417,12 @@ public class PatientDTO implements Serializable {
         this.reversalAgentType = reversalAgentType;
     }
     
-    public ZonedDateTime getReversalAgentDateTime() {
-        return reversalAgentDateTime;
+    public ZonedDateTime getReversalAgentStartDateTime() {
+        return reversalAgentStartDateTime;
     }
 
-    public void setReversalAgentDateTime(ZonedDateTime reversalAgentDateTime) {
-        this.reversalAgentDateTime = reversalAgentDateTime;
+    public void setReversalAgentStartDateTime(ZonedDateTime reversalAgentStartDateTime) {
+        this.reversalAgentStartDateTime = reversalAgentStartDateTime;
     }
     
     public Integer getBpTreatmentThreshold() {
@@ -587,12 +567,10 @@ public class PatientDTO implements Serializable {
             ", estimatedWeightInKg='" + estimatedWeightInKg + "'" +
             ", calculatedBeriplexDose='" + calculatedBeriplexDose + "'" +
             ", actualBeriplexDose='" + actualBeriplexDose + "'" +
-            ", beriplexStartDateTime='" + beriplexStartDateTime + "'" +
             ", vitaminkDateTime='" + vitaminkDateTime + "'" +
             ", premorbidMrsScore='" + premorbidMrsScore + "'" +
             ", ichVolume='" + ichVolume + "'" +
-            ", destination='" + destination + "'" +
-            ", otherDestination='" + otherDestination + "'" +
+            ", referredToCriticalCare='" + referredToCriticalCare + "'" +
             ", scanDateTime='" + scanDateTime + "'" +
             ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
             ", posteriorFossaIch='" + posteriorFossaIch + "'" +
@@ -610,7 +588,7 @@ public class PatientDTO implements Serializable {
     		", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +
             ", reversalAgentType='" + reversalAgentType + "'" +
-            ", reversalAgentDateTime='" + reversalAgentDateTime + "'" +
+            ", reversalAgentStartDateTime='" + reversalAgentStartDateTime + "'" +
             ", bpTreatmentThreshold='" + bpTreatmentThreshold + "'" +
             ", bpTarget='" + bpTarget + "'" +
             ", referralToNeurosurgeryDateTime='" + referralToNeurosurgeryDateTime + "'" +

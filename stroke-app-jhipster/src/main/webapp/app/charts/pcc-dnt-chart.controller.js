@@ -11,7 +11,7 @@
 
     function PccDntChartController ($state, Patient, DateUtils, ControlChartService) {
         var vm = this;
-        vm.patients = [];
+        vm.chartDataPoints = [];
         vm.chart = null;
         
         loadAllPatients();
@@ -19,16 +19,16 @@
         function loadAllPatients() {
             var goal = 90;
         	Patient.queryAll(function(result) {
-                vm.patients = result;
-                var chartDataPoints = getChartDataPoints(vm.patients);
-                var values = ControlChartService.getChartValues(chartDataPoints);
+                var patients = result;
+                vm.chartDataPoints = getChartDataPoints(patients);
+                var values = ControlChartService.getChartValues(vm.chartDataPoints);
                 var mean = ControlChartService.getMeanValue(values);
                 var sd = ControlChartService.getStandardDeviation(values, mean);
                 var lcl = ControlChartService.getLowerControlLimit(mean, sd);                
                 var ucl = ControlChartService.getUpperControlLimit(mean, sd);
                  var yMax = ControlChartService.getYMax(values, ucl, goal);
                 
-                generateChart(chartDataPoints, mean, lcl, ucl, yMax, goal);
+                generateChart(vm.chartDataPoints, mean, lcl, ucl, yMax, goal);
             });
         }
 
@@ -40,7 +40,7 @@
         		patient = patients[i];
         		var minutes = getDntValue(patient);
         		if (minutes !== null) {
-        			chartDataPoints.push({x:getTimeSeriesValue(patient), value:minutes});
+        			chartDataPoints.push({x:getTimeSeriesValue(patient), value:minutes, id:patient.id});
         		}
         	}
         	
@@ -117,18 +117,21 @@
 
         function getDntValue(patient) {
         	
-        	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
-        	var beriplexStartDateTime = DateUtils.convertDateTimeFromServer(patient.beriplexStartDateTime);
-
-         	var minutes = DateUtils.getMinutesBetweenDates(doorDate, beriplexStartDateTime);
-        	
+         	var minutes = null;
+         		
+        	if (!patient.reversalAgentAdministeredAtExternalHospital) {
+            	var doorDate = DateUtils.convertDateTimeFromServer(patient.doorDateTime);
+            	var reversalAgentStartDateTime = DateUtils.convertDateTimeFromServer(patient.reversalAgentStartDateTime);
+         		minutes = DateUtils.getMinutesBetweenDates(doorDate, reversalAgentStartDateTime);
+         	}
+         		        	
          	return minutes;
         }
         
         function chartDataSelectHandler(d, element) {
 
-            var patient = vm.patients[d.index];            
-            $state.go('patient-detail', { 'id':patient.id });
+            var chartDataPoint = vm.chartDataPoints[d.index];            
+            $state.go('patient-detail', { 'id':chartDataPoint.id });
         }
 
     }

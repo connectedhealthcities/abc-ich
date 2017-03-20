@@ -16,40 +16,28 @@
     </div>
     <hr>
 
-     <div class="list card" >
+    <div class="list card" >
       <ion-item class="item-icon-left card-header card-header-green chi-info">
         <i class="icon ion-information-circled"></i>Critical Care — after 60 min
       </ion-item>
       <ion-item class="card-header-green chi-info">
-        <span>If target not achieved with GTN/Labetalol, refer to critical care</span>        
-      </ion-item>
+        <div class="item-text-wrap">If target not achieved with GTN/Labetalol, refer to critical care</div>
+       </ion-item>
       <ion-item class="card-header-green chi-info">
-        <span>Consider transfer to HDU/ICU for arterial line and further anti-hypertensive treatment</span>        
+        <div class="item-text-wrap">Consider transfer to HDU/ICU for arterial line and further anti-hypertensive treatment</div>
       </ion-item>
     </div>
 
     <div class="list card">
-            <ion-item class="item-icon-left card-header card-header-green">
-                <i class="icon ion-ionic"></i>Critical care referral
-            </ion-item>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Stroke unit'">
-                <span class="input-blue">Acute stroke unit</span>
-            </ion-radio>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'ICU'">
-                <span class="input-blue">Intensive care unit</span>
-            </ion-radio>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'HDU'">
-                <span class="input-blue">High dependency unit</span>
-            </ion-radio>
-            <ion-radio ng-model="vm.destination" name="anticoagulant-type" ng-value="'Not yet decided'">
-                <span class="input-blue">Further care location not yet decided</span>
-            </ion-radio>
-            <ion-radio ng-model="vm.destination" ng-change="vm.OnOtherChanged()" name="anticoagulant-type" ng-value="'None of the above'">
-                <span class="input-blue">None of the above</span>
-            </ion-radio>
-            <label ng-hide="vm.destination !== 'None of the above'" class="item item-input">
-                <input type="text" ng-model="vm.destinationOther" placeholder="Enter destination here">
-            </label>
+      <div class="item item-icon-left item-text-wrap card-header card-header-green">
+        <i class="icon ion-ionic"></i>If the blood pressure target has not been achieved despite treatment, has the patient been referred on to critical care for further management of blood pressure?
+      </div>
+      <ion-radio ng-model="vm.isReferredToCriticalCare" name="is-referred-to-critical-care" ng-value="true">
+        <span class="input-blue">Yes</span>
+      </ion-radio>
+      <ion-radio ng-model="vm.isReferredToCriticalCare" name="is-referred-to-critical-care" ng-value="false">
+        <span class="input-blue">No</span>
+      </ion-radio>
     </div>
 
     <!--Next button-->

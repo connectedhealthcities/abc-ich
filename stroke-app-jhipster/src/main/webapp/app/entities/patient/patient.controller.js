@@ -50,9 +50,12 @@
             	
             	var bpTargetReachedDate = DateUtils.convertDateTimeFromServer(patient.bpTargetReachedDateTime);
             	patient.dtt = DateUtils.getMinutesBetweenDates(doorDate, bpTargetReachedDate);
-            	
-            	var beriplexStartDateTime = DateUtils.convertDateTimeFromServer(patient.beriplexStartDateTime);
-            	patient.dnt = DateUtils.getMinutesBetweenDates(doorDate, beriplexStartDateTime);
+
+        		patient.dnt = null;
+            	if (!patient.reversalAgentAdministeredAtExternalHospital) {
+                	var reversalAgentStartDateTime = DateUtils.convertDateTimeFromServer(patient.reversalAgentStartDateTime);
+                	patient.dnt = DateUtils.getMinutesBetweenDates(doorDate, reversalAgentStartDateTime);
+            	}
             });
         	
         	return patients;

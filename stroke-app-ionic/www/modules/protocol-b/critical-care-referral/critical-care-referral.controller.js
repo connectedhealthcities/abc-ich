@@ -6,34 +6,21 @@ CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'Pa
 
 function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCacheService, TabStateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
-    var vm = this; // S4
+    var vm = this;
 
     TabStateCacheService.setCurrentState(STATE_CRITICAL_CARE_REFERRAL);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-    vm.destination = PatientCacheService.getDestination();
-    vm.destinationOther = PatientCacheService.getOtherDestination();
+    vm.isReferredToCriticalCare = PatientCacheService.getIsReferredToCriticalCare();
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.OnOtherChanged = OnOtherChanged;
-
-    function OnOtherChanged() {
-        vm.destinationOther = null;
-    }
 
     function isNextButtonEnabled() {
         var isEnabled = false;
-        if (vm.destination) {
-            if (vm.destination !== "None of the above") {
-                isEnabled = true;
-            }
-            else {
-                if (vm.destinationOther) {
-                    isEnabled = true;
-                }
-            }
+        if (vm.isReferredToCriticalCare !== null) {
+            isEnabled = true;
         }
         return isEnabled;
     }
@@ -59,10 +46,7 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, PatientCach
     }
 
     function saveData() {
-        PatientCacheService.setDestination(vm.destination);
-        if (vm.destination === "None of the above") {
-            PatientCacheService.setOtherDestination(vm.destinationOther);
-        }
+        PatientCacheService.setIsReferredToCriticalCare(vm.isReferredToCriticalCare);
     }
 
     function showDataValidationPopup(okHandler) {

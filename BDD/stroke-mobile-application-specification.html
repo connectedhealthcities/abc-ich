@@ -26,6 +26,10 @@ Template
 	It is assumed in all the navigation stories listed below that Ok is selected for the Data validation Popup and
 	that the view navigation does not happen until all popups have been dismissed.
 </Note>
+<Note> #3 High water mark view (applies to tabs A and C)
+	Users are not allowed to navigate backwards within the views belonging to a particular tab.
+	Thus we use the term "high water mark view" to represent how far they have progressed through the views for a particular tab
+</Note>
 
 <Story> App launch
 	<Scenario> #1: App launch 
@@ -38,6 +42,43 @@ Template
 		When: they select the Ok button 
 		Then: the "Patient Start" view is displayed
 		And: the ABC tabs are not displayed
+	</Scenario>
+</Story>
+
+<Story> App configuration
+	<Scenario> #1: Configure user credentials 
+		Given: the user is viewing the "Patient Start" view
+		And: they are viewing the application menu
+		When: they select the "Configure user credentials" menu option
+		Then: the "Configure user credentials" page is displayed
+	</Scenario>
+	<Scenario> #2: Test login - success 
+		Given: the user is viewing the "Configure user credentials" page
+		And: comms is enabled on the device
+		And: the server is available
+		And: the user has entered a valid username and password
+		When: they select the "Test login" button 
+		Then: the "Test login - success" popup is displayed
+	</Scenario>
+	<Scenario> #3: Test login - failure 
+		Given: the user is viewing the "Configure user credentials" page
+		And: comms is not enabled on the device OR the server is unavailable OR the user has NOT entered a valid username and password
+		When: they select the "Test login" button 
+		Then: the "Test login - failure" popup is displayed
+	</Scenario>
+	<Scenario> #4: Configure email 
+		Given: the user is viewing the "Patient Start" view
+		And: they are viewing the application menu
+		When: they select the "Configure email" menu option
+		Then: the "Configure email" page is displayed
+	</Scenario>
+	ToDo - Scenarios for Test email
+	<Scenario> #5: View about page 
+		Given: the user is viewing the "Patient Start" view
+		And: they are viewing the application menu
+		When: they select the "About" menu option
+		Then: the "About" page is displayed
+		And: the application version is listed
 	</Scenario>
 </Story>
 
@@ -78,13 +119,13 @@ Template
 </Story>
 
 <Story> Register Patient - view navigation
-	<Note> #3 Matching patient detected
+	<Note> #4 Matching patient detected
 		The server will respond with "matching patient detected" when a patient already exists with identical values for the following criteria:
 		- unique id of the hospital
 		- patient initials
 		- patient age
 	</Note>
-	<Note> #4 Patient unique id
+	<Note> #5 Patient unique id
 		Format for patient id is: 
 		"HospitalId-initials-Age".
 		A numerical postfix is added to duplicates as follows:
@@ -194,7 +235,7 @@ Template
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab B view is displayed
+		And: the "BP Management" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>
@@ -204,7 +245,7 @@ Template
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab C view is displayed
+		And: the "high water mark view" for tab C is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>    
@@ -216,7 +257,7 @@ Template
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab B view is displayed
+		And: the "BP Management" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>    
@@ -225,7 +266,7 @@ Template
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab C view view is displayed
+		And: the "high water mark view" for tab C view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>
@@ -258,7 +299,7 @@ Template
 		Then: they should see popups in the order listed: 
 		      - "Data confirmation" popup
 			  - "INR below treatment range" popup
-		And: the current tab B view is displayed
+		And: the "BP Management" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>    
@@ -270,7 +311,7 @@ Template
 		Then: they should see popups in the order listed: 
 		      - "Data confirmation" popup
 			  - "INR below treatment range" popup
-		And: the current tab C view is displayed
+		And: the "high water mark view" for tab C is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>    
@@ -303,7 +344,7 @@ Template
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab B view is displayed
+		And: the "BP Management" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>    
@@ -315,7 +356,7 @@ Template
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab C view is displayed
+		And: the "high water mark view" for tab C is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>    
@@ -338,7 +379,7 @@ Template
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab B view is displayed
+		And: the "BP Management" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>    
@@ -347,7 +388,7 @@ Template
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab C view view is displayed
+		And: the "high water mark view" for tab C view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>    
@@ -367,7 +408,7 @@ Template
 		And: the target has been reached
 		And: the GCS value is >= 9
 		When: they select the "Next" button
-		Then: the current tab C view is displayed
+		Then: the "high water mark view" for tab C is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>    
@@ -379,7 +420,7 @@ Template
 		Then: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>
-	<Note> #5 Treatment target and threshold
+	<Note> #6 Treatment target and threshold
 		Start treatment if SBP is greater than treatment threshold
 		Lower SBP to treatment target within 1 hour
 		(Onset < 6 hours ago): 	Treatment threshold = 150 mmHg, Treatment target = 140 mmHg
@@ -402,7 +443,7 @@ Template
 		Given: the user has entered valid data on the "Refer to Critical Care" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
-		Then: the current tab C view is displayed
+		Then: the "high water mark view" for tab C is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>    
@@ -427,7 +468,7 @@ Template
 </Story>
 
 <Story> Neurosurgery referral criteria - view navigation
-	<Note> #6
+	<Note> #7
 		Referral criteria:
 			- ichVolume > 30 ml
 			- Posterior fossa ICH
@@ -496,7 +537,7 @@ Template
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the current tab B view is displayed
+		And: the "BP Management" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>     
@@ -531,28 +572,50 @@ Template
 </Story>
 
 <Story> View Navigation via Tab selection
-	<Note> #7
+	<Note> #8
 		Default views for each tab are as follows:
 		- Tab A: Anticoagulant Identification view
 		- Tab B: BP Management view
 		- Tab C: mRS selection view
 	</Note>
-	<Scenario> #1: Default view for Tab
+	<Scenario> #1: Default view when Tab A selected
 		Given: the tabs are being displayed
-		And: the user has not navigated away from the default view for that tab using a view button
-		When: the user selects the tab
-		Then: the default view for that tab should be displayed
+		And: the user has not navigated away from the default view for tab A using a view button
+		And tab A is not selected
+		When: the user selects tab A
+		Then: the default view for tab A should be displayed
 	</Scenario>     
-	<Scenario> #2: High watermark view for Tab
+	<Scenario> #2: Non default view when Tab A selected
 		Given: the tabs are being displayed
-		And: the user has navigated away from the default view for that tab using a view button
-		When: the user selects the tab
-		Then: the last selected view for that tab should be displayed
+		And: the user has navigated away from the default view for tab A using a view button
+		And tab A is not selected
+		When: the user selects tab A
+		Then: the High water mark view for tab A should be displayed
+	</Scenario>     
+	<Scenario> #3: Default view when Tab C selected
+		Given: the tabs are being displayed
+		And: the user has not navigated away from the default view for tab C using a view button
+		And tab C is not selected
+		When: the user selects tab C
+		Then: the default view for tab C should be displayed
+	</Scenario>     
+	<Scenario> #4: Non default view when Tab C selected
+		Given: the tabs are being displayed
+		And: the user has navigated away from the default view for tab C using a view button
+		And tab C is not selected
+		When: the user selects tab C
+		Then: the High water mark view for tab C should be displayed
+	</Scenario>     
+	<Scenario> #4: View displayed when Tab B selected
+		Given: the tabs are being displayed
+		And tab B is not selected
+		When: the user selects tab B
+		Then: the default view for tab B should be displayed
 	</Scenario>     
 </Story>
 
 <Story> View behaviour and layout
-	<Note> #8
+	<Note> #9
 		Most views are self-describing with the dynamic show/hide behaviour being intuitively obvious.
 		Only views where this is not the case are described here.
 	</Note>
@@ -579,7 +642,7 @@ Template
 </Story>
 
 <Story> Calculation of Beriplex dose
-	<Note> #9 Calculation details
+	<Note> #10 Calculation details
 		The dose is calculated using the weight in Kg and the INR value.
 		For the purposes of the calculatuion the weight is rounded to the nearest 10 Kg.
 		If the weight is above 100Kg then it is fixed at 100Kg.

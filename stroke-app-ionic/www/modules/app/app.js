@@ -63,7 +63,7 @@ function AppRun($ionicPlatform, $ionicPopup) {
 
     function showExitPopup(okHandler) {
       var popupTemplate = {
-         title: 'Exit StrokeApp?'
+         title: 'Exit ABC-ICH?'
       };
 
       var popup = $ionicPopup.confirm(popupTemplate);

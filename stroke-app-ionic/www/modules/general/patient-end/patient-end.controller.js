@@ -21,13 +21,12 @@ function PatientEndController($state, $scope, $ionicPopup, TabStateCacheService,
         }
         else {
             var patient = PatientEndControllerService.getPatient();
-
+            var emailData = EmailService.getEmailData();
             PatientHttpService.updatePatient(patient).then(function(success) {
                 if (success) {
                     showPatientSaveSucceededPopup(function () {
-                        showEmailPatientPopup(function () {
-                            EmailService.setPatientDisplayLabelsAndValues(PatientCacheService);
-                            EmailService.sendEmail(reset, showEmailClientNotInstalledOnDevicePopup);
+                        showEmailPatientPopup(function () {                            
+                            EmailService.sendEmail(emailData, reset, showEmailClientNotInstalledOnDevicePopup);
                         })
                     }
                     );

@@ -6,72 +6,81 @@ EmailService.$inject = ['$http', 'EmailCacheService', 'PatientCacheService', 'Da
 
 function EmailService($http, EmailCacheService, PatientCacheService, DateTimeService) {
     
-    var _PatientDisplayLabelsAndValues;
-    var _BloodPressureDisplayLabelAndValue = { "label": "Bp Measurement Entries", "getter": PatientCacheService.getBpMeasurementEntries };
+    
 
     var service = {
         sendEmail: sendEmail,
         sendTestEmail: sendTestEmail,
-        setPatientDisplayLabelsAndValues: setPatientDisplayLabelsAndValues
+        getEmailData: getEmailData
      };
 
     return service;
 
-    function setPatientDisplayLabelsAndValues(patient) {
-        _PatientDisplayLabelsAndValues = [
-            { "label": "App  Start  Date  Time", "value": patient.getAppStartDateTime(), "isDateTime": true },
-            { "label": "Initials", "value": patient.getInitials() },
-            { "label": "Birth Date", "value": patient.getBirthDate(), isBirthDate: true },
-            { "label": "Estimated Age", "value": patient.getEstimatedAge() },
-            { "label": "External Scan Hospital Name", "value": patient.getExternalScanHospitalName() },
-            { "label": "Scan Date Time", "value": patient.getScanDateTime(), "isDateTime": true },
-            { "label": "Door Date Time", "value": patient.getDoorDateTime(), "isDateTime": true },
-            { "label": "Onset Date Time", "value": patient.getOnsetDateTime(), "isDateTime": true },
-            { "label": "Is Last Seen Well Onset", "value": patient.getIsLastSeenWellOnset() },
-            { "label": "Is Best Estimate Onset", "value": patient.getIsBestEstimateOnset() },
-            { "label": "Gcs Score", "value": patient.getGcsScore() },
-            { "label": "Gcs Score Eye", "value": patient.getGcsScoreEye() },
-            { "label": "Gcs Score Verbal", "value": patient.getGcsScoreVerbal() },
-            { "label": "Gcs Score Motor", "value": patient.getGcsScoreMotor() },
-            { "label": "Summary Email Address", "value": patient.getSummaryEmailAddress() },
-            { "label": "Anticoagulant Type", "value": patient.getAnticoagulantType() },
-            { "label": "Anticoagulant Name", "value": patient.getAnticoagulantName() },
-            { "label": "Estimated Weight In Kg", "value": patient.getEstimatedWeightInKg() },
-            { "label": "Calculated Beriplex Dose", "value": patient.getCalculatedBeriplexDose() },
-            { "label": "Inr Value", "value": patient.getInrValue() },
-            { "label": "Inr Type", "value": patient.getInrType() },
-            { "label": "Inr Date Time", "value": patient.getInrDateTime(), "isDateTime": true },
-            { "label": "Administer Beriplex When Unknown", "value": patient.getAdministerBeriplexWhenUnknown() },
-            { "label": "Is Weight Given In Kg", "value": patient.getIsWeightGivenInKg() },
-            { "label": "Actual Beriplex Dose", "value": patient.getActualBeriplexDose() },
-            { "label": "Beriplex Start Date Time", "value": patient.getBeriplexStartDateTime(), "isDateTime": true },
-            { "label": "Vitamink Date Time", "value": patient.getVitaminkDateTime(), "isDateTime": true },
-            { "label": "Is Infusion Instructions Viewed", "value": patient.getIsInfusionInstructionsViewed() },
-            { "label": "Reversal Agent Type", "value": patient.getReversalAgentType() },
-            { "label": "Reversal Agent Date Time", "value": patient.getReversalAgentDateTime(), "isDateTime": true },
-            { "label": "Bp Target Reached Date Time", "value": patient.getBpTargetReachedDateTime(), "isDateTime": true },
-            { "label": "Bp Treatment Threshold", "value": patient.getBpTreatmentThreshold() },
-            { "label": "Bp Target", "value": patient.getBpTarget() },
-            { "label": "Destination", "value": patient.getDestination() },
-            { "label": "Other Destination", "value": patient.getOtherDestination() },
-            { "label": "Premorbid Mrs Score", "value": patient.getPremorbidMrsScore() },
-            { "label": "Ich Volume", "value": patient.getIchVolume() },
-            { "label": "Is Posterior Fossa Ich ", "value": patient.getIsPosteriorFossaIch() },
-            { "label": "Is Ventricle Obstructed", "value": patient.getIsVentricleObstructed() },
-            { "label": "Ich Longest Axis", "value": patient.getIchLongestAxis() },
-            { "label": "Ich Perpendicular Axis", "value": patient.getIchPerpendicularAxis() },
-            { "label": "Ich Num Slices", "value": patient.getIchNumSlices() },
-            { "label": "Ich Slice Thickness", "value": patient.getIchSliceThickness() },
-            { "label": "Referral To Neurosurgery Date Time", "value": patient.getReferralToNeurosurgeryDateTime(), "isDateTime": true },
-            { "label": "Neurosurgeon Name", "value": patient.getNeurosurgeonName() },
-            { "label": "Is Referral To Neurosurgery Accepted", "value": patient.getIsReferralToNeurosurgeryAccepted() },
-            { "label": "Is For Active Treatment", "value": patient.getIsForActiveTreatment() }
+    function getEmailData() {
+        var patientDisplayLabelsAndValues = [
+            { "label": "App  Start  Date  Time", "value": PatientCacheService.getAppStartDateTime(), "isDateTime": true },
+            { "label": "Initials", "value": PatientCacheService.getInitials() },
+            { "label": "Birth Date", "value": PatientCacheService.getBirthDate(), isBirthDate: true },
+            { "label": "Estimated Age", "value": PatientCacheService.getEstimatedAge() },
+            { "label": "External Scan Hospital Name", "value": PatientCacheService.getExternalScanHospitalName() },
+            { "label": "Scan Date Time", "value": PatientCacheService.getScanDateTime(), "isDateTime": true },
+            { "label": "Door Date Time", "value": PatientCacheService.getDoorDateTime(), "isDateTime": true },
+            { "label": "Onset Date Time", "value": PatientCacheService.getOnsetDateTime(), "isDateTime": true },
+            { "label": "Is Last Seen Well Onset", "value": PatientCacheService.getIsLastSeenWellOnset() },
+            { "label": "Is Best Estimate Onset", "value": PatientCacheService.getIsBestEstimateOnset() },
+            { "label": "Gcs Score", "value": PatientCacheService.getGcsScore() },
+            { "label": "Gcs Score Eye", "value": PatientCacheService.getGcsScoreEye() },
+            { "label": "Gcs Score Verbal", "value": PatientCacheService.getGcsScoreVerbal() },
+            { "label": "Gcs Score Motor", "value": PatientCacheService.getGcsScoreMotor() },
+            { "label": "Summary Email Address", "value": PatientCacheService.getSummaryEmailAddress() },
+            { "label": "Anticoagulant Type", "value": PatientCacheService.getAnticoagulantType() },
+            { "label": "Anticoagulant Name", "value": PatientCacheService.getAnticoagulantName() },
+            { "label": "Estimated Weight In Kg", "value": PatientCacheService.getEstimatedWeightInKg() },
+            { "label": "Calculated Beriplex Dose", "value": PatientCacheService.getCalculatedBeriplexDose() },
+            { "label": "Inr Value", "value": PatientCacheService.getInrValue() },
+            { "label": "Inr Type", "value": PatientCacheService.getInrType() },
+            { "label": "Inr Date Time", "value": PatientCacheService.getInrDateTime(), "isDateTime": true },
+            { "label": "Administer Beriplex When Unknown", "value": PatientCacheService.getAdministerBeriplexWhenUnknown() },
+            { "label": "Is Weight Given In Kg", "value": PatientCacheService.getIsWeightGivenInKg() },
+            { "label": "Actual Beriplex Dose", "value": PatientCacheService.getActualBeriplexDose() },
+            { "label": "Beriplex Start Date Time", "value": PatientCacheService.getBeriplexStartDateTime(), "isDateTime": true },
+            { "label": "Vitamink Date Time", "value": PatientCacheService.getVitaminkDateTime(), "isDateTime": true },
+            { "label": "Is Infusion Instructions Viewed", "value": PatientCacheService.getIsInfusionInstructionsViewed() },
+            { "label": "Reversal Agent Type", "value": PatientCacheService.getReversalAgentType() },
+            { "label": "Reversal Agent Date Time", "value": PatientCacheService.getReversalAgentDateTime(), "isDateTime": true },
+            { "label": "Bp Target Reached Date Time", "value": PatientCacheService.getBpTargetReachedDateTime(), "isDateTime": true },
+            { "label": "Bp Treatment Threshold", "value": PatientCacheService.getBpTreatmentThreshold() },
+            { "label": "Bp Target", "value": PatientCacheService.getBpTarget() },
+            { "label": "Destination", "value": PatientCacheService.getDestination() },
+            { "label": "Other Destination", "value": PatientCacheService.getOtherDestination() },
+            { "label": "Premorbid Mrs Score", "value": PatientCacheService.getPremorbidMrsScore() },
+            { "label": "Ich Volume", "value": PatientCacheService.getIchVolume() },
+            { "label": "Is Posterior Fossa Ich ", "value": PatientCacheService.getIsPosteriorFossaIch() },
+            { "label": "Is Ventricle Obstructed", "value": PatientCacheService.getIsVentricleObstructed() },
+            { "label": "Ich Longest Axis", "value": PatientCacheService.getIchLongestAxis() },
+            { "label": "Ich Perpendicular Axis", "value": PatientCacheService.getIchPerpendicularAxis() },
+            { "label": "Ich Num Slices", "value": PatientCacheService.getIchNumSlices() },
+            { "label": "Ich Slice Thickness", "value": PatientCacheService.getIchSliceThickness() },
+            { "label": "Referral To Neurosurgery Date Time", "value": PatientCacheService.getReferralToNeurosurgeryDateTime(), "isDateTime": true },
+            { "label": "Neurosurgeon Name", "value": PatientCacheService.getNeurosurgeonName() },
+            { "label": "Is Referral To Neurosurgery Accepted", "value": PatientCacheService.getIsReferralToNeurosurgeryAccepted() },
+            { "label": "Is For Active Treatment", "value": PatientCacheService.getIsForActiveTreatment() }
         ];
+        var patientUniqueId = PatientCacheService.getUniqueId();
+        var bpDisplayLabelsAndValues = { "label": "Bp Measurement Entries", "value": PatientCacheService.getBpMeasurementEntries() };
+
+        var emailData = {
+            "patientDisplayLabelsAndValues": patientDisplayLabelsAndValues,
+            "patientUniqueId": patientUniqueId,
+            "bpDisplayLabelsAndValues": bpDisplayLabelsAndValues
+        };
+
+        return emailData;
     }
 
-    function sendEmail(emailDone_Callback, emailClientNotInstalledOnDevice_Callback) {
-        var body = createEmailBody();
-        var attachment = createEmailAttachment();
+    function sendEmail(emailData, emailDone_Callback, emailClientNotInstalledOnDevice_Callback) {
+        var body = createEmailBody(emailData.patientUniqueId);
+        var attachment = createEmailAttachment(emailData);
         var emailSubject = "New Stroke app patient data";
         var emailRecipient = EmailCacheService.getEmail();//No need to check email is set here. Email address must be set before user can begin registering patient. 
 
@@ -88,7 +97,7 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
                 function (isAvailable) {
                     if (isAvailable) {
                         window.plugin.email.open(email, function () {
-                            emailDone_Callback(); //this doesnt imply email has been sent. just that the plug-in has sucessfully deligated responsibilty for creating a new email to the operating system.
+                            emailDone_Callback(); //this doesnt imply email has been sent. just that the app has sucessfully deligated responsibilty for creating a new email to the plug-in.
                         });
                     } else {
                          emailClientNotInstalledOnDevice_Callback();
@@ -139,31 +148,31 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
         return emailBody;
     }
 
-    function createEmailAttachment() {
-        var attachmentName = "patient - " + PatientCacheService.getUniqueId() + ".rtf";
+    function createEmailAttachment(emailData) {
+        var attachmentName = "patient - " + emailData.patientUniqueId + ".rtf";
 
-        var rtfDocument = createRtfDocument();
+        var rtfDocument = createRtfDocument(emailData);
         var rtfBase64 = btoa(rtfDocument);
         
         var attachment = "base64:" + attachmentName + "//" + rtfBase64;
         return attachment;
     }
 
-    function createRtfDocument() {
+    function createRtfDocument(emailData) {
         var rtfDocument;
         var rtfMeta = "{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 Calibri;}}\n";
         rtfMeta += "{\\*\\generator Msftedit 5.41.21.2510;}\\viewkind4\\uc1\\pard\\sa200\\sl276\\slmult1\\lang9\\f0\\fs22\\par\n";
         rtfDocument = rtfMeta;
-        rtfDocument += patientToRtfFormat();
-        rtfDocument += bloodPressureEntriesToRtfFormat();
+        rtfDocument += patientToRtfFormat(emailData.patientDisplayLabelsAndValues);
+        rtfDocument += bloodPressureEntriesToRtfFormat(emailData.bpDisplayLabelsAndValues);
         rtfDocument += "\n}\0";
 
         return rtfDocument;
     }
 
-    function createEmailBody() { 
+    function createEmailBody(patientUniqueId) { 
 
-        var emailIntro = "Hello,<br><br> You have received a new patient record (" + PatientCacheService.getUniqueId() + ").<br><br>";
+        var emailIntro = "Hello,<br><br> You have received a new patient record (" + patientUniqueId + ").<br><br>";
         
         var signature = "From,<br>The stroke app.<br><br>This is an automated message and this mail box is not monitored.<br>Please do not reply to this email address."
         var emailBody = emailIntro + signature;
@@ -171,16 +180,16 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
         return emailBody;
     }
 
-    function patientToRtfFormat() {
+    function patientToRtfFormat(patientDisplayLabelsAndValues) {
         var rtfBody = "\\ul \\fs56 Stroke app\\ulnone \\fs22 \\par"
         rtfBody += "\\fs48 Patient data for \\b " + PatientCacheService.getUniqueId() + ": \\b0 \\fs26 \\par"
-        for (var i = 0; i < _PatientDisplayLabelsAndValues.length; i++) {
-            var propertyValue = _PatientDisplayLabelsAndValues[i].value;
-            var propertyLabel = _PatientDisplayLabelsAndValues[i].label;
-            if (propertyValue) {
-                if (_PatientDisplayLabelsAndValues[i].isDateTime) {
+        for (var i = 0; i < patientDisplayLabelsAndValues.length; i++) {
+            var propertyValue = patientDisplayLabelsAndValues[i].value;
+            var propertyLabel = patientDisplayLabelsAndValues[i].label;
+            if (propertyValue !== null) {
+                if (patientDisplayLabelsAndValues[i].isDateTime) {
                     propertyValue = DateTimeService.formatDateTimeForRtf(propertyValue);
-                } else if (_PatientDisplayLabelsAndValues[i].isBirthDate) {
+                } else if (patientDisplayLabelsAndValues[i].isBirthDate) {
                     propertyValue = DateTimeService.formatBirthDateForRtf(propertyValue);
                 }
                 rtfBody += "\\b " + propertyLabel + ": \\b0 " + propertyValue + "\\par \n";
@@ -190,28 +199,33 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
         return rtfBody;
     }
 
-    function bloodPressureEntriesToRtfFormat() {
+    function bloodPressureEntriesToRtfFormat(bpDisplayLabelsAndValues) {
         var rtfBody = "\\par\\ul \\fs40 BP Entries:\\ulnone \\fs26 \\par";
-        var bloodPresureEntries = _BloodPressureDisplayLabelAndValue.getter();
+        var bloodPresureEntries = bpDisplayLabelsAndValues.value;
         for (var i = 0; i < bloodPresureEntries.length; i++) {
             var bloodPressureEntry = bloodPresureEntries[i];
             if (bloodPressureEntry) {
 
-                if (bloodPressureEntry.dateTime) {
+                if (bloodPressureEntry.dateTime !== null) {
                     rtfBody += "\\b " + DateTimeService.formatDateTimeForRtf(bloodPressureEntry.dateTime) + " \\b0 \\par \n";
                 }
 
-                if (bloodPressureEntry.systolicBp) {
+                if (bloodPressureEntry.systolicBp !== null) {
                     rtfBody += "\\b Systolic BP: \\b0 " + bloodPressureEntry.systolicBp + "\\par \n";
                 }
 
-                if (bloodPressureEntry.gtnRate) {
+                if (bloodPressureEntry.heartRate !== null) {
+                    rtfBody += "\\b Heart Rate: \\b0 " + bloodPressureEntry.heartRate + "\\par \n";
+                }
+
+                if (bloodPressureEntry.gtnRate !== null) {
                     rtfBody += "\\b GTN Rate: \\b0 " + bloodPressureEntry.gtnRate + "\\par \n";
                 }
 
-                if (bloodPressureEntry.labetalolDose) {
+                if (bloodPressureEntry.labetalolDose !== null) {
                     rtfBody += "\\b Labetalol Dose: \\b0 " + bloodPressureEntry.labetalolDose + "\\par \n";
-                }               
+                }
+
 
                 rtfBody += "------ \\par \n";
             }

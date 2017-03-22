@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('UserCredentialsConfigurationController', UserCredentialsConfigurationController);
 
-UserCredentialsConfigurationController.$inject = ['$window', '$ionicPopup', 'UserCredentialsCacheService', 'AuthenticationService'];
+UserCredentialsConfigurationController.$inject = ['$window', '$ionicLoading', '$ionicPopup', 'UserCredentialsCacheService', 'AuthenticationService'];
 
-function UserCredentialsConfigurationController($window, $ionicPopup, UserCredentialsCacheService, AuthenticationService) {
+function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPopup, UserCredentialsCacheService, AuthenticationService) {
 
     var vm = this;
 
@@ -38,11 +38,13 @@ function UserCredentialsConfigurationController($window, $ionicPopup, UserCreden
     }
 
     function onTestLogin() {
+        $ionicLoading.show();
         AuthenticationService.testAuthentication(vm.username, vm.password).then(function(success) {
             var alertText = "Failure";
             if (success) {
                 alertText = "Success";
             }
+            $ionicLoading.hide();
             showAlert(alertText);
         })
     }

@@ -14,8 +14,7 @@ function EmailConfigurationController($window, $scope, $ionicPopup, EmailCacheSe
     vm.onSave = onSave;
     vm.onSendTestEmail = onSendTestEmail;
     vm.isSendTestEmailButtonEnabled = isSendTestEmailButtonEnabled;
-    vm.isSaveButtonEnabled = isSaveButtonEnabled;
-
+ 
     function onCancel() {
         $window.history.back();
     }
@@ -51,15 +50,6 @@ function EmailConfigurationController($window, $scope, $ionicPopup, EmailCacheSe
     function isSendTestEmailButtonEnabled() {
         var isEnabled = false;
         
-        if (vm.email) {
-            isEnabled = true;
-        }
-        return isEnabled;
-    }
-
-    function isSaveButtonEnabled() {
-        var isEnabled = false;
-
         if (vm.email) {
             isEnabled = true;
         }

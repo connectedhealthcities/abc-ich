@@ -81,7 +81,7 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
     function sendEmail(emailData, emailDone_Callback, emailClientNotInstalledOnDevice_Callback) {
         var body = createEmailBody(emailData.patientUniqueId);
         var attachment = createEmailAttachment(emailData);
-        var emailSubject = "New Stroke app patient data";
+        var emailSubject = "ABC-ICH app patient data for " + emailData.patientUniqueId;
         var emailRecipient = EmailCacheService.getEmail();//No need to check email is set here. Email address must be set before user can begin registering patient. 
 
         var email = {
@@ -110,7 +110,7 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
 
     function sendTestEmail(emailRecipient, emailOK_Callback, emailClientNotInstalledOnDevice_Callback) {
         var body = createTestEmailBody();
-        var emailSubject = "Stroke app test Email";
+        var emailSubject = "ABC-ICH app - test Email";
 
         var email = {
             to: [emailRecipient],
@@ -140,16 +140,16 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
 
     function createTestEmailBody() {
 
-        var emailIntro = "Hello,<br><br>This is a test email sent by the Stroke app.<br>Email has been configured correctly on your device.<br><br>";
+        var emailIntro = "Hello,<br><br>This is a test email sent by the ABC-ICH app.<br>Email has been configured correctly on your device.<br><br>";
 
-        var signature = "From,<br>The stroke app.<br><br>This is an automated message and this mail box is not monitored.<br>Please do not reply to this email address."
+        var signature = "From,<br>The ABC-ICH app.<br><br>This is an automated message and this mail box is not monitored.<br>Please do not reply to this email address."
         var emailBody = emailIntro + signature;
 
         return emailBody;
     }
 
     function createEmailAttachment(emailData) {
-        var attachmentName = "patient - " + emailData.patientUniqueId + ".rtf";
+        var attachmentName = "ABC-ICH app " + emailData.patientUniqueId + ".rtf";
 
         var rtfDocument = createRtfDocument(emailData);
         var rtfBase64 = btoa(rtfDocument);
@@ -172,16 +172,16 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
 
     function createEmailBody(patientUniqueId) { 
 
-        var emailIntro = "Hello,<br><br> You have received a new patient record (" + patientUniqueId + ").<br><br>";
+        var emailIntro = "Hello,<br><br> The attached file contains patient data for: " + patientUniqueId + ".<br><br>";
         
-        var signature = "From,<br>The stroke app.<br><br>This is an automated message and this mail box is not monitored.<br>Please do not reply to this email address."
+        var signature = "From,<br>The ABC-ICH app.<br><br>This is an automated message and this mail box is not monitored.<br>Please do not reply to this email address."
         var emailBody = emailIntro + signature;
 
         return emailBody;
     }
 
     function patientToRtfFormat(patientDisplayLabelsAndValues) {
-        var rtfBody = "\\ul \\fs56 Stroke app\\ulnone \\fs22 \\par"
+        var rtfBody = "\\ul \\fs56 ABC-ICH app\\ulnone \\fs22 \\par"
         rtfBody += "\\fs48 Patient data for \\b " + PatientCacheService.getUniqueId() + ": \\b0 \\fs26 \\par"
         for (var i = 0; i < patientDisplayLabelsAndValues.length; i++) {
             var propertyValue = patientDisplayLabelsAndValues[i].value;

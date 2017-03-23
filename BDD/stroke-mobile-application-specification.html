@@ -45,8 +45,8 @@ Template
 	</Scenario>
 </Story>
 
-<Story> App configuration
-	<Scenario> #1: Configure user credentials 
+<Story> Configure user credentials
+	<Scenario> #1: Display "Configure user credentials" page
 		Given: the user is viewing the "Patient Start" view
 		And: they are viewing the application menu
 		When: they select the "Configure user credentials" menu option
@@ -66,14 +66,45 @@ Template
 		When: they select the "Test login" button 
 		Then: the "Test login - failure" popup is displayed
 	</Scenario>
-	<Scenario> #4: Configure email 
+</Story>
+
+<Story> Configure email
+	<Scenario> #1: Display "Email configuration" page
 		Given: the user is viewing the "Patient Start" view
 		And: they are viewing the application menu
 		When: they select the "Configure email" menu option
 		Then: the "Configure email" page is displayed
 	</Scenario>
-	ToDo - Scenarios for Test email
-	<Scenario> #5: View about page 
+	<Scenario> #2: Select "send test email" button
+		Given: the user is viewing the "Configure email" page
+		And: the user has entered a valid email address
+		When: they select the "Send test email" button 
+		Then: the system "open with" dialog is displayed
+	</Scenario>
+	<Scenario> #3: Select email app on system "open with" dialog - with account logged in to email app
+		Given: the user is viewing the system "open with" dialog
+		And: they have previously logged in to a email app
+		When: they select the email client from the list
+		Then: they are automatically navigated to the selected email app
+		And: the email address field is populated with the email address provided on the "configure email" page
+		And: the email body is present with text stating this a test email from the ABC-ICH app
+	</Scenario> 
+	<Scenario> #4: Select email app on system "open with" dialog - with no account logged in to email app
+		Given: the user is viewing the system "open with" dialog
+		And: they have not previously logged in to the email app
+		When: they select the email client from the list
+		Then: the email app prompts the user to log in
+	</Scenario>
+	<Scenario> #5: User selects send in the email app
+		Given: the user is viewing the email in the email app
+		When: the user selects send
+		Then: the user is returned to the ABC-ICH app
+		And: the email success pop up is displayed 
+	</Scenario>
+</Story>
+
+<Story> About page
+	<Scenario> #1: View about page 
 		Given: the user is viewing the "Patient Start" view
 		And: they are viewing the application menu
 		When: they select the "About" menu option
@@ -544,25 +575,38 @@ Template
 </Story>
 
 <Story> Patient End - view navigation
-	<Scenario> #1: Patient save succeeded and user sends email
+	<Scenario> #1: Patient save succeeded
 		Given: the user is on the "Patient End" view
 		And: comms is available
 		When: they select the "Finish" button
-		Then: they should see popups in the order listed: 
-		      - "Data saved" confirmation popup
-			  - "Send email summary?" popup
-		And: the email client app is displayed
+		Then: they should see the "Data saved" confirmation popup followed by "Send email summary?" popup 
 	</Scenario>    
-	<Scenario> #2: Patient save succeeded and user does not send email
-		Given: the user is on the "Patient End" view
-		And: comms is available
-		When: they select the "Finish" button
-		Then: they should see popups in the order listed: 
-		      - "Data saved" confirmation popup
-			  - "Send email summary?" popup
-		And: the "Patient Start" view is displayed""
-	</Scenario>    
-	<Scenario> #3: Patient save fails
+	<Scenario> #2: user does not send email
+		Given: The send email summary popup is displayed
+		When: the user selects "Cancel"
+		Then: the "Patient Start" view is displayed
+	</Scenario> 
+	<Scenario> #3: user sends email
+		Given: The send email summary popup is displayed
+		When: the user selects "OK"
+		Then: the system "open with" dialog is displayed
+	</Scenario> 
+	<Scenario> #4: user selects email app
+		Given: the system "open with" dialog is displayed
+		When: the user select the email client from the list
+		Then: they are navigated to the selected email app
+		And: the email address field is populated
+		And: the email body is present with a message stating this an email from the ABC-ICH app and the patient unique Id
+		And: there is an attachment in the email that contains the patient unique Id in its file name
+	</Scenario>   
+	<Scenario> #5: User selects send in the email app
+		Given: the user is viewing the email in the email app
+		When: the user selects send
+		Then: the user is returned to the ABC-ICH app		
+		And: all of the patient data is cleared
+		And: the "Patient Start" view is displayed
+	</Scenario>	   
+	<Scenario> #6: Patient save fails
 		Given: the user is on the "Patient End" view
 		And: comms is not available
 		When: they select the "Finish" button

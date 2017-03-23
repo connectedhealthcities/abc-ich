@@ -2,21 +2,29 @@
 
 angular.module('app.general').controller('UserCredentialsConfigurationController', UserCredentialsConfigurationController);
 
-UserCredentialsConfigurationController.$inject = ['$window', '$ionicLoading', '$ionicPopup', 'UserCredentialsCacheService', 'AuthenticationService'];
+UserCredentialsConfigurationController.$inject = ['$window', '$ionicLoading', '$ionicPopup', 'UserCredentialsConfigurationControllerService', 'UserCredentialsCacheService', 'AuthenticationService'];
 
-function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPopup, UserCredentialsCacheService, AuthenticationService) {
+function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPopup, UserCredentialsConfigurationControllerService, UserCredentialsCacheService, AuthenticationService) {
 
     var vm = this;
 
-    vm.username = UserCredentialsCacheService.getUsername();
-    vm.password = UserCredentialsCacheService.getPassword();
+    function init() {
+        // initialise vm parameters
+        vm.username = UserCredentialsCacheService.getUsername();
+        vm.password = UserCredentialsCacheService.getPassword();
 
+        // Setup click handlers
+        vm.onCancel = onCancel;
+        vm.onSave = onSave;
+        vm.onTestLogin = onTestLogin;
 
-    vm.onCancel = onCancel;
-    vm.onSave = onSave;
-    vm.isTestLoginButtonEnabled = isTestLoginButtonEnabled;
-    vm.onTestLogin = onTestLogin;
+        // Setup enable/disable handlers
+        vm.isTestLoginButtonEnabled = isTestLoginButtonEnabled;
+    }
 
+    init();
+
+    // Click handlers
     function onCancel() {
         $window.history.back();
     }
@@ -25,16 +33,6 @@ function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPo
         UserCredentialsCacheService.setUsername(vm.username);
         UserCredentialsCacheService.setPassword(vm.password);
         $window.history.back();
-    }
-
-    function isTestLoginButtonEnabled() {
-        var isEnabled = false;
-
-        if (vm.username && vm.password) {
-            isEnabled = true;
-        }
-
-        return isEnabled;
     }
 
     function onTestLogin() {
@@ -49,6 +47,12 @@ function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPo
         })
     }
 
+    // Enable/disable handlers
+    function isTestLoginButtonEnabled() {       
+        return UserCredentialsConfigurationControllerService.isTestLoginButtonEnabled(vm.username, vm.password);
+    }
+
+    // Popups
     function showAlert(text) {
         var popupTemplate = {
             template: text,

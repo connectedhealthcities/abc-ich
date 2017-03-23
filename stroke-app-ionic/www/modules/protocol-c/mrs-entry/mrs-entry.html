@@ -22,37 +22,37 @@
       <ion-item class="item-icon-left card-header card-header-green">
         <i class="icon ion-ionic"></i>Pre-stroke mRS
       </ion-item>
-      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="0">
+      <ion-radio ng-model="vm.mrsValue" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="0">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">No symptoms at all</div>
           <div class="col-10 text-right input-blue">0</div>
         </div>
       </ion-radio>
-      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="1">
+      <ion-radio ng-model="vm.mrsValue" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="1">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">No significant disability despite symptoms; able to carry out all usual duties and activities</div>
           <div class="col-10 text-right input-blue">1</div>
         </div>
       </ion-radio>
-      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="2">
+      <ion-radio ng-model="vm.mrsValue" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="2">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">Slight disability; unable to carry out all previous activities, but able to look after own affairs without assistance</div>
           <div class="col-10 text-right input-blue">2</div>
         </div>
       </ion-radio>
-      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="3">
+      <ion-radio ng-model="vm.mrsValue" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="3">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">Moderate disability; requiring some help, but able to walk without assistance</div>
           <div class="col-10 text-right input-blue">3</div>
         </div>
       </ion-radio>
-      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="4">
+      <ion-radio ng-model="vm.mrsValue" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="4">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">Moderately severe disability; unable to walk without assistance and unable to attend to own bodily needs without assistance</div>
           <div class="col-10 text-right input-blue">4</div>
         </div>
       </ion-radio>
-      <ion-radio ng-model="vm.mrs" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="5">
+      <ion-radio ng-model="vm.mrsValue" ng-change="vm.mrsValueChanged()" name="mrs" ng-value="5">
         <div class="row chi-no-vertical-padding">
           <div class="col-90 item-text-wrap input-blue">Severe disability; bedridden, incontinent and requiring constant nursing care and attention</div>
           <div class="col-10 text-right input-blue">5</div>
@@ -64,7 +64,7 @@
 
     <div class="chi-spacer"></div>
 
-    <div ng-show="vm.mrs >= 3">
+    <div ng-show="vm.mrsValue >= 3">
       <div class="text-center">
         <h2 class="input-blue">Premorbid mRS ≥ 3 - unlikely to be candidate for surgery</h2>
       </div>

@@ -2,42 +2,55 @@
 
 angular.module('app.general').controller('GcsEntryController', GcsEntryController);
 
-GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_GCS_ENTRY', 'STATE_ANTICOAGULANT_IDENTIFICATION'];
+GcsEntryController.$inject = ['$scope', '$state', '$ionicPopup', 'GcsEntryControllerService', 'PatientCacheService', 'StateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_GCS_ENTRY', 'STATE_ANTICOAGULANT_IDENTIFICATION'];
 
-function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_GCS_ENTRY, STATE_ANTICOAGULANT_IDENTIFICATION) {
+function GcsEntryController($scope, $state, $ionicPopup, GcsEntryControllerService, PatientCacheService, StateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_GCS_ENTRY, STATE_ANTICOAGULANT_IDENTIFICATION) {
 
-    var vm = this; // S3
+    var vm = this;
 
-    StateCacheService.setCurrentState(STATE_GCS_ENTRY);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_GCS_ENTRY);
 
-    vm.eye = null;
-    vm.verbal = null;
-    vm.motor = null;
-    vm.total = null;
+        // initialise vm parameters
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+        vm.eyeValue = null;
+        vm.verbalValue = null;
+        vm.motorValue = null;
+        vm.gcsTotal = null;
 
-    vm.gcsValueChanged = gcsValueChanged;
-    vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.onNext = onNext;
+        // Setup click handlers
+        vm.onNext = onNext;
 
-    function gcsValueChanged() {
-    	if(vm.eye && vm.verbal && vm.motor){
-    		vm.total = vm.eye + vm.verbal + vm.motor;
-    	}
+        // Setup change handlers
+        vm.gcsValueChanged = gcsValueChanged;
+
+        // Setup enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
     }
 
-    function isNextButtonEnabled() {
-        return vm.total != null;
-    }
-    
+    init();
+
+    // Click handlers
     function onNext() {
         showDataValidationPopup(handleDataValid);
     }
 
+    // Change handlers
+    function gcsValueChanged() {
+    	vm.gcsTotal = GcsEntryControllerService.getGcsTotal(vm.eyeValue, vm.verbalValue, vm.motorValue);
+    }
+
+    // Enable/disable handlers
+    function isNextButtonEnabled() {
+        return GcsEntryControllerService.isNextButtonEnabled(vm.eyeValue, vm.verbalValue, vm.motorValue)
+    }
+    
+    // Private functions
     function handleDataValid() {
         saveData();
-        if (vm.total < GCS_THRESHOLD) {
+        if (vm.gcsTotal < GCS_THRESHOLD) {
             showStabilisePatientPopup(goNextState);
         }
         else {
@@ -45,17 +58,18 @@ function GcsEntryController($scope, $state, $ionicPopup, PatientCacheService, St
         }
      }
 
+    function saveData() {
+        PatientCacheService.setGcsScoreEye(vm.eyeValue);       
+        PatientCacheService.setGcsScoreVerbal(vm.verbalValue);
+        PatientCacheService.setGcsScoreMotor(vm.motorValue);
+        PatientCacheService.setGcsScore(vm.gcsTotal);
+     }
+
      function goNextState() {
         $state.go(STATE_ANTICOAGULANT_IDENTIFICATION);
      }
 
-    function saveData() {
-        PatientCacheService.setGcsScoreEye(vm.eye);       
-        PatientCacheService.setGcsScoreVerbal(vm.verbal);
-        PatientCacheService.setGcsScoreMotor(vm.motor);
-        PatientCacheService.setGcsScore(vm.total);
-    }
-
+    // Popups
     function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/general/gcs-entry/gcs-entry-data-validation-popup.html',

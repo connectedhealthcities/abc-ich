@@ -1,146 +1,157 @@
-// 'use strict';
+'use strict';
 
-// describe('GcsEntryController', function() {
+// This file contains the following tests
+//
+// 		it initialises the view model correctly
+// 		it should save data when user selects 'Ok' on validation popup
+// 		it should go to state STATE_ANTICOAGULANT_IDENTIFICATION when user selects 'Ok' on validation popup
+// 		it should display 'Stabilise Patient' Popup when user selects 'Ok' on validation popup (GCS < GCS_THRESHOLD)
+// 		it should not save data when user selects 'Cancel' on validation popup
+// 		it should not change state when user selects 'Cancel' on validation popup
 
-//     var vm;
-//     var scope, ionicPopup, patientCacheService, state, q;
+describe('GcsEntryController', function() {
 
-//     beforeEach(function() {
+    var vm;
+	var $q;
+    var GCS_THRESHOLD_MOCK;
+	var STATE_GCS_ENTRY_MOCK, STATE_ANTICOAGULANT_IDENTIFICATION_MOCK;
+    var scopeMock, stateMock, ionicPopupMock, gcsEntryControllerServiceMock; 
+    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock;
 
-//         module('app.general');
-// 		module('ui.router');
 
-// 		angular.mock.inject(function($controller, $rootScope, _$state_, _$q_) {
+    beforeEach(function() {
 
-// 			state = _$state_;
-// 			scope = $rootScope.$new();
-// 			q = _$q_;
-// 			ionicPopup = {
-// 				confirm: function() {},
-// 				alert: function() {}
-// 			};
-// 			patientCacheService = {
-// 				setGcsScoreEye: function() {},
-// 				setGcsScoreVerbal: function() {},
-// 				setGcsScoreMotor: function() {},
-// 				setGcsScore: function() {}
-// 			};			
-
-// 			vm = $controller('GcsEntryController', {'$scope': scope, '$ionicPopup': ionicPopup, 'PatientCacheService': patientCacheService});	 	
-// 		});
-//      });
-
-// 	it("should not change view when data is not confirmed", function() {
-						
-// 		spyOn(patientCacheService, 'setGcsScoreEye');
-// 		spyOn(patientCacheService, 'setGcsScoreVerbal');
-// 		spyOn(patientCacheService, 'setGcsScoreMotor');
-// 		spyOn(patientCacheService, 'setGcsScore');
-
-// 		spyOn(ionicPopup, 'confirm').and.callFake(function() {
-// 			var deferred = q.defer();
-// 			deferred.resolve(false); // Cancel button selected
-// 			return deferred.promise;
-// 		});
-// 		spyOn(ionicPopup, 'alert');
-
-// 		spyOn(state, 'go');
-
-// 		vm.onNext(); // call the click handler
-
-// 		expect(ionicPopup.confirm).toHaveBeenCalled();
-
-// 		scope.$apply(); // Propagate 'ionicPopup.confirm' promise			
-
-// 	    expect(ionicPopup.alert).not.toHaveBeenCalled();		
-
-// 	    expect(patientCacheService.setGcsScoreEye).not.toHaveBeenCalled();		
-// 	    expect(patientCacheService.setGcsScoreVerbal).not.toHaveBeenCalled();		
-// 	    expect(patientCacheService.setGcsScoreMotor).not.toHaveBeenCalled();		
-// 	    expect(patientCacheService.setGcsScore).not.toHaveBeenCalled();		
-
-// 	    expect(state.go).not.toHaveBeenCalled();		
-//     });
-
-// 	it("should go to state 'anticoagulant-identification' when data is confirmed #1", function() {
+        module('app.general');
+ 
+		angular.mock.inject(function($controller, $rootScope, _$q_)  {
+			$q = _$q_;
+			STATE_GCS_ENTRY_MOCK = "state-gcs-entry";
+            STATE_ANTICOAGULANT_IDENTIFICATION_MOCK = "state-anticoagulant-identification";
+            GCS_THRESHOLD_MOCK = 9;
+			scopeMock = $rootScope.$new();
+			stateMock = jasmine.createSpyObj('$state spy', ['go']);
+			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
+			gcsEntryControllerServiceMock = jasmine.createSpyObj('GcsEntryControllerService spy', ['isNextButtonEnabled', 'getGcsTotal']);
+			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'setGcsScoreEye', 'setGcsScoreVerbal', 'setGcsScoreMotor', 'setGcsScore']);
+			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
+ 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 			
-// 		spyOn(patientCacheService, 'setGcsScoreEye');
-// 		spyOn(patientCacheService, 'setGcsScoreVerbal');
-// 		spyOn(patientCacheService, 'setGcsScoreMotor');
-// 		spyOn(patientCacheService, 'setGcsScore');
-			
-// 		spyOn(ionicPopup, 'confirm').and.callFake(function() {
-// 			var deferred = q.defer();
-// 			deferred.resolve(true); // Ok button selected
-// 			return deferred.promise;
-// 		});
-// 		spyOn(ionicPopup, 'alert');
+			vm = $controller('GcsEntryController', {
+				'$scope': scopeMock,
+				'$state': stateMock,
+				'$ionicPopup': ionicPopupMock,
+				'GcsEntryControllerService': gcsEntryControllerServiceMock,
+				'PatientCacheService': patientCacheServiceMock,
+				'StateCacheService': stateCacheServiceMock,
+                'GCS_THRESHOLD': GCS_THRESHOLD_MOCK,
+				'DemoModeCacheService': demoModeCacheServiceMock,
+				'STATE_GCS_ENTRY': STATE_GCS_ENTRY_MOCK,
+				'STATE_ANTICOAGULANT_IDENTIFICATION': STATE_ANTICOAGULANT_IDENTIFICATION_MOCK                
+			});
+		});				
+	});				
 
-// 		spyOn(state, 'go');
+	it("initialise the view model correctly", function() {
+				
+		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_GCS_ENTRY_MOCK);
+		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
+		expect(demoModeCacheServiceMock.getIsDemoMode).toHaveBeenCalled();		
+		expect(vm.eyeValue).toBe(null);
+		expect(vm.verbalValue).toBe(null);
+		expect(vm.motorValue).toBe(null);
+		expect(vm.gcsTotal).toBe(null);
+         
+		expect(vm.onNext).toBeDefined();
+		expect(vm.gcsValueChanged).toBeDefined();        
+		expect(vm.isNextButtonEnabled).toBeDefined();
+	});
 
-// 		// GCS >=9
-// 		vm.eye = 3;
-//     	vm.verbal = 4;
-//    	 	vm.motor = 5;
-//     	vm.total = 12;
+	it("should save data when user selects 'Ok' on validation popup", function() {
+        ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 
-// 		vm.onNext(); // call the click handler
+ 		vm.gcsTotal = GCS_THRESHOLD_MOCK;
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
-// 		expect(ionicPopup.confirm).toHaveBeenCalled();
+		expect(patientCacheServiceMock.setGcsScoreEye).toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScoreVerbal).toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScoreMotor).toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScore).toHaveBeenCalled();				
+	});
+ 
+	it("should go to state STATE_NEUROSURGERY_REFERRAL_CRITERIA when user selects 'Ok' on validation popup", function() {
+        ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 
-// 		scope.$apply(); // Propagate 'ionicPopup.confirm' promise			
+		vm.gcsTotal = GCS_THRESHOLD_MOCK;
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
-// 	    expect(ionicPopup.alert).not.toHaveBeenCalled();
+		expect(stateMock.go).toHaveBeenCalledWith(STATE_ANTICOAGULANT_IDENTIFICATION_MOCK);				
+	});
 
-//  	    expect(patientCacheService.setGcsScoreEye).toHaveBeenCalledWith(3);		
-// 	    expect(patientCacheService.setGcsScoreVerbal).toHaveBeenCalledWith(4);		
-// 	    expect(patientCacheService.setGcsScoreMotor).toHaveBeenCalledWith(5);		
-// 	    expect(patientCacheService.setGcsScore).toHaveBeenCalledWith(12);		
+	it("should display 'Stabilise Patient' Popup when user selects 'Ok' on validation popup (GCS < GCS_THRESHOLD)", function() {
+        ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 
-// 	    expect(state.go).toHaveBeenCalledWith('tabs.anticoagulant-identification');		
-//     });
+        ionicPopupMock.alert.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(); // User selects Ok
+			return deferred.promise;
+		});					
 
-// 	it("should go to state 'anticoagulant-identification' when data is confirmed #2", function() {
-			
-// 		spyOn(patientCacheService, 'setGcsScoreEye');
-// 		spyOn(patientCacheService, 'setGcsScoreVerbal');
-// 		spyOn(patientCacheService, 'setGcsScoreMotor');
-// 		spyOn(patientCacheService, 'setGcsScore');
-			
-// 		spyOn(ionicPopup, 'confirm').and.callFake(function() {
-// 			var deferred = q.defer();
-// 			deferred.resolve(true); // Ok button selected
-// 			return deferred.promise;
-// 		});
-// 		spyOn(ionicPopup, 'alert').and.callFake(function() {
-// 			var deferred = q.defer();
-// 			deferred.resolve();
-// 			return deferred.promise;
-// 		});
+ 		vm.gcsTotal = GCS_THRESHOLD_MOCK - 1;
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
-// 		spyOn(state, 'go');
+		expect(ionicPopupMock.alert).toHaveBeenCalled();		
+		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Stabilise patient");
 
-// 		// GCS < 9
-// 		vm.eye = 1;
-//     	vm.verbal = 1;
-//    	 	vm.motor = 1;
-//     	vm.total = 3;
+		expect(patientCacheServiceMock.setGcsScoreEye).toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScoreVerbal).toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScoreMotor).toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScore).toHaveBeenCalled();				
 
-// 		vm.onNext(); // call the click handler
+		expect(stateMock.go).toHaveBeenCalledWith(STATE_ANTICOAGULANT_IDENTIFICATION_MOCK);				
+	});
 
-// 		expect(ionicPopup.confirm).toHaveBeenCalled();
+	it("should not save data when user selects 'Cancel' on validation popup", function() {
+        ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects Cancel
+			return deferred.promise;
+		});					
 
-// 		scope.$apply(); // Propagate 'ionicPopup.confirm' promise			
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
-// 		expect(ionicPopup.alert).toHaveBeenCalled();
+		expect(patientCacheServiceMock.setGcsScoreEye).not.toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScoreVerbal).not.toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScoreMotor).not.toHaveBeenCalled();				
+		expect(patientCacheServiceMock.setGcsScore).not.toHaveBeenCalled();				
+	});
 
-// 	    expect(patientCacheService.setGcsScoreEye).toHaveBeenCalledWith(1);		
-// 	    expect(patientCacheService.setGcsScoreVerbal).toHaveBeenCalledWith(1);		
-// 	    expect(patientCacheService.setGcsScoreMotor).toHaveBeenCalledWith(1);		
-// 	    expect(patientCacheService.setGcsScore).toHaveBeenCalledWith(3);		
+	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+        ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects Cancel
+			return deferred.promise;
+		});					
 
-// 		scope.$apply(); // Propagate 'ionicPopup.alert' promise			
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
-// 	    expect(state.go).toHaveBeenCalledWith('tabs.anticoagulant-identification');		
-//     });
-// });
+		expect(stateMock.go).not.toHaveBeenCalled();				
+	});
+
+});

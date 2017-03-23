@@ -20,12 +20,17 @@ module.exports = function(config) {
 
       '../www/modules/app/app.modules.js',
 
+      '../www/modules/general/user-credentials-configuration/user-credentials-configuration.controller.js',
+      '../www/modules/general/user-credentials-configuration/user-credentials-configuration-controller.service.js',
+      '../www/modules/general/email-configuration/email-configuration.controller.js',
+      '../www/modules/general/email-configuration/email-configuration-controller.service.js',
       '../www/modules/general/patient-start/patient-start.controller.js',
       '../www/modules/general/patient-start/patient-start-controller.service.js',
       '../www/modules/general/register-patient/register-patient.controller.js',
       '../www/modules/general/patient-details/patient-details.controller.js',
       '../www/modules/general/patient-details/patient-details-controller.service.js',
       '../www/modules/general/gcs-entry/gcs-entry.controller.js',
+      '../www/modules/general/gcs-entry/gcs-entry-controller.service.js',
       '../www/modules/general/patient-end/patient-end.controller.js',
 
       '../www/modules/protocol-a/anticoagulant-identification/anticoagulant-identification.controller.js',
@@ -39,6 +44,7 @@ module.exports = function(config) {
       '../www/modules/protocol-b/critical-care-referral/critical-care-referral.controller.js',
 
       '../www/modules/protocol-c/mrs-entry/mrs-entry.controller.js',
+      '../www/modules/protocol-c/mrs-entry/mrs-entry-controller.service.js',
       '../www/modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria.controller.js',
       '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary.controller.js',
 

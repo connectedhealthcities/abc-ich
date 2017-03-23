@@ -23,7 +23,6 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsCon
         vm.isOnsetLastSeenWell = null;
         vm.isOnsetBestEstimate = null;
 
-
         // Setup click handlers
         vm.onNext = onNext;
         vm.onDoorNow = onDoorNow;

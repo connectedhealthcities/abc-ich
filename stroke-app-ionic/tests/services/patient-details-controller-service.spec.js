@@ -1,7 +1,8 @@
+'use strict';
 
 describe("PatientDetailsControllerService", function() {
 
-	var PatientDetailsControllerService;
+	var service;
 
 	beforeEach(function() {
 
@@ -10,69 +11,69 @@ describe("PatientDetailsControllerService", function() {
 		 // Inject the service to test.
 		 // The underscores are stripped when angular looks up the matching service.
 		 angular.mock.inject(function(_PatientDetailsControllerService_) {
-			 PatientDetailsControllerService = _PatientDetailsControllerService_;
+			 service = _PatientDetailsControllerService_;
 		 });
 
 	});
 
 	describe("isNextButtonEnabled", function() {
 
-		it("should return false if doorDate is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if doorDate is null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled(null, "not-null", "not-null", "not-null", "not-null", "not-null");
+			var isShow = service.isNextButtonEnabled(null, "not-null", "not-null", "not-null", "not-null", "not-null");
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return false if doorTime is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if doorTime is null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", null, "not-null", "not-null", "not-null", "not-null");
+			var isShow = service.isNextButtonEnabled("not-null", null, "not-null", "not-null", "not-null", "not-null");
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return false if onsetDate is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if onsetDate is null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", "not-null", null, "not-null", "not-null", "not-null");
+			var isShow = service.isNextButtonEnabled("not-null", "not-null", null, "not-null", "not-null", "not-null");
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return false if onsetTime is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if onsetTime is null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", "not-null", "not-null", null, "not-null", "not-null");
+			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", null, "not-null", "not-null");
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return false if isOnsetLastSeenWell is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if isOnsetLastSeenWell is null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", null, "not-null");
+			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", null, "not-null");
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return false if isOnsetBestEstimate is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if isOnsetBestEstimate is null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", null);
+			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", null);
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return true if none are null", inject(function(PatientDetailsControllerService) {
+		it("should return true if none are null", function() {
 
-			var isShow = PatientDetailsControllerService.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", "not-null");
+			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", "not-null");
 			expect(isShow).toBe(true);
-		}));
+		});
 	});
 
 	describe("isShowTimeSinceOnsetText", function() {
 
-		it("should return false if timeSinceOnsetText is null", inject(function(PatientDetailsControllerService) {
+		it("should return false if timeSinceOnsetText is null", function() {
 
-			var isShow = PatientDetailsControllerService.isShowTimeSinceOnsetText(null);
+			var isShow = service.isShowTimeSinceOnsetText(null);
 			expect(isShow).toBe(false);
-		}));
+		});
 
-		it("should return true if timeSinceOnsetText is not null", inject(function(PatientDetailsControllerService) {
+		it("should return true if timeSinceOnsetText is not null", function() {
 
-			var isShow = PatientDetailsControllerService.isShowTimeSinceOnsetText("not-null");
+			var isShow = service.isShowTimeSinceOnsetText("not-null");
 			expect(isShow).toBe(true);
-		}));
+		});
 	});
 
 });

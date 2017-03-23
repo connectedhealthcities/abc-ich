@@ -2,19 +2,28 @@
 
 angular.module('app.general').controller('EmailConfigurationController', EmailConfigurationController);
 
-EmailConfigurationController.$inject = ['$window', '$scope', '$ionicPopup', 'EmailCacheService', 'EmailService'];
+EmailConfigurationController.$inject = ['$window', '$scope', '$ionicPopup', 'EmailConfigurationControllerService', 'EmailCacheService', 'EmailService'];
 
-function EmailConfigurationController($window, $scope, $ionicPopup, EmailCacheService, EmailService) {
+function EmailConfigurationController($window, $scope, $ionicPopup, EmailConfigurationControllerService, EmailCacheService, EmailService) {
  
     var vm = this;
 
-    vm.email = EmailCacheService.getEmail();
+    function init() {
+        // initialise vm parameters
+        vm.email = EmailCacheService.getEmail();
 
-    vm.onCancel = onCancel;
-    vm.onSave = onSave;
-    vm.onSendTestEmail = onSendTestEmail;
-    vm.isSendTestEmailButtonEnabled = isSendTestEmailButtonEnabled;
- 
+        // Setup click handlers
+        vm.onCancel = onCancel;
+        vm.onSave = onSave;
+        vm.onSendTestEmail = onSendTestEmail;
+
+        // Setup enable/disable handlers
+        vm.isSendTestEmailButtonEnabled = isSendTestEmailButtonEnabled;
+    }
+
+    init();
+
+    // Click handlers
     function onCancel() {
         $window.history.back();
     }
@@ -28,6 +37,12 @@ function EmailConfigurationController($window, $scope, $ionicPopup, EmailCacheSe
         EmailService.sendTestEmail(vm.email, showEmailOKPopup, showEmailClientNotInstalledOnDevicePopup);
     }
 
+    // Enable/disable handlers
+    function isSendTestEmailButtonEnabled() {
+        return EmailConfigurationControllerService.isSendTestEmailButtonEnabled(vm.email);
+    }
+
+    // Popups
     function showEmailOKPopup() {
         var popupTemplate = {
             templateUrl: 'modules/general/email-configuration/email-ok-popup.html',
@@ -45,14 +60,5 @@ function EmailConfigurationController($window, $scope, $ionicPopup, EmailCacheSe
             cssClass: 'chi-wide-popup'
         };
         $ionicPopup.alert(popupTemplate);
-    }
-
-    function isSendTestEmailButtonEnabled() {
-        var isEnabled = false;
-        
-        if (vm.email) {
-            isEnabled = true;
-        }
-        return isEnabled;
     }
 }

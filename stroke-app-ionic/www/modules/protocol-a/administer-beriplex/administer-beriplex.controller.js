@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
 
-AdministerBeriplexController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_ADMINISTER_BERIPLEX', 'STATE_BP_MANAGEMENT'];
+AdministerBeriplexController.$inject = ['$window', '$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_ADMINISTER_BERIPLEX', 'STATE_BP_MANAGEMENT'];
 
-function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_ADMINISTER_BERIPLEX, STATE_BP_MANAGEMENT) {
+function AdministerBeriplexController($window, $scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_ADMINISTER_BERIPLEX, STATE_BP_MANAGEMENT) {
 
     var vm = this;
 
@@ -120,7 +120,22 @@ function AdministerBeriplexController($scope, $state, $ionicPopup, PatientCacheS
 
     function onViewInfusionInstructions() {
         isInfusionInstructionsViewed = true;
-        showInfusionInstructionsPopup(function(){});
+
+//        showInfusionInstructionsPopup(function(){});
+ 
+        var mix2vialApp = startApp.set({
+	        "package":"com.hansonzandi.mix2vial"
+         });
+
+        mix2vialApp.start(
+            function() {
+                // success - Do nothing
+            },
+            function(error) {
+                // fail, app is not installed
+                // take user to the install page on Play Store
+                $window.open("market://details?id=com.hansonzandi.mix2vial");
+            });
     }
 
     function onBeriplexNow() {

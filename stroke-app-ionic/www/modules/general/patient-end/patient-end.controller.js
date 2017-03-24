@@ -27,7 +27,7 @@ function PatientEndController($state, $scope, $ionicPopup, StateCacheService, Pa
                     showPatientSaveSucceededPopup(function () {
                         showEmailPatientPopup(function () {                            
                             EmailService.sendEmail(emailData, reset, showEmailClientNotInstalledOnDevicePopup);
-                        });
+                        }, reset);
                     });
                 }
                 else {
@@ -66,7 +66,7 @@ function PatientEndController($state, $scope, $ionicPopup, StateCacheService, Pa
         $ionicPopup.alert(popupTemplate);
     }
 
-    function showEmailPatientPopup(sendHandler) {
+    function showEmailPatientPopup(okHandler, cancelHandler) {
         var popupTemplate = {
             templateUrl: 'modules/general/patient-end/email-patient-popup.html',
             title: 'Email',
@@ -76,7 +76,9 @@ function PatientEndController($state, $scope, $ionicPopup, StateCacheService, Pa
 
         popup.then(function (res) {
             if (res) {
-                sendHandler();
+                okHandler();
+            } else {
+                cancelHandler();
             }
         });
     }

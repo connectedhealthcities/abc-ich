@@ -139,13 +139,13 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Pati
     }
 
     function onBeriplexNow() {
-        var now = new Date();
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.beriplexDate = now;
         vm.beriplexTime = now;
     }
 
     function onVitkNow() {
-        var now = new Date();
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.vitkDate = now;
         vm.vitkTime = now;
     }

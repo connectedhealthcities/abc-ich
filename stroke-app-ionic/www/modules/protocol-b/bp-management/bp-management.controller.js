@@ -118,7 +118,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function onEntryNow() {
-        var now = new Date();
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.entryDate = now;
         vm.entryTime = now;       
     }

@@ -165,7 +165,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function onScanNow() {
-        var now = new Date();
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.scanDate = now;
         vm.scanTime = now;
     }

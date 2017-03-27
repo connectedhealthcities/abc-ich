@@ -57,7 +57,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, PatientCac
     }
 
     function onInrNow() {
-        var now = new Date();
+        var now = DateTimeService.getNowWithZeroSeconds();
         vm.inrDate = now;
         vm.inrTime = now;
     }

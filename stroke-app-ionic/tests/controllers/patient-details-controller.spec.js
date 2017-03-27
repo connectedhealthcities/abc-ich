@@ -111,6 +111,7 @@ describe('PatientDetailsController', function() {
 		vm.doorDate = null;
 		vm.doorTime = null;
 		vm.onDoorNow();
+		expect(dateTimeServiceMock.getNowWithZeroSeconds).toHaveBeenCalled();				
 		expect(vm.doorDate).not.toBe(null);				
 		expect(vm.doorTime).not.toBe(null);				
 	});
@@ -120,6 +121,7 @@ describe('PatientDetailsController', function() {
 		vm.onsetDate = null;
 		vm.onsetTime = null;
 		vm.onOnsetNow();
+		expect(dateTimeServiceMock.getNowWithZeroSeconds).toHaveBeenCalled();				
 		expect(vm.onsetDate).not.toBe(null);				
 		expect(vm.onsetTime).not.toBe(null);				
 		expect(dateTimeServiceMock.getTimeSinceOnsetText).toHaveBeenCalled();				

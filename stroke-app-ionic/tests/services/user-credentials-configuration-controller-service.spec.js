@@ -20,20 +20,20 @@ describe("UserCredentialsConfigurationControllerService", function() {
 
 		it("should return false if username is null", function() {
 
-			var isShow = service.isTestLoginButtonEnabled(null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isTestLoginButtonEnabled(null, "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if password is null", function() {
 
-			var isShow = service.isTestLoginButtonEnabled("not-null", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isTestLoginButtonEnabled("not-null", null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if none are null", function() {
 
-			var isShow = service.isTestLoginButtonEnabled("not-null", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isTestLoginButtonEnabled("not-null", "not-null");
+			expect(isEnabled).toBe(true);
 		});
 	});
 

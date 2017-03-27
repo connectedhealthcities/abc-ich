@@ -19,44 +19,44 @@ describe("AnticoagulantIdentificationControllerService", function() {
 
 		it("should return false if anticoagulantType is null", function() {
 
-			var isShow = service.isNextButtonEnabled(null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if anticoagulantType is 'Unknown'", function() {
 
-			var isShow = service.isNextButtonEnabled("Unknown");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("Unknown");
+			expect(isEnabled).toBe(true);
 		});
 
 		it("should return true if anticoagulantType is 'None'", function() {
 
-			var isShow = service.isNextButtonEnabled("None");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("None");
+			expect(isEnabled).toBe(true);
 		});
 
 		it("should return true if anticoagulantType is 'Vitamin K antagonist' and anticoagulantName is not null", function() {
 
-			var isShow = service.isNextButtonEnabled("Vitamin K antagonist", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("Vitamin K antagonist", "not-null");
+			expect(isEnabled).toBe(true);
 		});
 
 		it("should return false if anticoagulantType is 'Vitamin K antagonist' and anticoagulantName is null", function() {
 
-			var isShow = service.isNextButtonEnabled("Vitamin K antagonist", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("Vitamin K antagonist", null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if anticoagulantType is 'DOAC' and anticoagulantName is not null", function() {
 
-			var isShow = service.isNextButtonEnabled("DOAC", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("DOAC", "not-null");
+			expect(isEnabled).toBe(true);
 		});
 
 		it("should return false if anticoagulantType is 'DOAC' and anticoagulantName is null", function() {
 
-			var isShow = service.isNextButtonEnabled("DOAC", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("DOAC", null);
+			expect(isEnabled).toBe(false);
 		});
 	});
 

@@ -20,44 +20,44 @@ describe("PatientDetailsControllerService", function() {
 
 		it("should return false if doorDate is null", function() {
 
-			var isShow = service.isNextButtonEnabled(null, "not-null", "not-null", "not-null", "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(null, "not-null", "not-null", "not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if doorTime is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", null, "not-null", "not-null", "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", null, "not-null", "not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if onsetDate is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", null, "not-null", "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", null, "not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if onsetTime is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", null, "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", "not-null", null, "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if isOnsetLastSeenWell is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", null, "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if isOnsetBestEstimate is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if none are null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", "not-null", "not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(true);
 		});
 	});
 

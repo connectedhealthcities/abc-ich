@@ -14,87 +14,55 @@ describe("AdministerBeriplexControllerService", function() {
 		 });
 
 	});
-        // if (isBeriplexAdministered != null &&
-        //     !isBeriplexAdministered &&
-        //     isVitkAdministered != null &&
-        //     !isVitkAdministered) {
-        //     isEnabled = true;
-        // }
-        // else if (isBeriplexAdministered != null &&
-        //     isBeriplexAdministered &&
-        //     isVitkAdministered != null &&
-        //     !isVitkAdministered) {
-        //     if (beriplexDate != null &&
-        //         beriplexTime != null) {
-        //         isEnabled = true;
-        //     }
-        // }
-        // else if (isBeriplexAdministered != null &&
-        //     !isBeriplexAdministered &&
-        //     isVitkAdministered != null &&
-        //     isVitkAdministered) {
-        //     if (vitkDate != null &&
-        //         vitkTime != null) {
-        //         isEnabled = true;
-        //     }
-        // }
-        // else {
-        //     if (beriplexDate != null &&
-        //         beriplexTime != null &&
-        //         vitkDate != null &&
-        //         vitkTime != null) {
-        //         isEnabled = true;
-        //     }
-        // }
 
 	describe("isNextButtonEnabled", function() {
 
 		it("should return true if isBeriplexAdministered is false and isVitkAdministered is false", function() {
 
-			var isShow = service.isNextButtonEnabled(false, false);
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled(false, false);
+			expect(isEnabled).toBe(true);
 		});
 
 		it("should return true if isBeriplexAdministered is true and isVitkAdministered is false", function() {
 
-			var isShow = service.isNextButtonEnabled(true, false, "not-null", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled(true, false, "not-null", "not-null");
+			expect(isEnabled).toBe(true);
 
-			var isShow = service.isNextButtonEnabled(true, false, null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, false, null, "not-null");
+			expect(isEnabled).toBe(false);
 
-			var isShow = service.isNextButtonEnabled(true, false, "not-null", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, false, "not-null", null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if isBeriplexAdministered is false and isVitkAdministered is true", function() {
 
-			var isShow = service.isNextButtonEnabled(false, true, null, null, "not-null", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled(false, true, null, null, "not-null", "not-null");
+			expect(isEnabled).toBe(true);
 
-			var isShow = service.isNextButtonEnabled(false, true, null, null, null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(false, true, null, null, null, "not-null");
+			expect(isEnabled).toBe(false);
 
-			var isShow = service.isNextButtonEnabled(false, true, null, null, "not-null", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(false, true, null, null, "not-null", null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if isBeriplexAdministered is true and isVitkAdministered is true", function() {
 
-			var isShow = service.isNextButtonEnabled(true, true, "not-null", "not-null", "not-null", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled(true, true, "not-null", "not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(true);
 
-			var isShow = service.isNextButtonEnabled(true, true, null, "not-null", "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, true, null, "not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 
-			var isShow = service.isNextButtonEnabled(true, true, "not-null", null, "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, true, "not-null", null, "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 
-			var isShow = service.isNextButtonEnabled(true, true, "not-null", "not-null", null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, true, "not-null", "not-null", null, "not-null");
+			expect(isEnabled).toBe(false);
 
-			var isShow = service.isNextButtonEnabled(true, true, "not-null", "not-null", "not-null", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, true, "not-null", "not-null", "not-null", null);
+			expect(isEnabled).toBe(false);
 
 		});
 

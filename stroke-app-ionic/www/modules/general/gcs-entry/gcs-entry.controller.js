@@ -12,9 +12,11 @@ function GcsEntryController($scope, $state, $ionicPopup, GcsEntryControllerServi
         // set current state
         StateCacheService.setCurrentState(STATE_GCS_ENTRY);
 
-        // initialise vm parameters
+        // initialise vm parameters for header row
         vm.patientId = PatientCacheService.getUniqueId();
         vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+
+        // initialise vm parameters for page content       
         vm.eyeValue = null;
         vm.verbalValue = null;
         vm.motorValue = null;

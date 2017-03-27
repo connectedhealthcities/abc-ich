@@ -12,12 +12,14 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, ConfirmBerip
         // set current state
         StateCacheService.setCurrentState(STATE_CONFIRM_BERIPLEX_DOSE);
 
-        // initialise vm parameters
+        // initialise vm parameters for header row
         vm.patientId = PatientCacheService.getUniqueId();
         vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+ 
+        // initialise vm parameters for page content       
+        vm.calculatedDose = PatientCacheService.getCalculatedBeriplexDose();
         vm.overrideCalculatedDose = null;
         vm.actualDose = null;
-        vm.calculatedDose = PatientCacheService.getCalculatedBeriplexDose();
 
         // Setup click handlers
         vm.onNext = onNext;

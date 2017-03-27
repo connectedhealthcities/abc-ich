@@ -12,9 +12,11 @@ function PatientDetailsController($scope, $state, $ionicPopup, PatientDetailsCon
         // set current state
         StateCacheService.setCurrentState(STATE_PATIENT_DETAILS);
 
-        // initialise vm parameters
+        // initialise vm parameters for header row
         vm.patientId = PatientCacheService.getUniqueId();
         vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+ 
+        // initialise vm parameters for page content       
         vm.doorDate = null;
         vm.doorTime = null;
         vm.onsetDate = null;

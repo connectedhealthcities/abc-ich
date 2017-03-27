@@ -12,9 +12,11 @@ function MrsEntryController($scope, $state, $ionicPopup, MrsEntryControllerServi
         // set current state
         StateCacheService.setCurrentState(STATE_MRS_ENTRY);
 
-        // initialise vm parameters
+        // initialise vm parameters for header row
         vm.patientId = PatientCacheService.getUniqueId();
         vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+
+        // initialise vm parameters for page content       
         vm.mrsValue = null;
 
         // Setup click handlers

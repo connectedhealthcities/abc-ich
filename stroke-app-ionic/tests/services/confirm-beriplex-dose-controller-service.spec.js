@@ -19,26 +19,26 @@ describe("ConfirmBeriplexDoseControllerService", function() {
 
 		it("should return false if overrideCalculatedDose is null", function() {
 
-			var isShow = service.isNextButtonEnabled(null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(null, "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if overrideCalculatedDose is false", function() {
 
-			var isShow = service.isNextButtonEnabled(false, null);
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled(false, null);
+			expect(isEnabled).toBe(true);
 		});
 
 		it("should return false if overrideCalculatedDose is true and actualDose is null", function() {
 
-			var isShow = service.isNextButtonEnabled(true, null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(true, null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if overrideCalculatedDose is true and actualDose is n0t null", function() {
 
-			var isShow = service.isNextButtonEnabled(true, "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled(true, "not-null");
+			expect(isEnabled).toBe(true);
 		});
 	});
 

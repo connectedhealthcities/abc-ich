@@ -12,9 +12,11 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
         // set current state
         StateCacheService.setCurrentState(STATE_ANTICOAGULANT_IDENTIFICATION);
 
-        // initialise vm parameters
+        // initialise vm parameters for header row
         vm.patientId = PatientCacheService.getUniqueId();
         vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+
+        // initialise vm parameters for page content       
         vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
         vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
 

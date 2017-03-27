@@ -20,26 +20,26 @@ describe("GcsEntryControllerService", function() {
 
 		it("should return false if eyeValue is null", function() {
 
-			var isShow = service.isNextButtonEnabled(null, "not-null", "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(null, "not-null", "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if verbalValue is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", null, "not-null");
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", null, "not-null");
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return false if motorValue is null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if none are null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null", "not-null", "not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("not-null", "not-null", "not-null");
+			expect(isEnabled).toBe(true);
 		});
 	});
 
@@ -47,26 +47,26 @@ describe("GcsEntryControllerService", function() {
 
 		it("should return null if eyeValue is null", function() {
 
-			var isShow = service.getGcsTotal(null, "not-null", "not-null");
-			expect(isShow).toBe(null);
+			var total = service.getGcsTotal(null, "not-null", "not-null");
+			expect(total).toBe(null);
 		});
 
 		it("should return null if verbalValue is null", function() {
 
-			var isShow = service.getGcsTotal("not-null", null, "not-null");
-			expect(isShow).toBe(null);
+			var total = service.getGcsTotal("not-null", null, "not-null");
+			expect(total).toBe(null);
 		});
 
 		it("should return null if motorValue is null", function() {
 
-			var isShow = service.getGcsTotal("not-null", "not-null", null);
-			expect(isShow).toBe(null);
+			var total = service.getGcsTotal("not-null", "not-null", null);
+			expect(total).toBe(null);
 		});
 
 		it("should return the sum if none are null", function() {
 
-			var isShow = service.getGcsTotal(3, 4, 5);
-			expect(isShow).toBe(3+4+5);
+			var total = service.getGcsTotal(3, 4, 5);
+			expect(total).toBe(3+4+5);
 		});
 
 	});

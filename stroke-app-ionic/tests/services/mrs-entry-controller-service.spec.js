@@ -20,14 +20,14 @@ describe("MrsEntryControllerService", function() {
 
 		it("should return false if mrsValue is null", function() {
 
-			var isShow = service.isNextButtonEnabled(null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isNextButtonEnabled(null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if mrsValue is not null", function() {
 
-			var isShow = service.isNextButtonEnabled("not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isNextButtonEnabled("not-null");
+			expect(isEnabled).toBe(true);
 		});
 	});
 

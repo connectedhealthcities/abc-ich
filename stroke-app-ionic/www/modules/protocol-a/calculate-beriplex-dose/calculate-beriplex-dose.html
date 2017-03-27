@@ -22,7 +22,7 @@
         <h3 class="text-center input-blue">Target door to needle time is less than 90 minutes!</h3>
         <hr>
 
-        <div class="card list" ng-show="vm.externalScanHospitalName != null">
+        <div class="card list" ng-show="vm.showReversalAgentAdministeredAtExternalHospitalCard()">
             <div class="item item-icon-left item-text-wrap card-header card-header-green">
                 <i class="icon ion-ionic"></i>Reversal agent administered at external hospital?
             </div>
@@ -34,7 +34,7 @@
             </ion-radio>
         </div>
 
-        <div class="card list" ng-show="vm.externalScanHospitalName == null || (vm.reversalAgentAdministeredAtExternalHospital != null && !vm.reversalAgentAdministeredAtExternalHospital)">
+        <div class="card list" ng-show="vm.showAdministerBeriplexWithoutInrCard()">
             <div class="item item-icon-left item-text-wrap card-header card-header-green">
                 <i class="icon ion-ionic"></i>Do you plan to administer Beriplex without waiting for INR?
             </div>
@@ -46,7 +46,7 @@
             </ion-radio>
         </div>
 
-        <div class="card list" ng-show="vm.administerBeriplexWithoutInr != null && !vm.administerBeriplexWithoutInr">
+        <div class="card list" ng-show="vm.showInrCard()">
             <div class="item item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>INR reading
             </div>
@@ -71,7 +71,7 @@
             </div>
         </div>
         
-        <div class="card list" ng-show="vm.administerBeriplexWithoutInr != null && !vm.administerBeriplexWithoutInr">
+        <div class="card list" ng-show="vm.showInrCard()">
             <div class="item item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>INR type
             </div>
@@ -83,7 +83,7 @@
             </ion-radio>
         </div>
 
-        <div class="card list" ng-show="vm.administerBeriplexWithoutInr != null">
+        <div class="card list" ng-show="vm.showEstimatedWeightCard()">
             <div class="item item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>Estimated weight
             </div>
@@ -97,9 +97,9 @@
             </label>
         </div>
 
-        <div class="card list" ng-show="vm.showBeriplexAdministrationOverride()">
+        <div class="card list" ng-show="vm.showBeriplexAdministrationOverrideCard()">
             <div class="item item-icon-left item-text-wrap card-header card-header-green">
-                <i class="icon ion-ionic"></i>Anti-coagulant is unknown and INR > 1.2. Prescribe Beriplex anyway?
+                <i class="icon ion-ionic"></i>Anti-coagulant is unknown and INR >= 1.3. Prescribe Beriplex anyway?
             </div>
             <ion-radio ng-model="vm.administerBeriplexWhenUnknown" name="administer-override" ng-value="true">
                 <span class="input-blue">Yes</span>

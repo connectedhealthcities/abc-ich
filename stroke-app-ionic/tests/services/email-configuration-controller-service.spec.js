@@ -20,14 +20,14 @@ describe("EmailConfigurationControllerService", function() {
 
 		it("should return false if emailAddress is null", function() {
 
-			var isShow = service.isSendTestEmailButtonEnabled(null);
-			expect(isShow).toBe(false);
+			var isEnabled = service.isSendTestEmailButtonEnabled(null);
+			expect(isEnabled).toBe(false);
 		});
 
 		it("should return true if emailAddress is not null", function() {
 
-			var isShow = service.isSendTestEmailButtonEnabled("not-null");
-			expect(isShow).toBe(true);
+			var isEnabled = service.isSendTestEmailButtonEnabled("not-null");
+			expect(isEnabled).toBe(true);
 		});
 	});
 

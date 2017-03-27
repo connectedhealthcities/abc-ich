@@ -11,7 +11,7 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
     function init() {
         DemoModeCacheService.setIsDemoMode(false);
 
-        // initialise vm parameters
+        // initialise vm parameter for header row
         vm.patientId = PatientCacheService.getUniqueId();
 
         // Setup click handlers

@@ -2,40 +2,23 @@
 
 angular.module('app.protocolA').service('CalculateBeriplexDoseControllerService', CalculateBeriplexDoseControllerService);
 
-CalculateBeriplexDoseControllerService.$inject = ['INR_THRESHOLD'];
+CalculateBeriplexDoseControllerService.$inject = [];
 
-function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
+function CalculateBeriplexDoseControllerService() {
  
      var service = {
-        showBeriplexAdministrationOverride: showBeriplexAdministrationOverride,
+        isNextButtonEnabled: isNextButtonEnabled,
+        showReversalAgentAdministeredAtExternalHospitalCard: showReversalAgentAdministeredAtExternalHospitalCard,
+        showAdministerBeriplexWithoutInrCard: showAdministerBeriplexWithoutInrCard,
+        showInrCard: showInrCard,
+        showEstimatedWeightCard: showEstimatedWeightCard,
+        showBeriplexAdministrationOverrideCard: showBeriplexAdministrationOverrideCard,
         calculateStonesToKg: calculateStonesToKg,
         calculateKgToStones: calculateKgToStones,
-        isNextButtonEnabled: isNextButtonEnabled,
         calculateBeriplexDose: calculateBeriplexDose
     };
 
     return service
-
-    function showBeriplexAdministrationOverride(anticoagulantType, inrValue) {
-        if (anticoagulantType === "Unknown" && inrValue > INR_THRESHOLD) {
-            return true;
-        }
-        return false
-    }
-
-    function calculateStonesToKg(weightInStones) {
-        var _NUM_KGS_IN_STONES_ = 6.35;
-        var weightInKg = Math.round(weightInStones * _NUM_KGS_IN_STONES_);
-
-        return weightInKg;
-    }
-
-    function calculateKgToStones(weightInKg) {
-        var _NUM_STONES_IN_KG_ = 0.15;
-        var weightInStones = Math.round(weightInKg * _NUM_STONES_IN_KG_);
-
-        return weightInStones;
-    }
 
     function isNextButtonEnabled(
         reversalAgentAdministeredAtExternalHospital,
@@ -46,7 +29,8 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         inrTime,
         estimatedWeightInKg,
         inrValue,
-        forceAdministerWhenUnknown) {
+        forceAdministerWhenUnknown,
+        INR_THRESHOLD) {
         
         var isEnabled = false;
 
@@ -54,27 +38,29 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
             isEnabled = true;
         }
         else {
-
-            if (anticoagulantType === "Unknown") {
-                if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue <= INR_THRESHOLD) {
-                    isEnabled = true;
-                }
-
-                if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue && inrValue > INR_THRESHOLD) {
-                    if (forceAdministerWhenUnknown !== null) {
+            if (administerBeriplexWithoutInr !== null) {                    
+                if (administerBeriplexWithoutInr) {
+                    if (estimatedWeightInKg !== null) {
                         isEnabled = true;
-                    }
+                    }                        
                 }
-
-            } else {
-                if (administerBeriplexWithoutInr != null) {
-                    if (administerBeriplexWithoutInr) {
-                        if (estimatedWeightInKg) {
-                            isEnabled = true;
+                else {
+                    if (anticoagulantType === "Unknown") {
+                        if (inrValue !== null) {
+                            if (inrValue >= INR_THRESHOLD) { 
+                                if (inrType !== null && inrDate !== null && inrTime !== null && estimatedWeightInKg !== null && forceAdministerWhenUnknown !== null) {
+                                    isEnabled = true;
+                                }
+                            }
+                            else {
+                                if (inrType !== null && inrDate !== null && inrTime !== null && estimatedWeightInKg !== null) {
+                                    isEnabled = true;
+                                }
+                            }
                         }
                     }
                     else {
-                        if (inrType && inrDate && inrTime && estimatedWeightInKg && inrValue) {
+                        if (inrType !== null && inrDate !== null && inrTime !== null && inrValue !== null && estimatedWeightInKg !== null) {
                             isEnabled = true;
                         }
                     }
@@ -83,6 +69,67 @@ function CalculateBeriplexDoseControllerService(INR_THRESHOLD) {
         }
 
         return isEnabled;
+    }
+
+    function showReversalAgentAdministeredAtExternalHospitalCard(externalScanHospitalName) {
+        var isShow = false;
+        if (externalScanHospitalName !== null) {
+            isShow = true;
+        }
+        return isShow;
+    }
+
+    function showAdministerBeriplexWithoutInrCard(externalScanHospitalName, reversalAgentAdministeredAtExternalHospital) {
+        var isShow = false;
+        if ( externalScanHospitalName === null ||
+            (reversalAgentAdministeredAtExternalHospital !== null && !reversalAgentAdministeredAtExternalHospital) ) {
+            isShow = true;
+        }
+        return isShow;
+    }
+
+    function showInrCard(administerBeriplexWithoutInr) {
+        var isShow = false;
+        if (administerBeriplexWithoutInr !== null && !administerBeriplexWithoutInr) {
+            isShow = true;
+        }
+        return isShow;
+    }
+    
+    function showEstimatedWeightCard(administerBeriplexWithoutInr) {
+        var isShow = false;
+        if (administerBeriplexWithoutInr !== null) {
+            isShow = true;
+        }
+        return isShow;
+    }
+
+    function showBeriplexAdministrationOverrideCard(anticoagulantType, administerBeriplexWithoutInr, inrValue, INR_THRESHOLD) {
+        var isShow = false;
+        if (anticoagulantType === "Unknown" && administerBeriplexWithoutInr != null && !administerBeriplexWithoutInr && inrValue >= INR_THRESHOLD) {
+            isShow = true;
+        }
+        return isShow;
+    }
+
+    function calculateStonesToKg(weightInStones) {
+        if (weightInStones === null) {
+            return null;
+        }
+        var _NUM_KGS_IN_STONES_ = 6.35;
+        var weightInKg = Math.round(weightInStones * _NUM_KGS_IN_STONES_);
+
+        return weightInKg;
+    }
+
+    function calculateKgToStones(weightInKg) {
+        if (weightInKg === null) {
+            return null;
+        }
+       var _NUM_STONES_IN_KG_ = 0.15;
+        var weightInStones = Math.round(weightInKg * _NUM_STONES_IN_KG_);
+
+        return weightInStones;
     }
 
     function calculateBeriplexDose(inrValue, weightInKg) {

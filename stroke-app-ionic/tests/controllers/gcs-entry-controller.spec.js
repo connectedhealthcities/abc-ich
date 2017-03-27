@@ -3,6 +3,8 @@
 // This file contains the following tests
 //
 // 		it initialises the view model correctly
+//		it should delegate isNextButtonEnabled to controller.service
+//		it should delegate gcsValueChanged to controller.service
 // 		it should save data when user selects 'Ok' on validation popup
 // 		it should go to state STATE_ANTICOAGULANT_IDENTIFICATION when user selects 'Ok' on validation popup
 // 		it should display 'Stabilise Patient' Popup when user selects 'Ok' on validation popup (GCS < GCS_THRESHOLD)
@@ -64,6 +66,24 @@ describe('GcsEntryController', function() {
 		expect(vm.onNext).toBeDefined();
 		expect(vm.gcsValueChanged).toBeDefined();        
 		expect(vm.isNextButtonEnabled).toBeDefined();
+	});
+
+	it("should delegate isNextButtonEnabled to controller.service", function() {
+
+		vm.eyeValue = "eye-value";
+		vm.verbalValue = "verbal-value";
+		vm.motorValue = "motor-value";
+		vm.isNextButtonEnabled();
+		expect(gcsEntryControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith("eye-value", "verbal-value", "motor-value");				
+	});
+
+	it("should delegate gcsValueChanged to controller.service", function() {
+
+		vm.eyeValue = "eye-value";
+		vm.verbalValue = "verbal-value";
+		vm.motorValue = "motor-value";
+		vm.gcsValueChanged();
+		expect(gcsEntryControllerServiceMock.getGcsTotal).toHaveBeenCalledWith("eye-value", "verbal-value", "motor-value");				
 	});
 
 	it("should save data when user selects 'Ok' on validation popup", function() {

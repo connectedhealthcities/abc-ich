@@ -37,6 +37,7 @@ module.exports = function(config) {
       '../www/modules/protocol-a/anticoagulant-identification/anticoagulant-identification-controller.service.js',
       '../www/modules/protocol-a/calculate-beriplex-dose/calculate-beriplex-dose.controller.js',
       '../www/modules/protocol-a/confirm-beriplex-dose/confirm-beriplex-dose.controller.js',
+      '../www/modules/protocol-a/confirm-beriplex-dose/confirm-beriplex-dose-controller.service.js',
       '../www/modules/protocol-a/administer-beriplex/administer-beriplex.controller.js',
       '../www/modules/protocol-a/reversal-agent-details/reversal-agent-details.controller.js',
  

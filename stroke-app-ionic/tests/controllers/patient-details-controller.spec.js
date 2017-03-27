@@ -2,18 +2,18 @@
 
 // This file contains the following tests
 //
-// Initialisation
 // 		it initialises the view model correctly
-//
-// User selects 'Next' button and Ok to data validation popup
-// 		it should save data
-// 		it should go to state STATE_GCS_ENTRY
-//
-// User selects 'Next' button and Cancel to data validation popup
-// 		it should not save data
-// 		it should not change state
+//		it should delegate isNextButtonEnabled to controller.service
+//		it should delegate isShowTimeSinceOnsetText to controller.service
+//		it should delegate onOnsetChanged to DateTimeService
+//      it should populate view model parameters appropriately when onDoorNow is called
+//      it should populate view model parameters appropriately when onOnsetNow is called
+// 		it should save data when user selects 'Ok' on validation popup
+// 		it should go to state STATE_GCS_ENTRY when user selects 'Ok' on validation popup
+// 		it should not save data when user selects 'Cancel' on validation popup
+// 		it should not change state when user selects 'Cancel' on validation popup
 
-describe('PatientDetailsController - Initialisation', function() {
+describe('PatientDetailsController', function() {
 
     var vm;
 	var $q;
@@ -73,55 +73,64 @@ describe('PatientDetailsController - Initialisation', function() {
 		expect(vm.isNextButtonEnabled).toBeDefined();
 		expect(vm.isShowTimeSinceOnsetText).toBeDefined();
 	});
-});
 
-describe("PatientDetailsController - User selects 'Next' button and Ok to data validation popup", function() {
+	it("should delegate isNextButtonEnabled to controller.service", function() {
 
-    var vm;
-	var $q;
-	var STATE_PATIENT_DETAILS_MOCK, STATE_GCS_ENTRY_MOCK;
-    var scopeMock, stateMock, ionicPopupMock, patientDetailsControllerServiceMock; 
-    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
+		vm.doorDate = "door-date";
+        vm.doorTime = "door-time";
+        vm.onsetDate = "onset-date";
+        vm.onsetTime = "onset-time";
+        vm.isOnsetLastSeenWell = "is-onset-last-seen-well";
+        vm.isOnsetBestEstimate = "is-onset-best-estimate";		
+		vm.isNextButtonEnabled();
+		expect(patientDetailsControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith(
+			"door-date",
+			"door-time",
+			"onset-date",
+			"onset-time",
+			"is-onset-last-seen-well",
+			"is-onset-best-estimate"
+		);				
+	});
 
-    beforeEach(function() {
+	it("should delegate isShowTimeSinceOnsetText to controller.service", function() {
 
-        module('app.general');
+		vm.timeSinceOnsetText = "time-since-onset-text";
+		vm.isShowTimeSinceOnsetText();
+		expect(patientDetailsControllerServiceMock.isShowTimeSinceOnsetText).toHaveBeenCalledWith("time-since-onset-text");				
+	});
 
-		angular.mock.inject(function($controller, $rootScope, _$q_) {
-			$q = _$q_;
-			STATE_PATIENT_DETAILS_MOCK = "state-patient-details-mock";
-            STATE_GCS_ENTRY_MOCK = "state-gcs-entry-mock";
-			scopeMock = $rootScope.$new();
-			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			patientDetailsControllerServiceMock = jasmine.createSpyObj('PatientDetailsControllerService spy', ['isNextButtonEnabled', 'isShowTimeSinceOnsetText']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'setDoorDateTime', 'setOnsetDateTime', 'setIsLastSeenWellOnset', 'setIsBestEstimateOnset']);
-			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
-            dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
-			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
-			
-			ionicPopupMock.confirm.and.callFake(function() {
-				var deferred = $q.defer();
-				deferred.resolve(true); // User selects Ok
-				return deferred.promise;
-			});					
+	it("should delegate onOnsetChanged to DateTimeService", function() {
 
-			vm = $controller('PatientDetailsController', {
-				'$scope': scopeMock,
-				'$state': stateMock,
-				'$ionicPopup': ionicPopupMock,
-				'PatientDetailsControllerService': patientDetailsControllerServiceMock,
-				'PatientCacheService': patientCacheServiceMock,
-				'StateCacheService': stateCacheServiceMock, 
-				'DateTimeService': dateTimeServiceMock,
-				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_PATIENT_DETAILS': STATE_PATIENT_DETAILS_MOCK,
-				'STATE_GCS_ENTRY': STATE_GCS_ENTRY_MOCK                
-			});
-		});				
-	});				
+		vm.onOnsetChanged();
+		expect(dateTimeServiceMock.getTimeSinceOnsetText).toHaveBeenCalled();				
+	});
 
-	it("should save data", function() {
+	it("should populate view model parameters appropriately when onDoorNow is called", function() {
+
+		vm.doorDate = null;
+		vm.doorTime = null;
+		vm.onDoorNow();
+		expect(vm.doorDate).not.toBe(null);				
+		expect(vm.doorTime).not.toBe(null);				
+	});
+
+	it("should populate view model parameters appropriately when onOnsetNow is called", function() {
+
+		vm.onsetDate = null;
+		vm.onsetTime = null;
+		vm.onOnsetNow();
+		expect(vm.onsetDate).not.toBe(null);				
+		expect(vm.onsetTime).not.toBe(null);				
+		expect(dateTimeServiceMock.getTimeSinceOnsetText).toHaveBeenCalled();				
+	});
+
+	it("it should save data when user selects 'Ok' on validation popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 
 		vm.onNext(); // call the click handler
 
@@ -136,7 +145,12 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 		expect(patientCacheServiceMock.setIsBestEstimateOnset).toHaveBeenCalled();		
 	});
 
-	it("it should go to state STATE_GCS_ENTRY", function() {
+	it("it should go to state STATE_GCS_ENTRY when user selects 'Ok' on validation popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 
 		vm.onNext(); // call the click handler
 
@@ -146,55 +160,13 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 				
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_GCS_ENTRY_MOCK);		
 	});
-});
 
-describe("PatientDetailsController - User selects 'Next' button and Ok to data validation popup", function() {
-
-    var vm;
-	var $q;
-	var STATE_PATIENT_DETAILS_MOCK, STATE_GCS_ENTRY_MOCK;
-    var scopeMock, stateMock, ionicPopupMock, patientDetailsControllerServiceMock; 
-    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, dateTimeServiceMock;
-
-    beforeEach(function() {
-
-        module('app.general');
-
-		angular.mock.inject(function($controller, $rootScope, _$q_) {
-			$q = _$q_;
-			STATE_PATIENT_DETAILS_MOCK = "state-patient-details-mock";
-            STATE_GCS_ENTRY_MOCK = "state-gcs-entry-mock";
-			scopeMock = $rootScope.$new();
-			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			patientDetailsControllerServiceMock = jasmine.createSpyObj('PatientDetailsControllerService spy', ['isNextButtonEnabled', 'isShowTimeSinceOnsetText']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'setDoorDateTime', 'setOnsetDateTime', 'setIsLastSeenWellOnset', 'setIsBestEstimateOnset']);
-			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
-            dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
-			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
-			
-			ionicPopupMock.confirm.and.callFake(function() {
-				var deferred = $q.defer();
-				deferred.resolve(false); // User selects Cancel
-				return deferred.promise;
-			});					
-
-			vm = $controller('PatientDetailsController', {
-				'$scope': scopeMock,
-				'$state': stateMock,
-				'$ionicPopup': ionicPopupMock,
-				'PatientDetailsControllerService': patientDetailsControllerServiceMock,
-				'PatientCacheService': patientCacheServiceMock,
-				'StateCacheService': stateCacheServiceMock, 
-				'DateTimeService': dateTimeServiceMock,
-				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_PATIENT_DETAILS': STATE_PATIENT_DETAILS_MOCK,
-				'STATE_GCS_ENTRY': STATE_GCS_ENTRY_MOCK                
-			});
-		});				
-	});				
-
-	it("should not save data", function() {
+	it("it should not save data when user selects 'Cancel' on validation popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects Cancel
+			return deferred.promise;
+		});					
 
 		vm.onNext(); // call the click handler
 
@@ -209,7 +181,12 @@ describe("PatientDetailsController - User selects 'Next' button and Ok to data v
 		expect(patientCacheServiceMock.setIsBestEstimateOnset).not.toHaveBeenCalled();		
 	});
 
-	it("it should not change state", function() {
+	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects Cancel
+			return deferred.promise;
+		});					
 
 		vm.onNext(); // call the click handler
 

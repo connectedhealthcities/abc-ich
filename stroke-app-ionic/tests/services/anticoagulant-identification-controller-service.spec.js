@@ -89,4 +89,14 @@ describe("AnticoagulantIdentificationControllerService", function() {
 			expect(isShow).toBe(true);
 		});
 	});
+
+	describe("getSliderConfig", function() {
+
+		it("should return an object with 'images' and 'options' properties", function() {
+
+			var config = service.getSliderConfig();
+			expect(config.images).toBeDefined();
+			expect(config.options).toBeDefined();
+		});
+	});
 });

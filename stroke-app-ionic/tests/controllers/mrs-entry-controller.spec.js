@@ -3,6 +3,7 @@
 // This file contains the following tests
 //
 // 		it initialises the view model correctly
+//		it should delegate isNextButtonEnabled to controller.service
 // 		it should save data when user selects 'Ok' on validation popup
 // 		it should go to state STATE_NEUROSURGERY_REFERRAL_CRITERIA when user selects 'Ok' on validation popup
 // 		it should not save data when user selects 'Cancel' on validation popup
@@ -55,6 +56,13 @@ describe('MrsEntryController', function() {
          
 		expect(vm.onNext).toBeDefined();
 		expect(vm.isNextButtonEnabled).toBeDefined();
+	});
+
+	it("should delegate isNextButtonEnabled to controller.service", function() {
+
+		vm.mrsValue = "mrs-value";
+		vm.isNextButtonEnabled();
+		expect(mrsEntryControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith("mrs-value");				
 	});
 
 	it("should save data when user selects 'Ok' on validation popup", function() {

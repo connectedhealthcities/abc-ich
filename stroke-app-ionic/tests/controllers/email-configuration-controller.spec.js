@@ -3,6 +3,7 @@
 // This file contains the following tests
 //
 // 		it initialises the view model correctly
+//		it should delegate isSendTestEmailButtonEnabled to controller.service
 // 		it should save data when 'Save' button selected
 // 		it should call $window.history.back when 'Save' button selected
 // 		it should not save data when 'Cancel' button selected
@@ -49,6 +50,13 @@ describe("EmailConfigurationController", function() {
 		expect(vm.onSave).toBeDefined();
 		expect(vm.onSendTestEmail).toBeDefined();
 		expect(vm.isSendTestEmailButtonEnabled).toBeDefined();
+	});
+
+	it("should delegate isSendTestEmailButtonEnabled to controller.service", function() {
+
+		vm.email = "email-address";
+		vm.isSendTestEmailButtonEnabled();
+		expect(emailConfigurationControllerServiceMock.isSendTestEmailButtonEnabled).toHaveBeenCalledWith("email-address");				
 	});
 
 	it("should save data when 'Save' button selected", function() {

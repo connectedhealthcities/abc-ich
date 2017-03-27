@@ -3,6 +3,7 @@
 // This file contains the following tests
 //
 // 		it initialises the view model correctly
+//		it should delegate isTestLoginButtonEnabled to controller.service
 // 		it should save data when 'Save' button selected
 // 		it should call $window.history.back when 'Save' button selected
 // 		it should not save data when 'Cancel' button selected
@@ -54,6 +55,14 @@ describe("UserCredentialsConfigurationController", function() {
 		expect(vm.onSave).toBeDefined();
 		expect(vm.onTestLogin).toBeDefined();
 		expect(vm.isTestLoginButtonEnabled).toBeDefined();
+	});
+
+	it("should delegate isTestLoginButtonEnabled to controller.service", function() {
+
+		vm.username = "username";
+		vm.password = "password";
+		vm.isTestLoginButtonEnabled();
+		expect(userCredentialsConfigurationControllerServiceMock.isTestLoginButtonEnabled).toHaveBeenCalledWith("username", "password");				
 	});
 
 	it("should save data when 'Save' button selected", function() {

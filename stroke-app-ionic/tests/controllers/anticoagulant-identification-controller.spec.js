@@ -4,6 +4,11 @@
 //
 // Initialisation
 // 		it initialises the view model correctly
+//		it should delegate isNextButtonEnabled to controller.service
+//		it should delegate isShowVitkList to controller.service
+//		it should delegate isShowDoacList to controller.service
+//      it should reset view model parameters appropriately when anticoagulantTypeChanged is called
+//      it should display popup when onViewDoacs is called
 //
 // User selects 'Next' button and Confirms the data validation popup (GCS >= GCS_THRESHOLD)
 // 		it should save data
@@ -42,7 +47,7 @@ describe('AnticoagulantIdentificationController - Initialisation', function() {
             GCS_THRESHOLD_MOCK = 9;
 			scopeMock = $rootScope.$new();
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
+			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
 			anticoagulantIdentificationControllerServiceMock = jasmine.createSpyObj('AnticoagulantIdentificationControllerService spy', ['isNextButtonEnabled', 'isShowVitkList', 'isShowDoacList', 'getSliderConfig']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'getAnticoagulantType', 'getAnticoagulantName', 'setAnticoagulantType', 'setAnticoagulantName']);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
@@ -86,6 +91,42 @@ describe('AnticoagulantIdentificationController - Initialisation', function() {
 		expect(vm.isNextButtonEnabled).toBeDefined();
 		expect(vm.isShowVitkList).toBeDefined();
 		expect(vm.isShowDoacList).toBeDefined();
+	});
+
+	it("should delegate isNextButtonEnabled to controller.service", function() {
+
+		vm.anticoagulantType = "anticoagulant-type";
+		vm.anticoagulantName = "anticoagulant-name";
+		vm.isNextButtonEnabled();
+		expect(anticoagulantIdentificationControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith("anticoagulant-type", "anticoagulant-name");				
+	});
+
+	it("it should delegate isShowVitkList to controller.service", function() {
+
+		vm.anticoagulantType = "anticoagulant-type";
+		vm.isShowVitkList();
+		expect(anticoagulantIdentificationControllerServiceMock.isShowVitkList).toHaveBeenCalledWith("anticoagulant-type");				
+	});
+
+	it("it should delegate isShowDoacList to controller.service", function() {
+
+		vm.anticoagulantType = "anticoagulant-type";
+		vm.isShowDoacList();
+		expect(anticoagulantIdentificationControllerServiceMock.isShowDoacList).toHaveBeenCalledWith("anticoagulant-type");				
+	});
+
+	it("should reset view model parameters appropriately when anticoagulantTypeChanged is called", function() {
+
+		vm.anticoagulantName = "not-null";
+		vm.anticoagulantTypeChanged();
+		expect(vm.anticoagulantName).toBe(null);				
+	});
+
+	it("should display popup when onViewDoacs is called", function() {
+
+		vm.onViewDoacs();
+		expect(ionicPopupMock.alert).toHaveBeenCalled();		
+		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("DOAC images");
 	});
 });
 

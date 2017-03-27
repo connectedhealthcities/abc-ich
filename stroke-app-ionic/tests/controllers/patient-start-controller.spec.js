@@ -4,6 +4,7 @@
 //
 // Initialisation
 // 		it initialises the view model correctly
+//		it should delegate isShowResumePatient to controller.service
 //
 // No patient in progress - User selects 'New patient' button
 // 		it should clear caches
@@ -67,6 +68,12 @@ describe('PatientStartController - Initialisation', function() {
 		expect(vm.isShowResumePatient).toBeDefined();
 	});
 
+	it("should delegate isShowResumePatient to controller.service", function() {
+
+		vm.patientId = "patient-id";
+		vm.isShowResumePatient();
+		expect(patientStartControllerServiceMock.isShowResumePatient).toHaveBeenCalledWith("patient-id");				
+	});
 });
 
 describe("PatientStartController - No patient in progress - User selects 'New patient' button", function() {

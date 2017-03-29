@@ -24,7 +24,7 @@
     </div>
     <hr>
 
-    <h1 class="text-center input-blue">Beriplex dose is: {{vm.actualBeriplexDose}} IU</h1>
+    <h1 class="text-center input-blue">Beriplex dose is: {{vm.beriplexDose}} IU</h1>
 
     <div class="list card" >
       <ion-item class="item-icon-left card-header card-header-green chi-info">
@@ -64,7 +64,7 @@
         </ion-radio>
     </div>
 
-    <div ng-show="vm.isBeriplexAdministered" class="list card">
+    <div ng-show="vm.showBeriplexDateTimeCard()" class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Beriplex start time
@@ -101,7 +101,7 @@
         </ion-radio>
     </div>
 
-    <div ng-show="vm.isVitkAdministered" class="list card">
+    <div ng-show="vm.showVitaminkDateTimeCard()" class="list card">
       <form class="list">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Vitamin K time

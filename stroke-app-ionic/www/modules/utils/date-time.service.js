@@ -58,6 +58,9 @@ function DateTimeService($filter) {
     }
 
     function getDateTimeFromDateAndTime(date, time) {
+        if (date === null || time === null) {
+            return null;
+        }
         var dateTime = new Date(
             date.getFullYear(),
             date.getMonth(),

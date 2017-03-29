@@ -2,10 +2,10 @@
 
 angular.module('app.general').controller('PatientStartController', PatientStartController);
 
-PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientStartControllerService', 'PatientCacheService', 'StateCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT'];
+PatientStartController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientStartControllerService', 'PatientCacheService', 'StateCacheService', 'BpStateCacheService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'UserCredentialsCacheService'];
 
-function PatientStartController($scope, $state, $ionicPopup, PatientStartControllerService, PatientCacheService, StateCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT) {
- 
+function PatientStartController($scope, $state, $ionicPopup, PatientStartControllerService, PatientCacheService, StateCacheService, BpStateCacheService, DemoModeCacheService, STATE_REGISTER_PATIENT, UserCredentialsCacheService) {
+
     var vm = this;
 
     function init() {
@@ -13,13 +13,18 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
 
         // initialise vm parameter for header row
         vm.patientId = PatientCacheService.getUniqueId();
+        
+        // initialise vm parameters for page logic   
+        vm.username = UserCredentialsCacheService.getUsername();
+        vm.password = UserCredentialsCacheService.getPassword();
 
         // Setup click handlers
         vm.onNewPatient = onNewPatient;
         vm.onResumePatient = onResumePatient;
 
         // Setup show/hide handlers
-        vm.isShowResumePatient = isShowResumePatient
+        vm.isShowResumePatient = isShowResumePatient;
+        vm.isAppConfigured = isAppConfigured;
     }
 
     init();
@@ -41,6 +46,10 @@ function PatientStartController($scope, $state, $ionicPopup, PatientStartControl
     // Show/hide handlers
     function isShowResumePatient() {
         return PatientStartControllerService.isShowResumePatient(vm.patientId);
+    }
+
+    function isAppConfigured() {
+        return PatientStartControllerService.isAppConfigured(vm.username, vm.password);
     }
 
     // Private functions

@@ -4,6 +4,7 @@
 //
 // 		it should initialise the view model correctly
 //		it should delegate isSendTestEmailButtonEnabled to controller.service
+//		it should delegate isSaveButtonEnabled to controller.service
 // 		it should save data when 'Save' button selected
 // 		it should call $window.history.back when 'Save' button selected
 // 		it should not save data when 'Cancel' button selected
@@ -27,7 +28,7 @@ describe("EmailConfigurationController", function() {
 			$window = _$window_;
 			scopeMock = $rootScope.$new();
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['alert']);
-			emailConfigurationControllerServiceMock = jasmine.createSpyObj('EmailConfigurationControllerService spy', ['isSendTestEmailButtonEnabled']);
+			emailConfigurationControllerServiceMock = jasmine.createSpyObj('EmailConfigurationControllerService spy', ['isSendTestEmailButtonEnabled', 'isSaveButtonEnabled']);
 			emailCacheServiceMock = jasmine.createSpyObj('EmailCacheService spy', ['getEmail', 'setEmail']);
 			emailServiceMock = jasmine.createSpyObj('EmailService spy', ['sendTestEmail']);
  			
@@ -50,6 +51,7 @@ describe("EmailConfigurationController", function() {
 		expect(vm.onSave).toBeDefined();
 		expect(vm.onSendTestEmail).toBeDefined();
 		expect(vm.isSendTestEmailButtonEnabled).toBeDefined();
+		expect(vm.isSaveButtonEnabled).toBeDefined();
 	});
 
 	it("should delegate isSendTestEmailButtonEnabled to controller.service", function() {
@@ -57,6 +59,13 @@ describe("EmailConfigurationController", function() {
 		vm.email = "email-address";
 		vm.isSendTestEmailButtonEnabled();
 		expect(emailConfigurationControllerServiceMock.isSendTestEmailButtonEnabled).toHaveBeenCalledWith("email-address");				
+	});
+
+	it("should delegate isSaveButtonEnabled to controller.service", function() {
+
+		vm.email = "email-address";
+		vm.isSaveButtonEnabled();
+		expect(emailConfigurationControllerServiceMock.isSaveButtonEnabled).toHaveBeenCalledWith("email-address");				
 	});
 
 	it("should save data when 'Save' button selected", function() {

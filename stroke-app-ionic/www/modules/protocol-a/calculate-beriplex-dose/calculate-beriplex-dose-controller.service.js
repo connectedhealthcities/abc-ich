@@ -15,10 +15,45 @@ function CalculateBeriplexDoseControllerService() {
         showBeriplexAdministrationOverrideCard: showBeriplexAdministrationOverrideCard,
         calculateStonesToKg: calculateStonesToKg,
         calculateKgToStones: calculateKgToStones,
-        calculateBeriplexDose: calculateBeriplexDose
+        calculateBeriplexDose: calculateBeriplexDose,
+        isInrOutOfRange: isInrOutOfRange,
+        isWeightOutOfRange: isWeightOutOfRange
     };
 
-    return service
+     return service;
+
+     function isInrOutOfRange(inrValue) {
+         var isInrOutOfRange = (inrValue !== null && (inrValue < 0.5 || inrValue > 10));
+
+         return isInrOutOfRange;
+     }
+
+     function isWeightOutOfRange(estimatedWeightInKg) {
+         var isWeightOutOfRange = (estimatedWeightInKg !== null && (estimatedWeightInKg < 10 || estimatedWeightInKg > 300));
+
+         return isWeightOutOfRange;
+     }
+
+     function showBeriplexAdministrationOverrideCard(anticoagulantType, inrValue) {
+        if (anticoagulantType === "Unknown" && inrValue > INR_THRESHOLD) {
+            return true;
+        }
+        return false
+    }
+
+    function calculateStonesToKg(weightInStones) {
+        var _NUM_KGS_IN_STONES_ = 6.35;
+        var weightInKg = Math.round(weightInStones * _NUM_KGS_IN_STONES_);
+
+        return weightInKg;
+    }
+
+    function calculateKgToStones(weightInKg) {
+        var _NUM_STONES_IN_KG_ = 0.15;
+        var weightInStones = Math.round(weightInKg * _NUM_STONES_IN_KG_);
+
+        return weightInStones;
+    }
 
     function isNextButtonEnabled(
         reversalAgentAdministeredAtExternalHospital,
@@ -40,7 +75,7 @@ function CalculateBeriplexDoseControllerService() {
         else {
             if (administerBeriplexWithoutInr !== null) {                    
                 if (administerBeriplexWithoutInr) {
-                    if (estimatedWeightInKg !== null) {
+                    if (estimatedWeightInKg !== null && !isWeightOutOfRange(estimatedWeightInKg)) {
                         isEnabled = true;
                     }                        
                 }
@@ -48,19 +83,19 @@ function CalculateBeriplexDoseControllerService() {
                     if (anticoagulantType === "Unknown") {
                         if (inrValue !== null) {
                             if (inrValue >= INR_THRESHOLD) { 
-                                if (inrType !== null && inrDate !== null && inrTime !== null && estimatedWeightInKg !== null && forceAdministerWhenUnknown !== null) {
+                                if (inrType !== null && inrDate !== null && inrTime !== null && estimatedWeightInKg !== null && forceAdministerWhenUnknown !== null && (!isInrOutOfRange(inrValue) && !isWeightOutOfRange(estimatedWeightInKg))) {
                                     isEnabled = true;
                                 }
                             }
                             else {
-                                if (inrType !== null && inrDate !== null && inrTime !== null && estimatedWeightInKg !== null) {
+                                if (inrType !== null && inrDate !== null && inrTime !== null && estimatedWeightInKg !== null && inrValue && (!isInrOutOfRange(inrValue) && !isWeightOutOfRange(estimatedWeightInKg))) {
                                     isEnabled = true;
                                 }
                             }
                         }
                     }
                     else {
-                        if (inrType !== null && inrDate !== null && inrTime !== null && inrValue !== null && estimatedWeightInKg !== null) {
+                        if (inrType !== null && inrDate !== null && inrTime !== null && inrValue !== null && estimatedWeightInKg !== null && (!isInrOutOfRange(inrValue) && !isWeightOutOfRange(estimatedWeightInKg))) {
                             isEnabled = true;
                         }
                     }

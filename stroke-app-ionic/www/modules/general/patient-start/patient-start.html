@@ -1,51 +1,55 @@
 <div>
-  <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu-1">
-    
-    <ion-side-menu-content>
+    <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu-1">
 
-      <ion-nav-bar class="bar-stable">
-         <ion-nav-buttons side="left">
-          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-        </ion-nav-buttons>
-      </ion-nav-bar>
+        <ion-side-menu-content>
 
-      <ion-view title="Patient Start">
-        <ion-content padding="true" class="has-header">
+            <ion-nav-bar class="bar-stable">
+                <ion-nav-buttons side="left">
+                    <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+                </ion-nav-buttons>
+            </ion-nav-bar>
 
-          <div class="chi-spacer"></div>
+            <ion-view title="Patient Start">
+                <ion-content padding="true" class="has-header">
+                    <div class="chi-spacer"></div>
+                    <div ng-hide="vm.isAppConfigured()">                        
+                        <h2 class="text-center input-blue">The ABC-ICH app is not yet configured.</h2>
+                        <h3 class="text-center input-blue">Please configure user credentials via the side menu</h3>
+                        <hr>
+                    </div>
 
-          <div class="col-offset-25 col-50">
-            <button ng-click="vm.onNewPatient()" class="button button-large button-calm button-block icon-right ion-chevron-right">New Patient</button>
-          </div>
-          
-          <div class="chi-spacer"></div>
-          
-          <div ng-show="vm.isShowResumePatient()" class="col-offset-10 col-80">
-            <button ng-click="vm.onResumePatient()" class="button button-large button-calm button-block icon-right ion-chevron-right">Resume Patient: {{vm.patientId}}</button>
-          </div>
-        </ion-content>
-      </ion-view> 
- 
-    </ion-side-menu-content>
+                    <div class="col-offset-25 col-50">
+                        <button ng-disabled="!vm.isAppConfigured()" ng-click="vm.onNewPatient()" class="button button-large button-calm button-block icon-right ion-chevron-right">New Patient</button>
+                    </div>
 
-    <ion-side-menu side="left" id="side-menu-1">
-      
-      <ion-header-bar class="bar-stable">
-        <div class="title">Menu</div>
-      </ion-header-bar>
-      
-      <ion-content ng-controller="MenuController" padding="false" class="side-menu-left has-header">
-        <ion-list>
-          <ion-item ng-click="onUserCredentialsConfiguration()" menu-close="">Configure user credentials</ion-item>
-          <ion-item ng-click="onEmailConfiguration()" menu-close="">Configure email</ion-item>
-          <ion-item ng-click="onAbout()" menu-close="">About</ion-item>
-          <ion-item ng-click="onDemoMode()" menu-close="">Demo mode</ion-item>
-        </ion-list>
-      </ion-content>
-    
-    </ion-side-menu>
+                    <div class="chi-spacer"></div>
 
-  </ion-side-menus>
+                    <div ng-show="vm.isShowResumePatient()" class="col-offset-10 col-80">
+                        <button ng-disabled="!vm.isAppConfigured()" ng-click="vm.onResumePatient()" class="button button-large button-calm button-block icon-right ion-chevron-right">Resume Patient: {{vm.patientId}}</button>
+                    </div>
+                </ion-content>
+            </ion-view>
+
+        </ion-side-menu-content>
+
+        <ion-side-menu side="left" id="side-menu-1">
+
+            <ion-header-bar class="bar-stable">
+                <div class="title">Menu</div>
+            </ion-header-bar>
+
+            <ion-content ng-controller="MenuController" padding="false" class="side-menu-left has-header">
+                <ion-list>
+                    <ion-item ng-click="onUserCredentialsConfiguration()" menu-close="">Configure user credentials</ion-item>
+                    <ion-item ng-click="onEmailConfiguration()" menu-close="">Configure email</ion-item>
+                    <ion-item ng-click="onAbout()" menu-close="">About</ion-item>
+                    <ion-item ng-click="onDemoMode()" menu-close="">Demo mode</ion-item>
+                </ion-list>
+            </ion-content>
+
+        </ion-side-menu>
+
+    </ion-side-menus>
 </div>
 
 

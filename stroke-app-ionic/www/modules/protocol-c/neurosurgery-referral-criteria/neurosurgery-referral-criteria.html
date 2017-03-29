@@ -26,7 +26,8 @@
         <div class="item-text-wrap"><strong>Refer to Neurosurgery if any of the following criteria are met:</strong></div>        
       </ion-item>
       <ion-item class="card-header-green chi-info">
-        <div class="item-text-wrap">1. <strong>Posterior fossa ICH</strong> (brainstem or cerebellum)</strong></div>        
+        <div class="item-text-wrap">1. <strong>Posterior fossa ICH</strong> (brainstem or cerebellum)</strong></div>
+          <!--Just found the above markup error. need to decide what should/shouldnt be strong-->    
       </ion-item>
       <ion-item class="card-header-green chi-info">
         <div class="item-text-wrap">2. <strong>Obstruction of the third and/or fourth ventricle</strong> by intraventricular haemorrhage or by external compression</strong></div>        
@@ -92,6 +93,10 @@
 
         <ion-item class="item-icon-left data-display-region" ng-show="vm.ichVolume">
           <i class="icon ion-information-circled"></i><strong>ICH volume: </strong>{{vm.ichVolume}} ml
+        </ion-item> 
+
+        <ion-item class="item-icon-left chi-data-validation-warning item-text-wrap" ng-show="vm.showIchVolumeOutOfRangeMessage()">
+            <i class="icon ion-alert-circled"></i>ICH Volume is outside the allowed range: 0 - 500.<br />Please review the values entered
         </ion-item> 
     </div>
 

@@ -11,6 +11,10 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     StateCacheService.setCurrentState(STATE_BP_MANAGEMENT);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    vm.showSbpOutOfRangeMessage = showSbpOutOfRangeMessage;
+    vm.showGtnRateOutOfRangeMessage = showGtnRateOutOfRangeMessage;
+    vm.showLabetalolOutOfRangeMessage = showLabetalolOutOfRangeMessage;
+    vm.showHeartRateOutOfRangeMessage = showHeartRateOutOfRangeMessage;
 
     if (PatientCacheService.getBpTreatmentThreshold() === null) {
 
@@ -52,6 +56,22 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
 
     function onNext() {
         goNextState();
+    }
+
+    function showSbpOutOfRangeMessage() {
+        return BpManagementControllerService.isSbpOutOfRange(vm.entrySbp);
+    }
+
+    function showGtnRateOutOfRangeMessage() {
+        return BpManagementControllerService.isGtnRateOutOfRange(vm.entryGtn);
+    }
+
+    function showLabetalolOutOfRangeMessage() {
+        return BpManagementControllerService.isLabetalolOutOfRange(vm.entryLabetalol);
+    }
+
+    function showHeartRateOutOfRangeMessage() {
+        return BpManagementControllerService.isHeartRateOutOfRange(vm.entryHeartRate);
     }
 
     function goNextState() {
@@ -105,7 +125,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function isAddEntryButtonEnabled() {
-        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp);
+        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
     }
 
     function clearEntryFields() {

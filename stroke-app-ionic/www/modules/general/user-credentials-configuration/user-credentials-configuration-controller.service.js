@@ -15,7 +15,7 @@ function UserCredentialsConfigurationControllerService() {
     function isTestLoginButtonEnabled(username, password) {
         var isEnabled = false;
 
-        if( username != null && password != null) {
+        if (username !== null && password !== null && username !== "" && password !== "") {
 
     		isEnabled = true;
     	}

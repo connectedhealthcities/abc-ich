@@ -17,10 +17,13 @@
           <i class="icon ion-ionic"></i>Patient initials
         </ion-item>
         <label class="item item-input">
-          <input type="text" placeholder="Enter initials here" ng-model="vm.initials" ng-change="vm.onInitialsChanged(vm.initials)">
+          <input type="text" ng-required="true" placeholder="Enter initials here" ng-model="vm.initials" ng-change="vm.onInitialsChanged(vm.initials)">
         </label>
+        <ion-item class="item-icon-left chi-data-validation-warning item-text-wrap" ng-show="vm.showInitialsInvalidMessage()">
+            <i class="icon ion-alert-circled"></i>Patient initials should be 2 or 3 characters in length
+        </ion-item>        
     </div>
-    
+      
     <div class="list card">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Date of birth known?
@@ -32,24 +35,29 @@
           <span class="input-blue">No</span>
         </ion-radio>
     </div>
- 
     <div class="list card" ng-show="vm.isDateOfBirthKnown != null && vm.isDateOfBirthKnown">
          <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Date of birth
         </ion-item>
         <ion-item class="row">
           <div class="col">
-            <input type="number" placeholder="DD" ng-change="vm.onDateChanged()" ng-model="vm.day">
+            <input type="number" placeholder="Day" ng-change="vm.onDateChanged()" ng-model="vm.day">
           </div>
           <div class="col">
-            <input type="number" placeholder="MM" ng-change="vm.onDateChanged()" ng-model="vm.month">
+            <input type="number" placeholder="Month" ng-change="vm.onDateChanged()" ng-model="vm.month">
           </div>
           <div class="col">
-            <input type="number" placeholder="YYYY" ng-change="vm.onDateChanged()" ng-model="vm.year">
+            <input type="number" placeholder="Year" ng-change="vm.onDateChanged()" ng-model="vm.year">
           </div>
-        </ion-item>          
-        <ion-item class="item-icon-left data-display-region" ng-show="vm.dateOfBirth">
+        </ion-item>               
+        <ion-item class="item-icon-left data-display-region chi-birthdate-confirmation" ng-show="vm.dateOfBirth">
             <i class="icon ion-information-circled"></i>{{vm.dateOfBirth | date: 'dd MMM yyyy'}}
+        </ion-item>
+        <ion-item class="item-icon-left chi-data-validation-warning" ng-show="vm.showDobInvalidMessage()">
+            <i class="icon ion-alert-circled"></i>Invalid date
+        </ion-item>
+        <ion-item class="item-icon-left chi-data-validation-warning" ng-show="vm.showYearOutOfRangeMessage()">
+            <i class="icon ion-alert-circled"></i>Year is outside the allowed range: 1900 - {{vm.maxYear}}
         </ion-item>
      </div>
 

@@ -69,9 +69,11 @@
                     <button ng-click="vm.onInrNow()" class="button button-calm">Now</button>
                 </div>
             </div>
+            <div class="item item-icon-left chi-data-validation-warning" ng-show="vm.showInrOutOfRangeMessage()">
+                <i class="icon ion-alert-circled"></i>INR value is outside the allowed range: 0.5 - 10.0
+            </div>
         </div>
-        
-        <div class="card list" ng-show="vm.showInrCard()">
+        <div class="card list" ng-show="vm.administerBeriplexWithoutInr != null && !vm.administerBeriplexWithoutInr">
             <div class="item item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>INR type
             </div>
@@ -95,6 +97,9 @@
                 <span class="input-label">Stones</span>
                 <input ng-change="vm.onWeightInStonesChanged()" ng-model="vm.estimatedWeightInStones" type="number" placeholder="">
             </label>
+            <div class="item item-icon-left chi-data-validation-warning" ng-show="vm.showWeightOutOfRangeMessage()">
+                <i class="icon ion-alert-circled"></i>Weight is outside the allowed range: 10 Kg - 300 Kg
+            </div>
         </div>
 
         <div class="card list" ng-show="vm.showBeriplexAdministrationOverrideCard()">

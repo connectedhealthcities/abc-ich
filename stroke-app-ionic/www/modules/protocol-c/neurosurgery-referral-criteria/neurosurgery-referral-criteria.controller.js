@@ -2,15 +2,16 @@
 
 angular.module('app.protocolC').controller('NeurosurgeryReferralCriteriaController', NeurosurgeryReferralCriteriaController);
 
-NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD', 'DemoModeCacheService', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY', 'STATE_PATIENT_END'];
+NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'MRS_THRESHOLD', 'GCS_THRESHOLD', 'ICH_VOLUME_THRESHOLD', 'DemoModeCacheService', 'STATE_NEUROSURGERY_REFERRAL_CRITERIA', 'STATE_NEUROSURGERY_REFERRAL_SUMMARY', 'STATE_PATIENT_END', 'NeurosurgeryReferralCriteriaControllerService'];
 
-function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END) {
+function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END, NeurosurgeryReferralCriteriaControllerService) {
 
     var vm = this; // S12
 
     StateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_CRITERIA);
     vm.patientId = PatientCacheService.getUniqueId();
     vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    vm.showIchVolumeOutOfRangeMessage = showIchVolumeOutOfRangeMessage;
 
     vm.sliderImages = [
         {
@@ -50,19 +51,17 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     vm.calculateVolume = calculateVolume;
     vm.showVolumeMeasurementPopup = showVolumeMeasurementPopup;
     vm.showObstructionPopup = showObstructionPopup;
+
+    function showIchVolumeOutOfRangeMessage() {
+        return NeurosurgeryReferralCriteriaControllerService.isIchVolumeOutOfRange(vm.ichVolume);
+    }
  
     function onNext() {
        showDataValidationPopup(handleDataValid); 
     }
 
     function isNextButtonEnabled() {
-        var isEnabled = false;
-
-        if (vm.ichVolume != null &&
-            vm.isPosteriorFossaIch != null &&
-            vm.isObstruction != null) {
-            isEnabled = true;
-        }
+        var isEnabled = NeurosurgeryReferralCriteriaControllerService.isNextButtonEnabled(vm.ichVolume, vm.isPosteriorFossaIch, vm.isObstruction);
 
         return isEnabled;
     }

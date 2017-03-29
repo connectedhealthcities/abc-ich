@@ -73,4 +73,11 @@
         top: 43px;
 }
 
+.chi-data-validation-warning{
+    color: #D63301;
+    font-size: 18px;
+}
 
+.chi-birthdate-confirmation{
+    font-size: 18px;
+}

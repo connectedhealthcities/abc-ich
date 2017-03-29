@@ -15,10 +15,16 @@ function UserCredentialsCacheService(LocalStorageService) {
         setUsername: setUsername,
 
         setPassword: setPassword,
-        getPassword: getPassword
+        getPassword: getPassword,
+
+        isUserCredentialsSet: isUserCredentialsSet
     };
     
     return service;
+
+    function isUserCredentialsSet() {
+        return (LocalStorageService.getItem(username_key) !== null && LocalStorageService.getItem(password_key) !== null);
+    }
 
     function getUsername() {
         return LocalStorageService.getItem(username_key);

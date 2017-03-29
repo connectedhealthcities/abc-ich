@@ -4,6 +4,7 @@
 //
 // 		it should initialise the view model correctly
 //		it should delegate isShowResumePatient to controller.service
+//		it should delegate isAppConfigured to controller.service
 //		it should reset data when user selects 'New patient' button and no patient is in progress
 //		it should save data when user selects 'New patient' button and no patient is in progress
 //		it should go to state STATE_REGISTER_PATIENT when user selects 'New patient' button and no patient is in progress
@@ -20,7 +21,7 @@ describe('PatientStartController', function() {
     var vm;
 	var $q;
 	var STATE_REGISTER_PATIENT_MOCK;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
+    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock, userCredentialsCacheServiceMock;
 
     beforeEach(function() {
 
@@ -31,12 +32,13 @@ describe('PatientStartController', function() {
 			scopeMock = $rootScope.$new();
 			STATE_REGISTER_PATIENT_MOCK = "test";
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
+			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient', 'isAppConfigured']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
+			userCredentialsCacheServiceMock = jasmine.createSpyObj('UserCredentialsCacheService spy', ['getUsername', 'setUsername', 'getPassword', 'setPassword', 'isUserCredentialsSet']);
 			
 			vm = $controller('PatientStartController', {
 				'$scope': scopeMock,
@@ -47,7 +49,8 @@ describe('PatientStartController', function() {
 				'StateCacheService': stateCacheServiceMock, 
 				'BpStateCacheService': bpStateCacheServiceMock,
 				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
+				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK,
+				'UserCredentialsCacheService': userCredentialsCacheServiceMock
 			});
 		});				
 	});
@@ -55,7 +58,9 @@ describe('PatientStartController', function() {
 	it("should initialise the view model correctly", function() {
 				
 		expect(demoModeCacheServiceMock.setIsDemoMode).toHaveBeenCalledWith(false);		
-		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
+		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();		
+		expect(userCredentialsCacheServiceMock.getUsername).toHaveBeenCalled();
+		expect(userCredentialsCacheServiceMock.getPassword).toHaveBeenCalled();
 		expect(vm.onNewPatient).toBeDefined();
 		expect(vm.onResumePatient).toBeDefined();
 		expect(vm.isShowResumePatient).toBeDefined();
@@ -66,6 +71,14 @@ describe('PatientStartController', function() {
 		vm.patientId = "patient-id";
 		vm.isShowResumePatient();
 		expect(patientStartControllerServiceMock.isShowResumePatient).toHaveBeenCalledWith("patient-id");				
+	});
+
+	it("should delegate isAppConfigured to controller.service", function() {
+
+		vm.username = "username";
+		vm.password = "password";
+		vm.isAppConfigured();
+		expect(patientStartControllerServiceMock.isAppConfigured).toHaveBeenCalledWith("username", "password");				
 	});
 
 	it("should reset data when user selects 'New patient' button and no patient is in progress", function() {

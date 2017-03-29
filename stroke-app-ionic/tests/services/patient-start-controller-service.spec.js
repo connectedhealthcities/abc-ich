@@ -31,4 +31,36 @@ describe("PatientStartControllerService", function() {
 		});
 	});
 
+	describe("isAppConfigured", function() {
+
+		it("should return true if username and password are not null or empty strings", function() {
+
+			var isConfigured = service.isAppConfigured("not-null", "not-null");
+			expect(isConfigured).toBe(true);
+		});
+
+		it("should return false if username is null", function() {
+
+			var isConfigured = service.isAppConfigured(null);
+			expect(isConfigured).toBe(false);
+		});
+
+		it("should return false if password is null", function() {
+
+			var isConfigured = service.isAppConfigured("not-null", null);
+			expect(isConfigured).toBe(false);
+		});
+
+		it("should return false if username is empty string", function() {
+
+			var isConfigured = service.isAppConfigured("");
+			expect(isConfigured).toBe(false);
+		});
+
+		it("should return false if password is empty string", function() {
+
+			var isConfigured = service.isAppConfigured("not-null", "");
+			expect(isConfigured).toBe(false);
+		});
+	});
 });

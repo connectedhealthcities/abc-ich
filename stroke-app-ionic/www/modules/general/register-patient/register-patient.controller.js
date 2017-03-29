@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS', 'RegisterPatientControllerService'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS) {
+function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS, RegisterPatientControllerService) {
 
     var vm = this; // S1
 
@@ -32,6 +32,9 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     vm.scanTime = null;
     vm.selectedHospital = null;
     vm.otherHospital = null;
+    var dateNow = new Date();
+    vm.maxYear = RegisterPatientControllerService.getMaxYear(dateNow);
+    vm.thisYear = RegisterPatientControllerService.getYear(dateNow);
 
     vm.onNext = onNext;
     vm.isNextButtonEnabled = isNextButtonEnabled;
@@ -41,11 +44,14 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     vm.selectedHospitalChanged = selectedHospitalChanged;
     vm.onInitialsChanged = onInitialsChanged;
     vm.onDateChanged = onDateChanged;
+    vm.showInitialsInvalidMessage = showInitialsInvalidMessage;
+    vm.showDobInvalidMessage = showDobInvalidMessage;
+    vm.showYearOutOfRangeMessage = showYearOutOfRangeMessage;
 
     function isNextButtonEnabled() {
         var isEnabled = false;
 
-        if (vm.initials != null) {
+        if (!RegisterPatientControllerService.isInitialsInvalid(vm.initials)) {
             if (vm.isDateOfBirthKnown != null) {
                 if ((vm.isDateOfBirthKnown && vm.dateOfBirth != null) || 
                     (!vm.isDateOfBirthKnown && vm.estimatedAge != null)) {
@@ -61,6 +67,28 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         }
 
         return isEnabled;
+    }
+
+    function showInitialsInvalidMessage() {
+        return RegisterPatientControllerService.isInitialsInvalid(vm.initials);
+    }
+
+    function showDobInvalidMessage() {
+        //we dont want to validate a date of birth that is incomplete..
+        if (!RegisterPatientControllerService.areAllDateFieldsComplete(vm.day, vm.month, vm.year)) {            
+            return false;
+        }
+
+        return RegisterPatientControllerService.isDobInvalidDate(vm.day, vm.month, vm.year);
+    }
+
+    function showYearOutOfRangeMessage() {
+        //if date isnt valid dont bother checking the year is within range yet
+        if (RegisterPatientControllerService.isDobInvalidDate(vm.day, vm.month, vm.year)) {
+            return false; //and dont show the out of range message
+        }
+
+        return RegisterPatientControllerService.isYearOutOfRange(vm.year, 1900, vm.maxYear);
     }
 
     function onNext() {
@@ -125,6 +153,7 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         PatientCacheService.setUniqueId(uniqueId);
         PatientCacheService.setId(id);        
         PatientCacheService.setInitials(vm.initials);
+
         if (vm.isDateOfBirthKnown) {
             PatientCacheService.setBirthDate(vm.dateOfBirth);
         }
@@ -171,12 +200,23 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
     }
 
     function onInitialsChanged(initials) {
+        if (!initials) { return; }
         vm.initials = initials.toUpperCase();
     }
 
     function onDateChanged() {
-        if (vm.day != null && vm.month != null && vm.year != null) {
-            vm.dateOfBirth = new Date(vm.year, vm.month-1, vm.day);
+
+        var isDobOutOfRange = RegisterPatientControllerService.isYearOutOfRange(vm.year, 1900, vm.maxYear);
+
+        var isDobInvalidDate = RegisterPatientControllerService.isDobInvalidDate(vm.day, vm.month, vm.year);
+       
+
+        if (isDobInvalidDate || isDobOutOfRange) {
+            vm.dateOfBirth = null;
+        } else if (vm.day != null && vm.month != null && (vm.year != null )) {
+            if (!isDobInvalidDate && !isDobOutOfRange) {
+                vm.dateOfBirth = new Date(vm.year, vm.month - 1, vm.day);
+            }
         }
     }
 

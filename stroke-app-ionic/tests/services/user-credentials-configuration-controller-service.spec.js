@@ -30,7 +30,19 @@ describe("UserCredentialsConfigurationControllerService", function() {
 			expect(isEnabled).toBe(false);
 		});
 
-		it("should return true if none are null", function() {
+		it("should return false if username is empty string", function() {
+
+			var isEnabled = service.isTestLoginButtonEnabled("", "not-null");
+			expect(isEnabled).toBe(false);
+		});
+
+		it("should return false if password is empty string", function() {
+
+			var isEnabled = service.isTestLoginButtonEnabled("not-null", "");
+			expect(isEnabled).toBe(false);
+		});
+
+		it("should return true if neither are null or an empty string", function() {
 
 			var isEnabled = service.isTestLoginButtonEnabled("not-null", "not-null");
 			expect(isEnabled).toBe(true);

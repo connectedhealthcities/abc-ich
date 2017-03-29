@@ -10,4 +10,4 @@ angular.module('app.protocolC', []);
 
 angular.module('utils', []);
 
-angular.module('app', ['ionic', 'ionicUIRouter', 'utils', 'app.general', 'app.protocolA', 'app.protocolB', 'app.protocolC']);
+angular.module('app', ['ionic', 'ionicUIRouter', 'utils', 'app.general', 'app.protocolA', 'app.protocolB', 'app.protocolC', 'angularMoment']);

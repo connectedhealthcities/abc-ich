@@ -19,6 +19,7 @@ function EmailConfigurationController($window, $scope, $ionicPopup, EmailConfigu
 
         // Setup enable/disable handlers
         vm.isSendTestEmailButtonEnabled = isSendTestEmailButtonEnabled;
+        vm.isSaveButtonEnabled = isSaveButtonEnabled;
     }
 
     init();
@@ -39,7 +40,12 @@ function EmailConfigurationController($window, $scope, $ionicPopup, EmailConfigu
 
     // Enable/disable handlers
     function isSendTestEmailButtonEnabled() {
+        // vm.email is bound to input of type email. vm.email is undefined when the input text cannot be interpreted as a valid email address string according to the built-in rules of the input.
         return EmailConfigurationControllerService.isSendTestEmailButtonEnabled(vm.email);
+    }
+
+    function isSaveButtonEnabled() {
+        return EmailConfigurationControllerService.isSaveButtonEnabled(vm.email);
     }
 
     // Popups

@@ -33,14 +33,24 @@ Template
 
 <Story> App launch
 	<Scenario> #1: App launch 
-		Given: the user is viewing the StrokeApp launcher icon
+		Given: the user is viewing the ABC-ICH launcher icon
 		When: they select the launcher icon 
 		Then: the "Disclaimer" popup is displayed
 	</Scenario>
-	<Scenario> #2: User dismisses the Disclaimer popup 
+	<Scenario> #2: User dismisses the Disclaimer popup - no patinent in progress 
 		Given: the user is viewing the "Disclaimer" popup
 		When: they select the Ok button 
 		Then: the "Patient Start" view is displayed
+		And: the "New Patient" button is displayed
+		And: the ABC tabs are not displayed
+	</Scenario>
+	<Scenario> #2: User dismisses the Disclaimer popup - a patinent is in progress 
+		Given: the user is viewing the "Disclaimer" popup
+		When: they select the Ok button 
+		Then: the "Patient Start" view is displayed
+		And: the "New Patient" button is displayed
+		And: the "Resume Patient" button is displayed
+		And: The id of the in-progress patient is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>
 </Story>

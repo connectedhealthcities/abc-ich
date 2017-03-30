@@ -2,7 +2,7 @@
 
 // This file contains the following tests
 //
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isNextButtonEnabled to controller.service
 // 		it should save data when user selects 'Ok' on validation popup
 // 		it should go to state STATE_NEUROSURGERY_REFERRAL_CRITERIA when user selects 'Ok' on validation popup
@@ -47,7 +47,7 @@ describe('MrsEntryController', function() {
 		});				
 	});				
 
-	it("initialise the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_MRS_ENTRY_MOCK);
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();

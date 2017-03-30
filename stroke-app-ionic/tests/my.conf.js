@@ -46,6 +46,7 @@ module.exports = function(config) {
  
       '../www/modules/protocol-b/bp-management/bp-management.controller.js',
       '../www/modules/protocol-b/critical-care-referral/critical-care-referral.controller.js',
+      '../www/modules/protocol-b/critical-care-referral/critical-care-referral-controller.service.js',
 
       '../www/modules/protocol-c/mrs-entry/mrs-entry.controller.js',
       '../www/modules/protocol-c/mrs-entry/mrs-entry-controller.service.js',

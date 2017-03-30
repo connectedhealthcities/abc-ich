@@ -2,37 +2,102 @@
 
 angular.module('app.protocolA').controller('ReversalAgentDetailsController', ReversalAgentDetailsController);
 
-ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT'];
+ReversalAgentDetailsController.$inject = ['$scope', '$state', '$ionicPopup', 'ReversalAgentDetailsControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'DateTimeService', 'GCS_THRESHOLD', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT'];
 
-function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, GCS_THRESHOLD, DemoModeCacheService, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT) {
+function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAgentDetailsControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, DateTimeService, GCS_THRESHOLD, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT) {
 
     var vm = this;
 
-    StateCacheService.setCurrentState(STATE_REVERSAL_AGENT_DETAILS);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_REVERSAL_AGENT_DETAILS);
 
-    vm.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
-    vm.reversalAgent = PatientCacheService.getReversalAgentType();
-    vm.reversalAgentAdministeredTimeKnown = PatientCacheService.getReversalAgentAdministeredTimeKnown();
-    var reversalDateTime = PatientCacheService.getReversalAgentStartDateTime();
-    vm.reversalDate = reversalDateTime;
-    vm.reversalTime = reversalDateTime;
+        // initialise vm parameters for header row
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-    vm.onNext = onNext;
-    vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.onReversalNow = onReversalNow;
-    vm.onReversalAgentChanged = onReversalAgentChanged;
-    vm.onReversalAgentAdministeredTimeKnownChanged = onReversalAgentAdministeredTimeKnownChanged;
+        // initialise vm parameters for page logic
+        vm.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
+        vm.gcsScore = PatientCacheService.getGcsScore();
 
+        // initialise vm parameters for page content
+        vm.reversalAgent = PatientCacheService.getReversalAgentType();
+        vm.reversalAgentAdministeredTimeKnown = PatientCacheService.getReversalAgentAdministeredTimeKnown();
+        var reversalDateTime = PatientCacheService.getReversalAgentStartDateTime();
+        vm.reversalDate = reversalDateTime;
+        vm.reversalTime = reversalDateTime;
+
+        // Setup click handlers
+        vm.onNext = onNext;
+        vm.onReversalNow = onReversalNow;
+
+        // Setup change handlers
+        vm.onReversalAgentChanged = onReversalAgentChanged;
+        vm.onReversalAgentAdministeredTimeKnownChanged = onReversalAgentAdministeredTimeKnownChanged;
+ 
+        // Setup enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
+ 
+        // Setup show/hide handlers
+        vm.showIsReversalTimeKnownCard = showIsReversalTimeKnownCard;
+        vm.showReversalTimeCard = showReversalTimeCard;
+        vm.hideReversalAgentOptionNone = hideReversalAgentOptionNone;
+    }
+
+    init();
+
+    // Click handlers
     function onNext() {
         showDataValidationPopup(handleDataValid); 
     }
 
+    function onReversalNow() {
+        var now = DateTimeService.getNowWithZeroSeconds();
+        vm.reversalDate = now;
+        vm.reversalTime = now;
+    }
+
+    // Change handlers
+    function onReversalAgentChanged() {
+         vm.reversalAgentAdministeredTimeKnown = null;
+         vm.reversalDate = null;
+         vm.reversalTime = null;
+    }
+
+    function onReversalAgentAdministeredTimeKnownChanged() {
+        vm.reversalDate  = null;
+        vm.reversalTime  = null;
+    }
+
+    // Enable/disable handlers
+    function isNextButtonEnabled() {
+        return ReversalAgentDetailsControllerService.isNextButtonEnabled(
+            vm.reversalAgent,
+            vm.reversalAgentAdministeredAtExternalHospital,
+            vm.reversalAgentAdministeredTimeKnown, 
+            vm.reversalDate,
+            vm.reversalTime
+        );
+    }
+
+    // Show/hide handlers
+    function showIsReversalTimeKnownCard() {
+        return ReversalAgentDetailsControllerService.showIsReversalTimeKnownCard(vm.reversalAgentAdministeredAtExternalHospital);
+    }
+
+    function showReversalTimeCard() {
+        return ReversalAgentDetailsControllerService.showReversalTimeCard(vm.reversalAgentAdministeredAtExternalHospital, vm.reversalAgentAdministeredTimeKnown, vm.reversalAgent);
+    }
+
+    function hideReversalAgentOptionNone() {
+        return ReversalAgentDetailsControllerService.hideReversalAgentOptionNone(vm.reversalAgentAdministeredAtExternalHospital);
+    }
+
+    // Private functions
     function handleDataValid() {
         saveData();
 
-        if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
+        if (vm.gcsScore < GCS_THRESHOLD) {
             StateCacheService.goLatestStateTabC();
         }
         else {
@@ -43,56 +108,12 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
     function saveData() {
         PatientCacheService.setReversalAgentType(vm.reversalAgent);
         PatientCacheService.setReversalAgentAdministeredTimeKnown(vm.reversalAgentAdministeredTimeKnown);
-        if (vm.reversalAgentAdministeredTimeKnown) {
-            var reversalDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.reversalDate, vm.reversalTime);
-            PatientCacheService.setReversalAgentStartDateTime(reversalDateTime);
-        }
+        var reversalDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.reversalDate, vm.reversalTime);
+        PatientCacheService.setReversalAgentStartDateTime(reversalDateTime);
      }
 
-     function isNextButtonEnabled() {
-         var isEnabled = false;
-
-         if (vm.reversalAgent != null) {
-            if (vm.reversalAgent === "None") {
-                isEnabled = true;
-            }
-            else if (vm.reversalAgentAdministeredAtExternalHospital) {
-                if (vm.reversalAgentAdministeredTimeKnown != null) {
-                    if (!vm.reversalAgentAdministeredTimeKnown) {
-                        isEnabled = true;
-                    }
-                    else if (vm.reversalDate != null && vm.reversalTime != null) {
-                        isEnabled = true;
-                    }
-                }
-            }
-            else {
-                if (vm.reversalDate != null && vm.reversalTime != null) {
-                    isEnabled = true;
-                }
-            }
-         }
-         return isEnabled;
-     }
-
-     function onReversalAgentChanged() {
-         vm.reversalAgentAdministeredTimeKnown = null;
-         vm.reversalDate = null;
-         vm.reversalTime = null;
-      }
-
-     function onReversalAgentAdministeredTimeKnownChanged() {
-        vm.reversalDate  = null;
-        vm.reversalTime  = null;
-     }
-
-     function onReversalNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
-        vm.reversalDate = now;
-        vm.reversalTime = now;
-     }
-
-     function showDataValidationPopup(okHandler) {
+    // Popups
+    function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/protocol-a/reversal-agent-details/reversal-agent-details-data-validation-popup.html',
             title: 'Data validation',
@@ -107,5 +128,5 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, PatientCach
                 okHandler();
             }
         });
-     }
+    }
 }

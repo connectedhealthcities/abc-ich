@@ -42,6 +42,7 @@ module.exports = function(config) {
       '../www/modules/protocol-a/administer-beriplex/administer-beriplex.controller.js',
       '../www/modules/protocol-a/administer-beriplex/administer-beriplex-controller.service.js',
       '../www/modules/protocol-a/reversal-agent-details/reversal-agent-details.controller.js',
+      '../www/modules/protocol-a/reversal-agent-details/reversal-agent-details-controller.service.js',
  
       '../www/modules/protocol-b/bp-management/bp-management.controller.js',
       '../www/modules/protocol-b/critical-care-referral/critical-care-referral.controller.js',

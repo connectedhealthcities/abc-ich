@@ -16,6 +16,9 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
         vm.patientId = PatientCacheService.getUniqueId();
         vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
+        // initialise vm parameters for page logic       
+        vm.gcsScore = PatientCacheService.getGcsScore();
+
         // initialise vm parameters for page content       
         vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
         vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
@@ -102,7 +105,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
     }
 
     function goNextStateWhenNone() {
-        if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
+        if (vm.gcsScore < GCS_THRESHOLD) {
             StateCacheService.goLatestStateTabC();
         }
         else {

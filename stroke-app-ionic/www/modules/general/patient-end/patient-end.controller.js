@@ -2,18 +2,27 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$state', '$scope', '$ionicPopup', 'StateCacheService', 'PatientCacheService', 'BpStateCacheService', 'PatientEndControllerService', 'PatientHttpService', 'EmailService', 'DemoModeCacheService', 'EmailCacheService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
+PatientEndController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientEndControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'BpStateCacheService', 'PatientHttpService', 'EmailService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
 
-function PatientEndController($state, $scope, $ionicPopup, StateCacheService, PatientCacheService, BpStateCacheService, PatientEndControllerService, PatientHttpService, EmailService, DemoModeCacheService, EmailCacheService, STATE_PATIENT_END, STATE_PATIENT_START) {
+function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, BpStateCacheService, PatientHttpService, EmailService, STATE_PATIENT_END, STATE_PATIENT_START) {
  
-    var vm = this; // S14
+    var vm = this;
 
-    StateCacheService.setCurrentState(STATE_PATIENT_END);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
-    
-    vm.onFinish = onFinish;
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_PATIENT_END);
 
+        // initialise vm parameters for header row
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+
+        // Setup click handlers
+        vm.onFinish = onFinish;
+    }
+
+    init();
+
+    // Click handlers
     function onFinish() {
         
         if (vm.isDemoMode) {
@@ -37,6 +46,7 @@ function PatientEndController($state, $scope, $ionicPopup, StateCacheService, Pa
         }       
     }
 
+    // Private functions
     function reset() {
         PatientCacheService.clearAll();
         StateCacheService.clearAll();
@@ -45,6 +55,7 @@ function PatientEndController($state, $scope, $ionicPopup, StateCacheService, Pa
         $state.go(STATE_PATIENT_START);
     }
 
+    // Popups
     function showPatientSaveSucceededPopup(okHandler) {
         var popupTemplate = {
             title: 'Patient save succeeded',

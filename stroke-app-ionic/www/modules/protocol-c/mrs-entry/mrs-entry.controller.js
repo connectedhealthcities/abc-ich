@@ -38,6 +38,7 @@ function MrsEntryController($scope, $state, $ionicPopup, MrsEntryControllerServi
         return MrsEntryControllerService.isNextButtonEnabled(vm.mrsValue);
     }
 
+    // Private functions
     function handleDataValid() {
         saveData();
         $state.go(STATE_NEUROSURGERY_REFERRAL_CRITERIA);

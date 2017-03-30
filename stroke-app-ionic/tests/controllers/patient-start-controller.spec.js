@@ -2,31 +2,23 @@
 
 // This file contains the following tests
 //
-// Initialisation
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isShowResumePatient to controller.service
-//
-// No patient in progress - User selects 'New patient' button
-// 		it should clear caches
-// 		it should save data
-// 		it should go to state STATE_REGISTER_PATIENT
-//
-// Patient is in progress - User selects 'New patient' button and Ok to 'confirm new patient' popup
-// 		it should clear caches
-// 		it should save data
-// 		it should go to state STATE_REGISTER_PATIENT
-//
-// Patient is in progress - User selects 'New patient' button and Cancel to 'confirm new patient' popup
-// 		it should not clear caches
-// 		it should not save data
-// 		it should not change state
-//
-// User selects 'Resume patient' button
-// 		it should resume at the state when the app was closed
+//		it should reset data when user selects 'New patient' button and no patient is in progress
+//		it should save data when user selects 'New patient' button and no patient is in progress
+//		it should go to state STATE_REGISTER_PATIENT when user selects 'New patient' button and no patient is in progress
+//		it should reset data when user selects Ok to 'confirm new patient' popup
+//		it should save data when user selects Ok to 'confirm new patient' popup
+//		it should go to state STATE_REGISTER_PATIENT when user selects Ok to 'confirm new patient' popup
+//		it should not reset data when user selects Cancel to 'confirm new patient' popup
+//		it should not save data when user selects Cancel to 'confirm new patient' popup
+//		it should not change state when user selects Cancel to 'confirm new patient' popup
+//		it should resume at the state when the app was closed when user selects 'resume patient'
 
-describe('PatientStartController - Initialisation', function() {
+describe('PatientStartController', function() {
 
     var vm;
+	var $q;
 	var STATE_REGISTER_PATIENT_MOCK;
     var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
 
@@ -34,7 +26,8 @@ describe('PatientStartController - Initialisation', function() {
 
         module('app.general');
 
-		angular.mock.inject(function($controller, $rootScope) {
+		angular.mock.inject(function($controller, $rootScope, _$q_) {
+			$q = _$q_;
 			scopeMock = $rootScope.$new();
 			STATE_REGISTER_PATIENT_MOCK = "test";
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
@@ -59,7 +52,7 @@ describe('PatientStartController - Initialisation', function() {
 		});				
 	});
 
-	it("initialises the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(demoModeCacheServiceMock.setIsDemoMode).toHaveBeenCalledWith(false);		
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
@@ -74,47 +67,10 @@ describe('PatientStartController - Initialisation', function() {
 		vm.isShowResumePatient();
 		expect(patientStartControllerServiceMock.isShowResumePatient).toHaveBeenCalledWith("patient-id");				
 	});
-});
 
-describe("PatientStartController - No patient in progress - User selects 'New patient' button", function() {
+	it("should reset data when user selects 'New patient' button and no patient is in progress", function() {
 
-    var vm;
-	var STATE_REGISTER_PATIENT_MOCK;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
-
-    beforeEach(function() {
-
-        module('app.general');
-
-		angular.mock.inject(function($controller, $rootScope) {
-			scopeMock = $rootScope.$new();
-			STATE_REGISTER_PATIENT_MOCK = "test";
-			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
-			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
-			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
-			
-			patientCacheServiceMock.getUniqueId.and.returnValue(null);
-
-			vm = $controller('PatientStartController', {
-				'$scope': scopeMock,
-				'$state': stateMock,
-				'$ionicPopup': ionicPopupMock,
-				'PatientStartControllerService': patientStartControllerServiceMock,
-				'PatientCacheService': patientCacheServiceMock,
-				'StateCacheService': stateCacheServiceMock, 
-				'BpStateCacheService': bpStateCacheServiceMock,
-				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
-			});
-		});				
-	});
-
-	it("should clear caches", function() {
-				
+		vm.patientId = null;				
 		vm.onNewPatient(); // call the click handler
 
 		expect(patientCacheServiceMock.clearAll).toHaveBeenCalled();		
@@ -122,70 +78,30 @@ describe("PatientStartController - No patient in progress - User selects 'New pa
 		expect(bpStateCacheServiceMock.clearAll).toHaveBeenCalled();		
 	});
 
-	it("should save data", function() {
+	it("should save data when user selects 'New patient' button and no patient is in progress", function() {
 				
+		vm.patientId = null;				
 		vm.onNewPatient(); // call the click handler
 
 		expect(patientCacheServiceMock.setAppStartDateTime).toHaveBeenCalled();		
 	});
 
-	it("should go to state 'register-patient'", function() {
+	it("should go to state STATE_REGISTER_PATIENT when user selects 'New patient' button and no patient is in progress", function() {
 				
+		vm.patientId = null;				
 		vm.onNewPatient(); // call the click handler
 
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_REGISTER_PATIENT_MOCK);		
 	});
 
-});
+	it("should reset data when user selects Ok to 'confirm new patient' popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 
-
-describe("PatientStartController - Patient is in progress - User selects 'New patient' button and Ok to 'confirm new patient' popup", function() {
-
-    var vm;
-	var STATE_REGISTER_PATIENT_MOCK;
-	var $q;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
-
-    beforeEach(function() {
-
-        module('app.general');
-
-		angular.mock.inject(function($controller, $rootScope, _$q_) {
-			$q = _$q_;
-			scopeMock = $rootScope.$new();
-			STATE_REGISTER_PATIENT_MOCK = "test";
-			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
-			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
-			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
-			
-			patientCacheServiceMock.getUniqueId.and.returnValue("not-null");
-
-			ionicPopupMock.confirm.and.callFake(function() {
-				var deferred = $q.defer();
-				deferred.resolve(true); // User selects Ok
-				return deferred.promise;
-			});					
-
-			vm = $controller('PatientStartController', {
-				'$scope': scopeMock,
-				'$state': stateMock,
-				'$ionicPopup': ionicPopupMock,
-				'PatientStartControllerService': patientStartControllerServiceMock,
-				'PatientCacheService': patientCacheServiceMock,
-				'StateCacheService': stateCacheServiceMock, 
-				'BpStateCacheService': bpStateCacheServiceMock,
-				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
-			});
-		});				
-	});
-
-	it("should clear caches", function() {
-
+		vm.patientId = "not-null";				
 		vm.onNewPatient(); // call the click handler
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
@@ -195,8 +111,14 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		expect(bpStateCacheServiceMock.clearAll).toHaveBeenCalled();		
 	});
 
-	it("should save data", function() {
+	it("should save data when user selects Ok to 'confirm new patient' popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 				
+		vm.patientId = "not-null";				
 		vm.onNewPatient(); // call the click handler
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
@@ -204,8 +126,14 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		expect(patientCacheServiceMock.setAppStartDateTime).toHaveBeenCalled();		
 	});
 
-	it("should go to state 'register-patient'", function() {
+	it("should go to state STATE_REGISTER_PATIENT when user selects Ok to 'confirm new patient' popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(true); // User selects Ok
+			return deferred.promise;
+		});					
 				
+		vm.patientId = "not-null";				
 		vm.onNewPatient(); // call the click handler
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
@@ -213,55 +141,14 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_REGISTER_PATIENT_MOCK);		
 	});
 
-});
+	it("should not reset data when user selects Cancel to 'confirm new patient' popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects cancel
+			return deferred.promise;
+		});					
 
-describe("PatientStartController - Patient is in progress - User selects 'New patient' button and Cancel to 'confirm new patient' popup", function() {
-
-    var vm;
-	var STATE_REGISTER_PATIENT_MOCK;
-	var $q;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
-
-    beforeEach(function() {
-
-        module('app.general');
-
-		angular.mock.inject(function($controller, $rootScope, _$q_) {
-			$q = _$q_;
-			scopeMock = $rootScope.$new();
-			STATE_REGISTER_PATIENT_MOCK = "test";
-			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
-			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
-			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
-			
-			patientCacheServiceMock.getUniqueId.and.returnValue("not-null");
-
-			ionicPopupMock.confirm.and.callFake(function() {
-				var deferred = $q.defer();
-				deferred.resolve(false); // User selects Cancel
-				return deferred.promise;
-			});					
-
-			vm = $controller('PatientStartController', {
-				'$scope': scopeMock,
-				'$state': stateMock,
-				'$ionicPopup': ionicPopupMock,
-				'PatientStartControllerService': patientStartControllerServiceMock,
-				'PatientCacheService': patientCacheServiceMock,
-				'StateCacheService': stateCacheServiceMock, 
-				'BpStateCacheService': bpStateCacheServiceMock,
-				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
-			});
-		});				
-	});
-
-	it("should not clear caches", function() {
-
+		vm.patientId = "not-null";				
 		vm.onNewPatient(); // call the click handler
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
@@ -271,8 +158,14 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		expect(bpStateCacheServiceMock.clearAll).not.toHaveBeenCalled();		
 	});
 
-	it("should not save data", function() {
+	it("should not save data when user selects Cancel to 'confirm new patient' popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects cancel
+			return deferred.promise;
+		});					
 				
+		vm.patientId = "not-null";				
 		vm.onNewPatient(); // call the click handler
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
@@ -280,8 +173,14 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		expect(patientCacheServiceMock.setAppStartDateTime).not.toHaveBeenCalled();		
 	});
 
-	it("should not change state", function() {
+	it("should not change state when user selects Cancel to 'confirm new patient' popup", function() {
+		ionicPopupMock.confirm.and.callFake(function() {
+			var deferred = $q.defer();
+			deferred.resolve(false); // User selects cancel
+			return deferred.promise;
+		});					
 				
+		vm.patientId = "not-null";				
 		vm.onNewPatient(); // call the click handler
 
 		scopeMock.$apply(); // Propagate promise resolution to 'then' functions using $apply().				
@@ -289,46 +188,7 @@ describe("PatientStartController - Patient is in progress - User selects 'New pa
 		expect(stateMock.go).not.toHaveBeenCalled();		
 	});
 
-});
-
-describe("PatientStartController - User selects 'Resume patient' button", function() {
-
-    var vm;
-	var STATE_REGISTER_PATIENT_MOCK;
-	var $q;
-    var scopeMock, stateMock, ionicPopupMock, patientStartControllerServiceMock, patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
-
-    beforeEach(function() {
-
-        module('app.general');
-
-		angular.mock.inject(function($controller, $rootScope, _$q_) {
-			$q = _$q_;
-			scopeMock = $rootScope.$new();
-			STATE_REGISTER_PATIENT_MOCK = "test";
-			stateMock = jasmine.createSpyObj('$state spy', ['go']);
-			patientStartControllerServiceMock = jasmine.createSpyObj('PatientStartControllerService spy', ['isShowResumePatient']);
-			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['clearAll', 'setAppStartDateTime', 'getUniqueId']);
-			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['clearAll', 'goCurrentState']);
-			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
-			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['setIsDemoMode']);
-			
-			vm = $controller('PatientStartController', {
-				'$scope': scopeMock,
-				'$state': stateMock,
-				'$ionicPopup': ionicPopupMock,
-				'PatientStartControllerService': patientStartControllerServiceMock,
-				'PatientCacheService': patientCacheServiceMock,
-				'StateCacheService': stateCacheServiceMock, 
-				'BpStateCacheService': bpStateCacheServiceMock,
-				'DemoModeCacheService': demoModeCacheServiceMock,
-				'STATE_REGISTER_PATIENT': STATE_REGISTER_PATIENT_MOCK
-			});
-		});				
-	});
-
-	it("should resume at the state when the app was closed", function() {
+	it("should resume at the state when the app was closed when user selects 'resume patient'", function() {
 				
 		vm.onResumePatient(); // call the click handler
 
@@ -338,4 +198,3 @@ describe("PatientStartController - User selects 'Resume patient' button", functi
 	});
 
 });
-

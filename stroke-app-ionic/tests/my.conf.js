@@ -32,6 +32,7 @@ module.exports = function(config) {
       '../www/modules/general/gcs-entry/gcs-entry.controller.js',
       '../www/modules/general/gcs-entry/gcs-entry-controller.service.js',
       '../www/modules/general/patient-end/patient-end.controller.js',
+      '../www/modules/general/patient-end/patient-end-controller.service.js',
 
       '../www/modules/protocol-a/anticoagulant-identification/anticoagulant-identification.controller.js',
       '../www/modules/protocol-a/anticoagulant-identification/anticoagulant-identification-controller.service.js',
@@ -68,14 +69,25 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '../www/modules/**/*.js': ['coverage']
+      '../www/modules/**/!(patient-end-controller.service.js)': ['coverage']
+
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'html'],
+
+    htmlReporter: {
+      outputFile: 'test-report/unit-tests.html',
+            
+      // Optional 
+      pageTitle: 'ABC-ICH Unit Tests',
+      groupSuites: true,
+      useCompactStyle: false,
+      useLegacyStyle: false
+    },
 
     coverageReporter: {
       type : 'html',

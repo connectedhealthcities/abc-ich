@@ -2,7 +2,7 @@
 
 // This file contains the following tests
 //
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isNextButtonEnabled to controller.service
 //		it should delegate gcsValueChanged to controller.service
 // 		it should save data when user selects 'Ok' on validation popup
@@ -53,7 +53,7 @@ describe('GcsEntryController', function() {
 		});				
 	});				
 
-	it("initialise the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_GCS_ENTRY_MOCK);
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
@@ -161,7 +161,7 @@ describe('GcsEntryController', function() {
 		expect(patientCacheServiceMock.setGcsScore).not.toHaveBeenCalled();				
 	});
 
-	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+	it("should not change state when user selects 'Cancel' on validation popup", function() {
         ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel

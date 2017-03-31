@@ -82,6 +82,9 @@ function DateTimeService($filter) {
     }
 
     function getAgeFromBirthDate(birthDate) {
+        if (birthDate === null) {
+            return null;
+        }
         var today = new Date();
         var age = today.getFullYear() - birthDate.getFullYear();
         var m = today.getMonth() - birthDate.getMonth();

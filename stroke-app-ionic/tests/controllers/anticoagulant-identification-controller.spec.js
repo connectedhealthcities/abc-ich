@@ -90,14 +90,14 @@ describe('AnticoagulantIdentificationController', function() {
 		expect(anticoagulantIdentificationControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith("anticoagulant-type", "anticoagulant-name");				
 	});
 
-	it("it should delegate isShowVitkList to controller.service", function() {
+	it("should delegate isShowVitkList to controller.service", function() {
 
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.isShowVitkList();
 		expect(anticoagulantIdentificationControllerServiceMock.isShowVitkList).toHaveBeenCalledWith("anticoagulant-type");				
 	});
 
-	it("it should delegate isShowDoacList to controller.service", function() {
+	it("should delegate isShowDoacList to controller.service", function() {
 
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.isShowDoacList();

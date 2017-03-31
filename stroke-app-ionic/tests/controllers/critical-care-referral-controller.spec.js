@@ -114,7 +114,7 @@ describe('CriticalCareReferralController', function() {
 		expect(patientCacheServiceMock.setIsReferredToCriticalCare).not.toHaveBeenCalled();				
 	});
 
-	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+	it("should not change state when user selects 'Cancel' on validation popup", function() {
         ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel

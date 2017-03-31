@@ -2,7 +2,7 @@
 
 // This file contains the following tests
 //
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isSendTestEmailButtonEnabled to controller.service
 // 		it should save data when 'Save' button selected
 // 		it should call $window.history.back when 'Save' button selected
@@ -42,7 +42,7 @@ describe("EmailConfigurationController", function() {
 		});				
 	});				
 
-	it("initialise the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(emailCacheServiceMock.getEmail).toHaveBeenCalled();
          

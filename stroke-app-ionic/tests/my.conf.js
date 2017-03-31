@@ -53,6 +53,7 @@ module.exports = function(config) {
       '../www/modules/protocol-c/mrs-entry/mrs-entry-controller.service.js',
       '../www/modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria.controller.js',
       '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary.controller.js',
+      '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary-controller.service.js',
 
       '../www/lib/angular-mocks/angular-mocks.js',
 

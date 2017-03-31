@@ -2,7 +2,7 @@
 
 // This file contains the following tests
 //
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isNextButtonEnabled to controller.service
 //		it should delegate showIsReversalTimeKnownCard to controller.service
 //		it should delegate showReversalTimeCard to controller.service
@@ -68,7 +68,7 @@ describe('ReversalAgentDetailsController', function() {
 		});				
 	});				
  
-	it("initialise the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_REVERSAL_AGENT_DETAILS_MOCK);
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
@@ -161,7 +161,7 @@ describe('ReversalAgentDetailsController', function() {
 		expect(vm.reversalTime).not.toBe(null);				
 	});
 
-	it("it should save data when user selects 'Ok' on validation popup", function() {
+	it("should save data when user selects 'Ok' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // User selects Ok
@@ -180,7 +180,7 @@ describe('ReversalAgentDetailsController', function() {
 		expect(patientCacheServiceMock.setReversalAgentStartDateTime).toHaveBeenCalled();		
 	});
 
-	it("it should go to correct state when user selects 'Ok' on validation popup", function() {
+	it("should go to correct state when user selects 'Ok' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // User selects Ok
@@ -198,7 +198,7 @@ describe('ReversalAgentDetailsController', function() {
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_BP_MANAGEMENT_MOCK);		
 	});
 
-	it("it should not save data when user selects 'Cancel' on validation popup", function() {
+	it("should not save data when user selects 'Cancel' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel
@@ -215,7 +215,7 @@ describe('ReversalAgentDetailsController', function() {
 		expect(patientCacheServiceMock.setReversalAgentStartDateTime).not.toHaveBeenCalled();		
 	});
 
-	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+	it("should not change state when user selects 'Cancel' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel

@@ -2,7 +2,7 @@
 
 // This file contains the following tests
 //
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isNextButtonEnabled to controller.service
 //		it should delegate showReversalAgentAdministeredAtExternalHospitalCard to controller.service
 //		it should delegate showAdministerBeriplexWithoutInrCard to controller.service
@@ -103,7 +103,7 @@ describe('CalculateBeriplexDoseController', function() {
 		});				
 	});				
 
-	it("initialise the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_CALCULATE_BERIPLEX_DOSE_MOCK);
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
@@ -448,7 +448,7 @@ describe('CalculateBeriplexDoseController', function() {
 		expect(patientCacheServiceMock.setAdministerBeriplexWhenUnknown).not.toHaveBeenCalled();				
 	});
 
-	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+	it("should not change state when user selects 'Cancel' on validation popup", function() {
         ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel

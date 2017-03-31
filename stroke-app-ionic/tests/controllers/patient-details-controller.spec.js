@@ -2,7 +2,7 @@
 
 // This file contains the following tests
 //
-// 		it initialises the view model correctly
+// 		it should initialise the view model correctly
 //		it should delegate isNextButtonEnabled to controller.service
 //		it should delegate isShowTimeSinceOnsetText to controller.service
 //		it should delegate onOnsetChanged to DateTimeService
@@ -53,7 +53,7 @@ describe('PatientDetailsController', function() {
 		});				
 	});				
 
-	it("initialise the view model correctly", function() {
+	it("should initialise the view model correctly", function() {
 				
 		expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_PATIENT_DETAILS_MOCK);
 		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
@@ -127,7 +127,7 @@ describe('PatientDetailsController', function() {
 		expect(dateTimeServiceMock.getTimeSinceOnsetText).toHaveBeenCalled();				
 	});
 
-	it("it should save data when user selects 'Ok' on validation popup", function() {
+	it("should save data when user selects 'Ok' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // User selects Ok
@@ -147,7 +147,7 @@ describe('PatientDetailsController', function() {
 		expect(patientCacheServiceMock.setIsBestEstimateOnset).toHaveBeenCalled();		
 	});
 
-	it("it should go to state STATE_GCS_ENTRY when user selects 'Ok' on validation popup", function() {
+	it("should go to state STATE_GCS_ENTRY when user selects 'Ok' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // User selects Ok
@@ -163,7 +163,7 @@ describe('PatientDetailsController', function() {
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_GCS_ENTRY_MOCK);		
 	});
 
-	it("it should not save data when user selects 'Cancel' on validation popup", function() {
+	it("should not save data when user selects 'Cancel' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel
@@ -183,7 +183,7 @@ describe('PatientDetailsController', function() {
 		expect(patientCacheServiceMock.setIsBestEstimateOnset).not.toHaveBeenCalled();		
 	});
 
-	it("it should not change state when user selects 'Cancel' on validation popup", function() {
+	it("should not change state when user selects 'Cancel' on validation popup", function() {
 		ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(false); // User selects Cancel

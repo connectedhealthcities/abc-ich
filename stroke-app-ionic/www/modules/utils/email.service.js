@@ -68,8 +68,7 @@ function EmailService($http, EmailCacheService, PatientCacheService, DateTimeSer
             { "label" : "Ich Slice Thickness" , "value" : PatientCacheService.getIchSliceThickness() },                     
             { "label" : "Referral To Neurosurgery Date Time" , "value" : PatientCacheService.getReferralToNeurosurgeryDateTime(), "isDateTime": true },  
             { "label" : "Neurosurgeon Name" , "value" : PatientCacheService.getNeurosurgeonName() },                        
-            { "label" : "Is Referral To Neurosurgery Accepted" , "value" : PatientCacheService.getIsReferralToNeurosurgeryAccepted() },                     
-            { "label" : "Is For Active Treatment" , "value" : PatientCacheService.getIsForActiveTreatment() }                       
+            { "label" : "Is Referral To Neurosurgery Accepted" , "value" : PatientCacheService.getIsReferralToNeurosurgeryAccepted() }
 
         ];
         var patientUniqueId = PatientCacheService.getUniqueId();

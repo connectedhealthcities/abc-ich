@@ -33,13 +33,12 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Neur
         vm.summary.premorbidMrs = PatientCacheService.getPremorbidMrsScore();
 
        // initialise vm parameters for page content       
+        vm.isReferred = PatientCacheService.getIsReferredToNeurosurgery();
         var referralDateTime = PatientCacheService.getReferralToNeurosurgeryDateTime();
-        vm.isReferred = referralDateTime === null ? false : true;
         vm.referralDate = referralDateTime;
         vm.referralTime = referralDateTime;
         vm.neurosurgeonName = PatientCacheService.getNeurosurgeonName();
         vm.isAccepted = PatientCacheService.getIsReferralToNeurosurgeryAccepted();
-        vm.isForActiveTreatment = PatientCacheService.getIsForActiveTreatment();
 
         // Setup click handlers
         vm.onNext = onNext;
@@ -78,7 +77,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Neur
 
     // Enable/disable handlers
     function isNextButtonEnabled() {
-        return NeurosurgeryReferralSummaryControllerService.isNextButtonEnabled(vm.isReferred, vm.isForActiveTreatment, vm.referralDate, vm.referralTime, vm.neurosurgeonName, vm.isAccepted);
+        return NeurosurgeryReferralSummaryControllerService.isNextButtonEnabled(vm.isReferred, vm.referralDate, vm.referralTime, vm.neurosurgeonName, vm.isAccepted);
     }
 
     // Show/hide handlers
@@ -99,12 +98,11 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Neur
      }
 
     function saveData() {
-        // null referral dateTime indicates no referral
+        PatientCacheService.setIsReferredToNeurosurgery(vm.isReferred);
         var referralDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.referralDate, vm.referralTime);
         PatientCacheService.setReferralToNeurosurgeryDateTime(referralDateTime);
         PatientCacheService.setNeurosurgeonName(vm.neurosurgeonName);
         PatientCacheService.setIsReferralToNeurosurgeryAccepted(vm.isAccepted);
-        PatientCacheService.setIsForActiveTreatment(vm.isForActiveTreatment);
     }
 
     // Popups

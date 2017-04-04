@@ -24,30 +24,21 @@ describe("NeurosurgeryReferralSummaryControllerService", function() {
 			expect(isEnabled).toBe(false);
 		});
 
-		it("should return false if isForActiveTreatment is null", function() {
-
-			var isEnabled = service.isNextButtonEnabled("not-null", null);
-			expect(isEnabled).toBe(false);
-		});
-
 		it("should return true when isReferred is true and all referral details are completed", function() {
 
-			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", "not-null", "not-null", "not-null");
+			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", "not-null", "not-null");
 			expect(isEnabled).toBe(true);
 
-			var isEnabled = service.isNextButtonEnabled(true, null, "not-null", "not-null", "not-null", "not-null");
+			var isEnabled = service.isNextButtonEnabled(true, null, "not-null", "not-null", "not-null");
 			expect(isEnabled).toBe(false);
 
-			var isEnabled = service.isNextButtonEnabled(true, "not-null", null, "not-null", "not-null", "not-null");
+			var isEnabled = service.isNextButtonEnabled(true, "not-null", null, "not-null", "not-null");
 			expect(isEnabled).toBe(false);
 
-			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", null, "not-null", "not-null");
+			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", null, "not-null");
 			expect(isEnabled).toBe(false);
 
-			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", "not-null", null, "not-null");
-			expect(isEnabled).toBe(false);
-
-			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", "not-null", "not-null", null);
+			var isEnabled = service.isNextButtonEnabled(true, "not-null", "not-null", "not-null", null);
 			expect(isEnabled).toBe(false);
 		});
 
@@ -57,27 +48,6 @@ describe("NeurosurgeryReferralSummaryControllerService", function() {
 			expect(isEnabled).toBe(true);
 		});
 	});
-
-   function isNextButtonEnabled(isReferred, isForActiveTreatment, referralDate, referralTime, neurosurgeonName, isAccepted) {
-        var isEnabled = false;
-
-        if (isReferred != null && isForActiveTreatment != null) {
-            if (vm.isReferred) {
-                if (referralDate != null &&
-                    referralTime != null &&
-                    neurosurgeonName != null &&
-                    isAccepted != null) {
-
-                    isEnabled = true;
-                }
-            }
-            else {
-                isEnabled = true;
-            }
-        }
-
-        return isEnabled;
-    }
 
 	describe("showReferralDetailsCards", function() {
 

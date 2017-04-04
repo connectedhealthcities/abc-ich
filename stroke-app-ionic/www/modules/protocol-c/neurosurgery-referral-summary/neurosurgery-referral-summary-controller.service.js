@@ -13,15 +13,15 @@ function NeurosurgeryReferralSummaryControllerService() {
 
     return service;
 
-    function isNextButtonEnabled(isReferred, isForActiveTreatment, referralDate, referralTime, neurosurgeonName, isAccepted) {
+    function isNextButtonEnabled(isReferred, referralDate, referralTime, neurosurgeonName, isAccepted) {
         var isEnabled = false;
 
-        if (isReferred != null && isForActiveTreatment != null) {
+        if (isReferred !== null) {
             if (isReferred) {
-                if (referralDate != null &&
-                    referralTime != null &&
-                    neurosurgeonName != null &&
-                    isAccepted != null) {
+                if (referralDate !== null &&
+                    referralTime !== null &&
+                    neurosurgeonName !== null &&
+                    isAccepted !== null) {
 
                     isEnabled = true;
                 }

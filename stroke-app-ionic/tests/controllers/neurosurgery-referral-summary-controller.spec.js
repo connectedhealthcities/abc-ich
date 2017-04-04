@@ -47,14 +47,14 @@ describe('NeurosurgeryReferralSummaryController', function() {
                 'getIsVentricleObstructed',
                 'getIchVolume',
                 'getPremorbidMrsScore',
+				'getIsReferredToNeurosurgery',
                 'getReferralToNeurosurgeryDateTime',
                 'getNeurosurgeonName',
                 'getIsReferralToNeurosurgeryAccepted',
-                'getIsForActiveTreatment',
+				'setIsReferredToNeurosurgery',
                 'setReferralToNeurosurgeryDateTime',
                 'setNeurosurgeonName',
-                'setIsReferralToNeurosurgeryAccepted',
-                'setIsForActiveTreatment'
+                'setIsReferralToNeurosurgeryAccepted'
             ]);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
@@ -94,13 +94,10 @@ describe('NeurosurgeryReferralSummaryController', function() {
 		expect(patientCacheServiceMock.getIsPosteriorFossaIch).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getIsVentricleObstructed).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getPremorbidMrsScore).toHaveBeenCalled();
+		expect(patientCacheServiceMock.getIsReferredToNeurosurgery).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getReferralToNeurosurgeryDateTime).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getNeurosurgeonName).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getIsReferralToNeurosurgeryAccepted).toHaveBeenCalled();
-		expect(patientCacheServiceMock.getIsForActiveTreatment).toHaveBeenCalled();
-		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
-		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
-		expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
        
 		expect(vm.onNext).toBeDefined();
 		expect(vm.onReferralNow).toBeDefined();
@@ -111,7 +108,6 @@ describe('NeurosurgeryReferralSummaryController', function() {
 	it("should delegate isNextButtonEnabled to controller.service", function() {
 
 		vm.isReferred = "is-referred";
-		vm.isForActiveTreatment = "is-for-active-treatment";
 		vm.referralDate = "referral-date";
 		vm.referralTime = "referral-time";
 		vm.neurosurgeonName = "neurosurgeon-name";
@@ -119,7 +115,6 @@ describe('NeurosurgeryReferralSummaryController', function() {
 		vm.isNextButtonEnabled();
 		expect(neurosurgeryReferralSummaryControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith(
             "is-referred",
-            "is-for-active-treatment",
             "referral-date",
             "referral-time",
             "neurosurgeon-name",
@@ -165,11 +160,11 @@ describe('NeurosurgeryReferralSummaryController', function() {
 		vm.onNext();
 		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
+		expect(patientCacheServiceMock.setIsReferredToNeurosurgery).toHaveBeenCalled();
 		expect(dateTimeServiceMock.getDateTimeFromDateAndTime).toHaveBeenCalled();
 		expect(patientCacheServiceMock.setReferralToNeurosurgeryDateTime).toHaveBeenCalled();
  		expect(patientCacheServiceMock.setNeurosurgeonName).toHaveBeenCalled();
  		expect(patientCacheServiceMock.setIsReferralToNeurosurgeryAccepted).toHaveBeenCalled();
- 		expect(patientCacheServiceMock.setIsForActiveTreatment).toHaveBeenCalled();
 	});
 
 	it("should go to correct state when user selects 'Ok' on validation popup", function() {
@@ -200,11 +195,11 @@ describe('NeurosurgeryReferralSummaryController', function() {
 		vm.onNext();
 		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 
+		expect(patientCacheServiceMock.setIsReferredToNeurosurgery).not.toHaveBeenCalled();
 		expect(dateTimeServiceMock.getDateTimeFromDateAndTime).not.toHaveBeenCalled();
 		expect(patientCacheServiceMock.setReferralToNeurosurgeryDateTime).not.toHaveBeenCalled();
  		expect(patientCacheServiceMock.setNeurosurgeonName).not.toHaveBeenCalled();
  		expect(patientCacheServiceMock.setIsReferralToNeurosurgeryAccepted).not.toHaveBeenCalled();
- 		expect(patientCacheServiceMock.setIsForActiveTreatment).not.toHaveBeenCalled();
 	});
 
 	it("should not change state when user selects 'Cancel' on validation popup", function() {

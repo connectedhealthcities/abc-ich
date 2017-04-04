@@ -72,7 +72,6 @@ function PatientEndControllerService(PatientCacheService, EnumService) {
         patient.referralToNeurosurgeryDateTime = PatientCacheService.getReferralToNeurosurgeryDateTime();
         patient.neurosurgeonName = PatientCacheService.getNeurosurgeonName();
         patient.referralToNeurosurgeryAccepted = PatientCacheService.getIsReferralToNeurosurgeryAccepted();
-        patient.forActiveTreatment = PatientCacheService.getIsForActiveTreatment();
 
         patient.summaryEmailAddress = PatientCacheService.getSummaryEmailAddress();
 

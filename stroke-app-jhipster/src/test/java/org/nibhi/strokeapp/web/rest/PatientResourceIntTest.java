@@ -116,9 +116,6 @@
 //    private static final Boolean DEFAULT_VENTRICLE_OBSTRUCTED = false;
 //    private static final Boolean UPDATED_VENTRICLE_OBSTRUCTED = true;
 //
-//    private static final Boolean DEFAULT_FOR_ACTIVE_TREATMENT = false;
-//    private static final Boolean UPDATED_FOR_ACTIVE_TREATMENT = true;
-//
 //    private static final Boolean DEFAULT_LAST_SEEN_WELL_ONSET = false;
 //    private static final Boolean UPDATED_LAST_SEEN_WELL_ONSET = true;
 //
@@ -255,7 +252,6 @@
 //                .referredToCriticalCare(DEFAULT_REFERRED_TO_CRITICAL_CARE)
 //                .posteriorFossaIch(DEFAULT_POSTERIOR_FOSSA_ICH)
 //                .ventricleObstructed(DEFAULT_VENTRICLE_OBSTRUCTED)
-//                .forActiveTreatment(DEFAULT_FOR_ACTIVE_TREATMENT)
 //                .lastSeenWellOnset(DEFAULT_LAST_SEEN_WELL_ONSET)
 //                .bestEstimateOnset(DEFAULT_BEST_ESTIMATE_ONSET)
 //                .externalScanHospitalName(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME)
@@ -324,7 +320,6 @@
 //        assertThat(testPatient.isReferredToCriticalCare()).isEqualTo(DEFAULT_REFERRED_TO_CRITICAL_CARE);
 //        assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(DEFAULT_POSTERIOR_FOSSA_ICH);
 //        assertThat(testPatient.isVentricleObstructed()).isEqualTo(DEFAULT_VENTRICLE_OBSTRUCTED);
-//        assertThat(testPatient.isForActiveTreatment()).isEqualTo(DEFAULT_FOR_ACTIVE_TREATMENT);
 //        assertThat(testPatient.isLastSeenWellOnset()).isEqualTo(DEFAULT_LAST_SEEN_WELL_ONSET);
 //        assertThat(testPatient.isBestEstimateOnset()).isEqualTo(DEFAULT_BEST_ESTIMATE_ONSET);
 //        assertThat(testPatient.getExternalScanHospitalName()).isEqualTo(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME);
@@ -381,7 +376,6 @@
 //                .andExpect(jsonPath("$.[*].referredToCriticalCare").value(hasItem(DEFAULT_REFERRED_TO_CRITICAL_CARE.booleanValue())))
 //                .andExpect(jsonPath("$.[*].posteriorFossaIch").value(hasItem(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue())))
 //                .andExpect(jsonPath("$.[*].ventricleObstructed").value(hasItem(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue())))
-//                .andExpect(jsonPath("$.[*].forActiveTreatment").value(hasItem(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue())))
 //                .andExpect(jsonPath("$.[*].lastSeenWellOnset").value(hasItem(DEFAULT_LAST_SEEN_WELL_ONSET.booleanValue())))
 //                .andExpect(jsonPath("$.[*].bestEstimateOnset").value(hasItem(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue())))
 //                .andExpect(jsonPath("$.[*].externalScanHospitalName").value(hasItem(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME.toString())))
@@ -438,7 +432,6 @@
 //            .andExpect(jsonPath("$.referredToCriticalCare").value(DEFAULT_REFERRED_TO_CRITICAL_CARE.booleanValue()))
 //            .andExpect(jsonPath("$.posteriorFossaIch").value(DEFAULT_POSTERIOR_FOSSA_ICH.booleanValue()))
 //            .andExpect(jsonPath("$.ventricleObstructed").value(DEFAULT_VENTRICLE_OBSTRUCTED.booleanValue()))
-//            .andExpect(jsonPath("$.forActiveTreatment").value(DEFAULT_FOR_ACTIVE_TREATMENT.booleanValue()))
 //            .andExpect(jsonPath("$.lastSeenWellOnset").value(DEFAULT_LAST_SEEN_WELL_ONSET.booleanValue()))
 //            .andExpect(jsonPath("$.bestEstimateOnset").value(DEFAULT_BEST_ESTIMATE_ONSET.booleanValue()))
 //            .andExpect(jsonPath("$.externalScanHospitalName").value(DEFAULT_EXTERNAL_SCAN_HOSPITAL_NAME.toString()))
@@ -502,7 +495,6 @@
 //                .referredToCriticalCare(UPDATED_REFERRED_TO_CRITICAL_CARE)
 //                .posteriorFossaIch(UPDATED_POSTERIOR_FOSSA_ICH)
 //                .ventricleObstructed(UPDATED_VENTRICLE_OBSTRUCTED)
-//                .forActiveTreatment(UPDATED_FOR_ACTIVE_TREATMENT)
 //                .lastSeenWellOnset(UPDATED_LAST_SEEN_WELL_ONSET)
 //                .bestEstimateOnset(UPDATED_BEST_ESTIMATE_ONSET)
 //                .externalScanHospitalName(UPDATED_EXTERNAL_SCAN_HOSPITAL_NAME)
@@ -557,7 +549,6 @@
 //        assertThat(testPatient.isReferredToCriticalCare()).isEqualTo(UPDATED_REFERRED_TO_CRITICAL_CARE);
 //        assertThat(testPatient.isPosteriorFossaIch()).isEqualTo(UPDATED_POSTERIOR_FOSSA_ICH);
 //        assertThat(testPatient.isVentricleObstructed()).isEqualTo(UPDATED_VENTRICLE_OBSTRUCTED);
-//        assertThat(testPatient.isForActiveTreatment()).isEqualTo(UPDATED_FOR_ACTIVE_TREATMENT);
 //        assertThat(testPatient.isLastSeenWellOnset()).isEqualTo(UPDATED_LAST_SEEN_WELL_ONSET);
 //        assertThat(testPatient.isBestEstimateOnset()).isEqualTo(UPDATED_BEST_ESTIMATE_ONSET);
 //        assertThat(testPatient.getExternalScanHospitalName()).isEqualTo(UPDATED_EXTERNAL_SCAN_HOSPITAL_NAME);

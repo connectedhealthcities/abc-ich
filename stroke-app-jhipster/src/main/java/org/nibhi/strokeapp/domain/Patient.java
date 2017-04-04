@@ -780,9 +780,6 @@ public class Patient implements Serializable {
     @Column(name = "referral_to_neurosurgery_accepted")
     private Boolean referralToNeurosurgeryAccepted;
 
-    @Column(name = "for_active_treatment")
-    private Boolean forActiveTreatment;
-
     public ZonedDateTime getReferralToNeurosurgeryDateTime() {
         return referralToNeurosurgeryDateTime;
     }
@@ -822,19 +819,6 @@ public class Patient implements Serializable {
         this.referralToNeurosurgeryAccepted = referralToNeurosurgeryAccepted;
     }
           
-    public Boolean isForActiveTreatment() {
-        return forActiveTreatment;
-    }
-
-    public Patient forActiveTreatment(Boolean forActiveTreatment) {
-        this.forActiveTreatment = forActiveTreatment;
-        return this;
-    }
-
-    public void setForActiveTreatment(Boolean forActiveTreatment) {
-        this.forActiveTreatment = forActiveTreatment;
-    }
-
     
     //
     // patient-end ////////////////////////////////////////////////////////////////////////////////
@@ -922,7 +906,6 @@ public class Patient implements Serializable {
             ", referralToNeurosurgeryDateTime='" + referralToNeurosurgeryDateTime + "'" +
             ", neurosurgeonName='" + neurosurgeonName + "'" +
             ", referralToNeurosurgeryAccepted='" + referralToNeurosurgeryAccepted + "'" +
-            ", forActiveTreatment='" + forActiveTreatment + "'" +
             ", summaryEmailAddress='" + summaryEmailAddress + "'" +
             '}';
     }

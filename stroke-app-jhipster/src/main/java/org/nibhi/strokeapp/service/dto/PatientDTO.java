@@ -72,8 +72,6 @@ public class PatientDTO implements Serializable {
 
     private Boolean ventricleObstructed;
 
-    private Boolean forActiveTreatment;
-
     private Boolean lastSeenWellOnset;
 
     private Boolean bestEstimateOnset;
@@ -311,14 +309,6 @@ public class PatientDTO implements Serializable {
 
     public void setVentricleObstructed(Boolean ventricleObstructed) {
         this.ventricleObstructed = ventricleObstructed;
-    }
-    
-    public Boolean getForActiveTreatment() {
-        return forActiveTreatment;
-    }
-
-    public void setForActiveTreatment(Boolean forActiveTreatment) {
-        this.forActiveTreatment = forActiveTreatment;
     }
     
     public Boolean getLastSeenWellOnset() {
@@ -575,7 +565,6 @@ public class PatientDTO implements Serializable {
             ", infusionInstructionsViewed='" + infusionInstructionsViewed + "'" +
             ", posteriorFossaIch='" + posteriorFossaIch + "'" +
             ", ventricleObstructed='" + ventricleObstructed + "'" +
-            ", forActiveTreatment='" + forActiveTreatment + "'" +
             ", lastSeenWellOnset='" + lastSeenWellOnset + "'" +
             ", bestEstimateOnset='" + bestEstimateOnset + "'" +
             ", externalScanHospitalName='" + externalScanHospitalName + "'" +

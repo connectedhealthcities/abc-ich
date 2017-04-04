@@ -110,10 +110,6 @@
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "forActiveTreatment",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "lastSeenWellOnset",
             "fieldType": "Boolean"
         },

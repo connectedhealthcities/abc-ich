@@ -101,10 +101,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="for_active_treatment" type="bit">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="last_seen_well_onset" type="bit">
                 <constraints nullable="true" />
             </column>

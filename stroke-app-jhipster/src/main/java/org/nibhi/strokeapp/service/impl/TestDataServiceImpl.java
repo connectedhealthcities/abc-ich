@@ -157,7 +157,6 @@ public class TestDataServiceImpl implements TestDataService{
         patient.setVentricleObstructed(ThreadLocalRandom.current().nextBoolean());
         patient.setIchVolume(ThreadLocalRandom.current().nextInt(20, 40 + 1) * 1.0f);
         
-        patient.setForActiveTreatment(true);
         boolean isReferredToNeurosurgery = ThreadLocalRandom.current().nextBoolean();
         if (isReferredToNeurosurgery) {
         	patient.setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime);

@@ -89,10 +89,10 @@ function PatientCacheService(LocalStorageService) {
     var ich_slice_thickness_key = "patient-ich-slice-thickness"; //local
 
     // neurosurgery-referral-summary
+    var is_referred_to_neurosurgery_key = "patient-is-referred-to-neurosurgery"; //local
     var referral_to_neurosurgery_date_time_key = "patient-referral-to-neurosurgery-date-time";
     var neurosurgeon_name_key = "patient-neurosurgeon-name";
     var is_referral_to_neurosurgery_accepted_key = "patient-is-referral-to-neurosurgery-accepted";
-    var is_for_active_treatment_key = "patient-is-for-active-treatment";
 
     var service = {
 
@@ -274,6 +274,9 @@ function PatientCacheService(LocalStorageService) {
         SetIchSliceThickness: SetIchSliceThickness,
 
         // neurosurgery-referral-summary
+        getIsReferredToNeurosurgery: getIsReferredToNeurosurgery,
+        setIsReferredToNeurosurgery: setIsReferredToNeurosurgery,
+
         getReferralToNeurosurgeryDateTime: getReferralToNeurosurgeryDateTime,
         setReferralToNeurosurgeryDateTime: setReferralToNeurosurgeryDateTime,
  
@@ -282,9 +285,6 @@ function PatientCacheService(LocalStorageService) {
 
         getIsReferralToNeurosurgeryAccepted: getIsReferralToNeurosurgeryAccepted,
         setIsReferralToNeurosurgeryAccepted: setIsReferralToNeurosurgeryAccepted,
-
-        getIsForActiveTreatment: getIsForActiveTreatment,
-        setIsForActiveTreatment: setIsForActiveTreatment,
 
         // reset all data to null
         clearAll: clearAll
@@ -723,7 +723,17 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(ich_slice_thickness_key, ichSliceThickness);
     }
 
-    // neurosurgery-referral-summary        
+    // neurosurgery-referral-summary
+    
+        
+    function getIsReferredToNeurosurgery() {
+        return LocalStorageService.getItem(is_referred_to_neurosurgery_key);
+    }
+
+    function setIsReferredToNeurosurgery(isReferredToNeurosurgery) {
+        LocalStorageService.setItem(is_referred_to_neurosurgery_key, isReferredToNeurosurgery);
+    }
+     
     function getReferralToNeurosurgeryDateTime() {
         return getDate(referral_to_neurosurgery_date_time_key);
     }
@@ -746,14 +756,6 @@ function PatientCacheService(LocalStorageService) {
     
     function setIsReferralToNeurosurgeryAccepted(isReferralToNeurosurgeryAccepted) {
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, isReferralToNeurosurgeryAccepted);
-    }
-    
-    function getIsForActiveTreatment() {
-         return LocalStorageService.getItem(is_for_active_treatment_key);
-   }
-    
-    function setIsForActiveTreatment(isForActiveTreatment) {
-        LocalStorageService.setItem(is_for_active_treatment_key, isForActiveTreatment);
     }
 
     function clearAll() {
@@ -804,11 +806,11 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(ich_longest_axis_key, null);
         LocalStorageService.setItem(ich_perpendicular_axis_key, null);
         LocalStorageService.setItem(ich_num_slices_key, null);
-        LocalStorageService.setItem(ich_slice_thickness_key, null);
+        LocalStorageService.setItem(ich_slice_thickness_key, null);        
+        LocalStorageService.setItem(is_referred_to_neurosurgery_key, null);
         LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, null);
         LocalStorageService.setItem(neurosurgeon_name_key, null);
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);
-        LocalStorageService.setItem(is_for_active_treatment_key, null);
     }
 
     function getDate(key) {

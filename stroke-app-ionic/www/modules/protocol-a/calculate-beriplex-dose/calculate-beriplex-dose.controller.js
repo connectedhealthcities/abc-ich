@@ -61,18 +61,6 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
         vm.showWeightOutOfRangeMessage = showWeightOutOfRangeMessage;
     }
     init();
-    function showInrOutOfRangeMessage() {
-        return CalculateBeriplexDoseControllerService.isInrOutOfRange(vm.inrValue);
-    }
-
-    function showWeightOutOfRangeMessage() {
-        return CalculateBeriplexDoseControllerService.isWeightOutOfRange(vm.estimatedWeightInKg);
-    }
-
-    function showBeriplexAdministrationOverrideCard() {
-        return CalculateBeriplexDoseControllerService.showBeriplexAdministrationOverrideCard(vm.anticoagulantType, vm.inrValue);
-    }
-
 
 
     // Click handlers
@@ -144,6 +132,15 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
             INR_THRESHOLD);
     }
 
+        // vm.showReversalAgentAdministeredAtExternalHospitalCard = showReversalAgentAdministeredAtExternalHospitalCard;
+        // vm.showAdministerBeriplexWithoutInrCard = showAdministerBeriplexWithoutInrCard;
+        // vm.showInrCard = showInrCard;
+        // vm.showEstimatedWeightCard = showEstimatedWeightCard;
+        // vm.showBeriplexAdministrationOverrideCard = showBeriplexAdministrationOverrideCard;
+
+        // vm.showInrOutOfRangeMessage = showInrOutOfRangeMessage;
+        // vm.showWeightOutOfRangeMessage = showWeightOutOfRangeMessage;
+
     // Show/hide handlers
     function showReversalAgentAdministeredAtExternalHospitalCard() {
         return CalculateBeriplexDoseControllerService.showReversalAgentAdministeredAtExternalHospitalCard(vm.externalScanHospitalName);
@@ -163,6 +160,14 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
 
     function showBeriplexAdministrationOverrideCard() {
         return CalculateBeriplexDoseControllerService.showBeriplexAdministrationOverrideCard(vm.anticoagulantType, vm.administerBeriplexWithoutInr, vm.inrValue, INR_THRESHOLD);
+    }
+
+    function showInrOutOfRangeMessage() {
+        return CalculateBeriplexDoseControllerService.isInrOutOfRange(vm.inrValue);
+    }
+
+    function showWeightOutOfRangeMessage() {
+        return CalculateBeriplexDoseControllerService.isWeightOutOfRange(vm.estimatedWeightInKg);
     }
 
     // Private functions

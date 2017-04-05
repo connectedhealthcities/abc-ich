@@ -110,7 +110,7 @@ describe("CalculateBeriplexDoseControllerService", function() {
 			expect(isShow).toBe(false);
 		});
 
-		it("should return false if reversalAgentAdministeredAtExternalHospital is null", function() {
+		it("should return true if externalScanHospitalName is not null", function() {
 
 			var isShow = service.showReversalAgentAdministeredAtExternalHospitalCard("not-null");
 			expect(isShow).toBe(true);
@@ -290,6 +290,62 @@ describe("CalculateBeriplexDoseControllerService", function() {
 			expect(dose).toBe(1750);
 		});
 
+	});
+
+	describe("isInrOutOfRange", function() {
+
+		it("should return false if inrValue is null", function() {
+			var isOutOfRange = service.isInrOutOfRange(null);
+			expect(isOutOfRange).toBe(false);
+		});
+
+		it("should return true if inrValue is less than minimum allowed", function() {
+			var isOutOfRange = service.isInrOutOfRange(0.49);
+			expect(isOutOfRange).toBe(true);
+		});
+
+		it("should return false if inrValue is equal to the minimum allowed", function() {
+			var isOutOfRange = service.isInrOutOfRange(0.5);
+			expect(isOutOfRange).toBe(false);
+		});
+
+		it("should return false if inrValue is equal to the maximum allowed", function() {
+			var isOutOfRange = service.isInrOutOfRange(10);
+			expect(isOutOfRange).toBe(false);
+		});
+
+		it("should return true if inrValue is greater than the maximum allowed", function() {
+			var isOutOfRange = service.isInrOutOfRange(10.1);
+			expect(isOutOfRange).toBe(true);
+		});
+	});
+
+	describe("isWeightOutOfRange", function() {
+
+		it("should return false if estimatedWeightInKg is null", function() {
+			var isOutOfRange = service.isWeightOutOfRange(null);
+			expect(isOutOfRange).toBe(false);
+		});
+
+		it("should return true if estimatedWeightInKg is less than minimum allowed", function() {
+			var isOutOfRange = service.isWeightOutOfRange(9.9);
+			expect(isOutOfRange).toBe(true);
+		});
+
+		it("should return false if estimatedWeightInKg is equal to the minimum allowed", function() {
+			var isOutOfRange = service.isWeightOutOfRange(10);
+			expect(isOutOfRange).toBe(false);
+		});
+
+		it("should return false if estimatedWeightInKg is equal to the maximum allowed", function() {
+			var isOutOfRange = service.isWeightOutOfRange(300);
+			expect(isOutOfRange).toBe(false);
+		});
+
+		it("should return true if estimatedWeightInKg is greater than the maximum allowed", function() {
+			var isOutOfRange = service.isWeightOutOfRange(300.1);
+			expect(isOutOfRange).toBe(true);
+		});
 	});
 
 });

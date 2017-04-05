@@ -9,6 +9,8 @@
 //		it should delegate showInrCard to controller.service
 //		it should delegate showEstimatedWeightCard to controller.service
 //		it should delegate showBeriplexAdministrationOverrideCard to controller.service
+//		it should delegate showInrOutOfRangeMessage to controller.service
+//		it should delegate showWeightOutOfRangeMessage to controller.service
 //		it should reset view model parameters appropriately when onReversalAgentAdministeredAtExternalHospitalChanged is called
 //		it should reset view model parameters appropriately when onAdministerBeriplexWithoutInrChanged is called
 //		it should reset view model parameters appropriately when onInrValueChanged is called
@@ -54,7 +56,9 @@ describe('CalculateBeriplexDoseController', function() {
                 'showBeriplexAdministrationOverrideCard',
                 'calculateStonesToKg',
                 'calculateKgToStones',
-                'calculateBeriplexDose'
+                'calculateBeriplexDose',
+				'isInrOutOfRange',
+				'isWeightOutOfRange'
             ]);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', [
                 'getUniqueId',
@@ -204,6 +208,20 @@ describe('CalculateBeriplexDoseController', function() {
 		vm.inrValue = "inr-value";
 		vm.showBeriplexAdministrationOverrideCard();
 		expect(calculateBeriplexDoseControllerServiceMock.showBeriplexAdministrationOverrideCard).toHaveBeenCalledWith("anticoagulant-type", "administer-beriplex-without-inr", "inr-value", INR_THRESHOLD_MOCK);				
+	});
+
+	it("should delegate showInrOutOfRangeMessage to controller.service", function() {
+
+		vm.inrValue = "inr-value";
+		vm.showInrOutOfRangeMessage();
+		expect(calculateBeriplexDoseControllerServiceMock.isInrOutOfRange).toHaveBeenCalledWith("inr-value");				
+	});
+
+	it("should delegate showWeightOutOfRangeMessage to controller.service", function() {
+
+		vm.estimatedWeightInKg = "estimated-weight-in-kg";
+		vm.showWeightOutOfRangeMessage();
+		expect(calculateBeriplexDoseControllerServiceMock.isWeightOutOfRange).toHaveBeenCalledWith("estimated-weight-in-kg");				
 	});
 
 	it("should reset view model parameters appropriately when onReversalAgentAdministeredAtExternalHospitalChanged is called", function() {

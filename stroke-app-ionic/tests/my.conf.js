@@ -55,6 +55,8 @@ module.exports = function(config) {
       '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary.controller.js',
       '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary-controller.service.js',
 
+     '../www/modules/utils/date-time.service.js',
+
       '../www/lib/angular-mocks/angular-mocks.js',
 
       // load all tests

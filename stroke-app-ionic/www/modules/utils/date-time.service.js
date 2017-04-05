@@ -2,9 +2,9 @@
 
 angular.module('utils').service('DateTimeService', DateTimeService);
 
-DateTimeService.$inject = ['$filter'];
+DateTimeService.$inject = ['$filter', 'moment'];
 
-function DateTimeService($filter) {
+function DateTimeService($filter, moment) {
 
     var service = {
         getNowWithZeroSeconds: getNowWithZeroSeconds,
@@ -27,7 +27,7 @@ function DateTimeService($filter) {
     function getTimeSinceOnsetText(now, onsetDate, onsetTime) {
 
         var timeSinceOnsetText = "";
-        if (onsetDate !== null && onsetTime !== null) {
+        if (now !== null && onsetDate !== null && onsetTime !== null) {
             var onsetDateTime = getDateTimeFromDateAndTime(onsetDate, onsetTime);
             var millis = now.getTime() - onsetDateTime.getTime();
 
@@ -44,13 +44,19 @@ function DateTimeService($filter) {
             var timeSinceOnsetText = "Time since onset is ";
 
             if (days > 0) {
-                timeSinceOnsetText += days + " days, " + hours + " hours, " + minutes + " minutes.";
+                var daysText = days === 1 ? " day, " : " days, ";
+                var hoursText = hours === 1 ? " hour, " : " hours, ";
+                var minuteText = minutes === 1 ? " minute." : " minutes.";
+                timeSinceOnsetText += days + daysText + hours + hoursText + minutes + minuteText;
             }
             else if (hours > 0) {
-                timeSinceOnsetText += hours + " hours, " + minutes + " minutes.";
+                var hoursText = hours === 1 ? " hour, " : " hours, ";
+                var minuteText = minutes === 1 ? " minute." : " minutes.";
+                timeSinceOnsetText += hours + hoursText + minutes + minuteText;
             }
             else {
-                timeSinceOnsetText += minutes + " minutes.";
+                var minuteText = minutes === 1 ? " minute." : " minutes.";
+                timeSinceOnsetText += minutes + minuteText;
             }
         }
            
@@ -71,6 +77,10 @@ function DateTimeService($filter) {
         return dateTime;
     }
 
+    function getAgeFromBirthDate(birthDate) {
+        return moment().diff(birthDate, 'years');
+    }
+
     function formatDateTimeForRtf(dateTime) {
         var date = $filter('date')(dateTime, 'd MMM y H:mm');
         return date;
@@ -81,17 +91,5 @@ function DateTimeService($filter) {
         return birthdate;
     }
 
-    function getAgeFromBirthDate(birthDate) {
-        if (birthDate === null) {
-            return null;
-        }
-        var today = new Date();
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;    
-    }
 }
 

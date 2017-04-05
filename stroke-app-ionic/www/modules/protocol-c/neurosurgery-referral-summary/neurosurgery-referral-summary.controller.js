@@ -21,8 +21,8 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Neur
         vm.summary = {};
         var estimatedAge = PatientCacheService.getEstimatedAge();
         var birthDate = PatientCacheService.getBirthDate();
-        var ageFromBirthDate = DateTimeService.getAgeFromBirthDate(birthDate);
-        vm.summary.age = estimatedAge !== null ? estimatedAge + " estimated" : ageFromBirthDate + "";
+        var ageFromBirthDate =  DateTimeService.getAgeFromBirthDate(birthDate);
+        vm.summary.age = estimatedAge !== null ? estimatedAge + " (estimated)" : ageFromBirthDate + "";
         vm.summary.gcsEye = PatientCacheService.getGcsScoreEye();
         vm.summary.gcsVerbal = PatientCacheService.getGcsScoreVerbal();
         vm.summary.gcsMotor = PatientCacheService.getGcsScoreMotor();

@@ -28,14 +28,14 @@
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Date of birth known?
         </ion-item>
-        <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.isDateOfBirthKnownChanged()" name="dob-known" ng-value="true">
+        <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.onDateOfBirthKnownChanged()" name="dob-known" ng-value="true">
           <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.isDateOfBirthKnownChanged()" name="dob-known" ng-value="false">
+        <ion-radio ng-model="vm.isDateOfBirthKnown" ng-change="vm.onDateOfBirthKnownChanged()" name="dob-known" ng-value="false">
           <span class="input-blue">No</span>
         </ion-radio>
     </div>
-    <div class="list card" ng-show="vm.isDateOfBirthKnown != null && vm.isDateOfBirthKnown">
+    <div class="list card" ng-show="vm.showDateOfBirthCard()">
          <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Date of birth
         </ion-item>
@@ -50,7 +50,7 @@
             <input type="number" placeholder="Year" ng-change="vm.onDateChanged()" ng-model="vm.year">
           </div>
         </ion-item>               
-        <ion-item class="item-icon-left data-display-region chi-birthdate-confirmation" ng-show="vm.dateOfBirth">
+        <ion-item class="item-icon-left data-display-region chi-birthdate-confirmation" ng-show="vm.showBirthDateConfirmationField()">
             <i class="icon ion-information-circled"></i>{{vm.dateOfBirth | date: 'dd MMM yyyy'}}
         </ion-item>
         <ion-item class="item-icon-left chi-data-validation-warning" ng-show="vm.showDobInvalidMessage()">
@@ -60,8 +60,8 @@
             <i class="icon ion-alert-circled"></i>Year is outside the allowed range: 1900 - {{vm.maxYear}}
         </ion-item>
      </div>
- 
-     <div class="list card" ng-show="vm.isDateOfBirthKnown != null && !vm.isDateOfBirthKnown">
+
+    <div class="list card" ng-show="vm.showAgeCard()">
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Estimated age
         </ion-item>
@@ -74,15 +74,15 @@
         <ion-item class="item-icon-left  card-header card-header-green">
           <i class="icon ion-ionic"></i>Scan performed at external hospital?
         </ion-item>
-        <ion-radio ng-model="vm.isExternalScan" ng-change="vm.isExternalScanChanged()" name="external-scan" ng-value="true">
+        <ion-radio ng-model="vm.isExternalScan" ng-change="vm.onExternalScanChanged()" name="external-scan" ng-value="true">
           <span class="input-blue">Yes</span>
         </ion-radio>
-        <ion-radio ng-model="vm.isExternalScan" ng-change="vm.isExternalScanChanged()" name="external-scan" ng-value="false">
+        <ion-radio ng-model="vm.isExternalScan" ng-change="vm.onExternalScanChanged()" name="external-scan" ng-value="false">
           <span class="input-blue">No</span>
         </ion-radio>
     </div>
 
-    <div class="list card" ng-show="vm.isExternalScan != null && !vm.isExternalScan">
+    <div class="list card" ng-show="vm.showScanTimeCard()">
         <ion-item class="item-icon-left card-header-green">
           <i class="icon ion-ionic"></i>Scan time
         </ion-item>
@@ -104,14 +104,14 @@
         </div>
     </div>
 
-    <div class="list card" ng-show="vm.isExternalScan != null && vm.isExternalScan">
+    <div class="list card" ng-show="vm.showExternalHospitalCard()">
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>External hospital
         </ion-item>
-        <ion-radio ng-change="vm.selectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.name}}">
+        <ion-radio ng-change="vm.onSelectedHospitalChanged()" ng-repeat="hospital in vm.hospitals" ng-model="vm.selectedHospital" value="{{hospital.name}}">
           <span class="input-blue">{{hospital.name}}</span>
         </ion-radio>
-        <label ng-show="vm.selectedHospital ==='Other'" class="item item-input">
+        <label ng-show="vm.showOtherHospitalField()" class="item item-input">
           <input type="text" placeholder="Enter hospital name here" ng-model="vm.otherHospital">
         </label>
     </div>

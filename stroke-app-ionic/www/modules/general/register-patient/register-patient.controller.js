@@ -2,71 +2,152 @@
 
 angular.module('app.general').controller('RegisterPatientController', RegisterPatientController);
 
-RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS', 'RegisterPatientControllerService'];
+RegisterPatientController.$inject = ['$scope', '$state', '$ionicPopup', 'RegisterPatientControllerService', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'PatientHttpService', 'HospitalHttpService', 'DemoModeCacheService', 'STATE_REGISTER_PATIENT', 'STATE_PATIENT_START', 'STATE_PATIENT_DETAILS'];
 
-function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS, RegisterPatientControllerService) {
+function RegisterPatientController($scope, $state, $ionicPopup, RegisterPatientControllerService, PatientCacheService, StateCacheService, DateTimeService, PatientHttpService, HospitalHttpService, DemoModeCacheService, STATE_REGISTER_PATIENT, STATE_PATIENT_START, STATE_PATIENT_DETAILS) {
 
-    var vm = this; // S1
+    var vm = this;
 
-    StateCacheService.setCurrentState(STATE_REGISTER_PATIENT);
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_REGISTER_PATIENT);
 
-    vm.hospitals = [];
-    HospitalHttpService.getHospitals().then(function(hospitals) {
-        for (var i = 0; i < hospitals.length; i++) {
-            vm.hospitals.push(hospitals[i]);
-        }
-        vm.hospitals.push({"name": "Other"});
-    });
+        // initialise vm parameters for header row
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+ 
+        // initialise vm parameters for page logic       
+        var dateNow = new Date();
+        vm.maxYear = RegisterPatientControllerService.getMaxYear(dateNow);
+        vm.thisYear = RegisterPatientControllerService.getYear(dateNow);
 
-    vm.isDateOfBirthKnown = null;
-    vm.isExternalScan = null;
-
-    vm.initials = null;
-    vm.day = null;
-    vm.month = null;
-    vm.year = null;
-    vm.dateOfBirth = null;
-    vm.estimatedAge = null;
-    vm.scanDate = null;
-    vm.scanTime = null;
-    vm.selectedHospital = null;
-    vm.otherHospital = null;
-    var dateNow = new Date();
-    vm.maxYear = RegisterPatientControllerService.getMaxYear(dateNow);
-    vm.thisYear = RegisterPatientControllerService.getYear(dateNow);
-
-    vm.onNext = onNext;
-    vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.onScanNow = onScanNow;
-    vm.isDateOfBirthKnownChanged = isDateOfBirthKnownChanged;
-    vm.isExternalScanChanged = isExternalScanChanged;
-    vm.selectedHospitalChanged = selectedHospitalChanged;
-    vm.onInitialsChanged = onInitialsChanged;
-    vm.onDateChanged = onDateChanged;
-    vm.showInitialsInvalidMessage = showInitialsInvalidMessage;
-    vm.showDobInvalidMessage = showDobInvalidMessage;
-    vm.showYearOutOfRangeMessage = showYearOutOfRangeMessage;
-
-    function isNextButtonEnabled() {
-        var isEnabled = false;
-
-        if (!RegisterPatientControllerService.isInitialsInvalid(vm.initials)) {
-            if (vm.isDateOfBirthKnown != null) {
-                if ((vm.isDateOfBirthKnown && vm.dateOfBirth != null) || 
-                    (!vm.isDateOfBirthKnown && vm.estimatedAge != null)) {
-                    if (vm.isExternalScan != null) {
-                        if ( (!vm.isExternalScan && vm.scanDate != null && vm.scanTime != null) ||
-                             (vm.isExternalScan && vm.selectedHospital != null && vm.selectedHospital != "Other") ||
-                             (vm.isExternalScan && vm.selectedHospital != null && vm.selectedHospital == "Other" && vm.otherHospital != null) ) {
-                            isEnabled = true;
-                        }
-                    }
-                }
+        // initialise vm parameters for page content       
+        vm.hospitals = [];
+        HospitalHttpService.getHospitals().then(function(hospitals) {
+            for (var i = 0; i < hospitals.length; i++) {
+                vm.hospitals.push(hospitals[i]);
             }
-        }
+            vm.hospitals.push({"name": "Other"});
+        });
 
-        return isEnabled;
+        vm.isDateOfBirthKnown = null;
+        vm.isExternalScan = null;
+        vm.initials = null;
+        vm.day = null;
+        vm.month = null;
+        vm.year = null;
+        vm.dateOfBirth = null;
+        vm.estimatedAge = null;
+        vm.scanDate = null;
+        vm.scanTime = null;
+        vm.selectedHospital = null;
+        vm.otherHospital = null;
+
+        // Setup click handlers
+        vm.onNext = onNext;
+        vm.onScanNow = onScanNow;
+
+        // Setup change handlers
+        vm.onDateOfBirthKnownChanged = onDateOfBirthKnownChanged;
+        vm.onExternalScanChanged = onExternalScanChanged;
+        vm.onSelectedHospitalChanged = onSelectedHospitalChanged;
+        vm.onInitialsChanged = onInitialsChanged;
+        vm.onDateChanged = onDateChanged;
+
+        // Setup enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
+
+        // Setup show/hide handlers
+        vm.showDateOfBirthCard = showDateOfBirthCard;
+        vm.showBirthDateConfirmationField = showBirthDateConfirmationField;
+        vm.showAgeCard = showAgeCard;
+        vm.showScanTimeCard = showScanTimeCard;
+        vm.showExternalHospitalCard = showExternalHospitalCard;
+        vm.showOtherHospitalField = showOtherHospitalField;    
+        vm.showInitialsInvalidMessage = showInitialsInvalidMessage;
+        vm.showDobInvalidMessage = showDobInvalidMessage;
+        vm.showYearOutOfRangeMessage = showYearOutOfRangeMessage;
+    }
+
+    init();
+
+    // Click handlers
+    function onNext() {
+        showDataValidationPopup(handleDataValid);
+    }
+
+    function onScanNow() {
+        var now = DateTimeService.getNowWithZeroSeconds();
+        vm.scanDate = now;
+        vm.scanTime = now;
+    }
+
+    // Change handlers
+    function onDateOfBirthKnownChanged() {
+        vm.day = null;
+        vm.month = null;
+        vm.year = null;
+        vm.dateOfBirth = null;
+        vm.estimatedAge = null;
+    }
+
+    function onExternalScanChanged() {
+        vm.scanDate = null;
+        vm.scanTime = null;
+        vm.selectedHospital = null;
+        vm.otherHospital = null;
+    }
+
+    function onSelectedHospitalChanged() {
+        vm.otherHospital = null;
+    }
+
+    function onInitialsChanged(initials) {
+        if (initials !== null) { 
+             vm.initials = initials.toUpperCase();
+        }     
+    }
+
+    function onDateChanged() {
+        vm.dateOfBirth = RegisterPatientControllerService.getDateOfBirth(vm.day, vm.month, vm.year, vm.maxYear);
+    }
+
+    // Enable/disable handlers
+    function isNextButtonEnabled() {
+        return RegisterPatientControllerService.isNextButtonEnabled(
+            vm.initials,
+            vm.isDateOfBirthKnown,
+            vm.dateOfBirth,
+            vm.estimatedAge,
+            vm.isExternalScan,
+            vm.scanDate,
+            vm.scanTime,
+            vm.selectedHospital,
+            vm.otherHospital);
+    }
+
+    // Show/hide handlers
+    function showDateOfBirthCard() {
+        return RegisterPatientControllerService.showDateOfBirthCard(vm.isDateOfBirthKnown);
+    }
+
+    function showBirthDateConfirmationField() {
+        return RegisterPatientControllerService.showBirthDateConfirmationField(vm.dateOfBirth);
+    }
+
+    function showAgeCard() {
+        return RegisterPatientControllerService.showAgeCard(vm.isDateOfBirthKnown);
+    }
+
+    function showScanTimeCard() {
+        return RegisterPatientControllerService.showScanTimeCard(vm.isExternalScan);
+    }
+
+    function showExternalHospitalCard() {
+        return RegisterPatientControllerService.showExternalHospitalCard(vm.isExternalScan);
+    }
+
+    function showOtherHospitalField() {
+        return RegisterPatientControllerService.showOtherHospitalField(vm.selectedHospital);
     }
 
     function showInitialsInvalidMessage() {
@@ -91,14 +172,12 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         return RegisterPatientControllerService.isYearOutOfRange(vm.year, 1900, vm.maxYear);
     }
 
-    function onNext() {
-        showDataValidationPopup(handleDataValid);
-    }
-
+    // Private functions
     function handleDataValid() {
         if (vm.isDemoMode) {
             vm.uniqueId = "demo-mode-patient";
-            savePatient("demo-mode-patient", 0);
+            var patientId = 0; // Always use 0 for demo mode
+            savePatient(vm.uniqueId, patientId);
         }
         else {
             var isDuplicateAllowed = false;
@@ -153,73 +232,19 @@ function RegisterPatientController($scope, $state, $ionicPopup, PatientCacheServ
         PatientCacheService.setUniqueId(uniqueId);
         PatientCacheService.setId(id);        
         PatientCacheService.setInitials(vm.initials);
-
-        if (vm.isDateOfBirthKnown) {
-            PatientCacheService.setBirthDate(vm.dateOfBirth);
+        PatientCacheService.setBirthDate(vm.dateOfBirth);
+        PatientCacheService.setEstimatedAge(vm.estimatedAge);
+        if (vm.selectedHospital === "Other") {
+            PatientCacheService.setExternalScanHospitalName(vm.otherHospital);
         }
         else {
-            PatientCacheService.setEstimatedAge(vm.estimatedAge);
+            PatientCacheService.setExternalScanHospitalName(vm.selectedHospital);
         }
-        if (vm.isExternalScan) {
-            if (vm.selectedHospital === "Other") {
-                PatientCacheService.setExternalScanHospitalName(vm.otherHospital);
-            }
-            else {
-                PatientCacheService.setExternalScanHospitalName(vm.selectedHospital);
-            }
-        }
-        else {
-            var scanDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.scanDate, vm.scanTime);
-            PatientCacheService.setScanDateTime(scanDateTime);
-        }
+        var scanDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.scanDate, vm.scanTime);
+        PatientCacheService.setScanDateTime(scanDateTime);
     }
 
-    function isDateOfBirthKnownChanged() {
-        vm.day = null;
-        vm.month = null;
-        vm.year = null;
-        vm.dateOfBirth = null;
-        vm.estimatedAge = null;
-    }
-
-    function isExternalScanChanged() {
-        vm.scanDate = null;
-        vm.scanTime = null;
-        vm.selectedHospital = null;
-        vm.otherHospital = null;
-    }
-
-    function selectedHospitalChanged() {
-        vm.otherHospital = null;
-    }
-
-    function onScanNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
-        vm.scanDate = now;
-        vm.scanTime = now;
-    }
-
-    function onInitialsChanged(initials) {
-        if (!initials) { return; }
-        vm.initials = initials.toUpperCase();
-    }
-
-    function onDateChanged() {
-
-        var isDobOutOfRange = RegisterPatientControllerService.isYearOutOfRange(vm.year, 1900, vm.maxYear);
-
-        var isDobInvalidDate = RegisterPatientControllerService.isDobInvalidDate(vm.day, vm.month, vm.year);
-       
-
-        if (isDobInvalidDate || isDobOutOfRange) {
-            vm.dateOfBirth = null;
-        } else if (vm.day != null && vm.month != null && (vm.year != null )) {
-            if (!isDobInvalidDate && !isDobOutOfRange) {
-                vm.dateOfBirth = new Date(vm.year, vm.month - 1, vm.day);
-            }
-        }
-    }
-
+    // Popups
     function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/general/register-patient/register-patient-data-validation-popup.html',

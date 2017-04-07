@@ -76,22 +76,22 @@
         </ion-item>
         <label class="item item-input">
           <span class="input-label">A – longest axis (cm):</span>
-          <input type="number" min="0" step=".01" placeholder="" ng-model="vm.longestAxis" ng-change="vm.calculateVolume()">
+          <input type="number" min="0" step=".01" placeholder="" ng-model="vm.longestAxis" ng-change="vm.onVolumeFieldChanged()">
         </label>
         <label class="item item-input">
           <span class="input-label">B – longest axis perpendicular to A (cm):</span>
-          <input type="number" min="0" step=".01" placeholder="" ng-model="vm.perpendicularAxis" ng-change="vm.calculateVolume()">
+          <input type="number" min="0" step=".01" placeholder="" ng-model="vm.perpendicularAxis" ng-change="vm.onVolumeFieldChanged()">
         </label>
         <label class="item item-input">
           <span class="input-label">Number of slices:</span>
-          <input type="number" min="0" step="1" placeholder="" ng-model="vm.numSlices" ng-change="vm.calculateVolume()">
+          <input type="number" min="0" step="1" placeholder="" ng-model="vm.numSlices" ng-change="vm.onVolumeFieldChanged()">
         </label>
         <label class="item item-input">
           <span class="input-label">Slice thickness (cm):</span>
-          <input type="number" min="0" step=".0001" placeholder="" ng-model="vm.sliceThickness" ng-change="vm.calculateVolume()">
+          <input type="number" min="0" step=".0001" placeholder="" ng-model="vm.sliceThickness" ng-change="vm.onVolumeFieldChanged()">
         </label>
 
-        <ion-item class="item-icon-left data-display-region" ng-show="vm.ichVolume">
+        <ion-item class="item-icon-left data-display-region" ng-show="vm.showIchVolumeField()">
           <i class="icon ion-information-circled"></i><strong>ICH volume: </strong>{{vm.ichVolume}} ml
         </ion-item> 
 

@@ -1,16 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isNextButtonEnabled to controller.service
-//		it should delegate isShowActualDose to controller.service
-//      it should reset view model parameters appropriately when onOverrideCalculatedDoseChanged is called
-// 		it should save data when user selects 'Ok' on validation popup
-// 		it should go to state STATE_ADMINISTER_BERIPLEX when user selects 'Ok' on validation popup
-// 		it should not save data when user selects 'Cancel' on validation popup
-// 		it should not change state when user selects 'Cancel' on validation popup
-
 describe('ConfirmBeriplexDoseController', function() {
 
     var vm;

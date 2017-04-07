@@ -1,18 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isNextButtonEnabled to controller.service
-//		it should delegate isShowVitkList to controller.service
-//		it should delegate isShowDoacList to controller.service
-//      it should reset view model parameters appropriately when anticoagulantTypeChanged is called
-//      it should display popup when onViewDoacs is called
-// 		it should save data when user selects 'Ok' on validation popup
-// 		it should show correct popup and go to the correct state when user selects 'Ok' on validation popup
-// 		it should not save data when user selects 'Cancel' on validation popup
-// 		it should not change state when user selects 'Cancel' on validation popup
-
 describe('AnticoagulantIdentificationController', function() {
 
     var vm;

@@ -1,20 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isNextButtonEnabled to controller.service
-//		it should delegate showBeriplexDateTimeCard to controller.service
-//		it should delegate showVitaminkDateTimeCard to controller.service
-//      it should reset view model parameters appropriately when isBeriplexAdministeredChanged is called
-//      it should reset view model parameters appropriately when isVitkAdministeredChanged is called
-//      it should populate view model parameters appropriately when onBeriplexNow is called
-//      it should populate view model parameters appropriately when onVitkNow is called
-// 		it should save data when user selects 'Ok' on validation popup
-// 		it should go to correct state when user selects 'Ok' on validation popup
-// 		it should not save data when user selects 'Cancel' on validation popup
-// 		it should not change state when user selects 'Cancel' on validation popup
-
 describe('AdministerBeriplexController', function() {
 
     var vm;

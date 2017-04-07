@@ -1,28 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isNextButtonEnabled to controller.service
-//		it should delegate showReversalAgentAdministeredAtExternalHospitalCard to controller.service
-//		it should delegate showAdministerBeriplexWithoutInrCard to controller.service
-//		it should delegate showInrCard to controller.service
-//		it should delegate showEstimatedWeightCard to controller.service
-//		it should delegate showBeriplexAdministrationOverrideCard to controller.service
-//		it should delegate showInrOutOfRangeMessage to controller.service
-//		it should delegate showWeightOutOfRangeMessage to controller.service
-//		it should reset view model parameters appropriately when onReversalAgentAdministeredAtExternalHospitalChanged is called
-//		it should reset view model parameters appropriately when onAdministerBeriplexWithoutInrChanged is called
-//		it should reset view model parameters appropriately when onInrValueChanged is called
-//		it should reset view model parameters appropriately when onWeightInKgChanged is called
-//		it should reset view model parameters appropriately when onWeightInStonesChanged is called
-//		it should populate view model parameters appropriately when onInrNow is called
-// 		it should save data when user selects 'Ok' on validation popup
-// 		it should go to the correct state when user selects 'Ok' on validation popup
-//		it should display 'Inr Below Treament Range' popup
-// 		it should not save data when user selects 'Cancel' on validation popup
-// 		it should not change state when user selects 'Cancel' on validation popup
-
 describe('CalculateBeriplexDoseController', function() {
 
     var vm;

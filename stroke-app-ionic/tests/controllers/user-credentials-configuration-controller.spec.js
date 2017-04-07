@@ -1,18 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isTestLoginButtonEnabled to controller.service
-// 		it should save data when 'Save' button selected
-// 		it should call $window.history.back when 'Save' button selected
-// 		it should not save data when 'Cancel' button selected
-// 		it should call $window.history.back when 'cancel' button selected
-//		it should display 'success' popup when test login is successful
-//		it should display 'failure' popup when test login fails
-
-
-
 describe("UserCredentialsConfigurationController", function() {
 
     var vm;

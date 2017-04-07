@@ -6,58 +6,66 @@ BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCac
 
 function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
  
-    var vm = this; // S10
+    var vm = this;
 
-    StateCacheService.setCurrentState(STATE_BP_MANAGEMENT);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
-    vm.showSbpOutOfRangeMessage = showSbpOutOfRangeMessage;
-    vm.showGtnRateOutOfRangeMessage = showGtnRateOutOfRangeMessage;
-    vm.showLabetalolOutOfRangeMessage = showLabetalolOutOfRangeMessage;
-    vm.showHeartRateOutOfRangeMessage = showHeartRateOutOfRangeMessage;
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_BP_MANAGEMENT);
 
-    if (PatientCacheService.getBpTreatmentThreshold() === null) {
+        // initialise vm parameters for header row
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-        var SIX_HOURS_IN_MILLISECONDS = 6 * 60 * 60 * 1000;
-        var onsetMs = PatientCacheService.getOnsetDateTime().getTime();
-        var nowMs = new Date().getTime();
-        var diffMs = nowMs - onsetMs;
-        if ( diffMs >= SIX_HOURS_IN_MILLISECONDS) {
-            vm.treatmentThreshold = 200;
-            vm.treatmentTarget = 180;
-        }
-        else {
-            vm.treatmentThreshold = 150;
-            vm.treatmentTarget = 140;
-        }
-
-        PatientCacheService.setBpTreatmentThreshold(vm.treatmentThreshold);
-        PatientCacheService.setBpTarget(vm.treatmentTarget);
-    }
-    else {
-        vm.treatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
+        // initialise vm parameters for page logic
+        vm.gcsScore = PatientCacheService.getGcsScore();
+        vm.bpTreatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
         vm.treatmentTarget = PatientCacheService.getBpTarget();
+
+        // initialise vm parameters for page content 
+        vm.entries = PatientCacheService.getBpMeasurementEntries();
+        setTreatmentTargetAndThresholdCard();
+        vm.targetAchievedText = BpManagementControllerService.getTargetAchievedText(vm.treatmentThreshold);
+
+        // click handlers
+        vm.onNext = onNext;
+        vm.addEntry = addEntry;
+        vm.onEntryNow = onEntryNow;
+        vm.isAddEntryButtonEnabled = isAddEntryButtonEnabled;
+
+        // Set up show/hide Range validation messages
+        vm.showSbpOutOfRangeMessage = showSbpOutOfRangeMessage;
+        vm.showGtnRateOutOfRangeMessage = showGtnRateOutOfRangeMessage;
+        vm.showLabetalolOutOfRangeMessage = showLabetalolOutOfRangeMessage;
+        vm.showHeartRateOutOfRangeMessage = showHeartRateOutOfRangeMessage;
+
+        // Popups
+        vm.showGtnProtocolPopup = showGtnProtocolPopup;
+        vm.showLabetalolProtocolPopup = showLabetalolProtocolPopup;
+        
+        clearEntryFields();
     }
+    init();
 
-    vm.onsetTimeText = vm.treatmentThreshold === 200 ? "greater than" : "less than";
-    vm.targetAchievedText = vm.treatmentThreshold === 200 ? "130 to 180 mmHg" : "130 to 140 mmHg";
-
-    clearEntryFields();
-
-    vm.entries = PatientCacheService.getBpMeasurementEntries();
-    
-
-    vm.onNext = onNext;
-    vm.addEntry = addEntry;
-    vm.isAddEntryButtonEnabled = isAddEntryButtonEnabled;
-    vm.onEntryNow = onEntryNow;
-    vm.showGtnProtocolPopup = showGtnProtocolPopup;
-    vm.showLabetalolProtocolPopup = showLabetalolProtocolPopup;
-
+    // Click handlers
     function onNext() {
         goNextState();
     }
 
+    function addEntry() {
+        showDataValidationPopup(handleDataValid);
+    }
+
+    function onEntryNow() {
+        var now = DateTimeService.getNowWithZeroSeconds();
+        vm.entryDate = now;
+        vm.entryTime = now;       
+    }
+
+    function isAddEntryButtonEnabled() {
+        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
+    }
+
+    // Show/hide Range validation messages
     function showSbpOutOfRangeMessage() {
         return BpManagementControllerService.isSbpOutOfRange(vm.entrySbp);
     }
@@ -74,76 +82,8 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         return BpManagementControllerService.isHeartRateOutOfRange(vm.entryHeartRate);
     }
 
-    function goNextState() {
-        var currentState = BpStateCacheService.getCurrentState();
-        if (currentState === BpStateCacheService.STATE_TARGET_ACHIEVED || currentState === BpStateCacheService.STATE_START) {
-            if (PatientCacheService.getGcsScore() < GCS_THRESHOLD) {
-                $state.go(STATE_PATIENT_END);
-            }
-            else {
-                StateCacheService.goLatestStateTabC();
-            }
-        }
-        else {
-            $state.go(STATE_CRITICAL_CARE_REFERRAL);
-        }
-    }
-
-    function addEntry() {
-        showDataValidationPopup(handleDataValid);
-    }
-
-    function handleDataValid() {
-        var entry = BpManagementControllerService.getEntry(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
-        PatientCacheService.addBpMeasurementEntry(entry);
-        vm.entries = PatientCacheService.getBpMeasurementEntries();
- 
-        var bpState = BpStateCacheService.getCurrentState();
-        if (bpState === BpStateCacheService.STATE_START) {
-            if (vm.entrySbp > vm.treatmentThreshold) {
-                showRepeatBpReadingPopup();
-                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD);
-            }
-        }
-        else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD) {
-            if (vm.entrySbp > vm.treatmentThreshold) {
-                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED);
-            }
-            else {
-                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_START);
-            }
-        }
-        else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED) {
-            if (vm.entrySbp <= vm.treatmentTarget) {
-                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_TARGET_ACHIEVED);
-                PatientCacheService.setBpTargetReachedDateTime(new Date());
-                showBpTargetAchievedPopup();
-            }
-        }
- 
-       clearEntryFields();
-    }
-
-    function isAddEntryButtonEnabled() {
-        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
-    }
-
-    function clearEntryFields() {
-        vm.entryDate = null;
-        vm.entryTime = null;
-        vm.entrySbp = null;
-        vm.entryGtn = null;
-        vm.entryLabetalol = null;
-        vm.entryHeartRate = null;
-    }
-
-    function onEntryNow() {
-        var now = DateTimeService.getNowWithZeroSeconds();
-        vm.entryDate = now;
-        vm.entryTime = now;       
-    }
-
-     function showDataValidationPopup(okHandler) {
+    // Popups
+    function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/protocol-b/bp-management/bp-management-entry-data-validation-popup.html',
             title: 'Data validation',
@@ -196,6 +136,79 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
             cssClass: 'chi-extra-wide-popup'
         };
         $ionicPopup.alert(popupTemplate);
+    }
+
+    // Private functions
+    function clearEntryFields() {
+        vm.entryDate = null;
+        vm.entryTime = null;
+        vm.entrySbp = null;
+        vm.entryGtn = null;
+        vm.entryLabetalol = null;
+        vm.entryHeartRate = null;
+    }
+
+    function handleDataValid() {
+        var entryDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.entryDate, vm.entryTime);
+        var entry = BpManagementControllerService.getEntry(entryDateTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
+        PatientCacheService.addBpMeasurementEntry(entry);
+        vm.entries = PatientCacheService.getBpMeasurementEntries();
+ 
+        var bpState = BpStateCacheService.getCurrentState();
+        if (bpState === BpStateCacheService.STATE_START || bpState === BpStateCacheService.STATE_TARGET_ACHIEVED) { //Edd the or condition needs to be confirmed
+            if (vm.entrySbp > vm.treatmentThreshold) {
+                showRepeatBpReadingPopup();
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD);
+            }
+        }
+        else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD) {
+            if (vm.entrySbp > vm.treatmentThreshold) {
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED);
+            }
+            else {
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_START);
+            }
+        }
+        else if (bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED) {
+            if (vm.entrySbp <= vm.treatmentTarget) {
+                BpStateCacheService.setCurrentState(BpStateCacheService.STATE_TARGET_ACHIEVED);
+                PatientCacheService.setBpTargetReachedDateTime(new Date());
+                showBpTargetAchievedPopup();
+            }
+        }
+ 
+       clearEntryFields();
+    }
+
+    function goNextState() {
+        var currentState = BpStateCacheService.getCurrentState();
+        if (currentState === BpStateCacheService.STATE_TARGET_ACHIEVED || currentState === BpStateCacheService.STATE_START) {
+            if (vm.gcsScore < GCS_THRESHOLD) {
+                $state.go(STATE_PATIENT_END);
+            }
+            else {
+                StateCacheService.goLatestStateTabC();
+            }
+        }
+        else {
+            $state.go(STATE_CRITICAL_CARE_REFERRAL);
+        }
+    }
+
+    function setTreatmentTargetAndThresholdCard() {
+        var onsetDateTime = PatientCacheService.getOnsetDateTime();
+        var treatmentTargetAndThresholdCardModel;
+        
+        //calculate only if bpTreatmentThreshold is not already set
+        if (vm.bpTreatmentThreshold === null) {
+            treatmentTargetAndThresholdCardModel = BpManagementControllerService.getTreatmentTargetAndThreshold(onsetDateTime, new Date());
+            vm.treatmentThreshold = treatmentTargetAndThresholdCardModel.treatmentThreshold;
+            vm.treatmentTarget = treatmentTargetAndThresholdCardModel.treatmentTarget;
+            PatientCacheService.setBpTreatmentThreshold(vm.treatmentThreshold);
+            PatientCacheService.setBpTarget(vm.treatmentTarget);
+        }
+
+        vm.onsetTimeText = BpManagementControllerService.getOnsetTimeText(vm.treatmentThreshold);   
     }
 
 }

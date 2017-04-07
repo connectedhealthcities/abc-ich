@@ -1,99 +1,280 @@
-// 'use strict';
+'use strict';
 
-// describe('NeurosurgeryReferralCriteriaController', function() {
+describe('NeurosurgeryReferralCriteriaController', function() {
 
-//     var vm;
-//     var patientCacheService, tabStateCacheService, state;
+    var vm;
+    var $q;
+    var STATE_NEUROSURGERY_REFERRAL_CRITERIA_MOCK, STATE_NEUROSURGERY_REFERRAL_SUMMARY_MOCK, STATE_PATIENT_END_MOCK;
+    var MRS_THRESHOLD_MOCK, GCS_THRESHOLD_MOCK, ICH_VOLUME_THRESHOLD_MOCK;
+    var scopeMock, stateMock, ionicPopupMock, neurosurgeryReferralCriteriaControllerServiceMock;
+    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock;
+    var tabStateCacheServiceMock;
 
-//     beforeEach(function() {
+    beforeEach(function() {
 
-//         module('app.protocolC');
-// 		module('ui.router');
+        module('app.protocolC');
 
-// 		angular.mock.inject(function($controller, _$state_) {
+		angular.mock.inject(function ($controller, $rootScope, _$q_) {
+		    $q = _$q_;
+		    STATE_NEUROSURGERY_REFERRAL_CRITERIA_MOCK = "STATE-NEUROSURGERY-REFERRAL-CRITERIA-MOCK";
+		    STATE_NEUROSURGERY_REFERRAL_SUMMARY_MOCK = "STATE-NEUROSURGERY-REFERRAL-SUMMARY-MOCK";
+		    STATE_PATIENT_END_MOCK = "STATE-PATIENT-END-MOCK";
+		    MRS_THRESHOLD_MOCK = 3;
+		    GCS_THRESHOLD_MOCK = 9;
+		    ICH_VOLUME_THRESHOLD_MOCK = 30;
+            scopeMock = $rootScope.$new();
+            stateMock = jasmine.createSpyObj("$state spy", ["go"]);
+            ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
+            neurosurgeryReferralCriteriaControllerServiceMock = jasmine.createSpyObj('NeurosurgeryReferralCriteriaControllerService spy', ['isNextButtonEnabled', 'isIchVolumeWithinRange', 'calculateVolume', 'isNeuroReferralRequired', "getSliderConfig", 'showIchVolumeField']);
+            patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ["getUniqueId", "getGcsScore", "getIchVolume", "getIsPosteriorFossaIch", "getIsVentricleObstructed", "getIchLongestAxis", "getIchPerpendicularAxis", "getIchNumSlices", "getIchSliceThickness", "getPremorbidMrsScore", "setIsPosteriorFossaIch", "setIsVentricleObstructed", "setIchVolume", "setIchLongestAxis", "setIchPerpendicularAxis", "setIchNumSlices", "SetIchSliceThickness"]);
+            
+            stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
+            demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 
-// 			state = _$state_;
-// 			patientCacheService = {
-// 				getGcsScore: function() {},
-// 				getIchVolume: function() {},
-// 				getIsPosteriorFossaIch: function() {},
-// 				getIsVentricleObstructed: function() {}								
-// 			};			
-// 			tabStateCacheService = {
-// 				setStateTabC: function() {}
-// 			};			
+            neurosurgeryReferralCriteriaControllerServiceMock.getSliderConfig.and.returnValue({ "images": "test-images", "options": "test-options" });
 
-// 			vm = $controller('NeurosurgeryReferralCriteriaController', {'PatientCacheService': patientCacheService, 'TabStateCacheService': tabStateCacheService});				
-// 		});
-//      });
+            tabStateCacheServiceMock = {
+				setStateTabC: function() {}
+			};			
 
-// 	it("should go to state 'neurosurgery-referral-summary' on 'Next' button click #1", function() {
-			
-// 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(8);
-// 		spyOn(tabStateCacheService, 'setStateTabC');
-// 		spyOn(state, 'go');
+            vm = $controller('NeurosurgeryReferralCriteriaController', {
+                '$scope': scopeMock,
+                '$state': stateMock,
+                '$ionicPopup': ionicPopupMock,
+                'NeurosurgeryReferralCriteriaControllerService': neurosurgeryReferralCriteriaControllerServiceMock,
+                'PatientCacheService': patientCacheServiceMock,
+                'StateCacheService': stateCacheServiceMock,
+                'DemoModeCacheService': demoModeCacheServiceMock,
+                'GCS_THRESHOLD': GCS_THRESHOLD_MOCK,
+                'MRS_THRESHOLD': MRS_THRESHOLD_MOCK,
+                'ICH_VOLUME_THRESHOLD': ICH_VOLUME_THRESHOLD_MOCK,
+                "STATE_NEUROSURGERY_REFERRAL_CRITERIA": STATE_NEUROSURGERY_REFERRAL_CRITERIA_MOCK,
+                "STATE_NEUROSURGERY_REFERRAL_SUMMARY": STATE_NEUROSURGERY_REFERRAL_SUMMARY_MOCK,
+                "STATE_PATIENT_END": STATE_PATIENT_END_MOCK
+            });
+		});
+     });
 
-// 		vm.onNext(); // call the click handler
+    it("should initialise the view model correctly", function () {
+	    
+        expect(stateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(STATE_NEUROSURGERY_REFERRAL_CRITERIA_MOCK);
 
-// 	    expect(tabStateCacheService.setStateTabC).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-// 	    expect(state.go).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-//     });
+        expect(patientCacheServiceMock.getUniqueId).toHaveBeenCalled();
+        expect(demoModeCacheServiceMock.getIsDemoMode).toHaveBeenCalled();
 
-// 	it("hould go to state 'neurosurgery-referral-summary' on 'Next' button click #2", function() {
-			
-// 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
-// 		spyOn(patientCacheService, 'getIchVolume').and.returnValue(31);
-// 		spyOn(patientCacheService, 'getIsPosteriorFossaIch').and.returnValue(false);
-// 		spyOn(patientCacheService, 'getIsVentricleObstructed').and.returnValue(false);
-// 		spyOn(tabStateCacheService, 'setStateTabC');
-// 		spyOn(state, 'go');
+        expect(patientCacheServiceMock.getIsPosteriorFossaIch).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getIsVentricleObstructed).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getIchLongestAxis).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getIchPerpendicularAxis).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getIchNumSlices).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getIchSliceThickness).toHaveBeenCalled();
+        expect(neurosurgeryReferralCriteriaControllerServiceMock.calculateVolume).toHaveBeenCalled();
 
-// 		vm.onNext(); // call the click handler
+        expect(patientCacheServiceMock.getGcsScore).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getPremorbidMrsScore).toHaveBeenCalled();
 
-// 	    expect(tabStateCacheService.setStateTabC).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-// 	    expect(state.go).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-//     });
+        expect(neurosurgeryReferralCriteriaControllerServiceMock.getSliderConfig).toHaveBeenCalled();
+        expect(vm.sliderImages).toBe("test-images");
+        expect(vm.sliderOptions).toBe("test-options");
 
-// 	it("hould go to state 'neurosurgery-referral-summary' on 'Next' button click #3", function() {
-			
-// 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
-// 		spyOn(patientCacheService, 'getIchVolume').and.returnValue(30);
-// 		spyOn(patientCacheService, 'getIsPosteriorFossaIch').and.returnValue(true);
-// 		spyOn(patientCacheService, 'getIsVentricleObstructed').and.returnValue(false);
-// 		spyOn(tabStateCacheService, 'setStateTabC');
-// 		spyOn(state, 'go');
+        expect(vm.onNext).toBeDefined();
+        expect(vm.showVolumeMeasurementPopup).toBeDefined();
+        expect(vm.showObstructionPopup).toBeDefined();
 
-// 		vm.onNext(); // call the click handler
+        expect(vm.onVolumeFieldChanged).toBeDefined();
 
-// 	    expect(tabStateCacheService.setStateTabC).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-// 	    expect(state.go).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-//     });
+        expect(vm.isNextButtonEnabled).toBeDefined();
 
-// 	it("hould go to state 'neurosurgery-referral-summary' on 'Next' button click #4", function() {
-			
-// 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
-// 		spyOn(patientCacheService, 'getIchVolume').and.returnValue(30);
-// 		spyOn(patientCacheService, 'getIsPosteriorFossaIch').and.returnValue(false);
-// 		spyOn(patientCacheService, 'getIsVentricleObstructed').and.returnValue(true);
-// 		spyOn(tabStateCacheService, 'setStateTabC');
-// 		spyOn(state, 'go');
+        expect(vm.showIchVolumeField).toBeDefined();
 
-// 		vm.onNext(); // call the click handler
+        expect(vm.showIchVolumeOutOfRangeMessage).toBeDefined();
+    });
 
-// 	    expect(tabStateCacheService.setStateTabC).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-// 	    expect(state.go).toHaveBeenCalledWith('tabs.neurosurgery-referral-summary');		
-//     });
+    it("should delegate isNextButtonEnabled to controller.service", function () {
 
-// 	it("should go to state 'patient-end' on 'Next' button click", function() {
-			
-// 		spyOn(patientCacheService, 'getGcsScore').and.returnValue(9);
-// 		spyOn(patientCacheService, 'getIchVolume').and.returnValue(30);
-// 		spyOn(patientCacheService, 'getIsPosteriorFossaIch').and.returnValue(false);
-// 		spyOn(patientCacheService, 'getIsVentricleObstructed').and.returnValue(false);
-// 		spyOn(state, 'go');
+        vm.ichVolume = 1;
+        vm.isPosteriorFossaIch = 2;
+        vm.isObstruction = 3;
+        vm.isNextButtonEnabled();
+        expect(neurosurgeryReferralCriteriaControllerServiceMock.isNextButtonEnabled).toHaveBeenCalledWith(1, 2, 3);
+    });
 
-// 		vm.onNext(); // call the click handler
+    it("should delegate isIchVolumeOutOfRange to controller.service", function () {
 
-// 	    expect(state.go).toHaveBeenCalledWith('patient-end');		
-//     });
-// });
+        vm.ichVolume = 1;
+        vm.showIchVolumeOutOfRangeMessage();
+        expect(neurosurgeryReferralCriteriaControllerServiceMock.isIchVolumeWithinRange).toHaveBeenCalledWith(1);
+    });
+
+    it("should delegate calculateVolume to controller.service", function () {
+
+        vm.longestAxis = 1;
+        vm.perpendicularAxis = 2;
+        vm.numSlices = 3;
+        vm.sliceThickness = 4;
+        vm.onVolumeFieldChanged();
+        expect(neurosurgeryReferralCriteriaControllerServiceMock.calculateVolume).toHaveBeenCalledWith(1, 2, 3, 4);
+    });
+
+    it("should delegate showIchVolumeField to controller.service", function () {
+
+        vm.ichVolume = 50;
+        vm.showIchVolumeField();
+        expect(neurosurgeryReferralCriteriaControllerServiceMock.showIchVolumeField).toHaveBeenCalledWith(50);
+    });
+
+    it("should show volume measurement popup", function () {
+
+        ionicPopupMock.alert.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(); // User selects Ok
+            return deferred.promise;
+        });
+
+        vm.showVolumeMeasurementPopup();
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("ABC/2 Volume measurement");
+        
+    });
+
+    it("should show obstruction popup", function () {
+
+        ionicPopupMock.alert.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(); // User selects Ok
+            return deferred.promise;
+        });
+
+        vm.showObstructionPopup();
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Occlusion images");
+
+    });
+
+    it("should show correct popup and go to the correct state when user selects 'Ok' on validation popup and referral to neurosurgery is not required", function () {
+        
+        ionicPopupMock.confirm.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(true); // User selects Ok
+            return deferred.promise;
+        });
+
+        ionicPopupMock.alert.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(); // User selects Ok
+            return deferred.promise;
+        });
+
+        neurosurgeryReferralCriteriaControllerServiceMock.isNeuroReferralRequired.and.callFake(function () {
+            return false;
+        });
+
+        vm.onNext();
+        scopeMock.$apply();
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Referral to neurosurgery not required");
+        expect(stateMock.go).toHaveBeenCalledWith(STATE_PATIENT_END_MOCK);
+
+    });
+
+    it("should show correct popup and go to the correct state when user selects 'Ok' on validation popup and referral to neurosurgery is required", function () {
+
+        ionicPopupMock.confirm.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(true); // User selects Ok
+            return deferred.promise;
+        });
+
+        ionicPopupMock.alert.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(); // User selects Ok
+            return deferred.promise;
+        });
+
+        neurosurgeryReferralCriteriaControllerServiceMock.isNeuroReferralRequired.and.callFake(function () {
+            return true;
+        });
+
+        vm.premorbidMrsScore = 2;
+        vm.onNext();
+        scopeMock.$apply();
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Refer to neurosurgery");
+        expect(stateMock.go).toHaveBeenCalledWith(STATE_NEUROSURGERY_REFERRAL_SUMMARY_MOCK);
+    });
+
+    it("should show correct popup and go to the correct state when user selects 'Ok' on validation popup and referral to neurosurgery should be considered", function () {
+
+        ionicPopupMock.confirm.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(true); // User selects Ok
+            return deferred.promise;
+        });
+
+        ionicPopupMock.alert.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(); // User selects Ok
+            return deferred.promise;
+        });
+
+        neurosurgeryReferralCriteriaControllerServiceMock.isNeuroReferralRequired.and.callFake(function () {
+            return true;
+        });
+
+        vm.premorbidMrsScore = 3;
+        vm.onNext();
+        scopeMock.$apply();
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Consider referral to neurosurgery");
+        expect(stateMock.go).toHaveBeenCalledWith(STATE_NEUROSURGERY_REFERRAL_SUMMARY_MOCK);
+    });
+
+    it("should save data when user selects 'Ok' on validation popup", function () {
+
+        ionicPopupMock.confirm.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(true); // User selects Ok
+            return deferred.promise;
+        });
+
+        ionicPopupMock.alert.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(); // User selects Ok
+            return deferred.promise;
+        });
+
+        neurosurgeryReferralCriteriaControllerServiceMock.isNeuroReferralRequired.and.returnValue(true);
+
+        vm.premorbidMrsScore = 3;
+        vm.onNext();
+        scopeMock.$apply();
+
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Consider referral to neurosurgery");
+
+        expect(patientCacheServiceMock.setIsPosteriorFossaIch).toHaveBeenCalled();
+        expect(patientCacheServiceMock.setIsVentricleObstructed).toHaveBeenCalled();
+        expect(patientCacheServiceMock.setIchVolume).toHaveBeenCalled();
+        expect(patientCacheServiceMock.setIchLongestAxis).toHaveBeenCalled();
+        expect(patientCacheServiceMock.setIchPerpendicularAxis).toHaveBeenCalled();
+        expect(patientCacheServiceMock.setIchNumSlices).toHaveBeenCalled();
+        expect(patientCacheServiceMock.SetIchSliceThickness).toHaveBeenCalled();
+    });
+
+    it("should dismiss popup and not change state when user selects 'Cancel' on validation popup", function () {
+
+        ionicPopupMock.confirm.and.callFake(function () {
+            var deferred = $q.defer();
+            deferred.resolve(false); // User selects Cancel
+            return deferred.promise;
+        });
+
+        vm.onNext();
+        scopeMock.$apply();
+        expect(ionicPopupMock.confirm).toHaveBeenCalled();
+        expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Data validation");
+        expect(stateMock.go).not.toHaveBeenCalled();
+
+    });
+
+});

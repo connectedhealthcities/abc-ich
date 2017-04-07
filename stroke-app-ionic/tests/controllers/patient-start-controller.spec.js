@@ -1,21 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isShowResumePatient to controller.service
-//		it should delegate isAppConfigured to controller.service
-//		it should reset data when user selects 'New patient' button and no patient is in progress
-//		it should save data when user selects 'New patient' button and no patient is in progress
-//		it should go to state STATE_REGISTER_PATIENT when user selects 'New patient' button and no patient is in progress
-//		it should reset data when user selects Ok to 'confirm new patient' popup
-//		it should save data when user selects Ok to 'confirm new patient' popup
-//		it should go to state STATE_REGISTER_PATIENT when user selects Ok to 'confirm new patient' popup
-//		it should not reset data when user selects Cancel to 'confirm new patient' popup
-//		it should not save data when user selects Cancel to 'confirm new patient' popup
-//		it should not change state when user selects Cancel to 'confirm new patient' popup
-//		it should resume at the state when the app was closed when user selects 'resume patient'
-
 describe('PatientStartController', function() {
 
     var vm;

@@ -1,16 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-// 		it should reset data when user selects 'Finish' in Demo mode
-// 		it should go to state STATE_PATIENT_START when user selects 'Finish' in Demo mode
-// 		it should send data to server when user selects 'Finish'
-// 		it should display 'upload success' and 'send email' popups when data upload succeeds
-// 		it should display 'upload failure' popup when data upload fails
-// 		it should send email when user selects 'Ok' on send email popup
-// 		it should not send email when user selects 'Cancel' on send email popup
-
 describe('PatientEndController', function() {
 
     var vm;

@@ -1,17 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isSendTestEmailButtonEnabled to controller.service
-//		it should delegate isSaveButtonEnabled to controller.service
-// 		it should save data when 'Save' button selected
-// 		it should call $window.history.back when 'Save' button selected
-// 		it should not save data when 'Cancel' button selected
-// 		it should call $window.history.back when 'cancel' button selected
-//		it should display 'success' popup when send test email is successful
-//		it should display 'failure' popup when send test email fails
-
 describe("EmailConfigurationController", function() {
 
     var vm;

@@ -1,20 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isNextButtonEnabled to controller.service
-//		it should delegate showIsReversalTimeKnownCard to controller.service
-//		it should delegate showReversalTimeCard to controller.service
-//		it should delegate hideReversalAgentOptionNone to controller.service
-//		it should reset view model parameters appropriately when onReversalAgentChanged is called
-//		it should reset view model parameters appropriately when onReversalAgentAdministeredTimeKnownChanged is called
-//      it should populate view model parameters appropriately when onReversalNow is called
-// 		it should save data when user selects 'Ok' on validation popup
-// 		it should go to correct state when user selects 'Ok' on validation popup
-// 		it should not save data when user selects 'Cancel' on validation popup
-// 		it should not change state when user selects 'Cancel' on validation popup
-
 describe('ReversalAgentDetailsController', function() {
 
     var vm;

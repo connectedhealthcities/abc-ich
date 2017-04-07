@@ -46,12 +46,14 @@ module.exports = function(config) {
       '../www/modules/protocol-a/reversal-agent-details/reversal-agent-details-controller.service.js',
  
       '../www/modules/protocol-b/bp-management/bp-management.controller.js',
+      '../www/modules/protocol-b/bp-management/bp-management-controller.service.js',
       '../www/modules/protocol-b/critical-care-referral/critical-care-referral.controller.js',
       '../www/modules/protocol-b/critical-care-referral/critical-care-referral-controller.service.js',
 
       '../www/modules/protocol-c/mrs-entry/mrs-entry.controller.js',
       '../www/modules/protocol-c/mrs-entry/mrs-entry-controller.service.js',
       '../www/modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria.controller.js',
+      '../www/modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria-controller.service.js',
       '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary.controller.js',
       '../www/modules/protocol-c/neurosurgery-referral-summary/neurosurgery-referral-summary-controller.service.js',
 

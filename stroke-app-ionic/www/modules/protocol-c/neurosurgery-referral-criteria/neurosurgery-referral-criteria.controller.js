@@ -6,146 +6,82 @@ NeurosurgeryReferralCriteriaController.$inject = ['$scope', '$state', '$ionicPop
 
 function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, MRS_THRESHOLD, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD, DemoModeCacheService, STATE_NEUROSURGERY_REFERRAL_CRITERIA, STATE_NEUROSURGERY_REFERRAL_SUMMARY, STATE_PATIENT_END, NeurosurgeryReferralCriteriaControllerService) {
 
-    var vm = this; // S12
+    var vm = this;
 
-    StateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_CRITERIA);
-    vm.patientId = PatientCacheService.getUniqueId();
-    vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
-    vm.showIchVolumeOutOfRangeMessage = showIchVolumeOutOfRangeMessage;
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_NEUROSURGERY_REFERRAL_CRITERIA);
 
-    vm.sliderImages = [
-        {
-      	    'src' : 'img/occluded-3rd.jpg', 
-      	    'title' : 'occluded 3rd'
-    	}, 
-        {
-      	    'src' : 'img/occluded-4th.jpg', 
-      	    'title' : 'occluded 4th'
-    	}, 
-        {
-      	    'src' : 'img/externally-compressed-3rd.jpg', 
-      	    'title' : 'externally compressed 3rd'
-    	}, 
-        {
-      	    'src' : 'img/externally-compressed-4th.jpg', 
-      	    'title' : 'externally compressed 4th'
-    	}
-    ];
+        // initialise vm parameters for header row
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
 
-    vm.sliderOptions = {
-        loop: false,
-        effect: 'fade',
-        speed: 500
+        // initialise vm parameters for page content   
+        vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
+        vm.isObstruction = PatientCacheService.getIsVentricleObstructed();
+        vm.longestAxis = PatientCacheService.getIchLongestAxis();
+        vm.perpendicularAxis = PatientCacheService.getIchPerpendicularAxis();
+        vm.numSlices = PatientCacheService.getIchNumSlices();
+        vm.sliceThickness = PatientCacheService.getIchSliceThickness();
+        vm.ichVolume = NeurosurgeryReferralCriteriaControllerService.calculateVolume(vm.longestAxis, vm.perpendicularAxis, vm.numSlices, vm.sliceThickness);
+
+        // initialise vm parameters for page logic 
+        vm.gcsScore = PatientCacheService.getGcsScore();
+        vm.premorbidMrsScore = PatientCacheService.getPremorbidMrsScore();
+
+        // Set up slider
+        var sliderConfig = NeurosurgeryReferralCriteriaControllerService.getSliderConfig();
+        vm.sliderImages = sliderConfig.images;
+        vm.sliderOptions = sliderConfig.options;
+
+        // Setup click handlers
+        vm.onNext = onNext;
+
+        // Setup change handlers
+        vm.onVolumeFieldChanged = onVolumeFieldChanged;
+
+        // Set up enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
+
+        // Set up show/hide handlers
+        vm.showIchVolumeField = showIchVolumeField;
+
+        // Set up show/hide Range validation messages
+        vm.showIchVolumeOutOfRangeMessage = showIchVolumeOutOfRangeMessage;
+
+        // popups
+        vm.showVolumeMeasurementPopup = showVolumeMeasurementPopup;
+        vm.showObstructionPopup = showObstructionPopup;
+       
     }
+    init();
 
-    vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
-    vm.isObstruction = PatientCacheService.getIsVentricleObstructed();
-    vm.longestAxis = PatientCacheService.getIchLongestAxis();
-    vm.perpendicularAxis = PatientCacheService.getIchPerpendicularAxis();
-    vm.numSlices = PatientCacheService.getIchNumSlices();
-    vm.sliceThickness = PatientCacheService.getIchSliceThickness();
-    calculateVolume();
-
-    vm.onNext = onNext;
-    vm.isNextButtonEnabled = isNextButtonEnabled;
-    vm.calculateVolume = calculateVolume;
-    vm.showVolumeMeasurementPopup = showVolumeMeasurementPopup;
-    vm.showObstructionPopup = showObstructionPopup;
-
-    function showIchVolumeOutOfRangeMessage() {
-        return NeurosurgeryReferralCriteriaControllerService.isIchVolumeOutOfRange(vm.ichVolume);
-    }
- 
+    // Click handlers
     function onNext() {
        showDataValidationPopup(handleDataValid); 
     }
 
+    // Change handlers
+    function onVolumeFieldChanged() {
+        vm.ichVolume = NeurosurgeryReferralCriteriaControllerService.calculateVolume(vm.longestAxis, vm.perpendicularAxis, vm.numSlices, vm.sliceThickness);
+    }
+
+    // Enable/disable handlers
     function isNextButtonEnabled() {
-        var isEnabled = NeurosurgeryReferralCriteriaControllerService.isNextButtonEnabled(vm.ichVolume, vm.isPosteriorFossaIch, vm.isObstruction);
-
-        return isEnabled;
+        return NeurosurgeryReferralCriteriaControllerService.isNextButtonEnabled(vm.ichVolume, vm.isPosteriorFossaIch, vm.isObstruction);
     }
 
-    function handleDataValid() {
-        saveData();
-
-        if (isNeuroReferralNotRequired()) {
-            showReferralNotRequiredPopup(goNextState);
-        }
-        else {
-            if (PatientCacheService.getPremorbidMrsScore() < MRS_THRESHOLD) {
-                showReferToNeurosurgeryPopup(goNextState);
-            }
-            else {
-                showConsiderReferralPopup(goNextState);
-            }
-        }
+    // Set up show/hide handlers
+    function showIchVolumeField() {
+        return NeurosurgeryReferralCriteriaControllerService.showIchVolumeField(vm.ichVolume);
+    }
+    
+    // Show/hide Range validation messages
+    function showIchVolumeOutOfRangeMessage() {
+        return !NeurosurgeryReferralCriteriaControllerService.isIchVolumeWithinRange(vm.ichVolume);
     }
 
-    function goNextState() {
-        if (isNeuroReferralNotRequired()) {
-            $state.go(STATE_PATIENT_END);
-        }
-        else {
-            $state.go(STATE_NEUROSURGERY_REFERRAL_SUMMARY);
-        }
-    }
-
-    function saveData() {
-        PatientCacheService.setIsPosteriorFossaIch(vm.isPosteriorFossaIch);
-        PatientCacheService.setIsVentricleObstructed(vm.isObstruction);
-        PatientCacheService.setIchVolume(vm.ichVolume); 
-        PatientCacheService.setIchLongestAxis(vm.longestAxis);
-        PatientCacheService.setIchPerpendicularAxis(vm.perpendicularAxis);
-        PatientCacheService.setIchNumSlices(vm.numSlices);
-        PatientCacheService.SetIchSliceThickness(vm.sliceThickness);
-    }
- 
-    function calculateVolume() {
-        if (vm.longestAxis != null &&
-            vm.perpendicularAxis != null &&
-            vm.numSlices != null &&
-            vm.sliceThickness != null) {
-            var volume = vm.longestAxis * vm.perpendicularAxis * vm.numSlices * vm.sliceThickness / 2;
-            vm.ichVolume = parseFloat(volume).toFixed(2);
-        }
-        else {
-            vm.ichVolume = null;
-        }
-    }
-
-    function isNeuroReferralNotRequired() {
-
-        var isNeuroReferrelNotRequired = false;
-
-        if (   PatientCacheService.getGcsScore() >= GCS_THRESHOLD 
-            && PatientCacheService.getIchVolume() <= ICH_VOLUME_THRESHOLD 
-            && !PatientCacheService.getIsPosteriorFossaIch()
-            && !PatientCacheService.getIsVentricleObstructed()) {
-
-             isNeuroReferrelNotRequired = true;   
-        }
-
-        return isNeuroReferrelNotRequired;
-    }
-
-    function showDataValidationPopup(okHandler) {
-        var popupTemplate = {
-            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria-data-validation-popup.html',
-            title: 'Data validation',
-            subTitle: 'Please confirm data entered is correct',
-            cssClass: 'chi-wide-popup',
-            scope: $scope
-        };       
-        var popup = $ionicPopup.confirm(popupTemplate);
-
-        popup.then(function(res) {
-            if (res) {
-                okHandler();
-            }
-        });
-    }
-
+    // Popups
     function showVolumeMeasurementPopup() {
         var popupTemplate = {
             templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/volume-measurement-popup.html',
@@ -164,6 +100,23 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
             scope: $scope
         };
         $ionicPopup.alert(popupTemplate);
+    }
+
+    function showDataValidationPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria-data-validation-popup.html',
+            title: 'Data validation',
+            subTitle: 'Please confirm data entered is correct',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.confirm(popupTemplate);
+
+        popup.then(function (res) {
+            if (res) {
+                okHandler();
+            }
+        });
     }
 
     function showReferToNeurosurgeryPopup(okHandler) {
@@ -200,5 +153,46 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
         var popup = $ionicPopup.alert(popupTemplate);
 
         popup.then(okHandler);
+    }
+
+
+    // Private functions
+    function handleDataValid() {
+        saveData();
+
+        if (!isNeuroReferralRequired()) {
+            showReferralNotRequiredPopup(goNextState);
+        }
+        else {
+            if (vm.premorbidMrsScore < MRS_THRESHOLD) {
+                showReferToNeurosurgeryPopup(goNextState);
+            }
+            else {
+                showConsiderReferralPopup(goNextState);
+            }
+        }
+    }
+
+    function goNextState() {
+        if (!isNeuroReferralRequired()) {
+            $state.go(STATE_PATIENT_END);
+        }
+        else {
+            $state.go(STATE_NEUROSURGERY_REFERRAL_SUMMARY);
+        }
+    }
+
+    function saveData() {
+        PatientCacheService.setIsPosteriorFossaIch(vm.isPosteriorFossaIch);
+        PatientCacheService.setIsVentricleObstructed(vm.isObstruction);
+        PatientCacheService.setIchVolume(vm.ichVolume); 
+        PatientCacheService.setIchLongestAxis(vm.longestAxis);
+        PatientCacheService.setIchPerpendicularAxis(vm.perpendicularAxis);
+        PatientCacheService.setIchNumSlices(vm.numSlices);
+        PatientCacheService.SetIchSliceThickness(vm.sliceThickness);
+    } 
+    
+    function isNeuroReferralRequired() {
+        return NeurosurgeryReferralCriteriaControllerService.isNeuroReferralRequired(vm.gcsScore, vm.ichVolume, vm.isPosteriorFossaIch, vm.isVentricleObstructed, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD);
     }
 }

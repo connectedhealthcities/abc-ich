@@ -1,14 +1,5 @@
 'use strict';
 
-// This file contains the following tests
-//
-// 		it should initialise the view model correctly
-//		it should delegate isNextButtonEnabled to controller.service
-// 		it should save data when user selects 'Ok' on validation popup
-// 		it should go to correct state when user selects 'Ok' on validation popup
-// 		it should not save data when user selects 'Cancel' on validation popup
-// 		it should not change state when user selects 'Cancel' on validation popup
-
 describe('CriticalCareReferralController', function() {
 
     var vm;

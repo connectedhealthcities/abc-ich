@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class PatientResource {
 
     private final Logger log = LoggerFactory.getLogger(PatientResource.class);
@@ -97,7 +97,7 @@ public class PatientResource {
      * GET  /patients : get all the patients.
      *
      * <p>
-     *     Returns patients across all hospitals if the current user has role "ROLE_ADMIN".
+     *     Returns patients across all hospitals if the current user has role "ROLE_ADMIN" or "ROLE_RESEARCHER".
      *     Otherwise only patients for the current user's hospital are returned.
      * </p>
      *
@@ -113,7 +113,7 @@ public class PatientResource {
 
         Page<PatientDTO> page = null;
         
-        if (SecurityUtils.isCurrentUserInRole("ROLE_ADMIN")) {
+        if (SecurityUtils.isCurrentUserInRole("ROLE_ADMIN") || SecurityUtils.isCurrentUserInRole("ROLE_RESEARCHER")) {
         	page = patientService.findAll(pageable);
         }
         else {
@@ -137,7 +137,7 @@ public class PatientResource {
      * GET  /patients-all : get all the patients.
      *
      * <p>
-     *     Returns patients across all hospitals if the current user has role "ROLE_ADMIN".
+     *     Returns patients across all hospitals if the current user has role "ROLE_ADMIN" or "ROLE_RESEARCHER".
      *     Otherwise only patients for the current user's hospital are returned.
      * </p>
      *
@@ -150,7 +150,7 @@ public class PatientResource {
         
         List<PatientDTO> patients = null;
         
-        if (SecurityUtils.isCurrentUserInRole("ROLE_ADMIN")) {
+        if (SecurityUtils.isCurrentUserInRole("ROLE_ADMIN") || SecurityUtils.isCurrentUserInRole("ROLE_RESEARCHER")) {
         	patients = patientService.findAll();
         }
         else {

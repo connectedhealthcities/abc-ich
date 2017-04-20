@@ -38,7 +38,7 @@
         }
 
         function isAllowedRole() {      	
-             var isAllowed = Principal.hasAnyAuthority(["ROLE_ADMIN", "ROLE_USER"]);
+             var isAllowed = Principal.hasAnyAuthority(["ROLE_USER"]);
              return isAllowed;
         }
 

@@ -68,8 +68,8 @@ jhipster:
         authentication:
             jwt:
                 secret: 2d2ee667ab41b76cc3f56453d2e752f65a8a3034
-                # Token is valid 24 hours
-                tokenValidityInSeconds: 86400
+                # Token is valid 1 hour
+                tokenValidityInSeconds: 3600
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: support@clintouch.com
         baseUrl: # keep empty to use the server's default URL

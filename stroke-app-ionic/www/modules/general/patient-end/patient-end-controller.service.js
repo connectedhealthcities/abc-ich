@@ -73,8 +73,6 @@ function PatientEndControllerService(PatientCacheService, EnumService) {
         patient.neurosurgeonName = PatientCacheService.getNeurosurgeonName();
         patient.referralToNeurosurgeryAccepted = PatientCacheService.getIsReferralToNeurosurgeryAccepted();
 
-        patient.summaryEmailAddress = PatientCacheService.getSummaryEmailAddress();
-
         return patient;
     }
 

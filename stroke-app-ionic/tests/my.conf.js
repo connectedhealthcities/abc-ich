@@ -22,8 +22,6 @@ module.exports = function(config) {
 
       '../www/modules/general/user-credentials-configuration/user-credentials-configuration.controller.js',
       '../www/modules/general/user-credentials-configuration/user-credentials-configuration-controller.service.js',
-      '../www/modules/general/email-configuration/email-configuration.controller.js',
-      '../www/modules/general/email-configuration/email-configuration-controller.service.js',
       '../www/modules/general/patient-start/patient-start.controller.js',
       '../www/modules/general/patient-start/patient-start-controller.service.js',
       '../www/modules/general/register-patient/register-patient.controller.js',

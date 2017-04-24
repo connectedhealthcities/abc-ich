@@ -11,8 +11,8 @@ function DateTimeService($filter, moment) {
         getTimeSinceOnsetText: getTimeSinceOnsetText,
         getDateTimeFromDateAndTime: getDateTimeFromDateAndTime,
         getAgeFromBirthDate: getAgeFromBirthDate,
-        formatDateTimeForRtf: formatDateTimeForRtf,
-        formatBirthDateForRtf: formatBirthDateForRtf
+        formatDateTimeForPrint: formatDateTimeForPrint,
+        formatBirthDateForPrint: formatBirthDateForPrint
     };
 
     return service;
@@ -81,12 +81,12 @@ function DateTimeService($filter, moment) {
         return moment().diff(birthDate, 'years');
     }
 
-    function formatDateTimeForRtf(dateTime) {
+    function formatDateTimeForPrint(dateTime) {
         var date = $filter('date')(dateTime, 'd MMM y H:mm');
         return date;
     }
 
-    function formatBirthDateForRtf(dateTime) {
+    function formatBirthDateForPrint(dateTime) {
         var birthdate = $filter('date') (dateTime, 'd MMM y');
         return birthdate;
     }

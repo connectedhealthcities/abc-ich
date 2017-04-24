@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientEndControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'BpStateCacheService', 'PatientHttpService', 'EmailService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
+PatientEndController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientEndControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'BpStateCacheService', 'PatientHttpService', 'PrintService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
 
-function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, BpStateCacheService, PatientHttpService, EmailService, STATE_PATIENT_END, STATE_PATIENT_START) {
+function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, BpStateCacheService, PatientHttpService, PrintService, STATE_PATIENT_END, STATE_PATIENT_START) {
  
     var vm = this;
 
@@ -30,12 +30,11 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
         }
         else {
             var patient = PatientEndControllerService.getPatient();
-            var emailData = EmailService.getEmailData();
             PatientHttpService.updatePatient(patient).then(function(success) {
                 if (success) {
                     showPatientSaveSucceededPopup(function () {
-                        showEmailPatientPopup(function () {                            
-                            EmailService.sendEmail(emailData, reset, showEmailClientNotInstalledOnDevicePopup);
+                        showPrintPatientPopup(function () {
+                            PrintService.printPatient(reset);                           
                         }, reset);
                     });
                 }
@@ -77,10 +76,10 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
         $ionicPopup.alert(popupTemplate);
     }
 
-    function showEmailPatientPopup(okHandler, cancelHandler) {
+    function showPrintPatientPopup(okHandler, cancelHandler) {
         var popupTemplate = {
-            templateUrl: 'modules/general/patient-end/email-patient-popup.html',
-            title: 'Email',
+            templateUrl: 'modules/general/patient-end/print-patient-popup.html',
+            title: 'Print',
             cssClass: 'chi-wide-popup'
         };
         var popup = $ionicPopup.confirm(popupTemplate);
@@ -94,13 +93,5 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
         });
     }
 
-    function showEmailClientNotInstalledOnDevicePopup() {
-        var popupTemplate = {
-            templateUrl: 'modules/general/patient-end/email-client-not-installed-on-device-popup.html',
-            title: 'Email error',
-            cssClass: 'chi-wide-popup'
-        };
-        $ionicPopup.alert(popupTemplate);
-    }
-    
+   
 }

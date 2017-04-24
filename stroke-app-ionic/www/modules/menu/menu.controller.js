@@ -2,21 +2,16 @@
 
 angular.module('app').controller('MenuController', MenuController);
 
-MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_ABOUT', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_EMAIL_CONFIGURATION', 'STATE_REGISTER_PATIENT'];
+MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_ABOUT', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_REGISTER_PATIENT'];
 
-function MenuController($scope, $state, PatientCacheService, BpStateCacheService, StateCacheService, DemoModeCacheService, STATE_ABOUT, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_EMAIL_CONFIGURATION, STATE_REGISTER_PATIENT) {
+function MenuController($scope, $state, PatientCacheService, BpStateCacheService, StateCacheService, DemoModeCacheService, STATE_ABOUT, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_REGISTER_PATIENT) {
 
     $scope.onUserCredentialsConfiguration = onUserCredentialsConfiguration;
-    $scope.onEmailConfiguration = onEmailConfiguration;
     $scope.onAbout = onAbout;
     $scope.onDemoMode = onDemoMode;
 
     function onUserCredentialsConfiguration() {
         $state.go(STATE_USER_CREDENTIALS_CONFIGURATION);
-    }
-
-    function onEmailConfiguration() {
-        $state.go(STATE_EMAIL_CONFIGURATION);
     }
 
     function onAbout() {

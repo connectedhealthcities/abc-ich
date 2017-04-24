@@ -30,8 +30,6 @@ function PatientCacheService(LocalStorageService) {
     var gcs_score_eye_key = "patient-gcs-score-eye";
     var gcs_score_verbal_key = "patient-gcs-score-verbal";
     var gcs_score_motor_key = "patient-gcs-score-motor";
-    // patient-end
-    var summary_email_address_key = "patient-summary-email-address";
 
     //
     // protocol A
@@ -151,10 +149,6 @@ function PatientCacheService(LocalStorageService) {
 
         getGcsScoreMotor: getGcsScoreMotor,
         setGcsScoreMotor: setGcsScoreMotor,
-
-        // patient-end
-        getSummaryEmailAddress: getSummaryEmailAddress,
-        setSummaryEmailAddress: setSummaryEmailAddress,
 
         //
         // protocol A
@@ -429,15 +423,6 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(gcs_score_motor_key, gcsScoreMotor);
     }
    
-    // patient-end
-    function getSummaryEmailAddress() {
-        return LocalStorageService.getItem(summary_email_address_key);
-    }
-    
-    function setSummaryEmailAddress(summaryEmailAddress) {
-        LocalStorageService.setItem(summary_email_address_key, summaryEmailAddress);
-    }
-
     //
     // protocol A
     //
@@ -775,7 +760,6 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(gcs_score_eye_key, null);
         LocalStorageService.setItem(gcs_score_verbal_key, null);
         LocalStorageService.setItem(gcs_score_motor_key, null);
-        LocalStorageService.setItem(summary_email_address_key, null);
         LocalStorageService.setItem(anticoagulant_type_key, null);
         LocalStorageService.setItem(anticoagulant_name_key, null); 
         LocalStorageService.setItem(reversal_agent_administered_at_external_hospital_key, null);

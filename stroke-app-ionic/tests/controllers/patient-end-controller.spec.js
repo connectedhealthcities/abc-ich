@@ -6,7 +6,7 @@ describe('PatientEndController', function() {
 	var $q;
 	var STATE_PATIENT_END_MOCK, STATE_PATIENT_START_MOCK;
     var scopeMock, stateMock, ionicPopupMock, patientEndControllerServiceMock; 
-    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, bpStateCacheServiceMock, patientHttpServiceMock, emailServiceMock;
+    var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, bpStateCacheServiceMock, patientHttpServiceMock, printServiceMock;
 
     beforeEach(function() {
 
@@ -25,7 +25,7 @@ describe('PatientEndController', function() {
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
             patientHttpServiceMock = jasmine.createSpyObj('PatientHttpService spy', ['updatePatient']);
-            emailServiceMock = jasmine.createSpyObj('EmailService spy', ['sendEmail', 'getEmailData']);
+            printServiceMock = jasmine.createSpyObj('PrintService spy', ['printPatient']);
 			
 			vm = $controller('PatientEndController', {
 				'$scope': scopeMock,
@@ -37,7 +37,7 @@ describe('PatientEndController', function() {
 				'DemoModeCacheService': demoModeCacheServiceMock,
                 'BpStateCacheService': bpStateCacheServiceMock,
                 'PatientHttpService': patientHttpServiceMock,
-                'EmailService': emailServiceMock,
+                'PrintService': printServiceMock,
 				'STATE_PATIENT_END': STATE_PATIENT_END_MOCK,
 				'STATE_PATIENT_START': STATE_PATIENT_START_MOCK                
 			});
@@ -78,12 +78,10 @@ describe('PatientEndController', function() {
         vm.isDemoMode = false;
 		vm.onFinish();
 		expect(patientEndControllerServiceMock.getPatient).toHaveBeenCalled();				
-		expect(emailServiceMock.getEmailData).toHaveBeenCalled();				
 		expect(patientHttpServiceMock.updatePatient).toHaveBeenCalled();
-
 	});
 
-	it("should display 'upload success' and 'send email' popups when data upload succeeds", function() { 
+	it("should display 'upload success' and 'print' popups when data upload succeeds", function() { 
         patientHttpServiceMock.updatePatient.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // Success
@@ -98,7 +96,7 @@ describe('PatientEndController', function() {
 
        ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
-			deferred.resolve(true); // User selects Ok on email popup
+			deferred.resolve(true); // User selects Ok on print popup
 			return deferred.promise;
 		});					
 
@@ -110,7 +108,7 @@ describe('PatientEndController', function() {
 		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Patient save succeeded");
 
 		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
-		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Email");
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Print");
 	});
 
 	it("should display 'upload failure' popup when data upload fails", function() { 
@@ -133,10 +131,9 @@ describe('PatientEndController', function() {
 		expect(ionicPopupMock.alert).toHaveBeenCalled();		
 		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Patient save failed");
         expect(ionicPopupMock.confirm).not.toHaveBeenCalled();		
-
 	});
 
-	it("should send email when user selects 'Ok' on send email popup", function() { 
+	it("should print patient when user selects 'Ok' on print popup", function() { 
         patientHttpServiceMock.updatePatient.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // Success
@@ -151,7 +148,7 @@ describe('PatientEndController', function() {
 
        ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
-			deferred.resolve(true); // User selects Ok on email popup
+			deferred.resolve(true); // User selects Ok on print popup
 			return deferred.promise;
 		});					
 
@@ -163,12 +160,12 @@ describe('PatientEndController', function() {
 		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Patient save succeeded");
 
 		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
-		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Email");
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Print");
 
-        expect(emailServiceMock.sendEmail).toHaveBeenCalled();
+        expect(printServiceMock.printPatient).toHaveBeenCalled();
  	});
 
-	it("should not send email when user selects 'Cancel' on send email popup", function() { 
+	it("should not print patient when user selects 'Cancel' on print popup", function() { 
         patientHttpServiceMock.updatePatient.and.callFake(function() {
 			var deferred = $q.defer();
 			deferred.resolve(true); // Success
@@ -183,7 +180,7 @@ describe('PatientEndController', function() {
 
        ionicPopupMock.confirm.and.callFake(function() {
 			var deferred = $q.defer();
-			deferred.resolve(false); // User selects Cancel on email popup
+			deferred.resolve(false); // User selects Cancel on print popup
 			return deferred.promise;
 		});					
 
@@ -195,9 +192,9 @@ describe('PatientEndController', function() {
 		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Patient save succeeded");
 
 		expect(ionicPopupMock.confirm).toHaveBeenCalled();		
-		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Email");
+		expect(ionicPopupMock.confirm.calls.mostRecent().args[0].title).toBe("Print");
 
-        expect(emailServiceMock.sendEmail).not.toHaveBeenCalled();
+        expect(printServiceMock.printPatient).not.toHaveBeenCalled();
  	});    
 
 });

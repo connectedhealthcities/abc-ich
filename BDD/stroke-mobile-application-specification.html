@@ -419,8 +419,23 @@ Template
 </Story>
 
 <Story> BP Management - view navigation
+	<Note> #7 Treatment target and threshold
+		Start treatment if SBP is greater than treatment threshold
+		Lower SBP to treatment target within 1 hour
+		(Onset < 6 hours ago): 	Treatment threshold = 150 mmHg, Treatment target = 140 mmHg
+		(Onset >= 6 hours ago): Treatment threshold = 200 mmHg, Treatment target = 180 mmHg
+	</Note>	
+	<Note> #8 How the view is used
+		The patient's SBP reading will be monitored over 1 hour.
+		Initial interval is every 15 mins until a reading is above threshold.
+		Interval during treatment is every 5 mins.
+		If a reading is above threshold then the user is prompted to repeat the reading after 2 mins.
+		If this reading is also above threshold then threshold breach is confirmed and treatment begins.
+		It's possible during the hour that the threshold breach is confirmed more than once!
+	</Note>			
 	<Scenario> #1: User selects Next - Target not reached
-		Given: the user has entered valid data on the "BP Management" view
+		Given: the user has entered a series of readings on the "BP Management" view
+		And: the threshold breach has been confirmed
 		And: the target has not been reached
 		When: they select the "Next" button
 		Then: the "Refer to Critical Care" view is displayed
@@ -429,7 +444,7 @@ Template
 	</Scenario>    
 	<Scenario> #2: User selects Next - Target reached (GCS >= 9)
 		Given: the user has entered valid data on the "BP Management" view
-		And: the target has been reached
+		And: the target has been reached (or threshold breach not confirmed)
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: the "high water mark view" for tab C is displayed
@@ -438,18 +453,12 @@ Template
 	</Scenario>    
 	<Scenario> #3: User selects Next - Target reached (GCS < 9)
 		Given: the user has entered valid data on the "BP Management" view
-		And: the target has been reached
+		And: the target has been reached (or threshold breach not confirmed)
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: the "Patient End" view is displayed
 		And: the ABC tabs are not displayed
 	</Scenario>
-	<Note> #7 Treatment target and threshold
-		Start treatment if SBP is greater than treatment threshold
-		Lower SBP to treatment target within 1 hour
-		(Onset < 6 hours ago): 	Treatment threshold = 150 mmHg, Treatment target = 140 mmHg
-		(Onset >= 6 hours ago): Treatment threshold = 200 mmHg, Treatment target = 180 mmHg
-	</Note>
 	<Scenario> #4: User selects Add entry - show repeat reading popup
 		Given: the last reading (if any) was not above threshold
 		When: they add an entry where SBP is above threshold
@@ -492,7 +501,7 @@ Template
 </Story>
 
 <Story> Neurosurgery referral criteria - view navigation
-	<Note> #8
+	<Note> #9
 		Referral criteria:
 			- ichVolume > 30 ml
 			- Posterior fossa ICH
@@ -610,7 +619,7 @@ Template
 </Story>
 
 <Story> View Navigation via Tab selection
-	<Note> #9
+	<Note> #10
 		Default views for each tab are as follows:
 		- Tab A: Anticoagulant Identification view
 		- Tab B: BP Management view
@@ -653,7 +662,7 @@ Template
 </Story>
 
 <Story> View behaviour and layout
-	<Note> #10
+	<Note> #11
 		Most views are self-describing with the dynamic show/hide behaviour being intuitively obvious.
 		Only views where this is not the case are described here.
 	</Note>
@@ -680,7 +689,7 @@ Template
 </Story>
 
 <Story> Calculation of Beriplex dose
-	<Note> #11 Calculation details
+	<Note> #12 Calculation details
 		The dose is calculated using the weight in Kg and the INR value.
 		For the purposes of the calculatuion the weight is rounded to the nearest 10 Kg.
 		If the weight is above 100Kg then it is fixed at 100Kg.
@@ -705,7 +714,7 @@ Template
 </Story>
 
 <Story> Data entry range validation
-	<Note> #12
+	<Note> #13
 		The following data entry fields have ranges which the inputs should adhear to.
 
 		A validation message is displayed when the input contains a value outside the allowed range.

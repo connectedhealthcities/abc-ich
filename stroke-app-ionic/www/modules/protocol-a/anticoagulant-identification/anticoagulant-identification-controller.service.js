@@ -20,19 +20,19 @@ function AnticoagulantIdentificationControllerService() {
         return {
            "images": [
                 {
-                    'src' : 'img/apixaban.png', 
+                    'src' : 'img/apixaban.jpg', 
                     'title' : 'Apixaban'
                 }, 
                 {
-                    'src' : 'img/dabigatran.png', 
+                    'src' : 'img/dabigatran.jpg', 
                     'title' : 'Dabigatran'
                 }, 
                 {
-                    'src' : 'img/edoxaban.png', 
+                    'src' : 'img/edoxaban.jpg', 
                     'title' : 'Edoxaban'
                 }, 
                 {
-                    'src' : 'img/rivaroxaban.png', 
+                    'src' : 'img/rivaroxaban.jpg', 
                     'title' : 'Rivaroxaban'
                 }
             ],

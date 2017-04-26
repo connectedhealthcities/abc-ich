@@ -820,26 +820,6 @@ public class Patient implements Serializable {
     }
           
     
-    //
-    // patient-end ////////////////////////////////////////////////////////////////////////////////
-
-    @Column(name = "summary_email_address")
-    private String summaryEmailAddress;
-    
-    public String getSummaryEmailAddress() {
-        return summaryEmailAddress;
-    }
-
-    public Patient summaryEmailAddress(String summaryEmailAddress) {
-        this.summaryEmailAddress = summaryEmailAddress;
-        return this;
-    }
-
-    public void setSummaryEmailAddress(String summaryEmailAddress) {
-        this.summaryEmailAddress = summaryEmailAddress;
-    }
-    
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -906,7 +886,6 @@ public class Patient implements Serializable {
             ", referralToNeurosurgeryDateTime='" + referralToNeurosurgeryDateTime + "'" +
             ", neurosurgeonName='" + neurosurgeonName + "'" +
             ", referralToNeurosurgeryAccepted='" + referralToNeurosurgeryAccepted + "'" +
-            ", summaryEmailAddress='" + summaryEmailAddress + "'" +
             '}';
     }
 }

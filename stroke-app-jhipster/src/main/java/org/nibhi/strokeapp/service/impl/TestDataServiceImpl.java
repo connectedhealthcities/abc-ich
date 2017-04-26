@@ -168,7 +168,6 @@ public class TestDataServiceImpl implements TestDataService{
             patient.setReferredToCriticalCare(false);
         }
         
-        patient.setSummaryEmailAddress("test@email.com");
         patient.setHospital(hospital);
          
       	patient.setInrValue(6.1f);

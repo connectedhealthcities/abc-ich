@@ -184,10 +184,6 @@
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "summaryEmailAddress",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "anticoagulantName",
             "fieldType": "String"
         },

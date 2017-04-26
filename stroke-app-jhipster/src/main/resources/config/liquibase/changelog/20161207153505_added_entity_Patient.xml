@@ -173,10 +173,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="summary_email_address" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="anticoagulant_name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>

@@ -108,8 +108,6 @@ public class PatientDTO implements Serializable {
 
     private Boolean referralToNeurosurgeryAccepted;
 
-    private String summaryEmailAddress;
-
     private String anticoagulantName;
 
     private Float inrValue;
@@ -455,14 +453,6 @@ public class PatientDTO implements Serializable {
         this.referralToNeurosurgeryAccepted = referralToNeurosurgeryAccepted;
     }
     
-    public String getSummaryEmailAddress() {
-        return summaryEmailAddress;
-    }
-
-    public void setSummaryEmailAddress(String summaryEmailAddress) {
-        this.summaryEmailAddress = summaryEmailAddress;
-    }
-    
     public String getAnticoagulantName() {
         return anticoagulantName;
     }
@@ -583,7 +573,6 @@ public class PatientDTO implements Serializable {
             ", referralToNeurosurgeryDateTime='" + referralToNeurosurgeryDateTime + "'" +
             ", neurosurgeonName='" + neurosurgeonName + "'" +
             ", referralToNeurosurgeryAccepted='" + referralToNeurosurgeryAccepted + "'" +
-            ", summaryEmailAddress='" + summaryEmailAddress + "'" +
             ", anticoagulantName='" + anticoagulantName + "'" +
             ", inrValue='" + inrValue + "'" +
             ", inrType='" + inrType + "'" +

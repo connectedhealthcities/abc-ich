@@ -172,9 +172,6 @@
 //    private static final Boolean DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED = false;
 //    private static final Boolean UPDATED_REFERRAL_TO_NEUROSURGERY_ACCEPTED = true;
 //
-//    private static final String DEFAULT_SUMMARY_EMAIL_ADDRESS = "AAAAAAAAAA";
-//    private static final String UPDATED_SUMMARY_EMAIL_ADDRESS = "BBBBBBBBBB";
-//
 //    private static final String DEFAULT_ANTICOAGULANT_NAME = "AAAAAAAAAA";
 //    private static final String UPDATED_ANTICOAGULANT_NAME = "BBBBBBBBBB";
 //
@@ -270,7 +267,6 @@
 //                .referralToNeurosurgeryDateTime(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
 //                .neurosurgeonName(DEFAULT_NEUROSURGEON_NAME)
 //                .referralToNeurosurgeryAccepted(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED)
-//                .summaryEmailAddress(DEFAULT_SUMMARY_EMAIL_ADDRESS)
 //                .anticoagulantName(DEFAULT_ANTICOAGULANT_NAME)
 //                .inrValue(DEFAULT_INR_VALUE)
 //                .inrType(DEFAULT_INR_TYPE)
@@ -338,7 +334,6 @@
 //        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
 //        assertThat(testPatient.getNeurosurgeonName()).isEqualTo(DEFAULT_NEUROSURGEON_NAME);
 //        assertThat(testPatient.isReferralToNeurosurgeryAccepted()).isEqualTo(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED);
-//        assertThat(testPatient.getSummaryEmailAddress()).isEqualTo(DEFAULT_SUMMARY_EMAIL_ADDRESS);
 //        assertThat(testPatient.getAnticoagulantName()).isEqualTo(DEFAULT_ANTICOAGULANT_NAME);
 //        assertThat(testPatient.getInrValue()).isEqualTo(DEFAULT_INR_VALUE);
 //        assertThat(testPatient.getInrType()).isEqualTo(DEFAULT_INR_TYPE);
@@ -394,7 +389,6 @@
 //                .andExpect(jsonPath("$.[*].referralToNeurosurgeryDateTime").value(hasItem(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR)))
 //                .andExpect(jsonPath("$.[*].neurosurgeonName").value(hasItem(DEFAULT_NEUROSURGEON_NAME.toString())))
 //                .andExpect(jsonPath("$.[*].referralToNeurosurgeryAccepted").value(hasItem(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED.booleanValue())))
-//                .andExpect(jsonPath("$.[*].summaryEmailAddress").value(hasItem(DEFAULT_SUMMARY_EMAIL_ADDRESS.toString())))
 //                .andExpect(jsonPath("$.[*].anticoagulantName").value(hasItem(DEFAULT_ANTICOAGULANT_NAME.toString())))
 //                .andExpect(jsonPath("$.[*].inrValue").value(hasItem(DEFAULT_INR_VALUE.doubleValue())))
 //                .andExpect(jsonPath("$.[*].inrType").value(hasItem(DEFAULT_INR_TYPE.toString())))
@@ -450,7 +444,6 @@
 //            .andExpect(jsonPath("$.referralToNeurosurgeryDateTime").value(DEFAULT_REFERRAL_TO_NEUROSURGERY_DATE_TIME_STR))
 //            .andExpect(jsonPath("$.neurosurgeonName").value(DEFAULT_NEUROSURGEON_NAME.toString()))
 //            .andExpect(jsonPath("$.referralToNeurosurgeryAccepted").value(DEFAULT_REFERRAL_TO_NEUROSURGERY_ACCEPTED.booleanValue()))
-//            .andExpect(jsonPath("$.summaryEmailAddress").value(DEFAULT_SUMMARY_EMAIL_ADDRESS.toString()))
 //            .andExpect(jsonPath("$.anticoagulantName").value(DEFAULT_ANTICOAGULANT_NAME.toString()))
 //            .andExpect(jsonPath("$.inrValue").value(DEFAULT_INR_VALUE.doubleValue()))
 //            .andExpect(jsonPath("$.inrType").value(DEFAULT_INR_TYPE.toString()))
@@ -513,7 +506,6 @@
 //                .referralToNeurosurgeryDateTime(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME)
 //                .neurosurgeonName(UPDATED_NEUROSURGEON_NAME)
 //                .referralToNeurosurgeryAccepted(UPDATED_REFERRAL_TO_NEUROSURGERY_ACCEPTED)
-//                .summaryEmailAddress(UPDATED_SUMMARY_EMAIL_ADDRESS)
 //                .anticoagulantName(UPDATED_ANTICOAGULANT_NAME)
 //                .inrValue(UPDATED_INR_VALUE)
 //                .inrType(UPDATED_INR_TYPE)
@@ -567,7 +559,6 @@
 //        assertThat(testPatient.getReferralToNeurosurgeryDateTime()).isEqualTo(UPDATED_REFERRAL_TO_NEUROSURGERY_DATE_TIME);
 //        assertThat(testPatient.getNeurosurgeonName()).isEqualTo(UPDATED_NEUROSURGEON_NAME);
 //        assertThat(testPatient.isReferralToNeurosurgeryAccepted()).isEqualTo(UPDATED_REFERRAL_TO_NEUROSURGERY_ACCEPTED);
-//        assertThat(testPatient.getSummaryEmailAddress()).isEqualTo(UPDATED_SUMMARY_EMAIL_ADDRESS);
 //        assertThat(testPatient.getAnticoagulantName()).isEqualTo(UPDATED_ANTICOAGULANT_NAME);
 //        assertThat(testPatient.getInrValue()).isEqualTo(UPDATED_INR_VALUE);
 //        assertThat(testPatient.getInrType()).isEqualTo(UPDATED_INR_TYPE);

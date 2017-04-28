@@ -8,17 +8,17 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="uniqueId"><span>Unique Id</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="doorDateTime"><span>Door Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="antiCoagulant"><span>Anti Coagulant</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="beriplexAdministered"><span>Beriplex Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="anticoagulantName"><span>Anticoagulant Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="reversalAgentStartDateTime"><span>Reversal Agent Start Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th><span>PCC DNT (Minutes)</span></th>
-                    <th jh-sort-by="vitaminkAdministered"><span>Vitamink Administered</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="vitaminkDateTime"><span>Vitamin K Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
 	                <th><span>BP DTT (Minutes)</span></th>
                     <th jh-sort-by="gcsScore"><span>GCS</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="premorbidMrsScore"><span>mRS</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="posteriorFossaIch"><span>Posterior Fossa Ich</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="ventricleObstructed"><span>Ventricle Obstructed</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="ichVolume"><span>Ich Volume</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="referredToNeurosurgery"><span>Referred To Neurosurgery</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="referralToNeurosurgeryDateTime"><span>Referral To Neurosurgery Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,17 +26,17 @@
                 <tr ng-repeat="patient in vm.patients track by patient.uniqueId">
                     <td>{{patient.uniqueId}}</td>
                     <td>{{patient.doorDateTime | date:'dd MMM yyyy HH:mm'}}</td>                    
-                    <td>{{patient.antiCoagulant}}</td>
-                    <td>{{patient.beriplexAdministered}}</td>
+                    <td>{{patient.anticoagulantName}}</td>
+                    <td>{{patient.reversalAgentStartDateTime}}</td>
  	                <td>{{patient.dnt}}</td>   
-                    <td>{{patient.vitaminkAdministered}}</td>
+                    <td>{{patient.vitaminkDateTime}}</td>
  	                <td>{{patient.dtt}}</td>   
                     <td>{{patient.gcsScore}}</td>
                     <td>{{patient.premorbidMrsScore}}</td>
                     <td>{{patient.posteriorFossaIch}}</td>
                     <td>{{patient.ventricleObstructed}}</td>
                     <td>{{patient.ichVolume}}</td>
-                    <td>{{patient.referredToNeurosurgery}}</td>
+                    <td>{{patient.referralToNeurosurgeryDateTime}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

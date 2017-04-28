@@ -18,7 +18,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
 
         // initialise vm parameters for page logic
         vm.gcsScore = PatientCacheService.getGcsScore();
-        vm.bpTreatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
+        vm.treatmentThreshold = PatientCacheService.getBpTreatmentThreshold();
         vm.treatmentTarget = PatientCacheService.getBpTarget();
 
         // initialise vm parameters for page content 
@@ -199,8 +199,8 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         var onsetDateTime = PatientCacheService.getOnsetDateTime();
         var treatmentTargetAndThresholdCardModel;
         
-        //calculate only if bpTreatmentThreshold is not already set
-        if (vm.bpTreatmentThreshold === null) {
+        //calculate only if treatmentThreshold is not already set
+        if (vm.treatmentThreshold === null) {
             treatmentTargetAndThresholdCardModel = BpManagementControllerService.getTreatmentTargetAndThreshold(onsetDateTime, new Date());
             vm.treatmentThreshold = treatmentTargetAndThresholdCardModel.treatmentThreshold;
             vm.treatmentTarget = treatmentTargetAndThresholdCardModel.treatmentTarget;

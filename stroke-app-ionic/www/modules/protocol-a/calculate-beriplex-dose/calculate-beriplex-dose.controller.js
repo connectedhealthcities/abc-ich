@@ -132,15 +132,6 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
             INR_THRESHOLD);
     }
 
-        // vm.showReversalAgentAdministeredAtExternalHospitalCard = showReversalAgentAdministeredAtExternalHospitalCard;
-        // vm.showAdministerBeriplexWithoutInrCard = showAdministerBeriplexWithoutInrCard;
-        // vm.showInrCard = showInrCard;
-        // vm.showEstimatedWeightCard = showEstimatedWeightCard;
-        // vm.showBeriplexAdministrationOverrideCard = showBeriplexAdministrationOverrideCard;
-
-        // vm.showInrOutOfRangeMessage = showInrOutOfRangeMessage;
-        // vm.showWeightOutOfRangeMessage = showWeightOutOfRangeMessage;
-
     // Show/hide handlers
     function showReversalAgentAdministeredAtExternalHospitalCard() {
         return CalculateBeriplexDoseControllerService.showReversalAgentAdministeredAtExternalHospitalCard(vm.externalScanHospitalName);

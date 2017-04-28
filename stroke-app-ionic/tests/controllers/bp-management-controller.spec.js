@@ -75,7 +75,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         
         expect(patientCacheServiceMock.getGcsScore).toHaveBeenCalled();
 
-        expect(vm.bpTreatmentThreshold).toBeDefined();
+        expect(vm.treatmentThreshold).toBeDefined();
         expect(vm.treatmentTarget).toBeDefined();
         
         expect(vm.onNext).toBeDefined();

@@ -71,7 +71,7 @@ jhipster:
                 # Token is valid 1 hour
                 tokenValidityInSeconds: 3600
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: support@clintouch.com
+        from: support@mhealthherc.com
         baseUrl: # keep empty to use the server's default URL
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true

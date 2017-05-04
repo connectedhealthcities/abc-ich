@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for protocol-a/administer-beriplex/administer-beriplex.controller.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">protocol-a/administer-beriplex/</a> administer-beriplex.controller.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.98% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>78/83</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.35% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.98% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>78/83</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
+&nbsp;
+AdministerBeriplexController.$inject = ['$window', '$scope', '$state', '$ionicPopup', 'AdministerBeriplexControllerService', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_ADMINISTER_BERIPLEX', 'STATE_BP_MANAGEMENT'];
+&nbsp;
+function AdministerBeriplexController($window, $scope, $state, $ionicPopup, AdministerBeriplexControllerService, PatientCacheService, StateCacheService, DateTimeService, DemoModeCacheService, GCS_THRESHOLD, STATE_ADMINISTER_BERIPLEX, STATE_BP_MANAGEMENT) {
+&nbsp;
+    var vm = this;
+&nbsp;
+    function init() {
+        // set current state
+        StateCacheService.setCurrentState(STATE_ADMINISTER_BERIPLEX);
+ 
+        // initialise vm parameters for header row
+        vm.patientId = PatientCacheService.getUniqueId();
+        vm.isDemoMode = DemoModeCacheService.getIsDemoMode();
+&nbsp;
+        // initialise vm parameters for page logic
+        vm.gcsScore = PatientCacheService.getGcsScore();
+&nbsp;
+        // initialise vm parameters for page content
+        var calculatedBeriplexDose = PatientCacheService.getCalculatedBeriplexDose();
+        var actualBeriplexDose = PatientCacheService.getActualBeriplexDose();
+        vm.beriplexDose = actualBeriplexDose !== null ? actualBeriplexDose : <span class="branch-1 cbranch-no" title="branch not covered" >calculatedBeriplexDose;</span>
+        vm.isBeriplexAdministered = null;
+        var reversalAgentType = PatientCacheService.getReversalAgentType();
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (reversalAgentType != null) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (reversalAgentType === "PCC") {
+                vm.isBeriplexAdministered = true;
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                vm.isBeriplexAdministered = false;</span>
+            }
+        }
+        var beriplexDateTime = PatientCacheService.getReversalAgentStartDateTime();
+        vm.beriplexDate = beriplexDateTime;
+        vm.beriplexTime = beriplexDateTime;
+        vm.isVitkAdministered = PatientCacheService.getIsVitaminkAdministered();
+        var vitkDateTime = PatientCacheService.getVitaminkDateTime();
+        vm.vitkDate = vitkDateTime;
+        vm.vitkTime = vitkDateTime;
+        vm.isInfusionInstructionsViewed = PatientCacheService.getIsInfusionInstructionsViewed();
+&nbsp;
+        // Setup click handlers
+        vm.onNext = onNext;
+        vm.onBeriplexNow = onBeriplexNow;
+        vm.onVitkNow = onVitkNow;
+&nbsp;
+        // Setup change handlers
+        vm.isBeriplexAdministeredChanged = isBeriplexAdministeredChanged;
+        vm.isVitkAdministeredChanged = isVitkAdministeredChanged;
+ 
+        // Setup enable/disable handlers
+        vm.isNextButtonEnabled = isNextButtonEnabled;
+&nbsp;
+        // Setup show/hide handlers
+        vm.showBeriplexDateTimeCard = showBeriplexDateTimeCard;
+        vm.showVitaminkDateTimeCard = showVitaminkDateTimeCard;
+&nbsp;
+        // Setup 'View Infusion Instructions' handler 
+        vm.onViewInfusionInstructions = onViewInfusionInstructions;        
+    }
+&nbsp;
+    init();
+&nbsp;
+    // Click handlers   
+    function onNext() {
+        showDataValidationPopup(handleDataValid);
+    }
+&nbsp;
+    function onBeriplexNow() {
+        var now = DateTimeService.getNowWithZeroSeconds();
+        vm.beriplexDate = now;
+        vm.beriplexTime = now;
+    }
+&nbsp;
+    function onVitkNow() {
+        var now = DateTimeService.getNowWithZeroSeconds();
+        vm.vitkDate = now;
+        vm.vitkTime = now;
+    }
+&nbsp;
+    // Change handlers
+    function isBeriplexAdministeredChanged() {
+        vm.beriplexDate = null;
+        vm.beriplexTime = null;
+    }
+&nbsp;
+    function isVitkAdministeredChanged() {
+        vm.vitkDate = null;
+        vm.vitkTime = null;
+    }
+&nbsp;
+    // Enable/disable handlers
+    function isNextButtonEnabled() {
+        return AdministerBeriplexControllerService.isNextButtonEnabled(vm.isBeriplexAdministered, vm.isVitkAdministered, vm.beriplexDate, vm.beriplexTime, vm.vitkDate, vm.vitkTime);
+    }
+&nbsp;
+    // Show/hide handlers
+    function showBeriplexDateTimeCard() {
+        return AdministerBeriplexControllerService.showBeriplexDateTimeCard(vm.isBeriplexAdministered);       
+    }
+&nbsp;
+    function showVitaminkDateTimeCard() {
+       return AdministerBeriplexControllerService.showVitaminkDateTimeCard(vm.isVitkAdministered);       
+    }
+&nbsp;
+    // 'View Infusion Instructions' handler 
+<span class="fstat-no" title="function not covered" >    function onViewInfusionInstructions() {</span>
+<span class="cstat-no" title="statement not covered" >        vm.isInfusionInstructionsViewed = true;</span>
+ 
+<span class="cstat-no" title="statement not covered" >        var mix2vialApp = startApp.set( {"package": "com.hansonzandi.mix2vial"} );</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        mix2vialApp.start(</span>
+<span class="fstat-no" title="function not covered" >            function() {</span>
+                // success - Do nothing
+            },
+<span class="fstat-no" title="function not covered" >            function(error) {</span>
+                // fail, app is not installed
+                // take user to the install page on Play Store
+<span class="cstat-no" title="statement not covered" >                $window.open("market://details?id=com.hansonzandi.mix2vial");</span>
+            }
+        );
+    }
+&nbsp;
+    // Private functions
+    function handleDataValid() {
+        saveData();
+&nbsp;
+        if (vm.gcsScore &lt; GCS_THRESHOLD) {
+            StateCacheService.goLatestStateTabC();
+         }
+        else {
+            $state.go(STATE_BP_MANAGEMENT);
+        }
+    }
+&nbsp;
+    function saveData() {
+        var reversalAgentType = vm.isBeriplexAdministered ? "PCC" : "None";
+        PatientCacheService.setReversalAgentType(reversalAgentType);
+        var beriplexDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.beriplexDate, vm.beriplexTime);
+        PatientCacheService.setReversalAgentStartDateTime(beriplexDateTime);
+&nbsp;
+        PatientCacheService.setIsVitaminkAdministered(vm.isVitkAdministered);
+        var vitkDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.vitkDate, vm.vitkTime);
+        PatientCacheService.setVitaminkDateTime(vitkDateTime);
+&nbsp;
+        PatientCacheService.setIsInfusionInstructionsViewed(vm.isInfusionInstructionsViewed);
+    }
+&nbsp;
+    // Popups
+    function showDataValidationPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-a/administer-beriplex/administer-beriplex-data-validation-popup.html',
+            title: 'Data validation',
+            subTitle: 'Please confirm data entered is correct',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };       
+        var popup = $ionicPopup.confirm(popupTemplate);
+&nbsp;
+        popup.then(function(res) {
+            if (res) {
+                okHandler();
+            }
+        });
+    }
+}
+&nbsp;
+ </pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu May 04 2017 13:25:50 GMT+0100 (BST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -420,8 +420,6 @@ Template
 
 <Story> BP Management - view navigation
 	<Note> #7 Treatment target and threshold
-		Start treatment if SBP is greater than treatment threshold
-		Lower SBP to treatment target within 1 hour
 		(Onset < 6 hours ago): 	Treatment threshold = 150 mmHg, Treatment target = 140 mmHg
 		(Onset >= 6 hours ago): Treatment threshold = 200 mmHg, Treatment target = 180 mmHg
 	</Note>	
@@ -507,17 +505,17 @@ Template
 			- Posterior fossa ICH
 			- Obstruction of the third and/or fourth ventricle
 
-		Referral to neurosurgery is not required
-		======================================== 
+		Referral to neurosurgery is not required (Popup title: 'Referral to neurosurgery not required')
+		========================================
 		GCS >= 9 and none of the Referral criteria are true:
 
-		Referral to nerosurgery is required
+		Referral to nerosurgery is required (Popup title: 'Refer to neurosurgery')
 		=================================== 
 		(GCS >= 9) AND (any of the Referral criteria are true) AND (mRS < 3)
 		OR
 		(GCS < 9) AND (mRS < 3)
 
-		Referral to neurosugery should be considered
+		Referral to neurosugery should be considered (Popup title: 'Consider referral to neurosurgery')
 		============================================
 		(GCS >= 9) AND (any of the Referral criteria are true) AND (mRS >= 3)
 		OR

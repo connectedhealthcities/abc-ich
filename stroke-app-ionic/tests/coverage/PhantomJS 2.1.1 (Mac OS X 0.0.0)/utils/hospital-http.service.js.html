@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for utils/hospital-http.service.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">utils/</a> hospital-http.service.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">36.36% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">36.36% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/11</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+angular.module('utils').service('HospitalHttpService', HospitalHttpService);
+&nbsp;
+HospitalHttpService.$inject = ['$http', 'ServerUrlService'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >function HospitalHttpService($http, ServerUrlService) {</span>
+&nbsp;
+     
+<span class="cstat-no" title="statement not covered" >    var _hospitals = [</span>
+        { "uniqueId": "Tameside", "name": "Tameside" },
+        { "uniqueId": "Wythenshawe", "name": "Wythenshawe" },
+        { "uniqueId": "Macclesfield", "name": "Macclesfield" },
+        { "uniqueId": "Stockport", "name": "Stockport" },
+        { "uniqueId": "Fairfield", "name": "Fairfield" },
+        { "uniqueId": "Rochdale", "name": "Rochdale" },
+        { "uniqueId": "NorthManchester", "name": "North Manchester" },
+        { "uniqueId": "Oldham", "name": "Oldham" },
+        { "uniqueId": "Bolton", "name": "Bolton" },
+        { "uniqueId": "Wigan", "name": "Wigan" },
+        { "uniqueId": "Trafford", "name": "Trafford" },
+        { "uniqueId": "ManchesterRoyal", "name": "Manchester Royal" },
+        { "uniqueId": "Salford", "name": "Salford" }
+    ];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var service = {</span>
+        getHospitals: getHospitals
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return service;</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >	function getHospitals() {</span>
+            
+<span class="cstat-no" title="statement not covered" >        var urlPrefix = ServerUrlService.getUrlPrefix();</span>
+<span class="cstat-no" title="statement not covered" >        return $http.get(urlPrefix + '/api/external-hospitals').then(</span>
+<span class="fstat-no" title="function not covered" >            function(response) {</span>
+                // server returns all hospitals except the current hospital
+<span class="cstat-no" title="statement not covered" >                return response.data;</span>
+            },
+<span class="fstat-no" title="function not covered" >            function(response) {</span>
+                // return full list of hospitals if comms fails
+<span class="cstat-no" title="statement not covered" >                return _hospitals;</span>
+            });
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue May 09 2017 14:50:16 GMT+0100 (BST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

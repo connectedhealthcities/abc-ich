@@ -67,9 +67,9 @@ function CalculateBeriplexDoseControllerService() {
         if (weightInStones === null) {
             return null;
         }
-        var _NUM_KGS_IN_STONES_ = 6.35;
-        var weightInKg = Math.round(weightInStones * _NUM_KGS_IN_STONES_);
-
+        var _NUM_KGS_IN_STONES_ = 6.35029;
+        var weightInKg = weightInStones * _NUM_KGS_IN_STONES_;
+        weightInKg = Math.round(weightInKg); // no decimal places
         return weightInKg;
     }
 
@@ -77,9 +77,9 @@ function CalculateBeriplexDoseControllerService() {
         if (weightInKg === null) {
             return null;
         }
-       var _NUM_STONES_IN_KG_ = 0.15;
-        var weightInStones = Math.round(weightInKg * _NUM_STONES_IN_KG_);
-
+        var _NUM_STONES_IN_KG_ = 0.157473;
+        var weightInStones = weightInKg * _NUM_STONES_IN_KG_;
+        weightInStones = Math.round(weightInStones * 10) / 10; // limit to 1 decimal place
         return weightInStones;
     }
 

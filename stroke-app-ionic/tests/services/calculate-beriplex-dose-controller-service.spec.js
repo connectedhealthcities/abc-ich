@@ -215,9 +215,9 @@ describe("CalculateBeriplexDoseControllerService", function() {
 			expect(weightInKg).toBe(null);
 		});
 
-		it("should return nearest integer if weightInStones is a number", function() {
+		it("should return rounded integer if weightInStones is a number", function() {
 
-			// 15.5 x 6.35 = 98.425
+			// 15.5 x 6.35029 = 98.42954
 			var weightInKg = service.calculateStonesToKg(15.5);
 			expect(weightInKg).toBe(98);
 		});
@@ -231,11 +231,11 @@ describe("CalculateBeriplexDoseControllerService", function() {
 			expect(weightInStones).toBe(null);
 		});
 
-		it("should return nearest integer if weightInKg is a number", function() {
+		it("should return value rounded to 1 decimal place if weightInKg is a number", function() {
 
-			// 98.4 x 0.15 = 14.76
+			// 98.4 x 0.157473 = 15.49535
 			var weightInStones = service.calculateKgToStones(98.4);
-			expect(weightInStones).toBe(15);
+			expect(weightInStones).toBe(15.5);
 		});
 	});
 

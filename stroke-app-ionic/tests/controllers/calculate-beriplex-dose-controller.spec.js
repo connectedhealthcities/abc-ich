@@ -412,12 +412,21 @@ describe('CalculateBeriplexDoseController', function() {
 			return deferred.promise;
 		});					
 
-		vm.inrValue = INR_THRESHOLD_MOCK - 1;	
+		vm.inrValue = INR_THRESHOLD_MOCK - 1;
+		vm.gcsScore = GCS_THRESHOLD_MOCK + 1;	
 		vm.onNext();
-		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
+		scopeMock.$apply(); // Propagate promise resolution for data validation popup.				
 					
 		expect(ionicPopupMock.alert).toHaveBeenCalled();		
-		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("INR below treatment range");
+		expect(ionicPopupMock.alert.calls.mostRecent().args[0].templateUrl).toContain("inr-below-treatment-range-continue-to-protocol-B-popup.html");
+
+		vm.inrValue = INR_THRESHOLD_MOCK - 1;	
+		vm.gcsScore = GCS_THRESHOLD_MOCK - 1;	
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data validation popup.				
+					
+		expect(ionicPopupMock.alert).toHaveBeenCalled();		
+		expect(ionicPopupMock.alert.calls.mostRecent().args[0].templateUrl).toContain("inr-below-treatment-range-continue-to-protocol-C-popup.html");
 	});
 
 	it("should not save data when user selects 'Cancel' on validation popup", function() {

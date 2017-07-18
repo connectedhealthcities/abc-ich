@@ -165,7 +165,12 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
     function handleDataValid() {
         saveData();
         if (vm.inrValue !== null && vm.inrValue < INR_THRESHOLD) {
-            showInrBelowTreamentRangePopup(goNextState);
+            if (vm.gcsScore < GCS_THRESHOLD) {
+                showInrBelowTreamentRangeAndContinueToProtocolCPopup(goNextState);
+            }
+            else {
+                showInrBelowTreamentRangeAndContinueToProtocolBPopup(goNextState);
+            }
         } else {
             goNextState();
         }
@@ -241,9 +246,21 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
         });
     }
 
-    function showInrBelowTreamentRangePopup(okHandler) {
+    function showInrBelowTreamentRangeAndContinueToProtocolBPopup(okHandler) {
         var popupTemplate = {
-            templateUrl: 'modules/protocol-a/calculate-beriplex-dose/inr-below-treatment-range-popup.html',
+            templateUrl: 'modules/protocol-a/calculate-beriplex-dose/inr-below-treatment-range-continue-to-protocol-B-popup.html',
+            title: 'INR below treatment range',
+            scope: $scope,
+            cssClass: 'chi-wide-popup'
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+
+        popup.then(okHandler);
+    }
+
+    function showInrBelowTreamentRangeAndContinueToProtocolCPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-a/calculate-beriplex-dose/inr-below-treatment-range-continue-to-protocol-C-popup.html',
             title: 'INR below treatment range',
             scope: $scope,
             cssClass: 'chi-wide-popup'

@@ -7,6 +7,7 @@ httpInterceptor.$inject = ['$injector'];
 function httpInterceptor($injector) {
   return {
     'request': function(config) {
+        config.timeout = 15000;
         if( (config.url.indexOf('/api/') > -1) && 
             (config.url.indexOf('/api/authenticate') === -1) ) {
           // use $injector to prevent circular dependency

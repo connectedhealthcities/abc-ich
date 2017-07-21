@@ -193,6 +193,6 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     } 
     
     function isNeuroReferralRequired() {
-        return NeurosurgeryReferralCriteriaControllerService.isNeuroReferralRequired(vm.gcsScore, vm.ichVolume, vm.isPosteriorFossaIch, vm.isVentricleObstructed, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD);
+        return NeurosurgeryReferralCriteriaControllerService.isNeuroReferralRequired(vm.gcsScore, vm.ichVolume, vm.isPosteriorFossaIch, vm.isObstruction, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD);
     }
 }

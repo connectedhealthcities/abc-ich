@@ -26,7 +26,9 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
     function onFinish() {
         
         if (vm.isDemoMode) {
-            reset();
+            showPrintPatientPopup(function () {
+                PrintService.printPatient(reset);                           
+            }, reset);
         }
         else {
             var patient = PatientEndControllerService.getPatient();

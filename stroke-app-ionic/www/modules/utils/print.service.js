@@ -97,7 +97,8 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
 
     function getPrintData(patient) {
         var patientDisplayLabelsAndValues = [
-            { "label" : "App  Start Date Time" , "value" : PatientCacheService.getAppStartDateTime(), "isDateTime": true },     
+            { "label" : "Print Time" , "value" : Date.now(), "isDateTime": true },
+            { "label" : "App Start Date Time" , "value" : PatientCacheService.getAppStartDateTime(), "isDateTime": true },     
             { "label" : "Id" , "value" : PatientCacheService.getId() },                     
             { "label" : "Unique Id" , "value" : PatientCacheService.getUniqueId() },                        
             { "label" : "Initials" , "value" : PatientCacheService.getInitials() },                     

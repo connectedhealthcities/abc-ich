@@ -12,7 +12,7 @@
             <ion-view title="Patient Start">
                 <ion-content padding="true" class="has-header">
                     <div class="chi-spacer"></div>
-                    <div ng-hide="vm.isAppConfigured()">                        
+                    <div ng-hide="vm.isAppConfigured()">
                         <h2 class="text-center input-blue">The ABC-ICH app is not yet configured.</h2>
                         <h3 class="text-center input-blue">Please configure user credentials via the side menu</h3>
                         <hr>
@@ -43,6 +43,7 @@
                     <ion-item ng-click="onUserCredentialsConfiguration()" menu-close="">Configure user credentials</ion-item>
                     <ion-item ng-click="onAbout()" menu-close="">About</ion-item>
                     <ion-item ng-click="onDemoMode()" menu-close="">Demo mode</ion-item>
+                    <ion-item ng-click="onTestPrint()" menu-close="">Test Print</ion-item>
                 </ion-list>
             </ion-content>
 

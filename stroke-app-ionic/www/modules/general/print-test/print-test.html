@@ -1,0 +1,31 @@
+<ion-view title="Print Test">
+  <ion-content padding="true" class="has-header">
+
+    <div class="row">
+      <div class="col text-center">
+        <h2>Test Printing</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col text-center">
+        Tap the 'Test Print' button below to generate a test page to assist in configuring printers.
+      </div>
+    </div>
+
+
+    <!--Buttons-->
+    <div class="chi-spacer"></div>
+    <div class="row">
+
+      <div class="col-33">
+        <button ng-click="vm.onBack()" class="button button-calm button-block">Back</button>
+      </div>
+
+      <div class="col-33  col-offset-33">
+        <button ng-click="vm.onTestPrint()" class="button button-calm button-block">Test Print</button>
+      </div>
+
+    </div>
+  </ion-content>
+</ion-view>

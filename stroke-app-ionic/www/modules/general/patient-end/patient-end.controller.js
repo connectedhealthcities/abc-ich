@@ -5,7 +5,7 @@ angular.module('app.general').controller('PatientEndController', PatientEndContr
 PatientEndController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientEndControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'BpStateCacheService', 'PatientHttpService', 'PrintService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
 
 function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, BpStateCacheService, PatientHttpService, PrintService, STATE_PATIENT_END, STATE_PATIENT_START) {
- 
+
     var vm = this;
 
     function init() {
@@ -24,11 +24,9 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
 
     // Click handlers
     function onFinish() {
-        
+
         if (vm.isDemoMode) {
-            showPrintPatientPopup(function () {
-                PrintService.printPatient(reset);                           
-            }, reset);
+          reset();
         }
         else {
             var patient = PatientEndControllerService.getPatient();
@@ -36,7 +34,7 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
                 if (success) {
                     showPatientSaveSucceededPopup(function () {
                         showPrintPatientPopup(function () {
-                            PrintService.printPatient(reset);                           
+                            PrintService.printPatient(reset);
                         }, reset);
                     });
                 }
@@ -44,7 +42,7 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
                     showPatientSaveFailedPopup();
                 }
             });
-        }       
+        }
     }
 
     // Private functions
@@ -52,7 +50,7 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
         PatientCacheService.clearAll();
         StateCacheService.clearAll();
         BpStateCacheService.clearAll();
-        
+
         $state.go(STATE_PATIENT_START);
     }
 
@@ -95,5 +93,5 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
         });
     }
 
-   
+
 }

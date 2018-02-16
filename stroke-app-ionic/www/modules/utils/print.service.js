@@ -66,7 +66,7 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
     for (var i = 0; i < patientDisplayLabelsAndValues.length; i++) {
       var propertyValue = patientDisplayLabelsAndValues[i].value;
       var propertyLabel = patientDisplayLabelsAndValues[i].label;
-      if (propertyLabel !== "Bp Measurement Entries" && propertyValue !== null) {
+      if (propertyLabel !== "BP Measurement Entries" && propertyValue !== null) {
         if (patientDisplayLabelsAndValues[i].isDateTime) {
           propertyValue = DateTimeService.formatDateTimeForPrint(propertyValue);
         } else if (patientDisplayLabelsAndValues[i].isBirthDate) {
@@ -118,8 +118,8 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
     var patientDisplayLabelsAndValues = [
       {"label": "Print Time", "value": Date.now(), "isDateTime": true},
       {"label": "App Start Date Time", "value": PatientCacheService.getAppStartDateTime(), "isDateTime": true},
-      {"label": "Id", "value": PatientCacheService.getId()},
-      {"label": "Unique Id", "value": PatientCacheService.getUniqueId()},
+      {"label": "ID", "value": PatientCacheService.getId()},
+      {"label": "Unique ID", "value": PatientCacheService.getUniqueId()},
       {"label": "Initials", "value": PatientCacheService.getInitials()},
       {"label": "Birth Date", "value": PatientCacheService.getBirthDate(), "isBirthDate": true},
       {"label": "Estimated Age", "value": PatientCacheService.getEstimatedAge()},
@@ -129,31 +129,31 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
       {"label": "Onset Date Time", "value": PatientCacheService.getOnsetDateTime(), "isDateTime": true},
       {"label": "Is Last Seen Well Onset", "value": PatientCacheService.getIsLastSeenWellOnset()},
       {"label": "Is Best Estimate Onset", "value": PatientCacheService.getIsBestEstimateOnset()},
-      {"label": "Gcs Score", "value": PatientCacheService.getGcsScore()},
-      {"label": "Gcs Score Eye", "value": PatientCacheService.getGcsScoreEye()},
-      {"label": "Gcs Score Verbal", "value": PatientCacheService.getGcsScoreVerbal()},
-      {"label": "Gcs Score Motor", "value": PatientCacheService.getGcsScoreMotor()},
+      {"label": "GCS Score", "value": PatientCacheService.getGcsScore()},
+      {"label": "GCS Score Eye", "value": PatientCacheService.getGcsScoreEye()},
+      {"label": "GCS Score Verbal", "value": PatientCacheService.getGcsScoreVerbal()},
+      {"label": "GCS Score Motor", "value": PatientCacheService.getGcsScoreMotor()},
       {"label": "Anticoagulant Type", "value": PatientCacheService.getAnticoagulantType()},
       {"label": "Anticoagulant Name", "value": PatientCacheService.getAnticoagulantName()},
       {
-        "label": "Reversal Agent Administered At External Hospital",
+        "label": "Reversal Agent Administered at External Hospital",
         "value": PatientCacheService.getReversalAgentAdministeredAtExternalHospital()
       },
       {
         "label": "Reversal Agent Administered Time Known",
         "value": PatientCacheService.getReversalAgentAdministeredTimeKnown()
       },
-      {"label": "Administer Beriplex Without Inr", "value": PatientCacheService.getAdministerBeriplexWithoutInr()},
-      {"label": "Estimated Weight In Kg", "value": PatientCacheService.getEstimatedWeightInKg()},
+      {"label": "Administer Beriplex Without INR", "value": PatientCacheService.getAdministerBeriplexWithoutInr()},
+      {"label": "Estimated Weight in kg", "value": PatientCacheService.getEstimatedWeightInKg()},
       {"label": "Calculated Beriplex Dose", "value": PatientCacheService.getCalculatedBeriplexDose()},
-      {"label": "Inr Value", "value": PatientCacheService.getInrValue()},
-      {"label": "Inr Type", "value": PatientCacheService.getInrType()},
-      {"label": "Inr Date Time", "value": PatientCacheService.getInrDateTime(), "isDateTime": true},
+      {"label": "INR Value", "value": PatientCacheService.getInrValue()},
+      {"label": "INR Type", "value": PatientCacheService.getInrType()},
+      {"label": "INR Date Time", "value": PatientCacheService.getInrDateTime(), "isDateTime": true},
       {"label": "Administer Beriplex When Unknown", "value": PatientCacheService.getAdministerBeriplexWhenUnknown()},
-      {"label": "Is Weight Given In Kg", "value": PatientCacheService.getIsWeightGivenInKg()},
+      {"label": "Is Weight Given in kg", "value": PatientCacheService.getIsWeightGivenInKg()},
       {"label": "Actual Beriplex Dose", "value": PatientCacheService.getActualBeriplexDose()},
-      {"label": "Is Vitamink Administered", "value": PatientCacheService.getIsVitaminkAdministered()},
-      {"label": "Vitamink Date Time", "value": PatientCacheService.getVitaminkDateTime(), "isDateTime": true},
+      {"label": "Is Vitamin K Administered", "value": PatientCacheService.getIsVitaminkAdministered()},
+      {"label": "Vitamin K Date Time", "value": PatientCacheService.getVitaminkDateTime(), "isDateTime": true},
       {"label": "Is Infusion Instructions Viewed", "value": PatientCacheService.getIsInfusionInstructionsViewed()},
       {"label": "Reversal Agent Type", "value": PatientCacheService.getReversalAgentType()},
       {
@@ -162,37 +162,37 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
         "isDateTime": true
       },
       {
-        "label": "Bp Target Reached Date Time",
+        "label": "BP Target Reached Date Time",
         "value": PatientCacheService.getBpTargetReachedDateTime(),
         "isDateTime": true
       },
-      {"label": "Bp Treatment Threshold", "value": PatientCacheService.getBpTreatmentThreshold()},
-      {"label": "Bp Target", "value": PatientCacheService.getBpTarget()},
-      {"label": "Bp Measurement Entries", "value": PatientCacheService.getBpMeasurementEntries()},
-      {"label": "Is Referred To Critical Care", "value": PatientCacheService.getIsReferredToCriticalCare()},
-      {"label": "Premorbid Mrs Score", "value": PatientCacheService.getPremorbidMrsScore()},
-      {"label": "Ich Volume", "value": PatientCacheService.getIchVolume()},
-      {"label": "Is Posterior Fossa Ich", "value": PatientCacheService.getIsPosteriorFossaIch()},
+      {"label": "BP Treatment Threshold", "value": PatientCacheService.getBpTreatmentThreshold()},
+      {"label": "BP Target", "value": PatientCacheService.getBpTarget()},
+      {"label": "BP Measurement Entries", "value": PatientCacheService.getBpMeasurementEntries()},
+      {"label": "Is Referred to Critical Care", "value": PatientCacheService.getIsReferredToCriticalCare()},
+      {"label": "Premorbid mRS Score", "value": PatientCacheService.getPremorbidMrsScore()},
+      {"label": "ICH Volume", "value": PatientCacheService.getIchVolume()},
+      {"label": "Is Posterior Fossa ICH", "value": PatientCacheService.getIsPosteriorFossaIch()},
       {"label": "Is Ventricle Obstructed", "value": PatientCacheService.getIsVentricleObstructed()},
-      {"label": "Ich Longest Axis", "value": PatientCacheService.getIchLongestAxis()},
-      {"label": "Ich Perpendicular Axis", "value": PatientCacheService.getIchPerpendicularAxis()},
-      {"label": "Ich Num Slices", "value": PatientCacheService.getIchNumSlices()},
-      {"label": "Ich Slice Thickness", "value": PatientCacheService.getIchSliceThickness()},
+      {"label": "ICH Longest Axis", "value": PatientCacheService.getIchLongestAxis()},
+      {"label": "ICH Perpendicular Axis", "value": PatientCacheService.getIchPerpendicularAxis()},
+      {"label": "ICH Num Slices", "value": PatientCacheService.getIchNumSlices()},
+      {"label": "ICH Slice Thickness", "value": PatientCacheService.getIchSliceThickness()},
       {
-        "label": "Referral To Neurosurgery Date Time",
+        "label": "Referral to Neurosurgery Date Time",
         "value": PatientCacheService.getReferralToNeurosurgeryDateTime(),
         "isDateTime": true
       },
       {"label": "Neurosurgeon Name", "value": PatientCacheService.getNeurosurgeonName()},
       {
-        "label": "Is Referral To Neurosurgery Accepted",
+        "label": "Is Referral to Neurosurgery Accepted",
         "value": PatientCacheService.getIsReferralToNeurosurgeryAccepted()
       }
 
     ];
     var patientUniqueId = PatientCacheService.getUniqueId();
     var bpDisplayLabelsAndValues = {
-      "label": "Bp Measurement Entries",
+      "label": "BP Measurement Entries",
       "value": PatientCacheService.getBpMeasurementEntries()
     };
 

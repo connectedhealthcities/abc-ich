@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for utils/print.service.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">utils/</a> print.service.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">13.64% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/66</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">13.64% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/66</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+angular.module('utils').service('PrintService', PrintService);
+&nbsp;
+PrintService.$inject = ['PatientCacheService', 'DateTimeService', '$ionicLoading'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var service = {</span>
+    printPatient: printPatient,
+    printTestPage: printTestPage
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return service;</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function printPatient(callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var printData = getPrintData();</span>
+<span class="cstat-no" title="statement not covered" >    var html = createHtmlDocument(printData);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (window.plugin) { //checks we're running on device</span>
+&nbsp;
+      // printer.check is failing, see https://github.com/katzer/cordova-plugin-printer/issues/122
+<span class="cstat-no" title="statement not covered" >      $ionicLoading.show();</span>
+<span class="cstat-no" title="statement not covered" >      window.plugin.printer.print(html, printData.patientUniqueId, <span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $ionicLoading.hide();</span>
+<span class="cstat-no" title="statement not covered" >        callback();</span>
+      });
+    } else {
+      // output to console when running in desktop browser.
+<span class="cstat-no" title="statement not covered" >      console.log(html);</span>
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function printTestPage(callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var html = '&lt;h1&gt;ABC-ICH Test Print&lt;/h1&gt;&lt;p&gt;This is a test page created by the ABC-ICH tablet application.&lt;/p&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (window.plugin) { //checks we're running on device</span>
+&nbsp;
+      // printer.check is failing, see https://github.com/katzer/cordova-plugin-printer/issues/122
+<span class="cstat-no" title="statement not covered" >      $ionicLoading.show();</span>
+<span class="cstat-no" title="statement not covered" >      window.plugin.printer.print(html, 'ABC-ICH Test Print', <span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $ionicLoading.hide();</span>
+<span class="cstat-no" title="statement not covered" >        callback();</span>
+      });
+    } else {
+      // output to console when running in desktop browser.
+<span class="cstat-no" title="statement not covered" >      console.log(html);</span>
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function createHtmlDocument(printData) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var html = '&lt;h1&gt;Patient data for ' + printData.patientUniqueId + '&lt;/h1&gt;';</span>
+<span class="cstat-no" title="statement not covered" >    html += patientToHtml(printData.patientDisplayLabelsAndValues);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    html += '&lt;h2&gt;BP Management Entries:&lt;/h2&gt;';</span>
+<span class="cstat-no" title="statement not covered" >    html += bloodPressureEntriesToHtml(printData.bpDisplayLabelsAndValues);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return html;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function patientToHtml(patientDisplayLabelsAndValues) {</span>
+<span class="cstat-no" title="statement not covered" >    var html = '&lt;table style="width:100%"&gt;';</span>
+<span class="cstat-no" title="statement not covered" >    for (var i = 0; i &lt; patientDisplayLabelsAndValues.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      var propertyValue = patientDisplayLabelsAndValues[i].value;</span>
+<span class="cstat-no" title="statement not covered" >      var propertyLabel = patientDisplayLabelsAndValues[i].label;</span>
+<span class="cstat-no" title="statement not covered" >      if (propertyLabel !== "BP Measurement Entries" &amp;&amp; propertyValue !== null) {</span>
+<span class="cstat-no" title="statement not covered" >        if (patientDisplayLabelsAndValues[i].isDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >          propertyValue = DateTimeService.formatDateTimeForPrint(propertyValue);</span>
+        } else <span class="cstat-no" title="statement not covered" >if (patientDisplayLabelsAndValues[i].isBirthDate) {</span>
+<span class="cstat-no" title="statement not covered" >          propertyValue = DateTimeService.formatBirthDateForPrint(propertyValue);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        html += '&lt;tr&gt;&lt;td&gt;' + propertyLabel + '&lt;/td&gt;&lt;td&gt;' + propertyValue + '&lt;/td&gt;&lt;/tr&gt;';</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    html += '&lt;/table&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return html;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function bloodPressureEntriesToHtml(bpDisplayLabelsAndValues) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var tableTag = "&lt;table style='width:100%; border: 1px solid black; border-collapse: collapse;'&gt;";</span>
+<span class="cstat-no" title="statement not covered" >    var thTag = "&lt;th style='border: 1px solid black; border-collapse: collapse;'&gt;";</span>
+<span class="cstat-no" title="statement not covered" >    var tdTag = "&lt;td style='border: 1px solid black; border-collapse: collapse;'&gt;";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var html = tableTag + '&lt;tr align="center"&gt;' + thTag + 'Date/Time&lt;/th&gt;' + thTag + 'SBP (mmHg)&lt;/th&gt;' + thTag + 'IV GTN rate (ml/h)&lt;/th&gt;' + thTag + 'Labetalol dose (mg)&lt;/th&gt;' + thTag + 'Pulse (BPM)&lt;/th&gt;&lt;/tr&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var bloodPresureEntries = bpDisplayLabelsAndValues.value;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    for (var i = 0; i &lt; bloodPresureEntries.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      var bloodPressureEntry = bloodPresureEntries[i];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var row = '&lt;tr align="center"&gt;' + tdTag + DateTimeService.formatDateTimeForPrint(bloodPressureEntry.dateTime) + '&lt;/td&gt;' + tdTag + bloodPressureEntry.systolicBp + '&lt;/td&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var gtnRateStr = bloodPressureEntry.gtnRate !== null ? "" + bloodPressureEntry.gtnRate : "";</span>
+<span class="cstat-no" title="statement not covered" >      row += tdTag + gtnRateStr + '&lt;/td&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var labetalolDoseStr = bloodPressureEntry.labetalolDose !== null ? "" + bloodPressureEntry.labetalolDose : "";</span>
+<span class="cstat-no" title="statement not covered" >      row += tdTag + labetalolDoseStr + '&lt;/td&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var heartRateStr = bloodPressureEntry.heartRate !== null ? "" + bloodPressureEntry.heartRate : "";</span>
+<span class="cstat-no" title="statement not covered" >      row += tdTag + heartRateStr + '&lt;/td&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      row += '&lt;/tr&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      html += row;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    html += '&lt;/table&gt;';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return html;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getPrintData(patient) {</span>
+<span class="cstat-no" title="statement not covered" >    var patientDisplayLabelsAndValues = [</span>
+      {"label": "Print Time", "value": Date.now(), "isDateTime": true},
+      {"label": "App Start Date Time", "value": PatientCacheService.getAppStartDateTime(), "isDateTime": true},
+      {"label": "ID", "value": PatientCacheService.getId()},
+      {"label": "Unique ID", "value": PatientCacheService.getUniqueId()},
+      {"label": "Initials", "value": PatientCacheService.getInitials()},
+      {"label": "Birth Date", "value": PatientCacheService.getBirthDate(), "isBirthDate": true},
+      {"label": "Estimated Age", "value": PatientCacheService.getEstimatedAge()},
+      {"label": "External Scan Hospital Name", "value": PatientCacheService.getExternalScanHospitalName()},
+      {"label": "Scan Date Time", "value": PatientCacheService.getScanDateTime(), "isDateTime": true},
+      {"label": "Door Date Time", "value": PatientCacheService.getDoorDateTime(), "isDateTime": true},
+      {"label": "Onset Date Time", "value": PatientCacheService.getOnsetDateTime(), "isDateTime": true},
+      {"label": "Is Last Seen Well Onset", "value": PatientCacheService.getIsLastSeenWellOnset()},
+      {"label": "Is Best Estimate Onset", "value": PatientCacheService.getIsBestEstimateOnset()},
+      {"label": "GCS Score", "value": PatientCacheService.getGcsScore()},
+      {"label": "GCS Score Eye", "value": PatientCacheService.getGcsScoreEye()},
+      {"label": "GCS Score Verbal", "value": PatientCacheService.getGcsScoreVerbal()},
+      {"label": "GCS Score Motor", "value": PatientCacheService.getGcsScoreMotor()},
+      {"label": "Anticoagulant Type", "value": PatientCacheService.getAnticoagulantType()},
+      {"label": "Anticoagulant Name", "value": PatientCacheService.getAnticoagulantName()},
+      {
+        "label": "Reversal Agent Administered at External Hospital",
+        "value": PatientCacheService.getReversalAgentAdministeredAtExternalHospital()
+      },
+      {
+        "label": "Reversal Agent Administered Time Known",
+        "value": PatientCacheService.getReversalAgentAdministeredTimeKnown()
+      },
+      {"label": "Administer Beriplex Without INR", "value": PatientCacheService.getAdministerBeriplexWithoutInr()},
+      {"label": "Estimated Weight in kg", "value": PatientCacheService.getEstimatedWeightInKg()},
+      {"label": "Calculated Beriplex Dose", "value": PatientCacheService.getCalculatedBeriplexDose()},
+      {"label": "INR Value", "value": PatientCacheService.getInrValue()},
+      {"label": "INR Type", "value": PatientCacheService.getInrType()},
+      {"label": "INR Date Time", "value": PatientCacheService.getInrDateTime(), "isDateTime": true},
+      {"label": "Administer Beriplex When Unknown", "value": PatientCacheService.getAdministerBeriplexWhenUnknown()},
+      {"label": "Is Weight Given in kg", "value": PatientCacheService.getIsWeightGivenInKg()},
+      {"label": "Actual Beriplex Dose", "value": PatientCacheService.getActualBeriplexDose()},
+      {"label": "Is Vitamin K Administered", "value": PatientCacheService.getIsVitaminkAdministered()},
+      {"label": "Vitamin K Date Time", "value": PatientCacheService.getVitaminkDateTime(), "isDateTime": true},
+      {"label": "Is Infusion Instructions Viewed", "value": PatientCacheService.getIsInfusionInstructionsViewed()},
+      {"label": "Reversal Agent Type", "value": PatientCacheService.getReversalAgentType()},
+      {
+        "label": "Reversal Agent Start Date Time",
+        "value": PatientCacheService.getReversalAgentStartDateTime(),
+        "isDateTime": true
+      },
+      {
+        "label": "BP Target Reached Date Time",
+        "value": PatientCacheService.getBpTargetReachedDateTime(),
+        "isDateTime": true
+      },
+      {"label": "BP Treatment Threshold", "value": PatientCacheService.getBpTreatmentThreshold()},
+      {"label": "BP Target", "value": PatientCacheService.getBpTarget()},
+      {"label": "BP Measurement Entries", "value": PatientCacheService.getBpMeasurementEntries()},
+      {"label": "Is Referred to Critical Care", "value": PatientCacheService.getIsReferredToCriticalCare()},
+      {"label": "Premorbid mRS Score", "value": PatientCacheService.getPremorbidMrsScore()},
+      {"label": "ICH Volume", "value": PatientCacheService.getIchVolume()},
+      {"label": "Is Posterior Fossa ICH", "value": PatientCacheService.getIsPosteriorFossaIch()},
+      {"label": "Is Ventricle Obstructed", "value": PatientCacheService.getIsVentricleObstructed()},
+      {"label": "ICH Longest Axis", "value": PatientCacheService.getIchLongestAxis()},
+      {"label": "ICH Perpendicular Axis", "value": PatientCacheService.getIchPerpendicularAxis()},
+      {"label": "ICH Num Slices", "value": PatientCacheService.getIchNumSlices()},
+      {"label": "ICH Slice Thickness", "value": PatientCacheService.getIchSliceThickness()},
+      {
+        "label": "Referral to Neurosurgery Date Time",
+        "value": PatientCacheService.getReferralToNeurosurgeryDateTime(),
+        "isDateTime": true
+      },
+      {"label": "Neurosurgeon Name", "value": PatientCacheService.getNeurosurgeonName()},
+      {
+        "label": "Is Referral to Neurosurgery Accepted",
+        "value": PatientCacheService.getIsReferralToNeurosurgeryAccepted()
+      }
+&nbsp;
+    ];
+<span class="cstat-no" title="statement not covered" >    var patientUniqueId = PatientCacheService.getUniqueId();</span>
+<span class="cstat-no" title="statement not covered" >    var bpDisplayLabelsAndValues = {</span>
+      "label": "BP Measurement Entries",
+      "value": PatientCacheService.getBpMeasurementEntries()
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var printData = {</span>
+      "patientDisplayLabelsAndValues": patientDisplayLabelsAndValues,
+      "patientUniqueId": patientUniqueId,
+      "bpDisplayLabelsAndValues": bpDisplayLabelsAndValues
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return printData;</span>
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 19 2018 13:38:13 GMT+0000 (GMT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

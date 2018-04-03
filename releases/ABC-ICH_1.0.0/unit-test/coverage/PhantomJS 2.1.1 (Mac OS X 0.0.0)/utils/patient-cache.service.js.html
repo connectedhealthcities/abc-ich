@@ -1,0 +1,2486 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for utils/patient-cache.service.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">utils/</a> patient-cache.service.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.02% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>107/324</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.02% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>107/324</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+angular.module('utils').service('PatientCacheService', PatientCacheService);
+&nbsp;
+PatientCacheService.$inject = ['LocalStorageService'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >function PatientCacheService(LocalStorageService) {</span>
+ 
+    //
+    // general
+    //
+&nbsp;
+    // patient-start 
+<span class="cstat-no" title="statement not covered" >    var app_start_date_time_key = "patient-app-start-date-time";</span>
+    // register-patient
+<span class="cstat-no" title="statement not covered" >    var id_key = "patient-id";</span>
+<span class="cstat-no" title="statement not covered" >    var unique_id_key = "patient-unique-id";</span>
+<span class="cstat-no" title="statement not covered" >    var initials_key = "patient-initials";</span>
+<span class="cstat-no" title="statement not covered" >    var birth_date_key = "patient-birth-date";</span>
+<span class="cstat-no" title="statement not covered" >    var estimated_age_key = "patient-estimated-age";</span>
+<span class="cstat-no" title="statement not covered" >    var external_scan_hospital_name_key = "patient-external-scan-hospital-name";</span>
+<span class="cstat-no" title="statement not covered" >    var scan_date_time_key = "patient-scan-date-time";</span>
+    // patient-details
+<span class="cstat-no" title="statement not covered" >    var door_date_time_key = "patient-door-date-time";</span>
+<span class="cstat-no" title="statement not covered" >    var onset_date_time_key = "patient-onset-date-time";</span>
+<span class="cstat-no" title="statement not covered" >    var is_last_seen_well_onset_key = "patient-is-last-seen-well-onset";</span>
+<span class="cstat-no" title="statement not covered" >    var is_best_estimate_onset_key = "patient-is-best-estimate-onset";</span>
+    // gcs-entry
+<span class="cstat-no" title="statement not covered" >    var gcs_score_key = "patient-gcs-score";</span>
+<span class="cstat-no" title="statement not covered" >    var gcs_score_eye_key = "patient-gcs-score-eye";</span>
+<span class="cstat-no" title="statement not covered" >    var gcs_score_verbal_key = "patient-gcs-score-verbal";</span>
+<span class="cstat-no" title="statement not covered" >    var gcs_score_motor_key = "patient-gcs-score-motor";</span>
+&nbsp;
+    //
+    // protocol A
+    //
+&nbsp;
+    // anticoagulant-identification
+<span class="cstat-no" title="statement not covered" >    var anticoagulant_type_key = "patient-anticoagulant-type";</span>
+<span class="cstat-no" title="statement not covered" >    var anticoagulant_name_key = "patient-anticoagulant-name";</span>
+    // calculate-beriplex-dose
+<span class="cstat-no" title="statement not covered" >    var reversal_agent_administered_at_external_hospital_key = "patient-reversal-agent-administered-at-external-hospital";</span>
+<span class="cstat-no" title="statement not covered" >    var reversal_agent_administered_time_known_key = "patient-reversal-agent-administered-time-known";    </span>
+<span class="cstat-no" title="statement not covered" >    var administer_beriplex_without_inr_key = "patient-administer-beriplex-without-inr";</span>
+<span class="cstat-no" title="statement not covered" >    var estimated_weight_in_kg_key = "patient-estimated-weight-in-kg";</span>
+<span class="cstat-no" title="statement not covered" >    var calculated_beriplex_dose_key = "patient-calculated-beriplex-dose";</span>
+<span class="cstat-no" title="statement not covered" >    var inr_value_key = "patient-inr-value";</span>
+<span class="cstat-no" title="statement not covered" >    var inr_type_key = "patient-inr-type";</span>
+<span class="cstat-no" title="statement not covered" >    var inr_date_time_key = "patient-inr-date-time";</span>
+<span class="cstat-no" title="statement not covered" >    var administer_beriplex_when_unknown_key = "patient-administer-beriplex-when-unknown";</span>
+<span class="cstat-no" title="statement not covered" >    var is_weight_given_in_kg_key = "patient-is-weight-given-in-kg"; </span>// Local
+    // confirm-beriplex-dose
+<span class="cstat-no" title="statement not covered" >    var actual_beriplex_dose_key = "patient-actual-beriplex-dose";</span>
+    // administer-beriplex
+<span class="cstat-no" title="statement not covered" >    var is_vitamink_administered_key = "patient-is-vitamink-administered"; </span>// Local
+<span class="cstat-no" title="statement not covered" >    var vitamink_date_time_key = "patient-vitamink-date-time";</span>
+<span class="cstat-no" title="statement not covered" >    var is_infusion_instructions_viewed_key = "patient-is-infusion-instructions-viewed";</span>
+    // reversal-agent-details
+<span class="cstat-no" title="statement not covered" >    var reversal_agent_type_key = "patient-reversal-agent-type";</span>
+<span class="cstat-no" title="statement not covered" >    var reversal_agent_start_date_time_key = "patient-reversal-agent-start-date-time";</span>
+&nbsp;
+    //
+    // protocol B
+    //
+&nbsp;
+    // bp-management
+<span class="cstat-no" title="statement not covered" >    var bp_target_reached_date_time_key = "patient-bp-target-reached-date-time";</span>
+<span class="cstat-no" title="statement not covered" >    var bp_treatment_threshold_key = "patient-bp-treatment-threshold";</span>
+<span class="cstat-no" title="statement not covered" >    var bp_target_key = "patient-bp-target";</span>
+<span class="cstat-no" title="statement not covered" >    var bp_measurement_entries_key = "patient-bp-measurement-entries";</span>
+    // critical-care-referral
+<span class="cstat-no" title="statement not covered" >    var is_referred_to_critical_care_key = "patient-is-referred-to-critical-care";</span>
+&nbsp;
+    //
+    // protocol C
+    //
+&nbsp;
+    // mrs-entry
+<span class="cstat-no" title="statement not covered" >    var premorbid_mrs_score_key = "patient-premorbid-mrs-score";</span>
+    // neurosurgery-referral-criteria
+<span class="cstat-no" title="statement not covered" >    var ich_volume_key = "patient-ich-volume";</span>
+<span class="cstat-no" title="statement not covered" >    var is_posterior_fossa_ich_key = "patient-is-posterior-fossa-ich";</span>
+<span class="cstat-no" title="statement not covered" >    var is_ventricle_obstructed_key = "patient-is-ventricle-obstructed";</span>
+<span class="cstat-no" title="statement not covered" >    var ich_longest_axis_key = "patient-ich-longest-axis"; </span>//local
+<span class="cstat-no" title="statement not covered" >    var ich_perpendicular_axis_key = "patient-ich-perpendicular-axis"; </span>//local
+<span class="cstat-no" title="statement not covered" >    var ich_num_slices_key = "patient-ich-num-slices"; </span>//local
+<span class="cstat-no" title="statement not covered" >    var ich_slice_thickness_key = "patient-ich-slice-thickness"; </span>//local
+&nbsp;
+    // neurosurgery-referral-summary
+<span class="cstat-no" title="statement not covered" >    var is_referred_to_neurosurgery_key = "patient-is-referred-to-neurosurgery"; </span>//local
+<span class="cstat-no" title="statement not covered" >    var referral_to_neurosurgery_date_time_key = "patient-referral-to-neurosurgery-date-time";</span>
+<span class="cstat-no" title="statement not covered" >    var neurosurgeon_name_key = "patient-neurosurgeon-name";</span>
+<span class="cstat-no" title="statement not covered" >    var is_referral_to_neurosurgery_accepted_key = "patient-is-referral-to-neurosurgery-accepted";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var service = {</span>
+&nbsp;
+        //
+        // general
+        //
+&nbsp;
+        // patient-start 
+        getAppStartDateTime: getAppStartDateTime,
+        setAppStartDateTime: setAppStartDateTime,
+&nbsp;
+        // register-patient
+        getId: getId,
+        setId: setId,
+&nbsp;
+        getUniqueId: getUniqueId,
+        setUniqueId: setUniqueId,
+&nbsp;
+        getInitials: getInitials,
+        setInitials: setInitials,
+ 
+        getBirthDate: getBirthDate,
+        setBirthDate: setBirthDate,
+&nbsp;
+        getEstimatedAge: getEstimatedAge,
+        setEstimatedAge: setEstimatedAge,
+&nbsp;
+        getExternalScanHospitalName: getExternalScanHospitalName,
+        setExternalScanHospitalName: setExternalScanHospitalName,
+&nbsp;
+        getScanDateTime: getScanDateTime,
+        setScanDateTime: setScanDateTime,
+&nbsp;
+        // patient-details
+        getDoorDateTime: getDoorDateTime,
+        setDoorDateTime: setDoorDateTime,
+ 
+        getOnsetDateTime: getOnsetDateTime,
+        setOnsetDateTime: setOnsetDateTime,
+&nbsp;
+        getIsLastSeenWellOnset: getIsLastSeenWellOnset,
+        setIsLastSeenWellOnset: setIsLastSeenWellOnset,
+&nbsp;
+        getIsBestEstimateOnset: getIsBestEstimateOnset,
+        setIsBestEstimateOnset: setIsBestEstimateOnset,
+&nbsp;
+        // gcs-entry
+        getGcsScore: getGcsScore,
+        setGcsScore: setGcsScore,
+&nbsp;
+        getGcsScoreEye: getGcsScoreEye,
+        setGcsScoreEye: setGcsScoreEye,
+&nbsp;
+        getGcsScoreVerbal: getGcsScoreVerbal,
+        setGcsScoreVerbal: setGcsScoreVerbal,
+&nbsp;
+        getGcsScoreMotor: getGcsScoreMotor,
+        setGcsScoreMotor: setGcsScoreMotor,
+&nbsp;
+        //
+        // protocol A
+        //
+&nbsp;
+        // anticoagulant-identification
+        // Enum: DOAC, Vitamin K antagonist, Unknown, None
+        getAnticoagulantType: getAnticoagulantType,
+        setAnticoagulantType: setAnticoagulantType,
+&nbsp;
+        getAnticoagulantName: getAnticoagulantName,
+        setAnticoagulantName: setAnticoagulantName,
+&nbsp;
+        // calculate-beriplex-dose
+        getReversalAgentAdministeredAtExternalHospital: getReversalAgentAdministeredAtExternalHospital,
+        setReversalAgentAdministeredAtExternalHospital: setReversalAgentAdministeredAtExternalHospital,
+&nbsp;
+        getReversalAgentAdministeredTimeKnown: getReversalAgentAdministeredTimeKnown,
+        setReversalAgentAdministeredTimeKnown: setReversalAgentAdministeredTimeKnown,
+&nbsp;
+        getAdministerBeriplexWithoutInr: getAdministerBeriplexWithoutInr,
+        setAdministerBeriplexWithoutInr: setAdministerBeriplexWithoutInr,
+        
+        getEstimatedWeightInKg: getEstimatedWeightInKg,
+        setEstimatedWeightInKg: setEstimatedWeightInKg,
+&nbsp;
+        getCalculatedBeriplexDose: getCalculatedBeriplexDose,
+        setCalculatedBeriplexDose: setCalculatedBeriplexDose,
+&nbsp;
+        getInrValue: getInrValue,
+        setInrValue: setInrValue,
+&nbsp;
+        // Enum: Point of care, Laboratory
+        getInrType: getInrType,
+        setInrType: setInrType,
+&nbsp;
+        getInrDateTime: getInrDateTime,
+        setInrDateTime: setInrDateTime,
+&nbsp;
+        getAdministerBeriplexWhenUnknown: getAdministerBeriplexWhenUnknown,
+        setAdministerBeriplexWhenUnknown: setAdministerBeriplexWhenUnknown,
+&nbsp;
+        getIsWeightGivenInKg: getIsWeightGivenInKg,
+        setIsWeightGivenInKg: setIsWeightGivenInKg,
+&nbsp;
+        // confirm-beriplex-dose
+        getActualBeriplexDose: getActualBeriplexDose,
+        setActualBeriplexDose: setActualBeriplexDose,
+&nbsp;
+        // administer-beriplex
+        getIsVitaminkAdministered: getIsVitaminkAdministered,
+        setIsVitaminkAdministered: setIsVitaminkAdministered,
+&nbsp;
+        getVitaminkDateTime: getVitaminkDateTime,
+        setVitaminkDateTime: setVitaminkDateTime,
+&nbsp;
+        getIsInfusionInstructionsViewed: getIsInfusionInstructionsViewed,
+        setIsInfusionInstructionsViewed: setIsInfusionInstructionsViewed,
+&nbsp;
+        // reversal-agent-details
+        // Enum: Idarucizumab, PCC, None
+        getReversalAgentType: getReversalAgentType,
+        setReversalAgentType: setReversalAgentType,
+&nbsp;
+        getReversalAgentStartDateTime: getReversalAgentStartDateTime,
+        setReversalAgentStartDateTime: setReversalAgentStartDateTime,
+&nbsp;
+        //
+        // protocol B
+        //
+&nbsp;
+        // bp-management
+        getBpTargetReachedDateTime: getBpTargetReachedDateTime,
+        setBpTargetReachedDateTime: setBpTargetReachedDateTime,
+&nbsp;
+        getBpTreatmentThreshold: getBpTreatmentThreshold,
+        setBpTreatmentThreshold: setBpTreatmentThreshold,
+&nbsp;
+        getBpTarget: getBpTarget,
+        setBpTarget: setBpTarget,
+&nbsp;
+        getBpMeasurementEntries: getBpMeasurementEntries,
+        addBpMeasurementEntry: addBpMeasurementEntry,
+&nbsp;
+        // critical-care-referral
+        getIsReferredToCriticalCare: getIsReferredToCriticalCare,
+        setIsReferredToCriticalCare: setIsReferredToCriticalCare,
+&nbsp;
+        //
+        // protocol C
+        //
+&nbsp;
+        // mrs-entry
+        getPremorbidMrsScore: getPremorbidMrsScore,
+        setPremorbidMrsScore: setPremorbidMrsScore,
+&nbsp;
+        // neurosurgery-referral-criteria
+        getIchVolume: getIchVolume,
+        setIchVolume: setIchVolume,
+&nbsp;
+        getIsPosteriorFossaIch: getIsPosteriorFossaIch,
+        setIsPosteriorFossaIch: setIsPosteriorFossaIch,
+ 
+        getIsVentricleObstructed: getIsVentricleObstructed,
+        setIsVentricleObstructed: setIsVentricleObstructed,
+&nbsp;
+        getIchLongestAxis: getIchLongestAxis,
+        setIchLongestAxis: setIchLongestAxis,
+&nbsp;
+        getIchPerpendicularAxis: getIchPerpendicularAxis,
+        setIchPerpendicularAxis: setIchPerpendicularAxis,
+&nbsp;
+        getIchNumSlices: getIchNumSlices,
+        setIchNumSlices: setIchNumSlices,
+&nbsp;
+        getIchSliceThickness: getIchSliceThickness,
+        SetIchSliceThickness: SetIchSliceThickness,
+&nbsp;
+        // neurosurgery-referral-summary
+        getIsReferredToNeurosurgery: getIsReferredToNeurosurgery,
+        setIsReferredToNeurosurgery: setIsReferredToNeurosurgery,
+&nbsp;
+        getReferralToNeurosurgeryDateTime: getReferralToNeurosurgeryDateTime,
+        setReferralToNeurosurgeryDateTime: setReferralToNeurosurgeryDateTime,
+ 
+        getNeurosurgeonName: getNeurosurgeonName,
+        setNeurosurgeonName: setNeurosurgeonName,
+&nbsp;
+        getIsReferralToNeurosurgeryAccepted: getIsReferralToNeurosurgeryAccepted,
+        setIsReferralToNeurosurgeryAccepted: setIsReferralToNeurosurgeryAccepted,
+&nbsp;
+        // reset all data to null
+        clearAll: clearAll
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return service;</span>
+&nbsp;
+    //
+    // general
+    //
+&nbsp;
+&nbsp;
+    // patient-start
+<span class="fstat-no" title="function not covered" >    function getAppStartDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(app_start_date_time_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setAppStartDateTime(appStartDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(app_start_date_time_key, appStartDateTime);</span>
+    }
+    
+    // register-patient
+<span class="fstat-no" title="function not covered" >    function getId() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(id_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setId(id) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(id_key, id);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getUniqueId() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(unique_id_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setUniqueId(uniqueId) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(unique_id_key, uniqueId);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getInitials() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(initials_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setInitials(initials) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(initials_key, initials);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getBirthDate() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(birth_date_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setBirthDate(birthDate) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(birth_date_key, birthDate);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getEstimatedAge() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(estimated_age_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setEstimatedAge(estimatedAge) {</span>
+<span class="cstat-no" title="statement not covered" >         LocalStorageService.setItem(estimated_age_key, estimatedAge);</span>
+   }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getExternalScanHospitalName() {</span>
+<span class="cstat-no" title="statement not covered" >       return LocalStorageService.getItem(external_scan_hospital_name_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setExternalScanHospitalName(externalScanHospitalName) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(external_scan_hospital_name_key, externalScanHospitalName);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getScanDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(scan_date_time_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setScanDateTime(scanDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(scan_date_time_key, scanDateTime);</span>
+    }
+    
+    // patient-details
+<span class="fstat-no" title="function not covered" >    function getDoorDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(door_date_time_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setDoorDateTime(doorDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(door_date_time_key, doorDateTime);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getOnsetDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(onset_date_time_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setOnsetDateTime(onsetDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(onset_date_time_key, onsetDateTime);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIsLastSeenWellOnset() {</span>
+<span class="cstat-no" title="statement not covered" >       return LocalStorageService.getItem(is_last_seen_well_onset_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setIsLastSeenWellOnset(isLastSeenWellOnset) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_last_seen_well_onset_key, isLastSeenWellOnset);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIsBestEstimateOnset() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_best_estimate_onset_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setIsBestEstimateOnset(isBestEstimateOnset) {</span>
+<span class="cstat-no" title="statement not covered" >         LocalStorageService.setItem(is_best_estimate_onset_key, isBestEstimateOnset);</span>
+    }
+   
+    // gcs-entry
+<span class="fstat-no" title="function not covered" >    function getGcsScore() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(gcs_score_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setGcsScore(gcsScore) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_key, gcsScore);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getGcsScoreEye() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(gcs_score_eye_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setGcsScoreEye(gcsScoreEye) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_eye_key, gcsScoreEye);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getGcsScoreVerbal() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(gcs_score_verbal_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setGcsScoreVerbal(gcsScoreVerbal) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_verbal_key, gcsScoreVerbal);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getGcsScoreMotor() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(gcs_score_motor_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setGcsScoreMotor(gcsScoreMotor) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_motor_key, gcsScoreMotor);</span>
+    }
+   
+    //
+    // protocol A
+    //
+&nbsp;
+&nbsp;
+    // anticoagulant-identification
+<span class="fstat-no" title="function not covered" >    function getAnticoagulantType() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(anticoagulant_type_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setAnticoagulantType(anticoagulantType) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(anticoagulant_type_key, anticoagulantType);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getAnticoagulantName() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(anticoagulant_name_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setAnticoagulantName(anticoagulantName) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(anticoagulant_name_key, anticoagulantName);</span>
+    }
+&nbsp;
+    // calculate-beriplex-dose
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getReversalAgentAdministeredAtExternalHospital() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(reversal_agent_administered_at_external_hospital_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setReversalAgentAdministeredAtExternalHospital(reversalAgentAdministeredAtExternalHospital) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_administered_at_external_hospital_key, reversalAgentAdministeredAtExternalHospital);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getReversalAgentAdministeredTimeKnown() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(reversal_agent_administered_time_known_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setReversalAgentAdministeredTimeKnown(reversalAgentAdministeredTimeKnown) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_administered_time_known_key, reversalAgentAdministeredTimeKnown);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getAdministerBeriplexWithoutInr() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(administer_beriplex_without_inr_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setAdministerBeriplexWithoutInr(administerBeriplexWithoutInr) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(administer_beriplex_without_inr_key, administerBeriplexWithoutInr);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getEstimatedWeightInKg() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(estimated_weight_in_kg_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setEstimatedWeightInKg(estimatedWeightInKg) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(estimated_weight_in_kg_key, estimatedWeightInKg);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getCalculatedBeriplexDose() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(calculated_beriplex_dose_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setCalculatedBeriplexDose(calculatedBeriplexDose) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(calculated_beriplex_dose_key, calculatedBeriplexDose);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getInrValue() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(inr_value_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setInrValue(inrValue) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(inr_value_key, inrValue);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getInrType() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(inr_type_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setInrType(inrType) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(inr_type_key, inrType);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getInrDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(inr_date_time_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setInrDateTime(inrDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(inr_date_time_key, inrDateTime);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getAdministerBeriplexWhenUnknown() {</span>
+<span class="cstat-no" title="statement not covered" >         return LocalStorageService.getItem(administer_beriplex_when_unknown_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setAdministerBeriplexWhenUnknown(shouldAdministerBeriplexWhenAnticoagulantUnknown) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(administer_beriplex_when_unknown_key, shouldAdministerBeriplexWhenAnticoagulantUnknown);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIsWeightGivenInKg() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_weight_given_in_kg_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setIsWeightGivenInKg(isWeightGivenInKg) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_weight_given_in_kg_key, isWeightGivenInKg);</span>
+    }
+&nbsp;
+    // confirm-beriplex-dose
+<span class="fstat-no" title="function not covered" >    function getActualBeriplexDose() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(actual_beriplex_dose_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setActualBeriplexDose(actualBeriplexDose) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(actual_beriplex_dose_key, actualBeriplexDose);</span>
+    }
+&nbsp;
+    // administer-beriplex
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIsVitaminkAdministered() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_vitamink_administered_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIsVitaminkAdministered(isVitaminkAdministered) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_vitamink_administered_key, isVitaminkAdministered);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getVitaminkDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >         return getDate(vitamink_date_time_key);</span>
+   }
+    
+<span class="fstat-no" title="function not covered" >    function setVitaminkDateTime(vitaminkDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(vitamink_date_time_key, vitaminkDateTime);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getIsInfusionInstructionsViewed() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_infusion_instructions_viewed_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIsInfusionInstructionsViewed(isInfusionInstructionsViewed) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_infusion_instructions_viewed_key, isInfusionInstructionsViewed);</span>
+    }
+&nbsp;
+    // reversal-agent-details
+<span class="fstat-no" title="function not covered" >    function getReversalAgentType() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(reversal_agent_type_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setReversalAgentType(reversalAgentType) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_type_key, reversalAgentType);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getReversalAgentStartDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(reversal_agent_start_date_time_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setReversalAgentStartDateTime(reversalAgentStartDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_start_date_time_key, reversalAgentStartDateTime);</span>
+    }
+&nbsp;
+    //
+    // protocol B
+    //
+&nbsp;
+    
+    // bp-management
+<span class="fstat-no" title="function not covered" >    function getBpTargetReachedDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(bp_target_reached_date_time_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setBpTargetReachedDateTime(bpTargetReachedDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_target_reached_date_time_key, bpTargetReachedDateTime);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getBpTreatmentThreshold() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(bp_treatment_threshold_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setBpTreatmentThreshold(bpTreatmentThreshold) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_treatment_threshold_key, bpTreatmentThreshold);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getBpTarget() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(bp_target_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setBpTarget(bpTarget) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_target_key, bpTarget);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getBpMeasurementEntries() {</span>
+<span class="cstat-no" title="statement not covered" >        var entries =  LocalStorageService.getItem(bp_measurement_entries_key);</span>
+<span class="cstat-no" title="statement not covered" >        if (entries === null) {</span>
+<span class="cstat-no" title="statement not covered" >            entries = [];</span>
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >            for(var i = 0; i &lt; entries.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                entries[i].dateTime = new Date(entries[i].dateTime);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return entries;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addBpMeasurementEntry(bpMeasurementEntry) {</span>
+<span class="cstat-no" title="statement not covered" >        var entries = getBpMeasurementEntries();</span>
+<span class="cstat-no" title="statement not covered" >        entries.push(bpMeasurementEntry);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_measurement_entries_key, entries);</span>
+    }
+    
+    // critical-care-referral
+<span class="fstat-no" title="function not covered" >    function getIsReferredToCriticalCare() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_referred_to_critical_care_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIsReferredToCriticalCare(isReferredToCriticalCare) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_referred_to_critical_care_key, isReferredToCriticalCare);</span>
+    }
+    
+    //
+    // protocol C
+    //
+&nbsp;
+&nbsp;
+    // mrs-entry
+<span class="fstat-no" title="function not covered" >    function getPremorbidMrsScore() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(premorbid_mrs_score_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setPremorbidMrsScore(premorbidMrsScore) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(premorbid_mrs_score_key, premorbidMrsScore);</span>
+    }
+&nbsp;
+    // neurosurgery-referral-criteria    
+<span class="fstat-no" title="function not covered" >    function getIchVolume() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(ich_volume_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIchVolume(ichVolume) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_volume_key, ichVolume);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIsPosteriorFossaIch() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_posterior_fossa_ich_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIsPosteriorFossaIch(isPosteriorFossaIch) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_posterior_fossa_ich_key, isPosteriorFossaIch);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getIsVentricleObstructed() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_ventricle_obstructed_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIsVentricleObstructed(isVentricleObstructed) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_ventricle_obstructed_key, isVentricleObstructed);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIchLongestAxis() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(ich_longest_axis_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIchLongestAxis(ichLongestAxis) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_longest_axis_key, ichLongestAxis);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIchPerpendicularAxis() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(ich_perpendicular_axis_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIchPerpendicularAxis(ichPerpendicularAxis) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_perpendicular_axis_key, ichPerpendicularAxis);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIchNumSlices() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(ich_num_slices_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIchNumSlices(ichNumSlices) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_num_slices_key, ichNumSlices);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIchSliceThickness() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(ich_slice_thickness_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function SetIchSliceThickness(ichSliceThickness) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_slice_thickness_key, ichSliceThickness);</span>
+    }
+&nbsp;
+    // neurosurgery-referral-summary
+    
+        
+<span class="fstat-no" title="function not covered" >    function getIsReferredToNeurosurgery() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_referred_to_neurosurgery_key);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setIsReferredToNeurosurgery(isReferredToNeurosurgery) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_referred_to_neurosurgery_key, isReferredToNeurosurgery);</span>
+    }
+     
+<span class="fstat-no" title="function not covered" >    function getReferralToNeurosurgeryDateTime() {</span>
+<span class="cstat-no" title="statement not covered" >        return getDate(referral_to_neurosurgery_date_time_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setReferralToNeurosurgeryDateTime(referralToNeurosurgeryDateTime) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, referralToNeurosurgeryDateTime);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function getNeurosurgeonName() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(neurosurgeon_name_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setNeurosurgeonName(neurosurgeonName) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(neurosurgeon_name_key, neurosurgeonName);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getIsReferralToNeurosurgeryAccepted() {</span>
+<span class="cstat-no" title="statement not covered" >        return LocalStorageService.getItem(is_referral_to_neurosurgery_accepted_key);</span>
+    }
+    
+<span class="fstat-no" title="function not covered" >    function setIsReferralToNeurosurgeryAccepted(isReferralToNeurosurgeryAccepted) {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, isReferralToNeurosurgeryAccepted);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function clearAll() {</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(app_start_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(id_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(unique_id_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(initials_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(birth_date_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(estimated_age_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(external_scan_hospital_name_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(scan_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(door_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(onset_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_last_seen_well_onset_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_best_estimate_onset_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_eye_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_verbal_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(gcs_score_motor_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(anticoagulant_type_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(anticoagulant_name_key, null); </span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_administered_at_external_hospital_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_administered_time_known_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(administer_beriplex_without_inr_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(estimated_weight_in_kg_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(calculated_beriplex_dose_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(inr_value_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(inr_type_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(inr_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(administer_beriplex_when_unknown_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_weight_given_in_kg_key, null);        </span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(actual_beriplex_dose_key, null);           </span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_vitamink_administered_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(vitamink_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_infusion_instructions_viewed_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_type_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(reversal_agent_start_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_target_reached_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_treatment_threshold_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_target_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(bp_measurement_entries_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_referred_to_critical_care_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(premorbid_mrs_score_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_volume_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_posterior_fossa_ich_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_ventricle_obstructed_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_longest_axis_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_perpendicular_axis_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_num_slices_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(ich_slice_thickness_key, null);        </span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_referred_to_neurosurgery_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(neurosurgeon_name_key, null);</span>
+<span class="cstat-no" title="statement not covered" >        LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getDate(key) {</span>
+<span class="cstat-no" title="statement not covered" >        var date = LocalStorageService.getItem(key);</span>
+<span class="cstat-no" title="statement not covered" >        if (date !== null) {</span>
+<span class="cstat-no" title="statement not covered" >            date = new Date(date);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return date;</span>
+    }
+&nbsp;
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 19 2018 13:38:13 GMT+0000 (GMT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

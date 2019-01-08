@@ -150,11 +150,20 @@ describe('AnticoagulantIdentificationController', function() {
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_CALCULATE_BERIPLEX_DOSE_MOCK);		
 
 		vm.anticoagulantType = "DOAC";
+		vm.anticoagulantName = "Dabigatran";
 		vm.onNext(); // call the click handler
 		scopeMock.$apply(); // Propagate promise resolutions.
  		expect(ionicPopupMock.alert).toHaveBeenCalled();		
 		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("ICH on DOAC");
-		expect(stateMock.go).toHaveBeenCalledWith(STATE_REVERSAL_AGENT_DETAILS_MOCK);		
+		expect(stateMock.go).toHaveBeenCalledWith(STATE_REVERSAL_AGENT_DETAILS_MOCK);	
+
+		vm.anticoagulantType = "DOAC";
+		vm.anticoagulantName = "Not Dabigatran";
+		vm.onNext(); // call the click handler
+		scopeMock.$apply(); // Propagate promise resolutions.
+ 		expect(ionicPopupMock.alert).toHaveBeenCalled();		
+		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("ICH on DOAC");
+		expect(stateMock.go).toHaveBeenCalledWith(STATE_CALCULATE_BERIPLEX_DOSE_MOCK);	
 
 		vm.anticoagulantType = "None";
 		vm.onNext(); // call the click handler

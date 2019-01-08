@@ -10,7 +10,9 @@ function ReversalAgentDetailsControllerService() {
         isNextButtonEnabled: isNextButtonEnabled,
         showIsReversalTimeKnownCard: showIsReversalTimeKnownCard,
         showReversalTimeCard: showReversalTimeCard,
-        hideReversalAgentOptionNone: hideReversalAgentOptionNone
+        hideReversalAgentOptionNone: hideReversalAgentOptionNone,
+        hideReversalAgentOptionIdarucizumab: hideReversalAgentOptionIdarucizumab,
+        hideReversalAgentOptionPCC: hideReversalAgentOptionPCC
     };
 
     return service;
@@ -75,5 +77,24 @@ function ReversalAgentDetailsControllerService() {
             isHide = true;
         }
         return isHide;
+    }
+
+    function hideReversalAgentOptionIdarucizumab(anticoagulantName){
+        var isShow = true;
+
+        if(anticoagulantName === "Dabigatran"){
+            isShow = false;
+        }
+
+        return isShow;
+    }
+
+    function hideReversalAgentOptionPCC(anticoagulantName){
+        var isShow = true;
+        if(anticoagulantName === "Apixaban" || anticoagulantName === "Rivoroxaban" || anticoagulantName === "Edoxaban"){
+            isShow = false;
+        }
+
+        return isShow;
     }
 }

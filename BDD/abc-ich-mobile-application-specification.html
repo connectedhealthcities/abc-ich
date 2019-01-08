@@ -285,7 +285,33 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
-	<Scenario> #3: "DOAC" selected 
+	<Scenario> #3: "Apixaban", "Rivoroxaban", or "Edoxaban" selected.
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: the selected anticoagulant is a DOAC
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" alert popup
+			  - "Send urgent PT, aPPT.." alert popup
+			  - "Has DOAC been taken.." confirmation popup.
+	</Scenario>    
+	<Scenario> #4: "No DOAC has been taken.." selected.
+		Given: the user has selected either "Apixaban", "Rivoroxaban", or "Edoxaban" on the DOAC selection control.
+		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
+		When: the user selects the "No" button.
+		Then: A "Contact Haematology" popup appears.
+		And: the user is directed to the "Reversal Agent details" with "PCC" selected.
+		And: the ABC tabs are visible
+		And: the selected tab is A
+	</Scenario>
+	<Scenario> #5: "DOAC has been taken.." selected.
+		Given: the user has selected either "Apixaban", "Rivoroxaban", or "Edoxaban" on the DOAC selection control.
+		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
+		When: the user selects the "Yes" button.
+		Then: the user is directed to "Calculate Beriplex Dose" view
+		And: the ABC tabs are visible
+		And: the selected tab is A
+	</Scenario>
+	<Scenario> #6: "DOAC" selected that is not "Apixaban", "Rivoroxaban", or "Edoxaban" 
 		Given: the user has entered valid data on the "Anticoagulant Identification" view
 		And: the selected anticoagulant is a DOAC
 		When: they select the "Next" button
@@ -295,8 +321,8 @@ Template
 		And: the "Reversal Agent details" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
-	</Scenario>    
-	<Scenario> #4: "None" selected and (GCS >= 9) 
+	</Scenario>
+	<Scenario> #7: "None" selected and (GCS >= 9) 
 		Given: the user has entered valid data on the "Anticoagulant Identification" view
 		And: the selected anticoagulant is None
 		And: the GCS value is >= 9
@@ -306,7 +332,7 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>
-	<Scenario> #5: "None" selected and (GCS < 9) 
+	<Scenario> #8: "None" selected and (GCS < 9) 
 		Given: the user has entered valid data on the "Anticoagulant Identification" view
 		And: the selected anticoagulant is None
 		And: the GCS value is < 9
@@ -438,6 +464,13 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
+	<Scenario> #2: The user has selected "Apixaban", "Edoxaban", or "Rivaroxaban" in the anticoagulant selection view.
+		Given: the user has selected one of the above mentioned DOACs.
+		And: they have completed the Calculate Beriplex Dose view
+		When: they navigate to the Confirm Beriplex Dose view
+		Then: the calculation for the dosage of Beriplex is now 50IU multiplied by their weight in kg.
+		And: this value is capped at 5000IU.
+	</Scenario>
 </Story>
 
 <Story> Administer Beriplex - view navigation
@@ -739,6 +772,9 @@ Template
 		(1.3 - 3.9): dose = weightInKg x 25
 		(4.0 - 6.0): dose = weightInKg x 35
 		    (> 6.0): dose = weightInKg x 50
+		However, if the anticoagulant type being used is either Apixaban, Edoxaban, or Rivaroxaban, then the calculation is as follows:
+				dose = weightInKg x 50
+		With a maximum value of 5000IU.
 	</Note>
 	<Scenario> #1: Calculation of Beriplex dose with Inr value
 		Given: the user has entered valid data on the "Calculate Beriplex" view

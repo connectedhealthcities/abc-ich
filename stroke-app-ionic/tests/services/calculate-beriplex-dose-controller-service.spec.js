@@ -100,20 +100,33 @@ describe("CalculateBeriplexDoseControllerService", function() {
 			var isEnabled = service.isNextButtonEnabled(false, false, "not-nknown", "not-null", "not-null", "not-null", "not-null", null);
 			expect(isEnabled).toBe(false);
 		});
+
+		it("should always return true if 'anticoagulantType' is 'DOAC' and 'estimatedWeightInKg' is not Unknown", function(){
+			var isEnabled = service.isNextButtonEnabled(false, false, "DOAC", "anything", "anything", "anything", 10, "anything", "anything", "anything");
+			expect(isEnabled).toBe(true);
+
+			var isEnabled = service.isNextButtonEnabled(false, false, "DOAC", "anything", "anything", "anything", null, "anything", "anything", "anything");
+			expect(isEnabled).toBe(false);
+		});
 	});
 
 	describe("showReversalAgentAdministeredAtExternalHospitalCard", function() {
 
 		it("should return false if externalScanHospitalName is null", function() {
 
-			var isShow = service.showReversalAgentAdministeredAtExternalHospitalCard(null);
+			var isShow = service.showReversalAgentAdministeredAtExternalHospitalCard(null, null);
 			expect(isShow).toBe(false);
 		});
 
 		it("should return true if externalScanHospitalName is not null", function() {
 
-			var isShow = service.showReversalAgentAdministeredAtExternalHospitalCard("not-null");
+			var isShow = service.showReversalAgentAdministeredAtExternalHospitalCard("not-null", null);
 			expect(isShow).toBe(true);
+		});
+
+		it("should return false if anticoagulantType is 'DOAC'", function(){
+			var isShow = service.showReversalAgentAdministeredAtExternalHospitalCard("anything", "DOAC");
+			expect(isShow).toBe(false);
 		});
 	});
 
@@ -121,26 +134,31 @@ describe("CalculateBeriplexDoseControllerService", function() {
 
 		it("should return true if externalScanHospitalName is null", function() {
 
-			var isShow = service.showAdministerBeriplexWithoutInrCard(null, "anything");
+			var isShow = service.showAdministerBeriplexWithoutInrCard(null, "anything", "anything but DOAC");
 			expect(isShow).toBe(true);
 		});
 
 		it("should return false if reversalAgentAdministeredAtExternalHospital is null", function() {
 
-			var isShow = service.showAdministerBeriplexWithoutInrCard("not-null", null);
+			var isShow = service.showAdministerBeriplexWithoutInrCard("not-null", null, "anything but DOAC");
 			expect(isShow).toBe(false);
 		});
 
 		it("should return false if reversalAgentAdministeredAtExternalHospital is true", function() {
 
-			var isShow = service.showAdministerBeriplexWithoutInrCard("not-null", true);
+			var isShow = service.showAdministerBeriplexWithoutInrCard("not-null", true, "anything but DOAC");
 			expect(isShow).toBe(false);
 		});
 
 		it("should return true if reversalAgentAdministeredAtExternalHospital is false", function() {
 
-			var isShow = service.showAdministerBeriplexWithoutInrCard("not-null", false);
+			var isShow = service.showAdministerBeriplexWithoutInrCard("not-null", false, "anything but DOAC");
 			expect(isShow).toBe(true);
+		});
+
+		it("should return false if anticoagulantType is 'DOAC'", function(){
+			var isShow = service.showAdministerBeriplexWithoutInrCard("anything", "anything", "DOAC");
+			expect(isShow).toBe(false);
 		});
 	});
 
@@ -148,20 +166,25 @@ describe("CalculateBeriplexDoseControllerService", function() {
 
 		it("should return false if administerBeriplexWithoutInr is null", function() {
 
-			var isShow = service.showInrCard(null);
+			var isShow = service.showInrCard(null, "anything but DOAC");
 			expect(isShow).toBe(false);
 		});
 
 		it("should return false if administerBeriplexWithoutInr is true", function() {
 
-			var isShow = service.showInrCard(true);
+			var isShow = service.showInrCard(true, "anything but DOAC");
 			expect(isShow).toBe(false);
 		});
 
 		it("should return true if administerBeriplexWithoutInr is false", function() {
 
-			var isShow = service.showInrCard(false);
+			var isShow = service.showInrCard(false, "anything but DOAC");
 			expect(isShow).toBe(true);
+		});
+
+		it("should return false if anticoagulantType is 'DOAC'", function(){
+			var isShow = service.showInrCard("anything", "DOAC");
+			expect(isShow).toBe(false);
 		});
 	});
 
@@ -169,13 +192,18 @@ describe("CalculateBeriplexDoseControllerService", function() {
 
 		it("should return false if administerBeriplexWithoutInr is null", function() {
 
-			var isShow = service.showEstimatedWeightCard(null);
+			var isShow = service.showEstimatedWeightCard(null, "anything but DOAC");
 			expect(isShow).toBe(false);
 		});
 
 		it("should return true if administerBeriplexWithoutInr is not null", function() {
 
-			var isShow = service.showEstimatedWeightCard("not-null");
+			var isShow = service.showEstimatedWeightCard("not-null", "anything but DOAC");
+			expect(isShow).toBe(true);
+		});
+
+		it("should return true if anticoagulantType is 'DOAC'", function(){
+			var isShow = service.showEstimatedWeightCard("anything", "DOAC");
 			expect(isShow).toBe(true);
 		});
 	});
@@ -204,6 +232,11 @@ describe("CalculateBeriplexDoseControllerService", function() {
 
 			var isShow = service.showBeriplexAdministrationOverrideCard("Unknown", false, 5.1, 5);
 			expect(isShow).toBe(true);
+		});
+
+		it("should return false if anticoagulantType is 'DOAC'", function(){
+			var isShow = service.showBeriplexAdministrationOverrideCard("DOAC", "anything", "anything", "anything");
+			expect(isShow).toBe(false);
 		});
 	});
 
@@ -241,9 +274,9 @@ describe("CalculateBeriplexDoseControllerService", function() {
 
 	describe("calculateBeriplexDose", function() {
 
-		it("should return null if inrValue is null", function() {
+		it("should return null if inrValue is null and weightInKg is null", function() {
 
-			var dose = service.calculateBeriplexDose(null, "not-null");
+			var dose = service.calculateBeriplexDose(null, null);
 			expect(dose).toBe(null);
 		});
 
@@ -288,6 +321,34 @@ describe("CalculateBeriplexDoseControllerService", function() {
 
 			var dose = service.calculateBeriplexDose(6.0, 50);
 			expect(dose).toBe(1750);
+		});
+
+		it("should return weightInKg*50 if inrValue is null and weightInKg is below 100", function(){
+			var dose = service.calculateBeriplexDose(null, 100);
+			expect(dose).toBe(5000);
+
+			var dose = service.calculateBeriplexDose(null, 50);
+			expect(dose).toBe(50*50);
+
+			var dose = service.calculateBeriplexDose(null, 20);
+			expect(dose).toBe(20*50);
+
+			var dose = service.calculateBeriplexDose(null, 33.55);
+			expect(dose).toBe(33.55*50);
+		});
+
+		it("should return max dose value (5000) if inrValue is null and weightInKg is 100 or above", function(){
+			var dose = service.calculateBeriplexDose(null, 100);
+			expect(dose).toBe(5000);
+
+			var dose = service.calculateBeriplexDose(null, 200);
+			expect(dose).toBe(5000);
+
+			var dose = service.calculateBeriplexDose(null, 300);
+			expect(dose).toBe(5000);
+
+			var dose = service.calculateBeriplexDose(null, 50);
+			expect(dose).not.toBe(5000);
 		});
 
 	});

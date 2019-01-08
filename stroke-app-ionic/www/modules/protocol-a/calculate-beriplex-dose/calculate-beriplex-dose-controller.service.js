@@ -22,34 +22,43 @@ function CalculateBeriplexDoseControllerService() {
 
      return service;
 
-    function showReversalAgentAdministeredAtExternalHospitalCard(externalScanHospitalName) {
+    function showReversalAgentAdministeredAtExternalHospitalCard(externalScanHospitalName, anticoagulantType) {
         var isShow = false;
-        if (externalScanHospitalName !== null) {
+        if (anticoagulantType != "DOAC" && externalScanHospitalName !== null) {
             isShow = true;
         }
         return isShow;
     }
 
-    function showAdministerBeriplexWithoutInrCard(externalScanHospitalName, reversalAgentAdministeredAtExternalHospital) {
+    function showAdministerBeriplexWithoutInrCard(externalScanHospitalName, reversalAgentAdministeredAtExternalHospital, anticoagulantType) {
         var isShow = false;
-        if ( externalScanHospitalName === null ||
+        if(anticoagulantType === "DOAC"){
+            isShow = false;
+        }
+        else if ( externalScanHospitalName === null ||
             (reversalAgentAdministeredAtExternalHospital !== null && !reversalAgentAdministeredAtExternalHospital) ) {
             isShow = true;
         }
         return isShow;
     }
 
-    function showInrCard(administerBeriplexWithoutInr) {
+    function showInrCard(administerBeriplexWithoutInr, anticoagulantType) {
         var isShow = false;
-        if (administerBeriplexWithoutInr !== null && !administerBeriplexWithoutInr) {
+        if (anticoagulantType === "DOAC"){
+            isShow = false;
+        }
+        else if (administerBeriplexWithoutInr !== null && !administerBeriplexWithoutInr) {
             isShow = true;
         }
         return isShow;
     }
 
-    function showEstimatedWeightCard(administerBeriplexWithoutInr) {
+    function showEstimatedWeightCard(administerBeriplexWithoutInr, anticoagulantType) {
         var isShow = false;
-        if (administerBeriplexWithoutInr !== null) {
+        if (anticoagulantType === "DOAC"){
+            isShow = true;
+        }
+        else if (administerBeriplexWithoutInr !== null) {
             isShow = true;
         }
         return isShow;
@@ -57,7 +66,7 @@ function CalculateBeriplexDoseControllerService() {
 
     function showBeriplexAdministrationOverrideCard(anticoagulantType, administerBeriplexWithoutInr, inrValue, INR_THRESHOLD) {
         var isShow = false;
-        if (anticoagulantType === "Unknown" && administerBeriplexWithoutInr != null && !administerBeriplexWithoutInr && inrValue >= INR_THRESHOLD) {
+        if (anticoagulantType != "DOAC" && anticoagulantType === "Unknown" && administerBeriplexWithoutInr != null && !administerBeriplexWithoutInr && inrValue >= INR_THRESHOLD) {
             isShow = true;
         }
         return isShow;
@@ -116,6 +125,11 @@ function CalculateBeriplexDoseControllerService() {
             else if (inr > 6) {
                 dose = weight * 50;
            }
+        } else if (weightInKg){
+            if(weightInKg * 50 <= 5000)
+                dose = weightInKg * 50;
+            else
+                dose = 5000;
         }
 
         return dose;
@@ -135,7 +149,12 @@ function CalculateBeriplexDoseControllerService() {
         
         var isEnabled = false;
 
-        if (reversalAgentAdministeredAtExternalHospital) {
+        if(anticoagulantType === "DOAC"){
+            if(estimatedWeightInKg!== null && !isWeightOutOfRange(estimatedWeightInKg)){
+                isEnabled = true;
+            }
+        }
+        else if (reversalAgentAdministeredAtExternalHospital) {
             isEnabled = true;
         }
         else {

@@ -152,30 +152,34 @@ describe('CalculateBeriplexDoseController', function() {
 	it("should delegate showReversalAgentAdministeredAtExternalHospitalCard to controller.service", function() {
 
 		vm.externalScanHospitalName = "external-scan-hospital-name";
+		vm.anticoagulantType = "anticoagulant-type";
 		vm.showReversalAgentAdministeredAtExternalHospitalCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showReversalAgentAdministeredAtExternalHospitalCard).toHaveBeenCalledWith("external-scan-hospital-name");				
+		expect(calculateBeriplexDoseControllerServiceMock.showReversalAgentAdministeredAtExternalHospitalCard).toHaveBeenCalledWith("external-scan-hospital-name", "anticoagulant-type");				
 	});
 
 	it("should delegate showAdministerBeriplexWithoutInrCard to controller.service", function() {
 
 		vm.externalScanHospitalName = "external-scan-hospital-name";
 		vm.reversalAgentAdministeredAtExternalHospital = "reversal-agent-administered-at-external-hospital";
+		vm.anticoagulantType = "anticoagulant-type";
 		vm.showAdministerBeriplexWithoutInrCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showAdministerBeriplexWithoutInrCard).toHaveBeenCalledWith("external-scan-hospital-name", "reversal-agent-administered-at-external-hospital");				
+		expect(calculateBeriplexDoseControllerServiceMock.showAdministerBeriplexWithoutInrCard).toHaveBeenCalledWith("external-scan-hospital-name", "reversal-agent-administered-at-external-hospital", "anticoagulant-type");				
 	});
 
 	it("should delegate showInrCard to controller.service", function() {
 
 		vm.administerBeriplexWithoutInr = "administer-beriplex-without-inr";
+		vm.anticoagulantType = "anticoagulant-type";
 		vm.showInrCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showInrCard).toHaveBeenCalledWith("administer-beriplex-without-inr");				
+		expect(calculateBeriplexDoseControllerServiceMock.showInrCard).toHaveBeenCalledWith("administer-beriplex-without-inr", "anticoagulant-type");				
 	});
 
 	it("should delegate showEstimatedWeightCard to controller.service", function() {
 
 		vm.administerBeriplexWithoutInr = "administer-beriplex-without-inr";
+		vm.anticoagulantType = "anticoagulant-type";
 		vm.showEstimatedWeightCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showEstimatedWeightCard).toHaveBeenCalledWith("administer-beriplex-without-inr");				
+		expect(calculateBeriplexDoseControllerServiceMock.showEstimatedWeightCard).toHaveBeenCalledWith("administer-beriplex-without-inr", "anticoagulant-type");				
 	});
 
 	it("should delegate showBeriplexAdministrationOverrideCard to controller.service", function() {
@@ -397,6 +401,11 @@ describe('CalculateBeriplexDoseController', function() {
 		scopeMock.$apply(); // Propagate promise resolution for data vakidation popup.				
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_BP_MANAGEMENT_MOCK);
 					
+		vm.anticoagulantType = "DOAC";
+		vm.weightGivenInKg = 50;
+		vm.onNext();
+		scopeMock.$apply(); // Propagate promise resolution for data validation popup.
+		expect(stateMock.go).toHaveBeenCalledWith(STATE_CONFIRM_BERIPLEX_DOSE_MOCK);
 	});
 
 	it("should display 'Inr Below Treament Range' popup", function() {

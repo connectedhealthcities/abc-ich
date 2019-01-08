@@ -87,13 +87,26 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
             goNextStateWhenVitkOrUnknown();
         }
         else if (vm.anticoagulantType === "DOAC") {
-            showAnticoagulantIsDoacPopup(goNextStateWhenDoac);
+            if(vm.anticoagulantName === "Dabigatran"){
+                showAnticoagulantIsDoacPopup(goNextStateWhenDoac);
+            } else {
+                showDoacAERPopup();
+            }
         }
      }
 
     function saveData() {
         PatientCacheService.setAnticoagulantType(vm.anticoagulantType);
         PatientCacheService.setAnticoagulantName(vm.anticoagulantName);
+    }
+
+    function doacTakenHandler(response){
+        if(response){
+            goNextStateWhenVitkOrUnknown();
+        } else { 
+            PatientCacheService.setReversalAgentType("PCC");
+            showContactHaematologyPopup(goNextStateWhenDoac);
+        }
     }
 
     function goNextStateWhenVitkOrUnknown() {
@@ -161,6 +174,42 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
             scope: $scope
         };
         $ionicPopup.alert(popupTemplate);
+    }
+
+    function showDoacAERPopup(){
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-a/anticoagulant-identification/anticoagulant-is-doac-aer-popup.html',
+            title: 'ICH on DOAC',
+            cssClass: 'chi-wide-popup'
+        };
+        var popup = $ionicPopup.alert(popupTemplate);
+        popup.then(showHasDoacBeenTakenPopup);
+    }
+
+    function showHasDoacBeenTakenPopup(){
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-a/anticoagulant-identification/anticoagulant-has-doac-been-taken-popup.html',
+            title: 'Has DOAC Been Taken?',
+            cssClass: 'chi-wide-popup',
+            okText: 'yes',
+            cancelText: 'no'
+        };
+
+        var popup = $ionicPopup.confirm(popupTemplate);
+        popup.then(function(res){
+            doacTakenHandler(res);
+        });
+    }
+
+    function showContactHaematologyPopup(okHandler){
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-a/anticoagulant-identification/anticoagulant-contact-haematology-popup.html',
+            title: 'Alert',
+            cssClass: 'chi-wide-popup'
+        }
+
+        var popup = $ionicPopup.alert(popupTemplate);
+        popup.then(okHandler);
     }
 
 }

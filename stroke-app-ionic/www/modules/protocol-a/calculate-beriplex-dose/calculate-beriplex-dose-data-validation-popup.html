@@ -1,11 +1,11 @@
 <ion-list>
-    <ion-item ng-show="vm.externalScanHospitalName != null">
+    <ion-item ng-show="vm.externalScanHospitalName != null && vm.anticoagulantType != 'DOAC'">
         <div class="row">
             <div class="col-50 item-text-wrap">Reversal agent administered at external hospital?</div>
             <div class="col-50 text-right">{{vm.reversalAgentAdministeredAtExternalHospital}}</div>
         </div>
     </ion-item>
-    <ion-item ng-show="vm.externalScanHospitalName == null || (vm.reversalAgentAdministeredAtExternalHospital != null && !vm.reversalAgentAdministeredAtExternalHospital)">
+    <ion-item ng-show="(vm.externalScanHospitalName == null || (vm.reversalAgentAdministeredAtExternalHospital != null && !vm.reversalAgentAdministeredAtExternalHospital)) && vm.anticoagulantType != 'DOAC'">
         <div class="row">
             <div class="col-50 item-text-wrap">Do you plan to administer Beriplex without waiting for INR?</div>
             <div class="col-50 text-right">{{vm.administerBeriplexWithoutInr}}</div>

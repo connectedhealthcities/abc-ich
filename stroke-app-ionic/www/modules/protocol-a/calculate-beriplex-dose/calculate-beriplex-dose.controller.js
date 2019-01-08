@@ -134,19 +134,19 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
 
     // Show/hide handlers
     function showReversalAgentAdministeredAtExternalHospitalCard() {
-        return CalculateBeriplexDoseControllerService.showReversalAgentAdministeredAtExternalHospitalCard(vm.externalScanHospitalName);
+        return CalculateBeriplexDoseControllerService.showReversalAgentAdministeredAtExternalHospitalCard(vm.externalScanHospitalName, vm.anticoagulantType);
     }
 
     function showAdministerBeriplexWithoutInrCard() {
-        return CalculateBeriplexDoseControllerService.showAdministerBeriplexWithoutInrCard(vm.externalScanHospitalName, vm.reversalAgentAdministeredAtExternalHospital);
+        return CalculateBeriplexDoseControllerService.showAdministerBeriplexWithoutInrCard(vm.externalScanHospitalName, vm.reversalAgentAdministeredAtExternalHospital, vm.anticoagulantType);
     }
 
     function showInrCard() {
-        return CalculateBeriplexDoseControllerService.showInrCard(vm.administerBeriplexWithoutInr);
+        return CalculateBeriplexDoseControllerService.showInrCard(vm.administerBeriplexWithoutInr, vm.anticoagulantType);
     }
 
     function showEstimatedWeightCard() {
-        return CalculateBeriplexDoseControllerService.showEstimatedWeightCard(vm.administerBeriplexWithoutInr);
+        return CalculateBeriplexDoseControllerService.showEstimatedWeightCard(vm.administerBeriplexWithoutInr, vm.anticoagulantType);
     }
 
     function showBeriplexAdministrationOverrideCard() {
@@ -190,7 +190,10 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
     }
 
     function goNextState() {
-        if (vm.reversalAgentAdministeredAtExternalHospital) {
+        if(vm.anticoagulantType == "DOAC"){
+            $state.go(STATE_CONFIRM_BERIPLEX_DOSE)
+        }
+        else if (vm.reversalAgentAdministeredAtExternalHospital) {
             $state.go(STATE_REVERSAL_AGENT_DETAILS);
         }
         else {

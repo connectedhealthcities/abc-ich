@@ -39,7 +39,7 @@
       <ion-item class="card-header-green chi-info">
         <span>3. <b>Draw up Beriplex</b> and then administer at 8 ml/min</span>        
       </ion-item>
-      <ion-item class="card-header-green chi-info">
+      <ion-item ng-show="vm.showVitaminKCards()" class="card-header-green chi-info">
         <span>4. <b>Give Vitamin K</b> at 10 mg IV once Beriplex has commenced</span>        
       </ion-item>
     </div>
@@ -89,7 +89,7 @@
       </form>
     </div>
 
-    <div class="list card">
+    <div ng-show="vm.showVitaminKCards()" class="list card">
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>Vitamin K administered?
         </ion-item>

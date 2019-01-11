@@ -22,7 +22,7 @@ describe('AdministerBeriplexController', function() {
 			scopeMock = $rootScope.$new();
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			administerBeriplexControllerServiceMock = jasmine.createSpyObj('AdministerBeriplexControllerService spy', ['isNextButtonEnabled', 'showBeriplexDateTimeCard', 'showVitaminkDateTimeCard']);
+			administerBeriplexControllerServiceMock = jasmine.createSpyObj('AdministerBeriplexControllerService spy', ['isNextButtonEnabled', 'showBeriplexDateTimeCard', 'showVitaminkDateTimeCard', 'showVitaminKCards']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', [
                 'getUniqueId',
 				'getCalculatedBeriplexDose',
@@ -37,7 +37,8 @@ describe('AdministerBeriplexController', function() {
                 'setReversalAgentStartDateTime',
                 'setIsVitaminkAdministered',
                 'setVitaminkDateTime',
-                'setIsInfusionInstructionsViewed'
+                'setIsInfusionInstructionsViewed',
+                'getAnticoagulantType'
             ]);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getDateTimeFromDateAndTime']);
@@ -79,6 +80,7 @@ describe('AdministerBeriplexController', function() {
 		expect(patientCacheServiceMock.getIsVitaminkAdministered).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getVitaminkDateTime).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getIsInfusionInstructionsViewed).toHaveBeenCalled();
+		expect(patientCacheServiceMock.getAnticoagulantType).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getGcsScore).toHaveBeenCalled();
 		expect(patientCacheServiceMock.getGcsScore).toHaveBeenCalled();
         
@@ -89,8 +91,9 @@ describe('AdministerBeriplexController', function() {
  		expect(vm.isVitkAdministeredChanged).toBeDefined();
 		expect(vm.isNextButtonEnabled).toBeDefined();
 		expect(vm.showBeriplexDateTimeCard).toBeDefined();		
-		expect(vm.showVitaminkDateTimeCard).toBeDefined();		
-		expect(vm.onViewInfusionInstructions).toBeDefined();		
+		expect(vm.showVitaminkDateTimeCard).toBeDefined();	
+		expect(vm.showVitaminKCards).toBeDefined();	
+		expect(vm.onViewInfusionInstructions).toBeDefined();
 	});
 
 	it("should delegate isNextButtonEnabled to controller.service", function() {
@@ -124,6 +127,12 @@ describe('AdministerBeriplexController', function() {
 		vm.isVitkAdministered = "is-vitk-administered";
 		vm.showVitaminkDateTimeCard();
 		expect(administerBeriplexControllerServiceMock.showVitaminkDateTimeCard).toHaveBeenCalledWith("is-vitk-administered");				
+	});
+
+	it("should delegate showVitaminKCards to controller.service", function(){
+		vm.anticoagulantType = "anticoagulant-type";
+		vm.showVitaminKCards();
+		expect(administerBeriplexControllerServiceMock.showVitaminKCards).toHaveBeenCalledWith("anticoagulant-type");
 	});
 
 	it("should reset view model parameters appropriately when isBeriplexAdministeredChanged is called", function() {

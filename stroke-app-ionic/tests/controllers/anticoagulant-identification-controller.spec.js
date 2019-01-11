@@ -24,7 +24,7 @@ describe('AnticoagulantIdentificationController', function() {
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
 			anticoagulantIdentificationControllerServiceMock = jasmine.createSpyObj('AnticoagulantIdentificationControllerService spy', ['isNextButtonEnabled', 'isShowVitkList', 'isShowDoacList', 'getSliderConfig']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'getGcsScore', 'getAnticoagulantType', 'getAnticoagulantName', 'setAnticoagulantType', 'setAnticoagulantName']);
+			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'getGcsScore', 'getAnticoagulantType', 'getAnticoagulantName', 'setAnticoagulantType', 'setAnticoagulantName', 'setHasDoacBeenTaken', 'setReversalAgentType', 'setIsVitaminkAdministered']);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
 			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
 
@@ -153,7 +153,7 @@ describe('AnticoagulantIdentificationController', function() {
 		vm.anticoagulantName = "Dabigatran";
 		vm.onNext(); // call the click handler
 		scopeMock.$apply(); // Propagate promise resolutions.
- 		expect(ionicPopupMock.alert).toHaveBeenCalled();		
+ 		expect(ionicPopupMock.alert).toHaveBeenCalled();	
 		expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("ICH on DOAC");
 		expect(stateMock.go).toHaveBeenCalledWith(STATE_REVERSAL_AGENT_DETAILS_MOCK);	
 

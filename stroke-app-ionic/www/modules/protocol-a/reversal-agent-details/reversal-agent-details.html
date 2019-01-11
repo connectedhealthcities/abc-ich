@@ -18,7 +18,7 @@
     </div>
     <hr>
 
-    <div class="list card">
+    <div ng-hide="vm.hideReversalAgentCard()" class="list card">
       <ion-item class="item-icon-left  card-header card-header-green">
         <i class="icon ion-ionic"></i>Reversal agent administered</ion-item>
         <ion-radio ng-hide="vm.hideReversalAgentOptionIdarucizumab()" ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'Idarucizumab'">
@@ -30,6 +30,21 @@
         <ion-radio ng-hide="vm.hideReversalAgentOptionNone()" ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">
             <span class="input-blue">None</span>
         </ion-radio>
+    </div>
+
+    <div ng-hide="!vm.hideReversalAgentCard()" class="list card">
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Treatment target and threshold
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>Administer Idarcuzimab (Praxabind) <strong>2 x 2.5g/50ml</strong></span>
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>As <strong>two consecutive infusions</strong> over 5 to 10 minutes each.</span>
+      </ion-item>
+      <ion-item class="card-header-green chi-info">
+        <span>Or as a <strong>bolus injection</strong></span>
+      </ion-item>
     </div>
 
     <div class="card list" ng-show="vm.showIsReversalTimeKnownCard()">

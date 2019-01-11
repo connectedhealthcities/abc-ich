@@ -12,7 +12,8 @@ function ReversalAgentDetailsControllerService() {
         showReversalTimeCard: showReversalTimeCard,
         hideReversalAgentOptionNone: hideReversalAgentOptionNone,
         hideReversalAgentOptionIdarucizumab: hideReversalAgentOptionIdarucizumab,
-        hideReversalAgentOptionPCC: hideReversalAgentOptionPCC
+        hideReversalAgentOptionPCC: hideReversalAgentOptionPCC,
+        hideReversalAgentCard: hideReversalAgentCard
     };
 
     return service;
@@ -96,5 +97,9 @@ function ReversalAgentDetailsControllerService() {
         }
 
         return isShow;
+    }
+    
+    function hideReversalAgentCard(hasDoacBeenTaken){
+        return hasDoacBeenTaken;
     }
 }

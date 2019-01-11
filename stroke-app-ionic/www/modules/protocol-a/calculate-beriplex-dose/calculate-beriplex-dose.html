@@ -73,7 +73,7 @@
                 <i class="icon ion-alert-circled"></i>INR value is outside the allowed range: 0.5 - 10.0
             </div>
         </div>
-        <div class="card list" ng-show="vm.administerBeriplexWithoutInr != null && !vm.administerBeriplexWithoutInr">
+        <div class="card list" ng-show="vm.administerBeriplexWithoutInr != null && !vm.administerBeriplexWithoutInr && vm.showInrCard()">
             <div class="item item-icon-left card-header card-header-green">
                 <i class="icon ion-ionic"></i>INR type
             </div>

@@ -21,7 +21,7 @@ describe('ReversalAgentDetailsController', function() {
  			scopeMock = $rootScope.$new();
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			reversalAgentDetailsControllerServiceMock = jasmine.createSpyObj('ReversalAgentDetailsControllerService spy', ['isNextButtonEnabled', 'showIsReversalTimeKnownCard', 'showReversalTimeCard', 'hideReversalAgentOptionNone']);
+			reversalAgentDetailsControllerServiceMock = jasmine.createSpyObj('ReversalAgentDetailsControllerService spy', ['isNextButtonEnabled', 'showIsReversalTimeKnownCard', 'showReversalTimeCard', 'hideReversalAgentOptionNone', 'hideReversalAgentCard']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', [
                 'getUniqueId',
                 'getReversalAgentAdministeredAtExternalHospital',
@@ -32,6 +32,8 @@ describe('ReversalAgentDetailsController', function() {
                 'setReversalAgentType',
                 'setReversalAgentAdministeredTimeKnown',
                 'setReversalAgentStartDateTime',
+                'getAnticoagulantName',
+                'getHasDoacBeenTaken'
             ]);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getDateTimeFromDateAndTime']);
@@ -74,6 +76,7 @@ describe('ReversalAgentDetailsController', function() {
 		expect(vm.showIsReversalTimeKnownCard).toBeDefined();
 		expect(vm.showReversalTimeCard).toBeDefined();
 		expect(vm.hideReversalAgentOptionNone).toBeDefined();
+		expect(vm.hideReversalAgentCard).toBeDefined();
 	});
 
 	it("should delegate isNextButtonEnabled to controller.service", function() {
@@ -114,6 +117,12 @@ describe('ReversalAgentDetailsController', function() {
 		vm.reversalAgentAdministeredAtExternalHospital = "reversal-agent-administered-at-external-hospital";
 		vm.hideReversalAgentOptionNone();
 		expect(reversalAgentDetailsControllerServiceMock.hideReversalAgentOptionNone).toHaveBeenCalledWith("reversal-agent-administered-at-external-hospital");				
+	});
+
+	it("should delegate hideReversalAgentCard to controller.service", function(){
+		vm.hasDoacBeenTaken = "has-doac-been-taken";
+		vm.hideReversalAgentCard();
+		expect(reversalAgentDetailsControllerServiceMock.hideReversalAgentCard).toHaveBeenCalledWith("has-doac-been-taken");
 	});
 
     it("should reset view model parameters appropriately when onReversalAgentChanged is called", function() {

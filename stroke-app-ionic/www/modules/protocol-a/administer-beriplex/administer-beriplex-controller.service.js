@@ -9,7 +9,8 @@ function AdministerBeriplexControllerService() {
     var service = {
         isNextButtonEnabled: isNextButtonEnabled,
         showBeriplexDateTimeCard: showBeriplexDateTimeCard,
-        showVitaminkDateTimeCard: showVitaminkDateTimeCard
+        showVitaminkDateTimeCard: showVitaminkDateTimeCard,
+        showVitaminKCards: showVitaminKCards
     };
 
     return service;
@@ -68,6 +69,16 @@ function AdministerBeriplexControllerService() {
         if (isVitkAdministered) {
             isShow = true;
         }
+        return isShow;
+    }
+
+    function showVitaminKCards(anticoagulantType){
+        var isShow = true;
+
+        if(anticoagulantType === "DOAC"){
+            isShow = false;
+        }
+
         return isShow;
     }
 }

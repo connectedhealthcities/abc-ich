@@ -294,7 +294,35 @@ Template
 			  - "Send urgent PT, aPPT.." alert popup
 			  - "Has DOAC been taken.." confirmation popup.
 	</Scenario>    
-	<Scenario> #4: "No DOAC has been taken.." selected.
+	<Scenario> #4: "Dabigatran" selected 
+		Given: the user has entered valid data on the "Anticoagulant Identification" view
+		And: the selected anticoagulant is a DOAC
+		When: they select the "Next" button
+		Then: they should see popups in the order listed: 
+		      - "Data confirmation" popup
+		      - "Send urgent PT, aPPT, trhombin time"
+		      - "Has the patient taken the DOAC within the last 24 hours?"
+	</Scenario>
+	<Scenario> #5: "No DOAC has been taken.." selected with "Dabigatran".
+		Given: the user has selected "Dabigatran" on the DOAC selection control.
+		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
+		When: the user selects the "No" button.
+		Then: A "Contact Haematology" popup appears.
+		And: the "Reversal Agent details" view is displayed with "Idarcuzimab (Praxabind)" and "None" displayed.
+		And: the ABC tabs are visible
+		And: the selected tab is A
+	</Scenario>
+	<Scenario> #6: "DOAC has been taken.." selected with "Dabigatran".
+		Given: the user has selected "Dabigatran" on the DOAC selection control.
+		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
+		When: the user selects the "Yes" button.
+		Then: A screen displaying a "Administer idarcuzimab.." message should appear.
+		And: the dosage should be 2x 2.5/50ml as two consecutive infusions over 5 to 10 minutes each or as a bolus injection.
+		And: the reversal time card should also be displayed with a date/time entry box.
+		And: the ABC tabs are visible
+		And: the selected tab is A
+	</Scenario>
+	<Scenario> #7: "No DOAC has been taken.." selected with "Apixaban", "Rivoroxaban", or "Edoxaban".
 		Given: the user has selected either "Apixaban", "Rivoroxaban", or "Edoxaban" on the DOAC selection control.
 		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
 		When: the user selects the "No" button.
@@ -303,7 +331,7 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>
-	<Scenario> #5: "DOAC has been taken.." selected.
+	<Scenario> #8: "DOAC has been taken.." selected with "Apixaban", "Rivoroxaban", or "Edoxaban".
 		Given: the user has selected either "Apixaban", "Rivoroxaban", or "Edoxaban" on the DOAC selection control.
 		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
 		When: the user selects the "Yes" button.
@@ -311,18 +339,7 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>
-	<Scenario> #6: "DOAC" selected that is not "Apixaban", "Rivoroxaban", or "Edoxaban" 
-		Given: the user has entered valid data on the "Anticoagulant Identification" view
-		And: the selected anticoagulant is a DOAC
-		When: they select the "Next" button
-		Then: they should see popups in the order listed: 
-		      - "Data confirmation" popup
-			  - "Contact Haematology" popup
-		And: the "Reversal Agent details" view is displayed
-		And: the ABC tabs are visible
-		And: the selected tab is A
-	</Scenario>
-	<Scenario> #7: "None" selected and (GCS >= 9) 
+	<Scenario> #9: "None" selected and (GCS >= 9) 
 		Given: the user has entered valid data on the "Anticoagulant Identification" view
 		And: the selected anticoagulant is None
 		And: the GCS value is >= 9
@@ -332,7 +349,7 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>
-	<Scenario> #8: "None" selected and (GCS < 9) 
+	<Scenario> #10: "None" selected and (GCS < 9) 
 		Given: the user has entered valid data on the "Anticoagulant Identification" view
 		And: the selected anticoagulant is None
 		And: the GCS value is < 9
@@ -491,7 +508,21 @@ Template
 		And: the "high water mark view" for tab C view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is C
-	</Scenario>    
+	</Scenario>   
+	<Scenario> #3: The user has selected a "DOAC" in the anticoagulant selection view.
+		Given: the user has selected a "DOAC" in the anticoagulant selection view.
+		When: they select navigate to the "Adminiser Beriplex" view.
+		Then: vitamin k related data collection cards should be hidden.
+		And: the ABC tabs are visible
+		And: the selected tab is C
+	</Scenario>
+	<Scenario> #4: The user has not selected a "DOAC" in the anticoagulant selection view.
+		Given: the user has selected a "DOAC" in the anticoagulant selection view.
+		When: they select navigate to the "Adminiser Beriplex" view.
+		Then: vitamin k related data collection cards should be visible.
+		And: the ABC tabs are visible
+		And: the selected tab is C
+	</Scenario>
 </Story>
 
 <Story> BP Management - view navigation

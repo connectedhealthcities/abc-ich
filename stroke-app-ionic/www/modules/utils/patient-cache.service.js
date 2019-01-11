@@ -58,6 +58,7 @@ function PatientCacheService(LocalStorageService) {
     // reversal-agent-details
     var reversal_agent_type_key = "patient-reversal-agent-type";
     var reversal_agent_start_date_time_key = "patient-reversal-agent-start-date-time";
+    var has_doac_been_taken_key = "has-doac-been-taken";
 
     //
     // protocol B
@@ -215,6 +216,9 @@ function PatientCacheService(LocalStorageService) {
 
         getReversalAgentStartDateTime: getReversalAgentStartDateTime,
         setReversalAgentStartDateTime: setReversalAgentStartDateTime,
+
+        getHasDoacBeenTaken: getHasDoacBeenTaken,
+        setHasDoacBeenTaken: setHasDoacBeenTaken,
 
         //
         // protocol B
@@ -577,6 +581,14 @@ function PatientCacheService(LocalStorageService) {
 
     function setReversalAgentStartDateTime(reversalAgentStartDateTime) {
         LocalStorageService.setItem(reversal_agent_start_date_time_key, reversalAgentStartDateTime);
+    }
+
+    function getHasDoacBeenTaken(){
+        return LocalStorageService.getItem(has_doac_been_taken_key);
+    }
+
+    function setHasDoacBeenTaken(has_doac_been_taken){
+        LocalStorageService.setItem(has_doac_been_taken_key, has_doac_been_taken);
     }
 
     //

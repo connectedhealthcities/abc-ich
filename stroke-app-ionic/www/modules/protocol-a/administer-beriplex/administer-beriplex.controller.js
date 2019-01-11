@@ -41,6 +41,7 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         vm.vitkDate = vitkDateTime;
         vm.vitkTime = vitkDateTime;
         vm.isInfusionInstructionsViewed = PatientCacheService.getIsInfusionInstructionsViewed();
+        vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
 
         // Setup click handlers
         vm.onNext = onNext;
@@ -57,6 +58,7 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         // Setup show/hide handlers
         vm.showBeriplexDateTimeCard = showBeriplexDateTimeCard;
         vm.showVitaminkDateTimeCard = showVitaminkDateTimeCard;
+        vm.showVitaminKCards = showVitaminKCards;
 
         // Setup 'View Infusion Instructions' handler 
         vm.onViewInfusionInstructions = onViewInfusionInstructions;        
@@ -104,6 +106,10 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
 
     function showVitaminkDateTimeCard() {
        return AdministerBeriplexControllerService.showVitaminkDateTimeCard(vm.isVitkAdministered);       
+    }
+
+    function showVitaminKCards(){
+        return AdministerBeriplexControllerService.showVitaminKCards(vm.anticoagulantType);
     }
 
     // 'View Infusion Instructions' handler 

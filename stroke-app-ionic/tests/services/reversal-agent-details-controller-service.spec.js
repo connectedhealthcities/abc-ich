@@ -135,4 +135,18 @@ describe("ReversalAgentDetailsControllerService", function() {
 		});
 	});
 
+	describe("hideReversalAgentCard", function(){
+		
+		it("should return true if hasDoacBeenTaken is true", function(){
+			var isHide = service.hideReversalAgentCard(true);
+			expect(isHide).toBe(true);
+		});
+
+		it("should return false if hasDoacBeenTaken is false", function(){
+			var isHide = service.hideReversalAgentCard(false);
+			expect(isHide).toBe(false);
+		});
+
+	});
+
 });

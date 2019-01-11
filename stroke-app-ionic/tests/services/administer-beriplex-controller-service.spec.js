@@ -110,4 +110,18 @@ describe("AdministerBeriplexControllerService", function() {
 		});
 	});
 
+	describe("showVitaminKCards", function(){
+
+		it("should return false if anticoagulantType is 'DOAC'", function(){
+			var isShow = service.showVitaminKCards("DOAC");
+			expect(isShow).toBe(false);
+		});
+
+		it("should return true if anticoagulantType is not 'DOAC'", function(){
+			var isShow = service.showVitaminKCards("Anything but DOAC");
+			expect(isShow).toBe(true);
+		});
+
+	});
+
 });

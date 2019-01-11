@@ -27,6 +27,7 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
         vm.reversalDate = reversalDateTime;
         vm.reversalTime = reversalDateTime;
         vm.anticoagulantName = PatientCacheService.getAnticoagulantName();
+        vm.hasDoacBeenTaken = PatientCacheService.getHasDoacBeenTaken();
 
         // Setup click handlers
         vm.onNext = onNext;
@@ -45,6 +46,7 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
         vm.hideReversalAgentOptionNone = hideReversalAgentOptionNone;
         vm.hideReversalAgentOptionIdarucizumab = hideReversalAgentOptionIdarucizumab;
         vm.hideReversalAgentOptionPCC = hideReversalAgentOptionPCC;
+        vm.hideReversalAgentCard = hideReversalAgentCard;
     }
 
     init();
@@ -104,14 +106,17 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
         return ReversalAgentDetailsControllerService.hideReversalAgentOptionPCC(vm.anticoagulantName);
     }
 
+    function hideReversalAgentCard(){
+        return ReversalAgentDetailsControllerService.hideReversalAgentCard(vm.hasDoacBeenTaken);
+    }
+
     // Private functions
     function handleDataValid() {
         saveData();
 
-        if (vm.gcsScore < GCS_THRESHOLD) {
+        if (vm.gcsScore < GCS_THRESHOLD || vm.hasDoacBeenTaken) {
             StateCacheService.goLatestStateTabC();
-        }
-        else {
+        } else {
             $state.go(STATE_BP_MANAGEMENT);
         }
      }

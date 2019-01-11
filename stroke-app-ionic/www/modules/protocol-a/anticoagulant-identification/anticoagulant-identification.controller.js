@@ -77,6 +77,7 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
     function handleDataValid() {
         saveData();
 
+        PatientCacheService.setReversalAgentType(null);
         if (vm.anticoagulantType === "None") {
             goNextStateWhenNone();
         }
@@ -87,8 +88,9 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
             goNextStateWhenVitkOrUnknown();
         }
         else if (vm.anticoagulantType === "DOAC") {
+            PatientCacheService.setIsVitaminkAdministered(false);
             if(vm.anticoagulantName === "Dabigatran"){
-                showAnticoagulantIsDoacPopup(goNextStateWhenDoac);
+                showDoacDabigatranPopup();
             } else {
                 showDoacAERPopup();
             }
@@ -102,10 +104,20 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
 
     function doacTakenHandler(response){
         if(response){
-            goNextStateWhenVitkOrUnknown();
+            PatientCacheService.setHasDoacBeenTaken(true);
+            if(vm.anticoagulantName==='Dabigatran'){
+                PatientCacheService.setReversalAgentType("Idarucizumab");
+                goNextStateWhenDoac();
+            }else{
+                goNextStateWhenVitkOrUnknown();
+            }
         } else { 
-            PatientCacheService.setReversalAgentType("PCC");
-            showContactHaematologyPopup(goNextStateWhenDoac);
+            PatientCacheService.setHasDoacBeenTaken(false);
+            if(vm.anticoagulantName==='Dabigatran'){
+                showContactHaematologyPopup(goNextStateWhenDoac);
+            } else {
+                showContactHaematologyPopup(goNextStateWhenDoac);
+            }
         }
     }
 
@@ -155,15 +167,14 @@ function AnticoagulantIdentificationController($scope, $state, $ionicPopup, Anti
         popup.then(okHandler);
     }
 
-    function showAnticoagulantIsDoacPopup(okHandler) {
+    function showDoacDabigatranPopup() {
         var popupTemplate = {
-            templateUrl: 'modules/protocol-a/anticoagulant-identification/anticoagulant-is-doac-popup.html',
+            templateUrl: 'modules/protocol-a/anticoagulant-identification/anticoagulant-is-doac-dabigatran-popup.html',
             title: 'ICH on DOAC',
             cssClass: 'chi-wide-popup'
         };
         var popup = $ionicPopup.alert(popupTemplate);
-
-        popup.then(okHandler);
+        popup.then(showHasDoacBeenTakenPopup);
     }
 
     function showDoacExamplesPopup() {

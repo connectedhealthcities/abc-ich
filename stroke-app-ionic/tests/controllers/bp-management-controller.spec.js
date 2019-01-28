@@ -22,7 +22,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
             scopeMock = $rootScope.$new();
             stateMock = jasmine.createSpyObj("$state spy", ["go"]);
             ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
-            bpManagementControllerServiceMock = jasmine.createSpyObj('bpManagementControllerServiceMock spy', ['isNextButtonEnabled', 'isAddEntryButtonEnabled', 'isSbpOutOfRange', 'isGtnRateOutOfRange', 'isLabetalolOutOfRange', 'isHeartRateOutOfRange', 'getEntry', 'getOnsetTimeText', 'getTreatmentTargetAndThreshold', 'getTargetAchievedText']);
+            bpManagementControllerServiceMock = jasmine.createSpyObj('bpManagementControllerServiceMock spy', ['isNextButtonEnabled', 'isAddEntryButtonEnabled', 'isSbpOutOfRange', 'isDbpOutOfRange', 'isGtnRateOutOfRange', 'isLabetalolOutOfRange', 'isHeartRateOutOfRange', 'getEntry', 'getOnsetTimeText', 'getTreatmentTargetAndThreshold', 'getTargetAchievedText']);
             patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ["getUniqueId", "getBpMeasurementEntries", "getBpTreatmentThreshold", "getOnsetDateTime", "setBpTreatmentThreshold", "setBpTarget", "getBpTarget", "getGcsScore", "addBpMeasurementEntry", "setBpTargetReachedDateTime"]);
             stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
             demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
@@ -65,6 +65,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         expect(demoModeCacheServiceMock.getIsDemoMode).toHaveBeenCalled();
 
         expect(vm.showSbpOutOfRangeMessage).toBeDefined();
+        expect(vm.showDbpOutOfRangeMessage).toBeDefined();
         expect(vm.showGtnRateOutOfRangeMessage).toBeDefined();
         expect(vm.showLabetalolOutOfRangeMessage).toBeDefined();
         expect(vm.showHeartRateOutOfRangeMessage).toBeDefined();
@@ -89,6 +90,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         expect(vm.entryDate).toBe(null);
         expect(vm.entryTime).toBe(null);
         expect(vm.entrySbp).toBe(null);
+        expect(vm.entryDbp).toBe(null);
         expect(vm.entryGtn).toBe(null);
         expect(vm.entryLabetalol).toBe(null);
         expect(vm.entryHeartRate).toBe(null);
@@ -106,12 +108,13 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         vm.entryDate = "entryDate";
         vm.entryTime = "entryTime";
         vm.entrySbp = "entrySbp";
+        vm.entryDbp = "entryDbp";
         vm.entryGtn = "entryGtn";
         vm.entryLabetalol = "entryLabetalol";
         vm.entryHeartRate = "entryHeartRate";
         vm.isAddEntryButtonEnabled();
 
-        expect(bpManagementControllerServiceMock.isAddEntryButtonEnabled).toHaveBeenCalledWith("entryDate", "entryTime", "entrySbp", "entryGtn", "entryLabetalol", "entryHeartRate");
+        expect(bpManagementControllerServiceMock.isAddEntryButtonEnabled).toHaveBeenCalledWith("entryDate", "entryTime", "entrySbp", "entryDbp", "entryGtn", "entryLabetalol", "entryHeartRate");
     });
 
     it("should delegate showSbpOutOfRangeMessage to controller.service.isSbpOutOfRange", function () {
@@ -119,6 +122,13 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         vm.entrySbp = "entrySbp";
         vm.showSbpOutOfRangeMessage();
         expect(bpManagementControllerServiceMock.isSbpOutOfRange).toHaveBeenCalledWith("entrySbp");
+    });
+
+    it("should delegate showDbpOutOfRangeMessage to controller.service.isDbpOutOfRange", function(){
+
+        vm.entryDbp = "entryDbp";
+        vm.showDbpOutOfRangeMessage();
+        expect(bpManagementControllerServiceMock.isDbpOutOfRange).toHaveBeenCalledWith("entryDbp");
     });
 
     it("should delegate showGtnRateOutOfRangeMessage to controller.service.isGtnRateOutOfRange", function () {
@@ -215,6 +225,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         dateTimeServiceMock.getDateTimeFromDateAndTime.and.returnValue("entryDateTime");
 
         vm.entrySbp = "entrySbp";
+        vm.entryDbp = "entryDbp";
         vm.entryGtn = "entryGtn";
         vm.entryLabetalol = "entryLabetalol";
         vm.entryHeartRate = "entryHeartRate";
@@ -222,7 +233,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         vm.addEntry();
         scopeMock.$apply(); // Propagate promise resolution for data validation popup.
 
-        expect(bpManagementControllerServiceMock.getEntry).toHaveBeenCalledWith("entryDateTime", "entrySbp", "entryGtn", "entryLabetalol", "entryHeartRate");        
+        expect(bpManagementControllerServiceMock.getEntry).toHaveBeenCalledWith("entryDateTime", "entrySbp", "entryDbp", "entryGtn", "entryLabetalol", "entryHeartRate");        
         expect(patientCacheServiceMock.addBpMeasurementEntry).toHaveBeenCalled();
     });
 
@@ -409,7 +420,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
             scopeMock = $rootScope.$new();
             stateMock = jasmine.createSpyObj("$state spy", ["go"]);
             ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
-            bpManagementControllerServiceMock = jasmine.createSpyObj('bpManagementControllerServiceMock spy', ['isNextButtonEnabled', 'isAddEntryButtonEnabled', 'isSbpOutOfRange', 'isGtnRateOutOfRange', 'isLabetalolOutOfRange', 'isHeartRateOutOfRange', 'getEntry', 'getOnsetTimeText', 'getTreatmentTargetAndThreshold', 'getTargetAchievedText']);
+            bpManagementControllerServiceMock = jasmine.createSpyObj('bpManagementControllerServiceMock spy', ['isNextButtonEnabled', 'isAddEntryButtonEnabled', 'isSbpOutOfRange', 'isDbpOutOfRange', 'isGtnRateOutOfRange', 'isLabetalolOutOfRange', 'isHeartRateOutOfRange', 'getEntry', 'getOnsetTimeText', 'getTreatmentTargetAndThreshold', 'getTargetAchievedText']);
             patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ["getUniqueId", "getBpMeasurementEntries", "getBpTreatmentThreshold", "getOnsetDateTime", "setBpTreatmentThreshold", "setBpTarget", "getBpTarget", "getGcsScore", "addBpMeasurementEntry", "setBpTargetReachedDateTime"]);
             stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
             demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);

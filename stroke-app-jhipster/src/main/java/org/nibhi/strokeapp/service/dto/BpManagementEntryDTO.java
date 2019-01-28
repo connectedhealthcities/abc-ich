@@ -18,6 +18,8 @@ public class BpManagementEntryDTO implements Serializable {
 
     private Integer systolicBp;
 
+    private Integer diastolicBp;
+
     private Float gtnRate;
 
     private Integer labetalolDose;
@@ -48,6 +50,15 @@ public class BpManagementEntryDTO implements Serializable {
     public void setSystolicBp(Integer systolicBp) {
         this.systolicBp = systolicBp;
     }
+
+    public Integer getDiastolicBp() {
+        return diastolicBp;
+    }
+
+    public void setDiastolicBp(Integer diastolicBp) {
+        this.diastolicBp = diastolicBp;
+    }
+
     public Float getGtnRate() {
         return gtnRate;
     }
@@ -105,6 +116,7 @@ public class BpManagementEntryDTO implements Serializable {
             "id=" + id +
             ", dateTime='" + dateTime + "'" +
             ", systolicBp='" + systolicBp + "'" +
+            ", diastolicBp='" + diastolicBp + "'" + 
             ", gtnRate='" + gtnRate + "'" +
             ", labetalolDose='" + labetalolDose + "'" +
             ", heartRate='" + heartRate + "'" +

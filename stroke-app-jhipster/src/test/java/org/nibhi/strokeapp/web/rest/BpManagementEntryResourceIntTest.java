@@ -47,6 +47,8 @@ public class BpManagementEntryResourceIntTest {
 
     private static final Integer DEFAULT_SYSTOLIC_BP = 1;
 
+    private static final Integer DEFAULT_DIASTOLIC_BP = 1;
+
     private static final Float DEFAULT_GTN_RATE = 1F;
 
     private static final Integer DEFAULT_LABETALOL_DOSE = 1;
@@ -95,6 +97,7 @@ public class BpManagementEntryResourceIntTest {
         BpManagementEntry bpManagementEntry = new BpManagementEntry()
                 .dateTime(DEFAULT_DATE_TIME)
                 .systolicBp(DEFAULT_SYSTOLIC_BP)
+                .diastolicBp(DEFAULT_DIASTOLIC_BP)
                 .gtnRate(DEFAULT_GTN_RATE)
                 .labetalolDose(DEFAULT_LABETALOL_DOSE)
                 .heartRate(DEFAULT_HEART_RATE);
@@ -123,6 +126,7 @@ public class BpManagementEntryResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(bpManagementEntry.getId().intValue())))
                 .andExpect(jsonPath("$.[*].dateTime").value(hasItem(DEFAULT_DATE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].systolicBp").value(hasItem(DEFAULT_SYSTOLIC_BP)))
+                .andExpect(jsonPath("$.[*].diastolicBp").value(hasItem(DEFAULT_DIASTOLIC_BP)))
                 .andExpect(jsonPath("$.[*].gtnRate").value(hasItem(DEFAULT_GTN_RATE.doubleValue())))
                 .andExpect(jsonPath("$.[*].labetalolDose").value(hasItem(DEFAULT_LABETALOL_DOSE)))
                 .andExpect(jsonPath("$.[*].heartRate").value(hasItem(DEFAULT_HEART_RATE)));

@@ -34,6 +34,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
 
         // Set up show/hide Range validation messages
         vm.showSbpOutOfRangeMessage = showSbpOutOfRangeMessage;
+        vm.showDbpOutOfRangeMessage = showDbpOutOfRangeMessage;
         vm.showGtnRateOutOfRangeMessage = showGtnRateOutOfRangeMessage;
         vm.showLabetalolOutOfRangeMessage = showLabetalolOutOfRangeMessage;
         vm.showHeartRateOutOfRangeMessage = showHeartRateOutOfRangeMessage;
@@ -62,12 +63,16 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
     }
 
     function isAddEntryButtonEnabled() {
-        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
+        return BpManagementControllerService.isAddEntryButtonEnabled(vm.entryDate, vm.entryTime, vm.entrySbp, vm.entryDbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
     }
 
     // Show/hide Range validation messages
     function showSbpOutOfRangeMessage() {
         return BpManagementControllerService.isSbpOutOfRange(vm.entrySbp);
+    }
+
+    function showDbpOutOfRangeMessage() {
+        return BpManagementControllerService.isDbpOutOfRange(vm.entryDbp);
     }
 
     function showGtnRateOutOfRangeMessage() {
@@ -143,6 +148,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         vm.entryDate = null;
         vm.entryTime = null;
         vm.entrySbp = null;
+        vm.entryDbp = null;
         vm.entryGtn = null;
         vm.entryLabetalol = null;
         vm.entryHeartRate = null;
@@ -150,7 +156,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
 
     function handleDataValid() {
         var entryDateTime = DateTimeService.getDateTimeFromDateAndTime(vm.entryDate, vm.entryTime);
-        var entry = BpManagementControllerService.getEntry(entryDateTime, vm.entrySbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
+        var entry = BpManagementControllerService.getEntry(entryDateTime, vm.entrySbp, vm.entryDbp, vm.entryGtn, vm.entryLabetalol, vm.entryHeartRate);
         PatientCacheService.addBpMeasurementEntry(entry);
         vm.entries = PatientCacheService.getBpMeasurementEntries();
  

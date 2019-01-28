@@ -17,11 +17,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = 1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(true);
         });
@@ -31,11 +32,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = 1;
             var entryHeartRate = null;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(true);
         });
@@ -45,11 +47,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = null;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(true);
         });
@@ -59,11 +62,27 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = null;
             var entryLabetalol = 1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
+
+            expect(isEnabled).toBe(true);
+        });
+
+        it("should return true if entryDbp is null and values are within range", function(){
+
+            var entryDate = "not-null";
+            var entryTime = "not-null";
+            var entrySbp = 11;
+            var entryDbp = null;
+            var entryGtn = 1;
+            var entryLabetalol = 1;
+            var entryHeartRate = 11;
+
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(true);
         });
@@ -73,11 +92,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = 1;
             var entryHeartRate = 9;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -87,11 +107,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = 1;
             var entryHeartRate = 301;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -101,11 +122,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = -1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -115,11 +137,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 1;
             var entryLabetalol = 101;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -129,11 +152,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = -1;
             var entryLabetalol = 1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -143,11 +167,12 @@
             var entryDate = "not-null";
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 21;
             var entryLabetalol = 1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -157,11 +182,12 @@
             var entryDate = null;
             var entryTime = "not-null";
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 21;
             var entryLabetalol = 1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -171,11 +197,26 @@
             var entryDate = "not-null";
             var entryTime = null;
             var entrySbp = 11;
+            var entryDbp = 11;
             var entryGtn = 21;
             var entryLabetalol = 1;
             var entryHeartRate = 11;
 
-            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
+
+            expect(isEnabled).toBe(false);
+        });
+
+        it("should return false if entryDbp is out of range", function(){
+            var entryDate = "not-null";
+            var entryTime = "not-null";
+            var entrySbp = 11;
+            var entryDbp = 500;
+            var entryGtn = 1;
+            var entryLabetalol = 1;
+            var entryHeartRate = 11;
+
+            var isEnabled = service.isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(isEnabled).toBe(false);
         });
@@ -204,6 +245,38 @@
 
         it("should return false if SBP is within range 150", function () {
             var isOutOfRange = service.isSbpOutOfRange(150);
+            expect(isOutOfRange).toBe(false);
+        });
+    });
+
+    describe("isDbpOutOfRange", function () {
+        it("should return false if DBP is null", function(){
+            var isOutOfRange = service.isDbpOutOfRange(null);
+            expect(isOutOfRange).toBe(false);
+        });
+
+        it("should return true if DBP is out of range < 10", function () {
+            var isOutOfRange = service.isDbpOutOfRange(9);
+            expect(isOutOfRange).toBe(true);
+        });
+
+        it("should return true if DBP is out of range > 300", function () {
+            var isOutOfRange = service.isDbpOutOfRange(301);
+            expect(isOutOfRange).toBe(true);
+        });
+
+        it("should return false if DBP is within range 10", function () {
+            var isOutOfRange = service.isDbpOutOfRange(10);
+            expect(isOutOfRange).toBe(false);
+        });
+
+        it("should return false if DBP is within range 300", function () {
+            var isOutOfRange = service.isDbpOutOfRange(300);
+            expect(isOutOfRange).toBe(false);
+        });
+
+        it("should return false if DBP is within range 150", function () {
+            var isOutOfRange = service.isDbpOutOfRange(150);
             expect(isOutOfRange).toBe(false);
         });
     });
@@ -293,14 +366,16 @@
         it("should return entry", function () {
             var entryDateTime = "dateTime";
             var entrySbp = "systolicBp";
+            var entryDbp = "diastolicBp";
             var entryGtn = "gtnRate";
             var entryLabetalol = "labetalolDose";
             var entryHeartRate = "heartRate";
 
-            var entry = service.getEntry(entryDateTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate);
+            var entry = service.getEntry(entryDateTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate);
 
             expect(entry.dateTime).toBe("dateTime");
             expect(entry.systolicBp).toBe("systolicBp");
+            expect(entry.diastolicBp).toBe("diastolicBp");
             expect(entry.gtnRate).toBe("gtnRate");
             expect(entry.labetalolDose).toBe("labetalolDose");
             expect(entry.heartRate).toBe("heartRate");

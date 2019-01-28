@@ -305,6 +305,58 @@ public class TestDataServiceImpl implements TestDataService{
 		return sbp;
 	}
 
+	private Integer getDbp(int index) {
+		Integer dbp = null;
+		switch(index) {
+		
+		case 0:
+			dbp = 210;
+			break;			
+		case 1:
+			dbp = 205;
+			break;			
+		case 2:
+			dbp = 200;
+			break;			
+		case 3:
+			dbp = 195;
+			break;			
+		case 4:
+			dbp = 190;
+			break;			
+		case 5:
+			dbp = 185;
+			break;			
+		case 6:
+			dbp = 180;
+			break;			
+		case 7:
+			dbp = 175;
+			break;			
+		case 8:
+			dbp = 170;
+			break;			
+		case 9:
+			dbp = 165;
+			break;			
+		case 10:
+			dbp = 160;
+			break;			
+		case 11:
+			dbp = 155;
+			break;			
+		case 12:
+			dbp = 150;
+			break;			
+		default:
+			dbp = 150;
+			break;
+		
+		}
+		
+		return dbp;
+	}
+
 	private Float getGtnRate(int index) {
 		
 		Float gtnRate = null;
@@ -382,6 +434,7 @@ public class TestDataServiceImpl implements TestDataService{
       	bpManagementEntry.setPatient(patient);
       	bpManagementEntry.setDateTime(getBpDateTime(vitaminkDateTime, index));
       	bpManagementEntry.setSystolicBp(getSbp(index));
+      	bpManagementEntry.setDiastolicBp(getDbp(index));
       	bpManagementEntry.setGtnRate(getGtnRate(index));
       	bpManagementEntry.setLabetalolDose(getLabetalolDose(index));
       	bpManagementEntry.setHeartRate(80);

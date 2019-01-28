@@ -86,14 +86,16 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
     var thTag = "<th style='border: 1px solid black; border-collapse: collapse;'>";
     var tdTag = "<td style='border: 1px solid black; border-collapse: collapse;'>";
 
-    var html = tableTag + '<tr align="center">' + thTag + 'Date/Time</th>' + thTag + 'SBP (mmHg)</th>' + thTag + 'IV GTN rate (ml/h)</th>' + thTag + 'Labetalol dose (mg)</th>' + thTag + 'Pulse (BPM)</th></tr>';
+    var html = tableTag + '<tr align="center">' + thTag + 'Date/Time</th>' + thTag + 'SBP (mmHg)</th>' + thTag + 'DBP (mmHg)</th>' + thTag + 'IV GTN rate (ml/h)</th>' + thTag + 'Labetalol dose (mg)</th>' + thTag + 'Pulse (BPM)</th></tr>';
 
     var bloodPresureEntries = bpDisplayLabelsAndValues.value;
 
     for (var i = 0; i < bloodPresureEntries.length; i++) {
       var bloodPressureEntry = bloodPresureEntries[i];
 
-      var row = '<tr align="center">' + tdTag + DateTimeService.formatDateTimeForPrint(bloodPressureEntry.dateTime) + '</td>' + tdTag + bloodPressureEntry.systolicBp + '</td>';
+      var row = '<tr align="center">' + tdTag + DateTimeService.formatDateTimeForPrint(bloodPressureEntry.dateTime) + '</td>' 
+      + tdTag + bloodPressureEntry.systolicBp + '</td>'
+      + tdTag + bloodPressureEntry.diastolicBp + '</td>';
 
       var gtnRateStr = bloodPressureEntry.gtnRate !== null ? "" + bloodPressureEntry.gtnRate : "";
       row += tdTag + gtnRateStr + '</td>';

@@ -28,6 +28,10 @@
             <column name="systolic_bp" type="integer">
                 <constraints nullable="true" />
             </column>
+
+            <column name="diastolic_bp" type="integer">
+                <constraints nullable="true" />
+            </column>
             
             <column name="gtn_rate" type="${floatType}">
                 <constraints nullable="true" />

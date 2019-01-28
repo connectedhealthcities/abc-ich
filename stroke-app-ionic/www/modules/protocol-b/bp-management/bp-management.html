@@ -70,6 +70,11 @@
             </label>
 
             <label class="item item-input">
+                <span class="input-label">DBP (mmHg)</span>
+                <input type="number" placeholder="" ng-model="vm.entryDbp">
+            </label>
+
+            <label class="item item-input">
                 <span class="input-label">IV GTN rate (ml/h)</span>
                 <input type="number" placeholder="" ng-model="vm.entryGtn">
             </label>
@@ -86,6 +91,10 @@
 
             <ion-item class="item-icon-left chi-data-validation-warning" ng-show="vm.showSbpOutOfRangeMessage()">
                 <i class="icon ion-alert-circled"></i>SBP is outside the allowed range: 10 - 300
+            </ion-item>
+
+            <ion-item class="item-icon-left chi-data-validation-warning" ng-show="vm.showDbpOutOfRangeMessage()">
+                <i class="icon ion-alert-circled"></i>DBP is outside the allowed range: 10 - 300
             </ion-item>
 
             <ion-item class="item-icon-left chi-data-validation-warning" ng-show="vm.showGtnRateOutOfRangeMessage()">
@@ -120,6 +129,9 @@
                     <h4 class="text-center">SBP (mmHg)</h4>
                 </div>
                 <div class="col table-header">
+                    <h4 class="text-center">DBP (mmHg)</h4>
+                </div>
+                <div class="col table-header">
                     <h4 class="text-center">IV GTN rate (ml/h)</h4>
                 </div>
                 <div class="col table-header">
@@ -140,6 +152,11 @@
                     <div class="col">
                         <div class="text-center">
                             {{entry.systolicBp}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="text-center">
+                            {{entry.diastolicBp}}
                         </div>
                     </div>
                     <div class="col">

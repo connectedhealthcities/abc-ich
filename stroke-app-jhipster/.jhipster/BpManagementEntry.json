@@ -18,6 +18,10 @@
             "fieldType": "Integer"
         },
         {
+            "fieldName": "diastolicBp",
+            "fieldType": "Integer"
+        },
+        {
             "fieldName": "gtnRate",
             "fieldType": "Float"
         },

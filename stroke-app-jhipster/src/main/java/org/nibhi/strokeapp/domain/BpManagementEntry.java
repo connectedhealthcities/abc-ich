@@ -25,6 +25,9 @@ public class BpManagementEntry implements Serializable {
     @Column(name = "systolic_bp")
     private Integer systolicBp;
 
+    @Column(name = "diastolic_bp")
+    private Integer diastolicBp;
+
     @Column(name = "gtn_rate")
     private Float gtnRate;
 
@@ -69,6 +72,19 @@ public class BpManagementEntry implements Serializable {
 
     public void setSystolicBp(Integer systolicBp) {
         this.systolicBp = systolicBp;
+    }
+
+    public Integer getDiastolicBp() {
+        return diastolicBp;
+    }
+
+    public BpManagementEntry diastolicBp(Integer diastolicBp) {
+        this.diastolicBp = diastolicBp;
+        return this;
+    }
+
+    public void setDiastolicBp(Integer diastolicBp) {
+        this.diastolicBp = diastolicBp;
     }
 
     public Float getGtnRate() {
@@ -149,6 +165,7 @@ public class BpManagementEntry implements Serializable {
             "id=" + id +
             ", dateTime='" + dateTime + "'" +
             ", systolicBp='" + systolicBp + "'" +
+            ", diastolicBp='" + diastolicBp + "'" +
             ", gtnRate='" + gtnRate + "'" +
             ", labetalolDose='" + labetalolDose + "'" +
             ", heartRate='" + heartRate + "'" +

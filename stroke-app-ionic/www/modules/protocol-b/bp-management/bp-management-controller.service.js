@@ -15,6 +15,7 @@ function BpManagementControllerService() {
         isAddEntryButtonEnabled: isAddEntryButtonEnabled,
         getEntry: getEntry,
         isSbpOutOfRange: isSbpOutOfRange,
+        isDbpOutOfRange: isDbpOutOfRange,
         isGtnRateOutOfRange: isGtnRateOutOfRange,
         isLabetalolOutOfRange: isLabetalolOutOfRange,
         isHeartRateOutOfRange: isHeartRateOutOfRange,
@@ -25,11 +26,12 @@ function BpManagementControllerService() {
 
     return service
 
-    function isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate) {
+    function isAddEntryButtonEnabled(entryDate, entryTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate) {
         var isEnabled = false;
         
         if (entryDate != null && entryTime != null &&
             (entrySbp !== null && !isSbpOutOfRange(entrySbp)) &&
+            (!isDbpOutOfRange(entryDbp)) &&
             (entryGtn === null || !isGtnRateOutOfRange(entryGtn)) && //entryGtn and entryLabetalol are special cases because they dont have to be filled in but if they are they must meet the criteria in their respective range validation functions
             (entryLabetalol === null || !isLabetalolOutOfRange(entryLabetalol)) &&
             (entryHeartRate === null || !isHeartRateOutOfRange(entryHeartRate))) {
@@ -39,11 +41,12 @@ function BpManagementControllerService() {
         return isEnabled;
     }
 
-    function getEntry(entryDateTime, entrySbp, entryGtn, entryLabetalol, entryHeartRate) {
+    function getEntry(entryDateTime, entrySbp, entryDbp, entryGtn, entryLabetalol, entryHeartRate) {
  
          var entry = {
             "dateTime": entryDateTime,
             "systolicBp": entrySbp,
+            "diastolicBp": entryDbp,
             "gtnRate": entryGtn,
             "labetalolDose": entryLabetalol,
             "heartRate": entryHeartRate
@@ -56,6 +59,18 @@ function BpManagementControllerService() {
         var showSbpOutOfRange = (entrySbp !== null && (entrySbp < 10 || entrySbp > 300));
 
         return showSbpOutOfRange;
+    }
+
+    function isDbpOutOfRange(entryDbp){
+        var showDbpOutOfRange = false;
+
+        if(entryDbp !== null){
+            if(entryDbp < 10 || entryDbp > 300){
+                showDbpOutOfRange = true;
+            }
+        }
+
+        return showDbpOutOfRange;
     }
 
     function isGtnRateOutOfRange(entryGtn) {

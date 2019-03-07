@@ -6,9 +6,9 @@ BpManagementControllerService.$inject = [];
 
 function BpManagementControllerService() {
  
-     var UPPER_TREATMENT_THRESHOLD = 200;
+     var UPPER_TREATMENT_THRESHOLD = 180;
      var LOWER_TREATMENT_THRESHOLD = 150;
-     var UPPER_TREATMENT_TARGET = 180;
+     var UPPER_TREATMENT_TARGET = 160;
      var LOWER_TREATMENT_TARGET = 140;
 
      var service = {
@@ -123,7 +123,7 @@ function BpManagementControllerService() {
     }
 
     function getTargetAchievedText(treatmentThreshold) {
-        var targetAchievedText = treatmentThreshold === UPPER_TREATMENT_THRESHOLD ? "130 to 180 mmHg" : "130 to 140 mmHg";
+        var targetAchievedText = treatmentThreshold === UPPER_TREATMENT_THRESHOLD ? "130 to 160 mmHg" : "130 to 140 mmHg";
         return targetAchievedText;
     }
 }

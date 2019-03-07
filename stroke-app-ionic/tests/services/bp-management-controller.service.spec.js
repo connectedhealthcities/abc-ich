@@ -383,9 +383,9 @@
     });
 
     describe("getTargetAchievedText", function () {
-        it("should return '130 to 180 mmHg'", function () {
-            var targetAchievedText = service.getTargetAchievedText(200);
-            expect(targetAchievedText).toBe("130 to 180 mmHg");
+        it("should return '130 to 160 mmHg'", function () {
+            var targetAchievedText = service.getTargetAchievedText(180);
+            expect(targetAchievedText).toBe("130 to 160 mmHg");
         });
 
         it("should return '130 to 140 mmHg'", function () {
@@ -398,8 +398,8 @@
         it("should return valid oject when onset time is more than six hours ago", function () {
             var sixHoursAgo = new Date(new Date().getTime() - (6 * 60 * 60 * 1000));
             var treatmentTargetAndThresholdCardModel = service.getTreatmentTargetAndThreshold(sixHoursAgo, new Date());
-            expect(treatmentTargetAndThresholdCardModel.treatmentThreshold).toBe(200);
-            expect(treatmentTargetAndThresholdCardModel.treatmentTarget).toBe(180);
+            expect(treatmentTargetAndThresholdCardModel.treatmentThreshold).toBe(180);
+            expect(treatmentTargetAndThresholdCardModel.treatmentTarget).toBe(160);
         });
 
         it("should return valid oject when onset time is less than six hours ago", function () {
@@ -410,12 +410,12 @@
     });
 
     describe("getTreatmentTargetAndThreshold", function () {
-        it("should return 'greater than' when treatment threshold is 200", function () {
-            onsetTimeText = service.getOnsetTimeText(200);
+        it("should return 'greater than' when treatment threshold is 180", function () {
+            onsetTimeText = service.getOnsetTimeText(180);
             expect(onsetTimeText).toBe("greater than");
         });
 
-        it("should return 'less than' when treatment threshold is not 200", function () {
+        it("should return 'less than' when treatment threshold is not 180", function () {
             onsetTimeText = service.getOnsetTimeText(1);
             expect(onsetTimeText).toBe("less than");
         });

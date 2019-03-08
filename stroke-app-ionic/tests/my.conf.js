@@ -70,6 +70,7 @@ module.exports = function(config) {
      '../www/modules/utils/local-storage.service.js',
      '../www/modules/utils/patient-cache.service.js',
      '../www/modules/utils/patient-http.service.js',
+     '../www/modules/utils/pcc-dose-table.service.js',
      '../www/modules/utils/print.service.js',
      '../www/modules/utils/server-url.service.js',
      '../www/modules/utils/state-cache.service.js',

@@ -8,6 +8,7 @@ describe('CalculateBeriplexDoseController', function() {
 	var STATE_CALCULATE_BERIPLEX_DOSE_MOCK, STATE_CONFIRM_BERIPLEX_DOSE_MOCK, STATE_REVERSAL_AGENT_DETAILS_MOCK, STATE_BP_MANAGEMENT_MOCK;
     var scopeMock, stateMock, ionicPopupMock, calculateBeriplexDoseControllerServiceMock; 
     var patientCacheServiceMock, dateTimeServiceMock, stateCacheServiceMock, demoModeCacheServiceMock;
+    var pccDoseTableServiceMock;
 
     beforeEach(function() {
 
@@ -33,7 +34,6 @@ describe('CalculateBeriplexDoseController', function() {
                 'showBeriplexAdministrationOverrideCard',
                 'calculateStonesToKg',
                 'calculateKgToStones',
-                'calculateBeriplexDose',
 				'isInrOutOfRange',
 				'isWeightOutOfRange'
             ]);
@@ -59,8 +59,12 @@ describe('CalculateBeriplexDoseController', function() {
                 'setAdministerBeriplexWhenUnknown',
                 'setIsWeightGivenInKg',
                 'setEstimatedWeightInKg',
-                'setCalculatedBeriplexDose'               
+                'setCalculatedBeriplexDose',
+				'getSelectedPCCType',
+				'setSelectedPCCType',
+                'getHasDoacBeenTaken'            
             ]);
+            pccDoseTableServiceMock = jasmine.createSpyObj('PCCDoseTableService spy', ['getDose', 'getDosingRecords']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getDateTimeFromDateAndTime']);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
@@ -79,7 +83,8 @@ describe('CalculateBeriplexDoseController', function() {
                 'STATE_CALCULATE_BERIPLEX_DOSE': STATE_CALCULATE_BERIPLEX_DOSE_MOCK,
 				'STATE_CONFIRM_BERIPLEX_DOSE': STATE_CONFIRM_BERIPLEX_DOSE_MOCK,
 				'STATE_REVERSAL_AGENT_DETAILS': STATE_REVERSAL_AGENT_DETAILS_MOCK,
-                'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK            
+                'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK,
+                'PCCDoseTableService': pccDoseTableServiceMock           
 			});
 		});				
 	});				
@@ -151,44 +156,49 @@ describe('CalculateBeriplexDoseController', function() {
 
 	it("should delegate showReversalAgentAdministeredAtExternalHospitalCard to controller.service", function() {
 
+		vm.selectedPCCType = "selected-pcc-type";
 		vm.externalScanHospitalName = "external-scan-hospital-name";
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.showReversalAgentAdministeredAtExternalHospitalCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showReversalAgentAdministeredAtExternalHospitalCard).toHaveBeenCalledWith("external-scan-hospital-name", "anticoagulant-type");				
+		expect(calculateBeriplexDoseControllerServiceMock.showReversalAgentAdministeredAtExternalHospitalCard).toHaveBeenCalledWith("selected-pcc-type", "external-scan-hospital-name", "anticoagulant-type");				
 	});
 
 	it("should delegate showAdministerBeriplexWithoutInrCard to controller.service", function() {
 
+		vm.selectedPCCType = "selected-pcc-type";
 		vm.externalScanHospitalName = "external-scan-hospital-name";
 		vm.reversalAgentAdministeredAtExternalHospital = "reversal-agent-administered-at-external-hospital";
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.showAdministerBeriplexWithoutInrCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showAdministerBeriplexWithoutInrCard).toHaveBeenCalledWith("external-scan-hospital-name", "reversal-agent-administered-at-external-hospital", "anticoagulant-type");				
+		expect(calculateBeriplexDoseControllerServiceMock.showAdministerBeriplexWithoutInrCard).toHaveBeenCalledWith("selected-pcc-type", "external-scan-hospital-name", "reversal-agent-administered-at-external-hospital", "anticoagulant-type");				
 	});
 
 	it("should delegate showInrCard to controller.service", function() {
 
+		vm.selectedPCCType = "selected-pcc-type";
 		vm.administerBeriplexWithoutInr = "administer-beriplex-without-inr";
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.showInrCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showInrCard).toHaveBeenCalledWith("administer-beriplex-without-inr", "anticoagulant-type");				
+		expect(calculateBeriplexDoseControllerServiceMock.showInrCard).toHaveBeenCalledWith("selected-pcc-type", "administer-beriplex-without-inr", "anticoagulant-type");				
 	});
 
 	it("should delegate showEstimatedWeightCard to controller.service", function() {
 
+		vm.selectedPCCType = "selected-pcc-type";
 		vm.administerBeriplexWithoutInr = "administer-beriplex-without-inr";
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.showEstimatedWeightCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showEstimatedWeightCard).toHaveBeenCalledWith("administer-beriplex-without-inr", "anticoagulant-type");				
+		expect(calculateBeriplexDoseControllerServiceMock.showEstimatedWeightCard).toHaveBeenCalledWith("selected-pcc-type", "administer-beriplex-without-inr", "anticoagulant-type");				
 	});
 
 	it("should delegate showBeriplexAdministrationOverrideCard to controller.service", function() {
 
+		vm.selectedPCCType = "selected-pcc-type";
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.administerBeriplexWithoutInr = "administer-beriplex-without-inr";
 		vm.inrValue = "inr-value";
 		vm.showBeriplexAdministrationOverrideCard();
-		expect(calculateBeriplexDoseControllerServiceMock.showBeriplexAdministrationOverrideCard).toHaveBeenCalledWith("anticoagulant-type", "administer-beriplex-without-inr", "inr-value", INR_THRESHOLD_MOCK);				
+		expect(calculateBeriplexDoseControllerServiceMock.showBeriplexAdministrationOverrideCard).toHaveBeenCalledWith("selected-pcc-type", "anticoagulant-type", "administer-beriplex-without-inr", "inr-value", INR_THRESHOLD_MOCK);				
 	});
 
 	it("should delegate showInrOutOfRangeMessage to controller.service", function() {
@@ -249,19 +259,21 @@ describe('CalculateBeriplexDoseController', function() {
 		vm.administerBeriplexWithoutInr = "not-null";
         vm.inrValue = "not-null";
 		vm.onAdministerBeriplexWithoutInrChanged();
-		expect(vm.inrValue).toBe(2.0);				
+		expect(vm.inrValue).toBe(null);				
 	});
 
 	it("should reset view model parameters appropriately when onInrValueChanged is called", function() {
 
 		vm.inrValue = "inr-value";
 		vm.estimatedWeightInKg = "estimated-weight-in-kg";
+		vm.selectedPCCType = "selected-pcc-type";
+		vm.hasDoacBeenTaken = "has-doac-been-taken";
 
         vm.administerBeriplexWhenUnknown = "not-null";
 		vm.onInrValueChanged();
 		expect(vm.administerBeriplexWhenUnknown).toBe(null);
 
-		expect(calculateBeriplexDoseControllerServiceMock.calculateBeriplexDose).toHaveBeenCalledWith("inr-value", "estimated-weight-in-kg");				
+		expect(pccDoseTableServiceMock.getDose).toHaveBeenCalledWith("selected-pcc-type", "estimated-weight-in-kg", "inr-value", "has-doac-been-taken");				
 				
 	});
 
@@ -269,13 +281,15 @@ describe('CalculateBeriplexDoseController', function() {
 
 		vm.inrValue = "inr-value";
 		vm.estimatedWeightInKg = "estimated-weight-in-kg";
+		vm.selectedPCCType = "selected-pcc-type";
+		vm.hasDoacBeenTaken = "has-doac-been-taken";
 
 		vm.weightGivenInKg = false;
 		vm.onWeightInKgChanged();
 		expect(vm.weightGivenInKg).toBe(true);				
 
 		expect(calculateBeriplexDoseControllerServiceMock.calculateKgToStones).toHaveBeenCalledWith("estimated-weight-in-kg");				
-		expect(calculateBeriplexDoseControllerServiceMock.calculateBeriplexDose).toHaveBeenCalledWith("inr-value", "estimated-weight-in-kg");				
+		expect(pccDoseTableServiceMock.getDose).toHaveBeenCalledWith("selected-pcc-type", "estimated-weight-in-kg", "inr-value", "has-doac-been-taken");				
 	});
 
 	it("should reset view model parameters appropriately when onWeightInStonesChanged is called", function() {

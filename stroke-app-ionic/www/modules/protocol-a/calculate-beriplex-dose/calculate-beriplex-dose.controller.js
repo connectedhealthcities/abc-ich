@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('CalculateBeriplexDoseController', CalculateBeriplexDoseController);
 
-CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'CalculateBeriplexDoseControllerService', 'PatientCacheService', 'DateTimeService', 'StateCacheService', 'DemoModeCacheService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT'];
+CalculateBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'CalculateBeriplexDoseControllerService', 'PatientCacheService', 'DateTimeService', 'StateCacheService', 'DemoModeCacheService', 'INR_THRESHOLD', 'GCS_THRESHOLD', 'STATE_CALCULATE_BERIPLEX_DOSE', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_REVERSAL_AGENT_DETAILS', 'STATE_BP_MANAGEMENT', 'PCCDoseTableService'];
 
-function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateBeriplexDoseControllerService, PatientCacheService, DateTimeService, StateCacheService, DemoModeCacheService, INR_THRESHOLD, GCS_THRESHOLD, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT) {
+function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateBeriplexDoseControllerService, PatientCacheService, DateTimeService, StateCacheService, DemoModeCacheService, INR_THRESHOLD, GCS_THRESHOLD, STATE_CALCULATE_BERIPLEX_DOSE, STATE_CONFIRM_BERIPLEX_DOSE, STATE_REVERSAL_AGENT_DETAILS, STATE_BP_MANAGEMENT, PCCDoseTableService) {
 
     var vm = this;
 
@@ -35,6 +35,8 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
         vm.estimatedWeightInKg = PatientCacheService.getEstimatedWeightInKg();
         vm.estimatedWeightInStones = CalculateBeriplexDoseControllerService.calculateKgToStones(vm.estimatedWeightInKg);
         vm.calculatedDose = PatientCacheService.getCalculatedBeriplexDose();
+        vm.selectedPCCType = PatientCacheService.getSelectedPCCType();
+        vm.hasDoacBeenTaken = PatientCacheService.getHasDoacBeenTaken();
 
         // Setup click handlers
         vm.onNext = onNext;
@@ -94,27 +96,23 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
         vm.weightGivenInKg = null;
         vm.estimatedWeightInKg = null;
         vm.estimatedWeightInStones = null;
-
-        if (vm.administerBeriplexWithoutInr) {
-            vm.inrValue = 2.0; // within 1.3 - 3.9 band!
-        }
     }
 
     function onInrValueChanged() {
         vm.administerBeriplexWhenUnknown = null;
-        vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
+        vm.calculatedDose = PCCDoseTableService.getDose(vm.selectedPCCType, vm.estimatedWeightInKg, vm.inrValue, vm.hasDoacBeenTaken);
     }
 
     function onWeightInKgChanged() {
         vm.weightGivenInKg = true;
         vm.estimatedWeightInStones = CalculateBeriplexDoseControllerService.calculateKgToStones(vm.estimatedWeightInKg);
-        vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
+        vm.calculatedDose = PCCDoseTableService.getDose(vm.selectedPCCType, vm.estimatedWeightInKg, vm.inrValue, vm.hasDoacBeenTaken);
     }
 
     function onWeightInStonesChanged() {
         vm.weightGivenInKg = false;
         vm.estimatedWeightInKg = CalculateBeriplexDoseControllerService.calculateStonesToKg(vm.estimatedWeightInStones);
-        vm.calculatedDose = CalculateBeriplexDoseControllerService.calculateBeriplexDose(vm.inrValue, vm.estimatedWeightInKg);
+        vm.calculatedDose = PCCDoseTableService.getDose(vm.selectedPCCType, vm.estimatedWeightInKg, vm.inrValue, vm.hasDoacBeenTaken);
     }
 
     // Enable/disable handlers
@@ -134,23 +132,23 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
 
     // Show/hide handlers
     function showReversalAgentAdministeredAtExternalHospitalCard() {
-        return CalculateBeriplexDoseControllerService.showReversalAgentAdministeredAtExternalHospitalCard(vm.externalScanHospitalName, vm.anticoagulantType);
+        return CalculateBeriplexDoseControllerService.showReversalAgentAdministeredAtExternalHospitalCard(vm.selectedPCCType, vm.externalScanHospitalName, vm.anticoagulantType);
     }
 
     function showAdministerBeriplexWithoutInrCard() {
-        return CalculateBeriplexDoseControllerService.showAdministerBeriplexWithoutInrCard(vm.externalScanHospitalName, vm.reversalAgentAdministeredAtExternalHospital, vm.anticoagulantType);
+        return CalculateBeriplexDoseControllerService.showAdministerBeriplexWithoutInrCard(vm.selectedPCCType, vm.externalScanHospitalName, vm.reversalAgentAdministeredAtExternalHospital, vm.anticoagulantType);
     }
 
     function showInrCard() {
-        return CalculateBeriplexDoseControllerService.showInrCard(vm.administerBeriplexWithoutInr, vm.anticoagulantType);
+        return CalculateBeriplexDoseControllerService.showInrCard(vm.selectedPCCType, vm.administerBeriplexWithoutInr, vm.anticoagulantType);
     }
 
     function showEstimatedWeightCard() {
-        return CalculateBeriplexDoseControllerService.showEstimatedWeightCard(vm.administerBeriplexWithoutInr, vm.anticoagulantType);
+        return CalculateBeriplexDoseControllerService.showEstimatedWeightCard(vm.selectedPCCType, vm.administerBeriplexWithoutInr, vm.anticoagulantType);
     }
 
     function showBeriplexAdministrationOverrideCard() {
-        return CalculateBeriplexDoseControllerService.showBeriplexAdministrationOverrideCard(vm.anticoagulantType, vm.administerBeriplexWithoutInr, vm.inrValue, INR_THRESHOLD);
+        return CalculateBeriplexDoseControllerService.showBeriplexAdministrationOverrideCard(vm.selectedPCCType, vm.anticoagulantType, vm.administerBeriplexWithoutInr, vm.inrValue, INR_THRESHOLD);
     }
 
     function showInrOutOfRangeMessage() {
@@ -187,6 +185,7 @@ function CalculateBeriplexDoseController($scope, $state, $ionicPopup, CalculateB
         PatientCacheService.setIsWeightGivenInKg(vm.weightGivenInKg);
         PatientCacheService.setCalculatedBeriplexDose(vm.calculatedDose);
         PatientCacheService.setAdministerBeriplexWhenUnknown(vm.administerBeriplexWhenUnknown);
+        PatientCacheService.setSelectedPCCType(vm.selectedPCCType);
     }
 
     function goNextState() {

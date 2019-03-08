@@ -1,4 +1,4 @@
-<ion-view title="Confirm beriplex dose" hide-nav-bar="true">
+<ion-view title="Confirm {{vm.selectedPCCType}} dose" hide-nav-bar="true">
   <ion-content padding="true">
 
     <!--<div>Confirm Beriplex dose view</div>-->
@@ -17,139 +17,37 @@
       </div>
     </div>
     <hr>
-    
-    <div class="list card">
+
+    <div class="list card chi-info">
       <ion-item class="item-icon-left card-header chi-info">
         <i class="icon ion-information-circled"></i>Dosing guide</ion-item>
-      <div>
-        <div class="row text-center chi-info">
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>INR</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>Dosing</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>30kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>40kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>50kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>60kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>70kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>80kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>90kg</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell-edge text-center">
-            <span><strong>100+</strong></span>
-          </div>
-        </div>
-        <div class="row text-center chi-info">
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>1.3 - 3.9</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span>25 IU/kg</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>750</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>1000</span>
-           </div>
-          <div class="col-10 table-cell text-center">
-              <span>1250</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>1500</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>1750</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-              <span>2000</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>2250</span>
-          </div>
-          <div class="col-10 table-cell-edge text-center">
-            <span>2500</span>
-          </div>
-        </div>
-        <div class="row text-center chi-info">
-          <div class="col-10 table-header table-cell text-center">
-            <span><strong>4.0 - 6.0</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell text-center">
-            <span>35 IU/kg</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>1050</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-             <span>1400</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>1750</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>2100</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>2450</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>2800</span>
-          </div>
-          <div class="col-10 table-cell text-center">
-            <span>3150</span>
-          </div>
-          <div class="col-10 table-cell-edge text-center">
-            <span>3500</span>
-          </div>
-        </div>
-        <div class="row text-center chi-info">
-          <div class="col-10 table-header table-cell-bottom text-center">
-            <span><strong>&gt; 6</strong></span>
-          </div>
-          <div class="col-10 table-header table-cell-bottom text-center">
-             <span>50 IU/kg</span>
-          </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>1500</span>
-          </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>2000</span>
-          </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>2500</span>
-           </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>3000</span>
-          </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>3500</span>
-          </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>4000</span>
-          </div>
-          <div class="col-10 table-cell-bottom text-center">
-            <span>4500</span>
-          </div>
-          <div class="col-10 text-center">
-            <span>5000</span>
-          </div>
-        </div>
+      <div class="table-container">
+        <table class="table-style">
+          <tr class="text-center">
+            <td class="text-center"><strong>INR</strong></td>
+            <td class="text-center"><strong>Dosing</strong></td>
+            <td class="text-center"><strong>30kg</strong></td>
+            <td class="text-center"><strong>40kg</strong></td>
+            <td class="text-center"><strong>50kg</strong></td>
+            <td class="text-center"><strong>60kg</strong></td>
+            <td class="text-center"><strong>70kg</strong></td>
+            <td class="text-center"><strong>80kg</strong></td>
+            <td class="text-center"><strong>90kg</strong></td>
+            <td class="text-center"><strong>100+</strong></td>
+          </tr>
+          <tr ng-repeat="row in vm.dosingTable" class="text-center">
+            <td class="text-center"><strong>{{row.inr}}</strong></td>
+            <td class="text-center">{{row.dosing}}</td>
+            <td class="text-center">{{row.kg30}}</td>
+            <td class="text-center">{{row.kg40}}</td>
+            <td class="text-center">{{row.kg50}}</td>
+            <td class="text-center">{{row.kg60}}</td>
+            <td class="text-center">{{row.kg70}}</td>
+            <td class="text-center">{{row.kg80}}</td>
+            <td class="text-center">{{row.kg90}}</td>
+            <td class="text-center">{{row.kg100}}</td>
+          </tr>
+        </table>
       </div>
     </div>
 

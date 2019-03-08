@@ -38,6 +38,7 @@ function PatientEndControllerService(PatientCacheService, EnumService) {
         patient.anticoagulantType = EnumService.getServerEnumForAnticoagulantType(PatientCacheService.getAnticoagulantType()); // Enum
         patient.anticoagulantName = PatientCacheService.getAnticoagulantName();
 
+        patient.selectedPCCType = EnumService.getServerEnumForPCCType(PatientCacheService.getSelectedPCCType());
         patient.reversalAgentAdministeredAtExternalHospital = PatientCacheService.getReversalAgentAdministeredAtExternalHospital();
         patient.reversalAgentAdministeredTimeKnown = PatientCacheService.getReversalAgentAdministeredTimeKnown();
         patient.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();

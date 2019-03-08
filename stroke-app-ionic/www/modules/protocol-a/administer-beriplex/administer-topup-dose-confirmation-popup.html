@@ -1,0 +1,24 @@
+<ion-list> 
+    <ion-item>
+         <div class="row">
+          <div class="col-50 item-text-wrap">Inr Value:</div>
+          <div class="col-50 text-right">{{vm.unconfirmedInrValue}}</div>
+        </div>    
+    </ion-item>
+</ion-list>
+<ion-list ng-show="vm.showCalculatedDoseToAdminister()"> 
+    <ion-item>
+         <div class="row">
+          <div class="col-50 item-text-wrap">Calculated topup dose to administer:</div>
+          <div class="col-50 text-right">{{vm.topupCalculatedDose}}</div>
+        </div>    
+    </ion-item>
+</ion-list>
+<ion-list ng-show="!vm.showCalculatedDoseToAdminister()"> 
+    <ion-item>
+         <div class="row">
+          <div class="col-50 item-text-wrap">Actual topup dose to administer:</div>
+          <div class="col-50 text-right">{{vm.topupActualDose}}</div>
+        </div>    
+    </ion-item>
+</ion-list>

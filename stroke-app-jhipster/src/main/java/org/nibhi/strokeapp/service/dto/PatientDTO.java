@@ -14,6 +14,7 @@ import org.nibhi.strokeapp.domain.BpManagementEntry;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
+import org.nibhi.strokeapp.domain.enumeration.PCCType;
 
 /**
  * A DTO for the Patient entity.
@@ -87,6 +88,8 @@ public class PatientDTO implements Serializable {
     private AnticoagulantType anticoagulantType;
 
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
+
+    private PCCType selectedPCCType;
 
     private Boolean reversalAgentAdministeredAtExternalHospital;
 
@@ -373,6 +376,14 @@ public class PatientDTO implements Serializable {
         this.administerBeriplexWhenAnticoagulantUnknown = administerBeriplexWhenAnticoagulantUnknown;
     }
 
+    public PCCType getSelectedPCCType(){
+        return selectedPCCType;
+    }
+
+    public void setSelectedPCCType(PCCType pccType){
+        this.selectedPCCType = pccType;
+    }
+
     public Boolean getReversalAgentAdministeredAtExternalHospital() {
         return reversalAgentAdministeredAtExternalHospital;
     }
@@ -563,6 +574,7 @@ public class PatientDTO implements Serializable {
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
             ", administerBeriplexWhenAnticoagulantUnknown='" + administerBeriplexWhenAnticoagulantUnknown + "'" +
+            ", selectedPCCType='" + selectedPCCType + "'" +
     		", reversalAgentAdministeredAtExternalHospital='" + reversalAgentAdministeredAtExternalHospital + "'" +
     		", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +

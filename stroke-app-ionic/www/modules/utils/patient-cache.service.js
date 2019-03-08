@@ -50,11 +50,13 @@ function PatientCacheService(LocalStorageService) {
     var administer_beriplex_when_unknown_key = "patient-administer-beriplex-when-unknown";
     var is_weight_given_in_kg_key = "patient-is-weight-given-in-kg"; // Local
     // confirm-beriplex-dose
+    var selected_pcc_type_key = "selected-pcc-type";
     var actual_beriplex_dose_key = "patient-actual-beriplex-dose";
     // administer-beriplex
     var is_vitamink_administered_key = "patient-is-vitamink-administered"; // Local
     var vitamink_date_time_key = "patient-vitamink-date-time";
     var is_infusion_instructions_viewed_key = "patient-is-infusion-instructions-viewed";
+    var topup_dose_key = "topup-dose";
     // reversal-agent-details
     var reversal_agent_type_key = "patient-reversal-agent-type";
     var reversal_agent_start_date_time_key = "patient-reversal-agent-start-date-time";
@@ -196,6 +198,9 @@ function PatientCacheService(LocalStorageService) {
         setIsWeightGivenInKg: setIsWeightGivenInKg,
 
         // confirm-beriplex-dose
+        getSelectedPCCType: getSelectedPCCType,
+        setSelectedPCCType: setSelectedPCCType,
+
         getActualBeriplexDose: getActualBeriplexDose,
         setActualBeriplexDose: setActualBeriplexDose,
 
@@ -208,6 +213,9 @@ function PatientCacheService(LocalStorageService) {
 
         getIsInfusionInstructionsViewed: getIsInfusionInstructionsViewed,
         setIsInfusionInstructionsViewed: setIsInfusionInstructionsViewed,
+
+        getTopupDose: getTopupDose,
+        setTopupDose: setTopupDose,
 
         // reversal-agent-details
         // Enum: Idarucizumab, PCC, None
@@ -532,6 +540,14 @@ function PatientCacheService(LocalStorageService) {
     }
 
     // confirm-beriplex-dose
+    function getSelectedPCCType(){
+        return LocalStorageService.getItem(selected_pcc_type_key);
+    }
+
+    function setSelectedPCCType(selectedPCCType){
+        LocalStorageService.setItem(selected_pcc_type_key, selectedPCCType);
+    }
+
     function getActualBeriplexDose() {
         return LocalStorageService.getItem(actual_beriplex_dose_key);
     }
@@ -564,6 +580,14 @@ function PatientCacheService(LocalStorageService) {
     
     function setIsInfusionInstructionsViewed(isInfusionInstructionsViewed) {
         LocalStorageService.setItem(is_infusion_instructions_viewed_key, isInfusionInstructionsViewed);
+    }
+
+    function getTopupDose(){
+        return LocalStorageService.getItem(topup_dose_key);
+    }
+
+    function setTopupDose(topupDose){
+        LocalStorageService.setItem(topup_dose_key, topupDose);
     }
 
     // reversal-agent-details
@@ -807,6 +831,9 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, null);
         LocalStorageService.setItem(neurosurgeon_name_key, null);
         LocalStorageService.setItem(is_referral_to_neurosurgery_accepted_key, null);
+        LocalStorageService.setItem(selected_pcc_type_key, null);
+        LocalStorageService.setItem(topup_dose_key, null);
+        LocalStorageService.setItem(has_doac_been_taken_key, null);
     }
 
     function getDate(key) {

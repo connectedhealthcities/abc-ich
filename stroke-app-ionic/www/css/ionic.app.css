@@ -9871,6 +9871,21 @@ hr {
   border-bottom: none;
   border-width: 1px; }
 
+.table-style {
+  border-collapse: collapse;
+  border-style: hidden;
+  width: 100%;
+}
+
+.table-container{
+  padding:5px;
+}
+
+.table-style td, .table-style th{
+  border: 1px solid black;
+  width: 10%;
+}
+
 .full-height {
   height: 100%;
   margin-top: 0; }

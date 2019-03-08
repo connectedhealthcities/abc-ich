@@ -7,6 +7,7 @@ describe('ConfirmBeriplexDoseController', function() {
 	var STATE_CONFIRM_BERIPLEX_DOSE_MOCK, STATE_ADMINISTER_BERIPLEX_MOCK;
     var scopeMock, stateMock, ionicPopupMock, confirmBeriplexDoseControllerServiceMock; 
     var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock;
+    var pccDoseTableServiceMock;
 
     beforeEach(function() {
 
@@ -20,10 +21,16 @@ describe('ConfirmBeriplexDoseController', function() {
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
 			confirmBeriplexDoseControllerServiceMock = jasmine.createSpyObj('ConfirmBeriplexDoseControllerService spy', ['isNextButtonEnabled', 'isShowActualDose']);
-			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'getCalculatedBeriplexDose', 'setActualBeriplexDose']);
+			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', [
+				'getUniqueId', 
+				'getCalculatedBeriplexDose', 
+				'setActualBeriplexDose',
+				'getSelectedPCCType'
+			]);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
-			
+			pccDoseTableServiceMock = jasmine.createSpyObj('PCCDoseTableService spy', ['getDosingRecords', 'getDose']);
+
 			vm = $controller('ConfirmBeriplexDoseController', {
 				'$scope': scopeMock,
 				'$state': stateMock,
@@ -33,7 +40,8 @@ describe('ConfirmBeriplexDoseController', function() {
 				'StateCacheService': stateCacheServiceMock, 
 				'DemoModeCacheService': demoModeCacheServiceMock,
 				'STATE_CONFIRM_BERIPLEX_DOSE': STATE_CONFIRM_BERIPLEX_DOSE_MOCK,
-				'STATE_ADMINISTER_BERIPLEX': STATE_ADMINISTER_BERIPLEX_MOCK                
+				'STATE_ADMINISTER_BERIPLEX': STATE_ADMINISTER_BERIPLEX_MOCK,
+				'PCCDoseTableService': pccDoseTableServiceMock                
 			});
 		});				
 	});				

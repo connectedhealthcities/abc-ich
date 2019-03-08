@@ -270,7 +270,7 @@ Template
 		And: the selected anticoagulant is a Vit K antagonist
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the "Calculate Beriplex Dose" view is displayed
+		And: the "Calculate Beriplex/Octaplex Dose" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
@@ -281,7 +281,7 @@ Template
 		Then: they should see popups in the order listed: 
 		      - "Data confirmation" popup
 			  - "Anticoagulant Unknown" popup
-		And: the "Calculate Beriplex Dose" view is displayed
+		And: the "Calculate Beriplex/Octaplex Dose" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
@@ -335,7 +335,7 @@ Template
 		Given: the user has selected either "Apixaban", "Rivoroxaban", or "Edoxaban" on the DOAC selection control.
 		And: the user is displayed with the "Has DOAC been taken.." confirmation popup.
 		When: the user selects the "Yes" button.
-		Then: the user is directed to "Calculate Beriplex Dose" view
+		Then: the user is directed to "Calculate Beriplex/Octaplex Dose" view
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>
@@ -382,27 +382,27 @@ Template
 	</Scenario>
 </Story>
 
-<Story> Calculate Beriplex Dose - view navigation
-	<Scenario> #1: Beriplex administered at external hospital
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
-		And: Beriplex was administered at an external hospital
+<Story> Calculate Beriplex/Octaplex Dose - view navigation
+	<Scenario> #1: Beriplex/Octaplex administered at external hospital
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
+		And: Beriplex/Octaplex was administered at an external hospital
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
 		And: the "Reversal Agent details" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
-	<Scenario> #2: Administer Beriplex without INR result
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
-		And: the user has chosen the option to administer Beriplex without waiting for the INR result
+	<Scenario> #2: Administer Beriplex/Octaplex without INR result
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
+		And: the user has chosen the option to administer Beriplex/Octaplex without waiting for the INR result
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the "Confirm Beriplex Dose" view is displayed
+		And: the "Confirm Beriplex/Octaplex Dose" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
 	<Scenario> #3: (INR < 1.3) and (GCS >= 9) 
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
 		And: the INR value < 1.3
 		And: the GCS value is >= 9
 		When: they select the "Next" button
@@ -414,7 +414,7 @@ Template
 		And: the selected tab is B
 	</Scenario>    
 	<Scenario> #4: (INR < 1.3) and (GCS < 9) 
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
 		And: the INR value < 1.3
 		And: the GCS value is < 9
 		When: they select the "Next" button
@@ -426,31 +426,31 @@ Template
 		And: the selected tab is C
 	</Scenario>    
 	<Scenario> #5: (INR >= 1.3) and Vit K antagonist
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
 		And: the INR value >= 1.3
 		And: the selected anticoagulant is a Vit K antagonist
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the "Confirm Beriplex Dose" view is displayed
+		And: the "Confirm Beriplex/Octaplex Dose" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
-	<Scenario> #6: (INR >= 1.3) and antagonist Unknown and User has selected "Administer Beriplex"
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+	<Scenario> #6: (INR >= 1.3) and antagonist Unknown and User has selected "Administer Beriplex/Octaplex"
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
 		And: the INR value >= 1.3
 		And: the antagonist is Unknown
-		And: the user has selected "Administer Beriplex"
+		And: the user has selected "Administer Beriplex/Octaplex"
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the "Confirm Beriplex Dose" view is displayed
+		And: the "Confirm Beriplex/Octaplex Dose" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
-	<Scenario> #7: (INR >= 1.3) - antagonist Unknown and User has not selected "Administer Beriplex" and (GCS >= 9)
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+	<Scenario> #7: (INR >= 1.3) - antagonist Unknown and User has not selected "Administer Beriplex/Octaplex" and (GCS >= 9)
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
 		And: the INR value >= 1.3
 		And: the antagonist is Unknown
-		And: the user has not selected "Administer Beriplex"
+		And: the user has not selected "Administer Beriplex/Octaplex"
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -458,11 +458,11 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is B
 	</Scenario>    
-	<Scenario> #8: (INR >= 1.3) and antagonist Unknown and User has not selected "Administer Beriplex" and (GCS < 9)
-		Given: the user has entered valid data on the "Calculate Beriplex Dose" view
+	<Scenario> #8: (INR >= 1.3) and antagonist Unknown and User has not selected "Administer Beriplex/Octaplex" and (GCS < 9)
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex Dose" view
 		And: the INR value >= 1.3
 		And: the antagonist is Unknown
-		And: the user has not selected "Administer Beriplex"
+		And: the user has not selected "Administer Beriplex/Octaplex"
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -472,27 +472,27 @@ Template
 	</Scenario>    
 </Story>
 
-<Story> Confirm Beriplex Dose - view navigation
+<Story> Confirm Beriplex/Octaplex Dose - view navigation
 	<Scenario> #1: View navigation
-		Given: the user has entered valid data on the "Confirm Beriplex Dose" view
+		Given: the user has entered valid data on the "Confirm Beriplex/Octaplex Dose" view
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
-		And: the "Administer Beriplex" view is displayed
+		And: the "Administer Beriplex/Octaplex" view is displayed
 		And: the ABC tabs are visible
 		And: the selected tab is A
 	</Scenario>    
 	<Scenario> #2: The user has selected "Apixaban", "Edoxaban", or "Rivaroxaban" in the anticoagulant selection view.
 		Given: the user has selected one of the above mentioned DOACs.
-		And: they have completed the Calculate Beriplex Dose view
-		When: they navigate to the Confirm Beriplex Dose view
-		Then: the calculation for the dosage of Beriplex is now 50IU multiplied by their weight in kg.
+		And: they have completed the Calculate Beriplex/Octaplex Dose view
+		When: they navigate to the Confirm Beriplex/Octaplex Dose view
+		Then: the calculation for the dosage of Beriplex/Octaplex is now 50IU multiplied by their weight in kg.
 		And: this value is capped at 5000IU.
 	</Scenario>
 </Story>
 
-<Story> Administer Beriplex - view navigation
+<Story> Administer Beriplex/Octaplex - view navigation
 	<Scenario> #1: (GCS >= 9)
-		Given: the user has entered valid data on the "Administer Beriplex" view
+		Given: the user has entered valid data on the "Administer Beriplex/Octaplex" view
 		And: the GCS value is >= 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -501,7 +501,7 @@ Template
 		And: the selected tab is B
 	</Scenario>    
 	<Scenario> #2: (GCS < 9)
-		Given: the user has entered valid data on the "Administer Beriplex" view
+		Given: the user has entered valid data on the "Administer Beriplex/Octaplex" view
 		And: the GCS value is < 9
 		When: they select the "Next" button
 		Then: they should see the "Data confirmation" popup
@@ -511,17 +511,93 @@ Template
 	</Scenario>   
 	<Scenario> #3: The user has selected a "DOAC" in the anticoagulant selection view.
 		Given: the user has selected a "DOAC" in the anticoagulant selection view.
-		When: they select navigate to the "Adminiser Beriplex" view.
+		When: they select navigate to the "Adminiser Beriplex/Octaplex" view.
 		Then: vitamin k related data collection cards should be hidden.
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>
 	<Scenario> #4: The user has not selected a "DOAC" in the anticoagulant selection view.
 		Given: the user has selected a "DOAC" in the anticoagulant selection view.
-		When: they select navigate to the "Adminiser Beriplex" view.
+		When: they select navigate to the "Adminiser Beriplex/Octaplex" view.
 		Then: vitamin k related data collection cards should be visible.
 		And: the ABC tabs are visible
 		And: the selected tab is C
+	</Scenario>
+	<Scenario> #5: The user opens the topup control.
+		Given: the user has previously selected to calculate the PCC dose without an INR.
+		When: the user has selected the "Administer topup dose" button.
+		Then: the topup dose control appears.
+	</Scenario>
+	<Scenario> #6: The user enters an inr value into the topup control.
+		Given: has opened the topup dose control.
+		When: the user enters an inr value.
+		Then: the calculated topup dose based on the inr value and previous dose appears.
+		And: the control allowing the user to override this topup dose value appears.
+	</Scenario>
+	<Scenario> #7: The user selects not to override the topup dose.
+		Given: has opened the topup dose control.
+		And: the user has entered an inr value.
+		When: selects to not override the topup dose.
+		Then: the control updates to show this is selected.
+	</Scenario>
+	<Scenario> #8: The user selects to override the topup dose.
+		Given: has opened the topup dose control.
+		And: the user has entered an inr value.
+		When: selects to override the topup dose.
+		Then: the control updates to show this is selected.
+		And: the control allowing the user to enter an override value appears.
+	</Scenario>
+	<Scenario> #8: The user selects 'confirm' after choosing to not override the topup dose.
+		Given: has opened the topup dose control.
+		And: the user has entered an inr value.
+		And: the user has chosen not to override the calculated topup dose.
+		When: the user selects 'confirm'.
+		Then: a confirmation popup appears.
+	</Scenario>
+	<Scenario> #8: The user selects 'confirm' after choosing to override the topup dose.
+		Given: has opened the topup dose control.
+		And: the user has entered an inr value.
+		And: the user has chosen not override the calculated topup dose.
+		And: the user has entered an override dosage.
+		When: the user selects 'confirm'.
+		Then: a confirmation popup appears.
+	</Scenario>
+	<Scenario> #9: The user selects 'confirm' after failing to enter an inr value.
+		Given: has opened the topup dose control.
+		And: the user has not entered an inr value
+		When: the user selects 'confirm'.
+		Then: a invalid information popup appears.
+	</Scenario>
+	<Scenario> #10: The user selects 'confirm' after failing to choose if they wish to override the topup dose.
+		Given: has opened the topup dose control.
+		And: the user has not selected whether they should override the topup dose.
+		When: the user selects 'confirm'.
+		Then: a invalid information popup appears.
+	</Scenario>
+	<Scenario> #11: The user selects 'confirm' after failing to add an alternative topup dose.
+		Given: has opened the topup dose control.
+		And: the user has not entered an alternate topup dose after selecting to override the calculated dose.
+		When: the user selects 'confirm'.
+		Then: a invalid information popup appears.
+	</Scenario>
+	<Scenario> #12: The user selects 'okay' on the invalidation control.
+		Given: the invalid information popup has appeared.
+		When: the user selects 'okay'.
+		Then: a invalid information popup disappears.
+		And: the topup dose control reappears.
+	</Scenario>
+	<Scenario> #13: The user selects 'cancel' on the confirmation popup control.
+		Given: the confirmation popup has appeared.
+		When: the user selects 'cancel'.
+		Then: a confirmation popup disappears.
+		And: the topup dose control reappears.
+	</Scenario>
+	<Scenario> #14: The user selects 'confirm' on the confirmation popup control.
+		Given: the confirmation popup has appeared.
+		When: the user selects 'confirm'.
+		Then: a confirmation popup disappears.
+		And: the topup dose control disappears.
+		And: the PCC dose is updated with the topup dose on the page.
 	</Scenario>
 </Story>
 
@@ -771,29 +847,29 @@ Template
 		Most views are self-describing with the dynamic show/hide behaviour being intuitively obvious.
 		Only views where this is not the case are described here.
 	</Note>
-	<Scenario> #1: Calculate Beriplex view - display of "Reversal agent administered at external hospital?" card
+	<Scenario> #1: Calculate Beriplex/Octaplex view - display of "Reversal agent administered at external hospital?" card
 		Given: the user has selected an external hospital on the "Register Patient" view
-		When: the "Calculate Beriplex" view is displayed
+		When: the "Calculate Beriplex/Octaplex" view is displayed
 		Then: the "Reversal agent administered at external hospital?" card is displayed
 	</Scenario>   
-	<Scenario> #2: Calculate Beriplex view - display of "Anti-coagulant is unknown and INR > 1.2. Prescribe Beriplex anyway?" card
+	<Scenario> #2: Calculate Beriplex/Octaplex view - display of "Anti-coagulant is unknown and INR > 1.2. Prescribe Beriplex/Octaplex anyway?" card
 		Given: the user has selected "Unknown" for anticogulant type on the "Anticoagulant Identification" view
 		When: the user enters an INR value greater than 1.2
-		Then: the "Anti-coagulant is unknown and INR > 1.2. Prescribe Beriplex anyway?" card is displayed
+		Then: the "Anti-coagulant is unknown and INR > 1.2. Prescribe Beriplex/Octaplex anyway?" card is displayed
 	</Scenario>     
 	<Scenario> #3: Reversal Agent Details view - display of "Time reversal agent was administered is known?" card
-		Given: the user has selected "Yes" for "Reversal agent administered at external hospital?" on the "Calculate Beriplex" view
+		Given: the user has selected "Yes" for "Reversal agent administered at external hospital?" on the "Calculate Beriplex/Octaplex" view
 		When: the "Reversal Agent Details" view is displayed
 		Then: the "Time reversal agent was administered is known?" card is displayed
 	</Scenario>     
 	<Scenario> #4: Reversal Agent Details view - Reversal agent administered card - hide option "None"
-		Given: the user has selected "Yes" for "Reversal agent administered at external hospital?" on the "Calculate Beriplex" view
+		Given: the user has selected "Yes" for "Reversal agent administered at external hospital?" on the "Calculate Beriplex/Octaplex" view
 		When: the "Reversal Agent Details" view is displayed
 		Then: the "None" option on the "Reversal agent administered" card is hidden
 	</Scenario>   
 </Story>
 
-<Story> Calculation of Beriplex dose
+<Story> Calculation of Beriplex/Octaplex dose
 	<Note> #12 Calculation details
 		The dose is calculated using the weight in Kg and the INR value.
 		For the purposes of the calculatuion the weight is rounded to the nearest 10 Kg.
@@ -805,20 +881,41 @@ Template
 		    (> 6.0): dose = weightInKg x 50
 		However, if the anticoagulant type being used is either Apixaban, Edoxaban, or Rivaroxaban, then the calculation is as follows:
 				dose = weightInKg x 50
-		With a maximum value of 5000IU.
+		The maximum dosage is determined by the PCC type which is to be administered.
+		Should the PCC type be 'Beriplex' then the maximum value is 5000 IU.
+		Should the PCC type be 'Octaplex' then the maximum value is 3000 IU.
 	</Note>
-	<Scenario> #1: Calculation of Beriplex dose with Inr value
-		Given: the user has entered valid data on the "Calculate Beriplex" view
-		And: the user has selected "No" to the question "Do you plan to administer Beriplex without waiting for INR?"
+	<Scenario> #1: Calculation of Beriplex/Octaplex dose with Inr value
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex" view
+		And: the user has selected "No" to the question "Do you plan to administer Beriplex/Octaplex without waiting for INR?"
 		When: they select the "Next" button
 		Then: the dose is calculated using the INR value entered
 	</Scenario>     
-	<Scenario> #2 Calculation of Beriplex dose without Inr value
-		Given: the user has entered valid data on the "Calculate Beriplex" view
-		And: the user has selected "Yes" to the question "Do you plan to administer Beriplex without waiting for INR?"
+	<Scenario> #2 Calculation of Beriplex/Octaplex dose without Inr value
+		Given: the user has entered valid data on the "Calculate Beriplex/Octaplex" view
+		And: the user has selected "Yes" to the question "Do you plan to administer Beriplex/Octaplex without waiting for INR?"
 		When: they select the "Next" button
 		Then: the dose is calculated using a default INR value within the range 1.3 - 3.9 
 	</Scenario>     
+</Story>
+
+<Story> Dosing tables for Beriplex and Octaplex
+	<Note> #1 Dosing tables
+		The following two tables are text versions of the tables which a user should see depending on whether they select Beriplex or Octaplex.
+		
+		Beriplex Dosing Table:
+						Dosing 		30 kg 	40 kg 	50 kg 	60 kg 	70 kg 	80 kg 	90 kg 	100+
+		INR 1.3-3.9		25 IU/kg 	750 	1000 	1250 	1500 	1750	2000 	2250 	2500
+		INR 4.0-6.0		35 IU/kg 	1050 	1400 	1750 	2100 	2450 	2800 	3150 	3500
+		INR > 6			50 IU/kg 	1500 	2000 	2500 	3000 	3500 	4000 	4500 	5000
+
+		Octaplex Dosing Table:
+		 				Dosing 		30 kg 	40 kg 	50 kg 	60 kg 	70 kg 	80 kg 	90 kg 	100+
+		INR 1.3-3.9		25 IU/kg 	750 	1000 	1250 	1500 	1750	2000 	2250 	2500
+		INR 4.0-6.0		35 IU/kg 	1050 	1400 	1750 	2100 	2450 	2800 	3000 	3000
+		INR > 6			50 IU/kg 	1500 	2000 	2500 	3000 	3000 	3000 	3000 	3000
+
+	</Note>
 </Story>
 
 <Story> Data entry range validation
@@ -841,10 +938,10 @@ Template
 			2) is the year within the allowed range: between 1900 and 14 years ago (inclusive)
 			The range is not checked until the date is valid.
 		
-		Calculate Beriplex Dose view - INR value
+		Calculate Beriplex/Octaplex Dose view - INR value
 			between 0.5 and 10 (inclusive)
 		
-		Calculate Beriplex Dose view - Weight
+		Calculate Beriplex/Octaplex Dose view - Weight
 			between 10 and 300 Kg (inclusive)
 			When the weight is entered in stone the validation is carried out against the automatically converted weight
 			in Kg value.

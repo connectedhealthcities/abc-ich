@@ -9,7 +9,8 @@ function EnumService() {
     var service = {
         getServerEnumForInrType: getServerEnumForInrType,      
         getServerEnumForReversalAgentType: getServerEnumForReversalAgentType,
-        getServerEnumForAnticoagulantType: getServerEnumForAnticoagulantType
+        getServerEnumForAnticoagulantType: getServerEnumForAnticoagulantType,
+        getServerEnumForPCCType: getServerEnumForPCCType
      };
 
     return service;
@@ -64,6 +65,19 @@ function EnumService() {
                 break;
             default:
                 enumValue = null;                
+        }
+        return enumValue;
+    }
+
+    function getServerEnumForPCCType(value){
+        var enumValue;
+        switch(value){
+            case "Beriplex":
+                enumValue = "BERIPLEX";
+                break;
+            case "Octaplex":
+                enumValue = "OCTAPLEX";
+                break;
         }
         return enumValue;
     }

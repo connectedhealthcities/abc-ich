@@ -8,6 +8,7 @@ describe('AdministerBeriplexController', function() {
     var GCS_THRESHOLD_MOCK;
     var scopeMock, stateMock, ionicPopupMock, administerBeriplexControllerServiceMock; 
     var patientCacheServiceMock, stateCacheServiceMock, dateTimeServiceMock, demoModeCacheServiceMock;
+    var pccDoseTableServiceMock;
 
     beforeEach(function() {
 
@@ -38,8 +39,15 @@ describe('AdministerBeriplexController', function() {
                 'setIsVitaminkAdministered',
                 'setVitaminkDateTime',
                 'setIsInfusionInstructionsViewed',
-                'getAnticoagulantType'
+                'getAnticoagulantType',
+                'getSelectedPCCType',
+                'getEstimatedWeightInKg',
+                'getInrValue',
+                'getAdministerBeriplexWithoutInr',
+                'getHasDoacBeenTaken',
+                'getTopupDose'
             ]);
+            pccDoseTableServiceMock = jasmine.createSpyObj('PCCDoseTableService spy', ['getDosingRecords', 'getDose']);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getDateTimeFromDateAndTime']);
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
@@ -58,7 +66,8 @@ describe('AdministerBeriplexController', function() {
                 'DemoModeCacheService': demoModeCacheServiceMock,
                 'GCS_THRESHOLD': GCS_THRESHOLD_MOCK,
 				'STATE_ADMINISTER_BERIPLEX': STATE_ADMINISTER_BERIPLEX_MOCK,
-				'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK                
+				'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK,
+				'PCCDoseTableService': pccDoseTableServiceMock                
 			});
 		});				
 	});				

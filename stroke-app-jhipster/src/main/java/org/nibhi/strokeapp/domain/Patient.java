@@ -18,6 +18,8 @@ import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 
+import org.nibhi.strokeapp.domain.enumeration.PCCType;
+
 /**
  * A Patient.
  */
@@ -353,6 +355,9 @@ public class Patient implements Serializable {
     //
     // calculate-beriplex-dose ////////////////////////////////////////////////////////////////////
     
+    @Column(name = "selected_pcc_type")
+    private PCCType selectedPCCType;
+
     @Column(name = "reversal_agent_administered_at_external_hospital")
     private Boolean reversalAgentAdministeredAtExternalHospital;
 
@@ -382,6 +387,19 @@ public class Patient implements Serializable {
 
     @Column(name = "administer_beriplex_when_anticoagulant_unknown")
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
+
+    public PCCType getSelectedPCCType() {
+        return selectedPCCType;
+    }
+
+    public Patient selectedPCCType(PCCType pccType) {
+        this.selectedPCCType = pccType;
+        return this;
+    }
+
+    public void setSelectedPCCType(PCCType pccType) {
+        this.selectedPCCType = pccType;
+    }
 
     public Boolean isReversalAgentAdministeredAtExternalHospital() {
         return reversalAgentAdministeredAtExternalHospital;
@@ -860,7 +878,8 @@ public class Patient implements Serializable {
             ", gcsScoreVerbal='" + gcsScoreVerbal + "'" +
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
-            ", anticoagulantName='" + anticoagulantName + "'" +                        
+            ", anticoagulantName='" + anticoagulantName + "'" +  
+            ", selectedPCCType='" + selectedPCCType + "'" +                      
             ", reversalAgentAdministeredAtExternalHospital='" + reversalAgentAdministeredAtExternalHospital + "'" +
             ", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +

@@ -88,7 +88,11 @@
         		<dd>
             		<span>{{vm.patient.reversalAgentAdministeredTimeKnown}}</span>
         		</dd>
-        		<dt><span>Administer Beriplex without waiting for INR</span></dt>
+        		<dt><span>Selected PCC Type</span></dt>
+        		<dd>
+        			<span>{{vm.patient.selectedPCCType}}</span>
+        		</dd>
+        		<dt><span>Administer PCC without waiting for INR</span></dt>
         		<dd>
             		<span>{{vm.patient.administerBeriplexWithoutInr}}</span>
         		</dd>
@@ -108,15 +112,15 @@
         		<dd>
             		<span>{{vm.patient.inrDateTime | date:'dd MMM yyyy HH:mm'}}</span>
         		</dd>
-		        <dt><span>Calculated Beriplex Dose</span></dt>
+		        <dt><span>Calculated PCC Dose</span></dt>
 		        <dd>
 		            <span>{{vm.patient.calculatedBeriplexDose}}</span>
 		        </dd>
-        		<dt><span>Administer Beriplex When Anticoagulant Unknown</span></dt>
+        		<dt><span>Administer PCC When Anticoagulant Unknown</span></dt>
         		<dd>
             		<span>{{vm.patient.administerBeriplexWhenAnticoagulantUnknown}}</span>
         		</dd>
-		        <dt><span>Actual Beriplex Dose</span></dt>
+		        <dt><span>Actual PCC Dose</span></dt>
 		        <dd>
 		            <span>{{vm.patient.actualBeriplexDose}}</span>
 		        </dd>

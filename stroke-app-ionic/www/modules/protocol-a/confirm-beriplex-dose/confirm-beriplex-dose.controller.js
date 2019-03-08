@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('ConfirmBeriplexDoseController', ConfirmBeriplexDoseController);
 
-ConfirmBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'ConfirmBeriplexDoseControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_ADMINISTER_BERIPLEX']; 
+ConfirmBeriplexDoseController.$inject = ['$scope', '$state', '$ionicPopup', 'ConfirmBeriplexDoseControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_CONFIRM_BERIPLEX_DOSE', 'STATE_ADMINISTER_BERIPLEX', 'PCCDoseTableService']; 
 
-function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, ConfirmBeriplexDoseControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, STATE_CONFIRM_BERIPLEX_DOSE, STATE_ADMINISTER_BERIPLEX) {
+function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, ConfirmBeriplexDoseControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, STATE_CONFIRM_BERIPLEX_DOSE, STATE_ADMINISTER_BERIPLEX, PCCDoseTableService) {
  
     var vm = this;
 
@@ -20,6 +20,8 @@ function ConfirmBeriplexDoseController($scope, $state, $ionicPopup, ConfirmBerip
         vm.calculatedDose = PatientCacheService.getCalculatedBeriplexDose();
         vm.overrideCalculatedDose = null;
         vm.actualDose = null;
+        vm.selectedPCCType = PatientCacheService.getSelectedPCCType();
+        vm.dosingTable = PCCDoseTableService.getDosingRecords(vm.selectedPCCType);
 
         // Setup click handlers
         vm.onNext = onNext;

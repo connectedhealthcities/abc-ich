@@ -1,19 +1,19 @@
 <ion-list> 
     <ion-item>
          <div class="row">
-          <div class="col-50 item-text-wrap">Beriplex administered?:</div>
+          <div class="col-50 item-text-wrap">{{vm.selectedPCCType}} administered?:</div>
           <div class="col-50 text-right">{{vm.isBeriplexAdministered}}</div>
         </div>    
     </ion-item>
     <ion-item ng-show="vm.isBeriplexAdministered">
          <div class="row">
-          <div class="col-50 item-text-wrap">Beriplex start date:</div>
+          <div class="col-50 item-text-wrap">{{vm.selectedPCCType}} start date:</div>
           <div class="col-50 text-right">{{vm.beriplexDate | date: 'dd MMM yyyy'}}</div>
         </div>    
     </ion-item>
     <ion-item ng-show="vm.isBeriplexAdministered">
          <div class="row">
-          <div class="col-50 item-text-wrap">Beriplex start time:</div>
+          <div class="col-50 item-text-wrap">{{vm.selectedPCCType}} start time:</div>
           <div class="col-50 text-right">{{vm.beriplexTime | date: 'HH:mm'}}</div>
         </div>    
     </ion-item>

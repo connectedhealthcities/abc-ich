@@ -55,7 +55,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-appversion": {},
       "com.lampa.startapp": {},
-      "cordova-plugin-printer": {}
+      "cordova-plugin-printer": {},
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "android"

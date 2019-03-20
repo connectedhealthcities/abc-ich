@@ -8,6 +8,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
     var scopeMock, stateMock, ionicPopupMock, BpManagementControllerMock;
     var patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
     var tabStateCacheServiceMock, dateTimeServiceMock, bpManagementControllerServiceMock, BpStateCacheService;
+    var bpNotificationServiceMock;
 
     beforeEach(function() {
 
@@ -28,6 +29,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
             demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
             bpStateCacheServiceMock = jasmine.createSpyObj('bpStateCacheServiceMock spy', ['getCurrentState', 'setCurrentState'])
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
+            bpNotificationServiceMock = jasmine.createSpyObj('BpNotificationService spy', ['beginBpMeasurementPrompts', 'stopBpMeasurementPrompts']);
 
             patientCacheServiceMock.getBpTreatmentThreshold.and.returnValue(null);
 
@@ -52,7 +54,8 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
 			    'DemoModeCacheService': demoModeCacheServiceMock,
 			    'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK,
 			    'STATE_CRITICAL_CARE_REFERRAL': STATE_CRITICAL_CARE_REFERRAL_MOCK,
-			    'STATE_PATIENT_END': STATE_PATIENT_END_MOCK
+			    'STATE_PATIENT_END': STATE_PATIENT_END_MOCK,
+                'BpNotificationService': bpNotificationServiceMock
 			});
 		});
     });
@@ -272,9 +275,6 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         vm.addEntry();
         scopeMock.$apply();
 
-        expect(ionicPopupMock.alert).toHaveBeenCalled();
-        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Repeat after 2 minutes");
-
         expect(bpStateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(bpStateCacheServiceMock.STATE_ABOVE_THRESHOLD);
     });
 
@@ -336,10 +336,6 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
         vm.treatmentThreshold = 0;
         vm.addEntry();
         scopeMock.$apply();
-
-        
-        expect(ionicPopupMock.alert).toHaveBeenCalled();
-        expect(ionicPopupMock.alert.calls.mostRecent().args[0].title).toBe("Repeat after 2 minutes");
 
         expect(bpStateCacheServiceMock.setCurrentState).toHaveBeenCalledWith(bpStateCacheServiceMock.STATE_ABOVE_THRESHOLD);
     });
@@ -406,6 +402,7 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
     var scopeMock, stateMock, ionicPopupMock, BpManagementControllerMock;
     var patientCacheServiceMock, stateCacheServiceMock, bpStateCacheServiceMock, demoModeCacheServiceMock;
     var tabStateCacheServiceMock, dateTimeServiceMock, bpManagementControllerServiceMock, BpStateCacheService;
+    var bpNotificationServiceMock;
 
     beforeEach(function () {
 
@@ -426,7 +423,8 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
             demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
             bpStateCacheServiceMock = jasmine.createSpyObj('bpStateCacheServiceMock spy', ['getCurrentState', 'setCurrentState'])
             dateTimeServiceMock = jasmine.createSpyObj('DateTimeService spy', ['getNowWithZeroSeconds', 'getTimeSinceOnsetText', 'getDateTimeFromDateAndTime']);
-            
+            bpNotificationServiceMock = jasmine.createSpyObj('BpNotificationService spy', ['beginBpMeasurementPrompts', 'stopBpMeasurementPrompts']);
+
             patientCacheServiceMock.getBpTreatmentThreshold.and.returnValue("not-null");
 
             bpManagementControllerServiceMock.getOnsetTimeText.and.returnValue("greater than");
@@ -450,7 +448,8 @@ describe('BpManagementController where PatientCacheService.getBpTreatmentThresho
                 'DemoModeCacheService': demoModeCacheServiceMock,
                 'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK,
                 'STATE_CRITICAL_CARE_REFERRAL': STATE_CRITICAL_CARE_REFERRAL_MOCK,
-                'STATE_PATIENT_END': STATE_PATIENT_END_MOCK
+                'STATE_PATIENT_END': STATE_PATIENT_END_MOCK,
+                'BpNotificationService': bpNotificationServiceMock
             });
         });
     });

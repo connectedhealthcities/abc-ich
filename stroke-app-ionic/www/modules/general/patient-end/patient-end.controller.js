@@ -2,9 +2,9 @@
 
 angular.module('app.general').controller('PatientEndController', PatientEndController);
 
-PatientEndController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientEndControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'BpStateCacheService', 'PatientHttpService', 'PrintService', 'STATE_PATIENT_END', 'STATE_PATIENT_START'];
+PatientEndController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientEndControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'BpStateCacheService', 'PatientHttpService', 'PrintService', 'STATE_PATIENT_END', 'STATE_PATIENT_START','BpNotificationService'];
 
-function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, BpStateCacheService, PatientHttpService, PrintService, STATE_PATIENT_END, STATE_PATIENT_START) {
+function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, BpStateCacheService, PatientHttpService, PrintService, STATE_PATIENT_END, STATE_PATIENT_START, BpNotificationService) {
 
     var vm = this;
 
@@ -50,6 +50,7 @@ function PatientEndController($scope, $state, $ionicPopup, PatientEndControllerS
         PatientCacheService.clearAll();
         StateCacheService.clearAll();
         BpStateCacheService.clearAll();
+        BpNotificationService.stopBpMeasurementPrompts();
 
         $state.go(STATE_PATIENT_START);
     }

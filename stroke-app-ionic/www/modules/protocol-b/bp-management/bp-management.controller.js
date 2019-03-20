@@ -2,9 +2,9 @@
 
 angular.module('app.protocolB').controller('BpManagementController', BpManagementController);
 
-BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_BP_MANAGEMENT', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
+BpManagementController.$inject = ['$scope', '$state', '$ionicPopup', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'BpManagementControllerService', 'BpStateCacheService', 'GCS_THRESHOLD', 'DemoModeCacheService', 'STATE_BP_MANAGEMENT', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END', 'BpNotificationService'];
 
-function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
+function BpManagementController($scope, $state, $ionicPopup, PatientCacheService, StateCacheService, DateTimeService, BpManagementControllerService, BpStateCacheService, GCS_THRESHOLD, DemoModeCacheService, STATE_BP_MANAGEMENT, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END, BpNotificationService) {
  
     var vm = this;
 
@@ -163,7 +163,6 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         var bpState = BpStateCacheService.getCurrentState();
         if (bpState === BpStateCacheService.STATE_START || bpState === BpStateCacheService.STATE_TARGET_ACHIEVED) { //Edd the or condition needs to be confirmed
             if (vm.entrySbp > vm.treatmentThreshold) {
-                showRepeatBpReadingPopup();
                 BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD);
             }
         }
@@ -183,7 +182,21 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
             }
         }
  
-       clearEntryFields();
+        processBpMonitoring();
+        clearEntryFields();
+    }
+
+    function processBpMonitoring(){
+        var bpState = BpStateCacheService.getCurrentState();
+        if(bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD){
+            BpNotificationService.beginBpMeasurementPrompts(onBpNotificationClick);
+        } else if(bpState === BpStateCacheService.STATE_TARGET_ACHIEVED) {
+            BpNotificationService.stopBpMeasurementPrompts();
+        }
+    }
+
+    function onBpNotificationClick(){
+        $state.go(STATE_BP_MANAGEMENT);
     }
 
     function goNextState() {

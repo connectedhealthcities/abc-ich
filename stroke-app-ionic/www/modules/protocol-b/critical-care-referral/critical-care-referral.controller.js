@@ -2,9 +2,9 @@
 
 angular.module('app.protocolB') .controller('CriticalCareReferralController', CriticalCareReferralController);
 
-CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'CriticalCareReferralControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END'];
+CriticalCareReferralController.$inject = ['$scope', '$state', '$ionicPopup', 'CriticalCareReferralControllerService', 'PatientCacheService', 'StateCacheService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_CRITICAL_CARE_REFERRAL', 'STATE_PATIENT_END', 'BpNotificationService'];
 
-function CriticalCareReferralController($scope, $state, $ionicPopup, CriticalCareReferralControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END) {
+function CriticalCareReferralController($scope, $state, $ionicPopup, CriticalCareReferralControllerService, PatientCacheService, StateCacheService, DemoModeCacheService, GCS_THRESHOLD, STATE_CRITICAL_CARE_REFERRAL, STATE_PATIENT_END, BpNotificationService) {
  
     var vm = this;
 
@@ -44,6 +44,9 @@ function CriticalCareReferralController($scope, $state, $ionicPopup, CriticalCar
     // Private functions
     function handleDataValid() {
         saveData();
+        if(vm.isReferredToCriticalCare){
+            BpNotificationService.stopBpMeasurementPrompts();
+        }
         goNextState();
     }
 

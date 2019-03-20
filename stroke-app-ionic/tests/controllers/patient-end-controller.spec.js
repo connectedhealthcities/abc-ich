@@ -7,6 +7,7 @@ describe('PatientEndController', function() {
 	var STATE_PATIENT_END_MOCK, STATE_PATIENT_START_MOCK;
     var scopeMock, stateMock, ionicPopupMock, patientEndControllerServiceMock; 
     var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock, bpStateCacheServiceMock, patientHttpServiceMock, printServiceMock;
+    var bpNotificationServiceMock;
 
     beforeEach(function() {
 
@@ -26,6 +27,7 @@ describe('PatientEndController', function() {
 			bpStateCacheServiceMock = jasmine.createSpyObj('BpStateCacheService spy', ['clearAll']);
             patientHttpServiceMock = jasmine.createSpyObj('PatientHttpService spy', ['updatePatient']);
             printServiceMock = jasmine.createSpyObj('PrintService spy', ['printPatient']);
+            bpNotificationServiceMock = jasmine.createSpyObj('BpNotificationService spy', ['stopBpMeasurementPrompts']);
 			
 			vm = $controller('PatientEndController', {
 				'$scope': scopeMock,
@@ -39,7 +41,8 @@ describe('PatientEndController', function() {
                 'PatientHttpService': patientHttpServiceMock,
                 'PrintService': printServiceMock,
 				'STATE_PATIENT_END': STATE_PATIENT_END_MOCK,
-				'STATE_PATIENT_START': STATE_PATIENT_START_MOCK                
+				'STATE_PATIENT_START': STATE_PATIENT_START_MOCK,
+				'BpNotificationService': bpNotificationServiceMock              
 			});
 		});				
 	});				

@@ -8,6 +8,7 @@ describe('CriticalCareReferralController', function() {
 	var STATE_CRITICAL_CARE_REFERRAL_MOCK, STATE_PATIENT_END_MOCK;
     var scopeMock, stateMock, ionicPopupMock, criticalCareReferralControllerServiceMock; 
     var patientCacheServiceMock, stateCacheServiceMock, demoModeCacheServiceMock;
+    var bpNotificationServiceMock;
 
     beforeEach(function() {
 
@@ -25,7 +26,8 @@ describe('CriticalCareReferralController', function() {
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ['getUniqueId', 'getGcsScore', 'getIsReferredToCriticalCare', 'setIsReferredToCriticalCare']);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode', 'getIsReferredToCriticalCare', 'setIsReferredToCriticalCare']);
-			
+			bpNotificationServiceMock = jasmine.createSpyObj('BpNotificationService spy', ['stopBpMeasurementPrompts']);
+
 			vm = $controller('CriticalCareReferralController', {
 				'$scope': scopeMock,
 				'$state': stateMock,
@@ -36,7 +38,8 @@ describe('CriticalCareReferralController', function() {
 				'DemoModeCacheService': demoModeCacheServiceMock,
                 'GCS_THRESHOLD': GCS_THRESHOLD_MOCK,
 				'STATE_CRITICAL_CARE_REFERRAL': STATE_CRITICAL_CARE_REFERRAL_MOCK,
-				'STATE_PATIENT_END': STATE_PATIENT_END_MOCK                
+				'STATE_PATIENT_END': STATE_PATIENT_END_MOCK,
+				'BpNotificationService': bpNotificationServiceMock              
 			});
 		});				
 	});				

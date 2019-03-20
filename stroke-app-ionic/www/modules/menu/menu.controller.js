@@ -2,14 +2,15 @@
 
 angular.module('app').controller('MenuController', MenuController);
 
-MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_ABOUT', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_REGISTER_PATIENT', 'STATE_TEST_PRINT'];
+MenuController.$inject = ['$scope', '$state', 'PatientCacheService', 'BpStateCacheService', 'StateCacheService', 'DemoModeCacheService', 'STATE_ABOUT', 'STATE_USER_CREDENTIALS_CONFIGURATION', 'STATE_REGISTER_PATIENT', 'STATE_TEST_PRINT', 'BpNotificationService'];
 
-function MenuController($scope, $state, PatientCacheService, BpStateCacheService, StateCacheService, DemoModeCacheService, STATE_ABOUT, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_REGISTER_PATIENT, STATE_TEST_PRINT) {
+function MenuController($scope, $state, PatientCacheService, BpStateCacheService, StateCacheService, DemoModeCacheService, STATE_ABOUT, STATE_USER_CREDENTIALS_CONFIGURATION, STATE_REGISTER_PATIENT, STATE_TEST_PRINT, BpNotificationService) {
 
   $scope.onUserCredentialsConfiguration = onUserCredentialsConfiguration;
   $scope.onAbout = onAbout;
   $scope.onDemoMode = onDemoMode;
   $scope.onTestPrint = onTestPrint;
+  $scope.onTestBpNotification = onTestBpNotification;
 
   function onUserCredentialsConfiguration() {
     $state.go(STATE_USER_CREDENTIALS_CONFIGURATION);
@@ -34,6 +35,10 @@ function MenuController($scope, $state, PatientCacheService, BpStateCacheService
 
   function onTestPrint() {
     $state.go(STATE_TEST_PRINT);
+  }
+
+  function onTestBpNotification() {
+    BpNotificationService.scheduleTestNotification();
   }
 
 }

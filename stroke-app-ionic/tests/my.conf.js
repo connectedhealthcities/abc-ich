@@ -63,6 +63,7 @@ module.exports = function(config) {
 
      '../www/modules/utils/authentication.service.js',
      '../www/modules/utils/bp-state-cache.service.js',
+     '../www/modules/utils/bp-notification.service.js',
      '../www/modules/utils/date-time.service.js',
      '../www/modules/utils/demo-mode-cache.service.js',
      '../www/modules/utils/enum.service.js',

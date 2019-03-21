@@ -19,7 +19,7 @@ describe("UserCredentialsConfigurationController", function() {
 			ionicLoadingMock = jasmine.createSpyObj('$ionicLoading spy', ['show', 'hide']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['alert']);
 			userCredentialsConfigurationControllerServiceMock = jasmine.createSpyObj('UserCredentialsConfigurationControllerService spy', ['isTestLoginButtonEnabled']);
-			userCredentialsCacheServiceMock = jasmine.createSpyObj('UserCredentialsCacheService spy', ['getUsername', 'setUsername', 'getPassword', 'setPassword']);
+			userCredentialsCacheServiceMock = jasmine.createSpyObj('UserCredentialsCacheService spy', ['getUsername', 'setUsername', 'getPassword', 'setPassword', 'getServerAddress', 'setServerAddress']);
 			authenticationServiceMock = jasmine.createSpyObj('AuthenticationService spy', ['testAuthentication']);
 
 			vm = $controller('UserCredentialsConfigurationController', {
@@ -48,8 +48,9 @@ describe("UserCredentialsConfigurationController", function() {
 
 		vm.username = "username";
 		vm.password = "password";
+		vm.serverAddress = "server-address";
 		vm.isTestLoginButtonEnabled();
-		expect(userCredentialsConfigurationControllerServiceMock.isTestLoginButtonEnabled).toHaveBeenCalledWith("username", "password");				
+		expect(userCredentialsConfigurationControllerServiceMock.isTestLoginButtonEnabled).toHaveBeenCalledWith("username", "password", "server-address");				
 	});
 
 	it("should save data when 'Save' button selected", function() {

@@ -2,9 +2,9 @@
 
 angular.module('utils').service('HospitalHttpService', HospitalHttpService);
 
-HospitalHttpService.$inject = ['$http', 'ServerUrlService'];
+HospitalHttpService.$inject = ['$http', 'ServerUrlService', 'UserCredentialsCacheService'];
 
-function HospitalHttpService($http, ServerUrlService) {
+function HospitalHttpService($http, ServerUrlService, UserCredentialsCacheService) {
 
      
     var _hospitals = [
@@ -31,7 +31,8 @@ function HospitalHttpService($http, ServerUrlService) {
 
 	function getHospitals() {
             
-        var urlPrefix = ServerUrlService.getUrlPrefix();
+        var serverAddress = UserCredentialsCacheService.getServerAddress();
+        var urlPrefix = ServerUrlService.getUrlPrefix(serverAddress);
         return $http.get(urlPrefix + '/api/external-hospitals').then(
             function(response) {
                 // server returns all hospitals except the current hospital

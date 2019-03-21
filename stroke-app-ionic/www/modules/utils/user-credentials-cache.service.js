@@ -8,6 +8,7 @@ function UserCredentialsCacheService(LocalStorageService) {
 
     var username_key = "credentials-username";
     var password_key = "credentials-password";
+    var server_address_key = "server-address";
 
     var service = {
 
@@ -16,6 +17,9 @@ function UserCredentialsCacheService(LocalStorageService) {
 
         setPassword: setPassword,
         getPassword: getPassword,
+
+        setServerAddress: setServerAddress,
+        getServerAddress: getServerAddress,
 
         isUserCredentialsSet: isUserCredentialsSet
     };
@@ -40,5 +44,13 @@ function UserCredentialsCacheService(LocalStorageService) {
 
     function setPassword(password){
         LocalStorageService.setItem(password_key, password);
+    }
+
+    function getServerAddress(){
+        return LocalStorageService.getItem(server_address_key);
+    }
+
+    function setServerAddress(serverAddress){
+        LocalStorageService.setItem(server_address_key, serverAddress);
     }
 }

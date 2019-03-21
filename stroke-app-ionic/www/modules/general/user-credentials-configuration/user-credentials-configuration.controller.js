@@ -12,6 +12,7 @@ function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPo
         // initialise vm parameters
         vm.username = UserCredentialsCacheService.getUsername();
         vm.password = UserCredentialsCacheService.getPassword();
+        vm.serverAddress = UserCredentialsCacheService.getServerAddress();
 
         // Setup click handlers
         vm.onCancel = onCancel;
@@ -32,11 +33,13 @@ function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPo
     function onSave() {
         UserCredentialsCacheService.setUsername(vm.username);
         UserCredentialsCacheService.setPassword(vm.password);
+        UserCredentialsCacheService.setServerAddress(vm.serverAddress);
         $window.history.back();
     }
 
     function onTestLogin() {
         $ionicLoading.show();
+        UserCredentialsCacheService.setServerAddress(vm.serverAddress);
         AuthenticationService.testAuthentication(vm.username, vm.password).then(function(success) {
             var alertText = "Failure";
             if (success) {
@@ -49,7 +52,7 @@ function UserCredentialsConfigurationController($window, $ionicLoading, $ionicPo
 
     // Enable/disable handlers
     function isTestLoginButtonEnabled() {       
-        return UserCredentialsConfigurationControllerService.isTestLoginButtonEnabled(vm.username, vm.password);
+        return UserCredentialsConfigurationControllerService.isTestLoginButtonEnabled(vm.username, vm.password, vm.serverAddress);
     }
 
     // Popups

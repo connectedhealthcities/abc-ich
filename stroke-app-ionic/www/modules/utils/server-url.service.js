@@ -6,26 +6,43 @@ ServerUrlService.$inject = [];
 
 function ServerUrlService() {
 
-    var _scheme = "https";
-//    var _scheme = "http";
-
-    var _serverAddress = "dev.actissist.org.uk";   
-//    var _serverAddress = "192.168.1.122:8080"; // cjd
-//    var _serverAddress = "130.88.38.163:8080"; // Ed
-   
+    var _scheme = "https";   
     var _appName = "abc-ich";
 
-    // no appName required when running locally outside of Tomcat    
-    var _urlPrefix = _scheme + "://" + _serverAddress + "/" + _appName;
-//    var _urlPrefix = _scheme + "://" + _serverAddress;
-
     var service = {
+        getScheme: getScheme,
+        setScheme: setScheme,
+        getAppName: getAppName,
+        setAppName: setAppName,
         getUrlPrefix: getUrlPrefix
-     };
+    };
 
     return service;
 
-    function getUrlPrefix() {
-        return _urlPrefix;
-    }
+    function getScheme(){
+        return _scheme;
+    };
+
+    function setScheme(scheme){
+        _scheme = scheme;
+    };
+
+    function getAppName(){
+        return _appName;
+    };
+
+    function setAppName(appName){
+        _appName = appName;
+    };
+
+    function getUrlPrefix(serverAddress) {
+        var urlPrefix = "";
+        if(_scheme === "https"){
+            urlPrefix = _scheme + "://" + serverAddress + "/" + _appName;
+        } else {
+            urlPrefix = _scheme + "://" + serverAddress;
+        }
+
+        return urlPrefix;
+    };
 }

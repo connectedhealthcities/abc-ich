@@ -12,10 +12,10 @@ function UserCredentialsConfigurationControllerService() {
 
     return service;
 
-    function isTestLoginButtonEnabled(username, password) {
+    function isTestLoginButtonEnabled(username, password, serverAddress) {
         var isEnabled = false;
 
-        if (username !== null && password !== null && username !== "" && password !== "") {
+        if (username !== null && password !== null && serverAddress !== null && username !== "" && password !== "" && serverAddress !== "") {
 
     		isEnabled = true;
     	}

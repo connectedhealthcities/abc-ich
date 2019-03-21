@@ -2,9 +2,9 @@
 
 angular.module('utils').service('PatientHttpService', PatientHttpService);
 
-PatientHttpService.$inject = ['$http', 'ServerUrlService', '$ionicLoading'];
+PatientHttpService.$inject = ['$http', 'ServerUrlService', 'UserCredentialsCacheService', '$ionicLoading'];
 
-function PatientHttpService($http, ServerUrlService, $ionicLoading) {
+function PatientHttpService($http, ServerUrlService, UserCredentialsCacheService, $ionicLoading) {
 
     var service = {
         registerPatient: registerPatient,
@@ -22,7 +22,8 @@ function PatientHttpService($http, ServerUrlService, $ionicLoading) {
             "isDuplicateAllowed": isDuplicateAllowed
         };
 
-        var urlPrefix = ServerUrlService.getUrlPrefix();
+        var serverAddress = UserCredentialsCacheService.getServerAddress();
+        var urlPrefix = ServerUrlService.getUrlPrefix(serverAddress);
         $ionicLoading.show();
         return $http.post(urlPrefix + '/api/patients', patient).then(
             function(response) {
@@ -38,7 +39,8 @@ function PatientHttpService($http, ServerUrlService, $ionicLoading) {
 
     function updatePatient(patient) {
 
-        var urlPrefix = ServerUrlService.getUrlPrefix();
+        var serverAddress = UserCredentialsCacheService.getServerAddress();
+        var urlPrefix = ServerUrlService.getUrlPrefix(serverAddress);
         $ionicLoading.show();
         return $http.put(urlPrefix + '/api/patients', patient).then(
             function() {

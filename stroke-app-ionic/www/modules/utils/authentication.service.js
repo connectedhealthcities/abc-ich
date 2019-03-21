@@ -18,7 +18,7 @@ function AuthenticationService($http, ServerUrlService, UserCredentialsCacheServ
 
 	function authenticate() {
         var username = UserCredentialsCacheService.getUsername();      	
-        var password = UserCredentialsCacheService.getPassword();      	
+        var password = UserCredentialsCacheService.getPassword();     
         var credentials = { "username": username, "password": password, "rememberMe": false };
         return authenticateImpl(credentials);
     }
@@ -30,7 +30,8 @@ function AuthenticationService($http, ServerUrlService, UserCredentialsCacheServ
 
     function authenticateImpl(credentials) {
 
-        var urlPrefix = ServerUrlService.getUrlPrefix();
+        var serverAddress = UserCredentialsCacheService.getServerAddress();
+        var urlPrefix = ServerUrlService.getUrlPrefix(serverAddress);
 
         var url = urlPrefix + '/api/authenticate';
 

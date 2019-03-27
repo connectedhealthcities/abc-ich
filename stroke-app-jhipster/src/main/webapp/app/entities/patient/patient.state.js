@@ -66,7 +66,10 @@
                 }],
                 bpManagementEntries: ['$stateParams', 'BpManagementEntry', function($stateParams, BpManagementEntry) {
                     return BpManagementEntry.getByPatient({patientId : $stateParams.id}).$promise;
-                }],                
+                }],  
+                ichEntries: ['$stateParams', 'IchEntry', function($stateParams, IchEntry){
+                    return IchEntry.getByPatient({patientId: $stateParams.id}).$promise;
+                }],            
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
                         name: $state.current.name || 'patient',

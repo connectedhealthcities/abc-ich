@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "patient",
+            "otherEntityName": "patient",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "longestAxis",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "longestAxisPerpendicular",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "numberOfSlices",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "sliceThickness",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "ichVolume",
+            "fieldType": "Float"
+        }
+    ],
+    "changelogDate": "20190327160900",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "ich_entry",
+    "pagination": "no"
+}

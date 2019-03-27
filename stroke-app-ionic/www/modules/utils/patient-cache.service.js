@@ -81,13 +81,9 @@ function PatientCacheService(LocalStorageService) {
     // mrs-entry
     var premorbid_mrs_score_key = "patient-premorbid-mrs-score";
     // neurosurgery-referral-criteria
-    var ich_volume_key = "patient-ich-volume";
     var is_posterior_fossa_ich_key = "patient-is-posterior-fossa-ich";
     var is_ventricle_obstructed_key = "patient-is-ventricle-obstructed";
-    var ich_longest_axis_key = "patient-ich-longest-axis"; //local
-    var ich_perpendicular_axis_key = "patient-ich-perpendicular-axis"; //local
-    var ich_num_slices_key = "patient-ich-num-slices"; //local
-    var ich_slice_thickness_key = "patient-ich-slice-thickness"; //local
+    var ich_entries_key = "patient_ich_entries";
 
     // neurosurgery-referral-summary
     var is_referred_to_neurosurgery_key = "patient-is-referred-to-neurosurgery"; //local
@@ -258,26 +254,16 @@ function PatientCacheService(LocalStorageService) {
         setPremorbidMrsScore: setPremorbidMrsScore,
 
         // neurosurgery-referral-criteria
-        getIchVolume: getIchVolume,
-        setIchVolume: setIchVolume,
-
         getIsPosteriorFossaIch: getIsPosteriorFossaIch,
         setIsPosteriorFossaIch: setIsPosteriorFossaIch,
- 
+  
         getIsVentricleObstructed: getIsVentricleObstructed,
         setIsVentricleObstructed: setIsVentricleObstructed,
 
-        getIchLongestAxis: getIchLongestAxis,
-        setIchLongestAxis: setIchLongestAxis,
+        getIchEntries: getIchEntries,
+        addIchEntry: addIchEntry,
 
-        getIchPerpendicularAxis: getIchPerpendicularAxis,
-        setIchPerpendicularAxis: setIchPerpendicularAxis,
-
-        getIchNumSlices: getIchNumSlices,
-        setIchNumSlices: setIchNumSlices,
-
-        getIchSliceThickness: getIchSliceThickness,
-        SetIchSliceThickness: SetIchSliceThickness,
+        getTotalIchVolume: getTotalIchVolume,
 
         // neurosurgery-referral-summary
         getIsReferredToNeurosurgery: getIsReferredToNeurosurgery,
@@ -687,15 +673,7 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(premorbid_mrs_score_key, premorbidMrsScore);
     }
 
-    // neurosurgery-referral-criteria    
-    function getIchVolume() {
-        return LocalStorageService.getItem(ich_volume_key);
-    }
-    
-    function setIchVolume(ichVolume) {
-        LocalStorageService.setItem(ich_volume_key, ichVolume);
-    }
-
+    // neurosurgery-referral-criteria  
     function getIsPosteriorFossaIch() {
         return LocalStorageService.getItem(is_posterior_fossa_ich_key);
     }
@@ -712,36 +690,27 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(is_ventricle_obstructed_key, isVentricleObstructed);
     }
 
-    function getIchLongestAxis() {
-        return LocalStorageService.getItem(ich_longest_axis_key);
-    }
-    
-    function setIchLongestAxis(ichLongestAxis) {
-        LocalStorageService.setItem(ich_longest_axis_key, ichLongestAxis);
-    }
-
-    function getIchPerpendicularAxis() {
-        return LocalStorageService.getItem(ich_perpendicular_axis_key);
-    }
-    
-    function setIchPerpendicularAxis(ichPerpendicularAxis) {
-        LocalStorageService.setItem(ich_perpendicular_axis_key, ichPerpendicularAxis);
+    function getIchEntries(){
+        var entries = LocalStorageService.getItem(ich_entries_key);
+        if(entries === null){
+            entries = [];
+        }
+        return entries;
     }
 
-    function getIchNumSlices() {
-        return LocalStorageService.getItem(ich_num_slices_key);
-    }
-    
-    function setIchNumSlices(ichNumSlices) {
-        LocalStorageService.setItem(ich_num_slices_key, ichNumSlices);
+    function addIchEntry(ichEntry){
+        var entries = getIchEntries();
+        entries.push(ichEntry);
+        LocalStorageService.setItem(ich_entries_key, entries);
     }
 
-    function getIchSliceThickness() {
-        return LocalStorageService.getItem(ich_slice_thickness_key);
-    }
-    
-    function SetIchSliceThickness(ichSliceThickness) {
-        LocalStorageService.setItem(ich_slice_thickness_key, ichSliceThickness);
+    function getTotalIchVolume(){
+        var entries = getIchEntries();
+        var totalVolume = 0.0;
+        for(var i = 0; i < entries.length; i++){
+            totalVolume += parseFloat(entries[i].ichVolume);
+        }
+        return totalVolume.toFixed(2);
     }
 
     // neurosurgery-referral-summary
@@ -820,13 +789,9 @@ function PatientCacheService(LocalStorageService) {
         LocalStorageService.setItem(bp_measurement_entries_key, null);
         LocalStorageService.setItem(is_referred_to_critical_care_key, null);
         LocalStorageService.setItem(premorbid_mrs_score_key, null);
-        LocalStorageService.setItem(ich_volume_key, null);
         LocalStorageService.setItem(is_posterior_fossa_ich_key, null);
         LocalStorageService.setItem(is_ventricle_obstructed_key, null);
-        LocalStorageService.setItem(ich_longest_axis_key, null);
-        LocalStorageService.setItem(ich_perpendicular_axis_key, null);
-        LocalStorageService.setItem(ich_num_slices_key, null);
-        LocalStorageService.setItem(ich_slice_thickness_key, null);        
+        LocalStorageService.setItem(ich_entries_key, null);    
         LocalStorageService.setItem(is_referred_to_neurosurgery_key, null);
         LocalStorageService.setItem(referral_to_neurosurgery_date_time_key, null);
         LocalStorageService.setItem(neurosurgeon_name_key, null);

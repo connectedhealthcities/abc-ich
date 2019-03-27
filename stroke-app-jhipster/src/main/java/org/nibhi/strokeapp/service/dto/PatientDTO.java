@@ -11,10 +11,11 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.nibhi.strokeapp.domain.BpManagementEntry;
+import org.nibhi.strokeapp.domain.IchEntry;
 import org.nibhi.strokeapp.domain.enumeration.AnticoagulantType;
 import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 import org.nibhi.strokeapp.domain.enumeration.InrType;
-import org.nibhi.strokeapp.domain.enumeration.PCCType;
+import org.nibhi.strokeapp.domain.enumeration.PccType;
 
 /**
  * A DTO for the Patient entity.
@@ -89,7 +90,7 @@ public class PatientDTO implements Serializable {
 
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
 
-    private PCCType selectedPCCType;
+    private PccType selectedPccType;
 
     private Boolean reversalAgentAdministeredAtExternalHospital;
 
@@ -126,6 +127,8 @@ public class PatientDTO implements Serializable {
     private String hospitalUniqueId;
     
     private Set<BpManagementEntry> bpManagementEntries = new HashSet<>();
+
+    private Set<IchEntry> ichEntries = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -376,12 +379,12 @@ public class PatientDTO implements Serializable {
         this.administerBeriplexWhenAnticoagulantUnknown = administerBeriplexWhenAnticoagulantUnknown;
     }
 
-    public PCCType getSelectedPCCType(){
-        return selectedPCCType;
+    public PccType getSelectedPccType(){
+        return selectedPccType;
     }
 
-    public void setSelectedPCCType(PCCType pccType){
-        this.selectedPCCType = pccType;
+    public void setSelectedPccType(PccType pccType){
+        this.selectedPccType = pccType;
     }
 
     public Boolean getReversalAgentAdministeredAtExternalHospital() {
@@ -521,6 +524,14 @@ public class PatientDTO implements Serializable {
         this.bpManagementEntries = bpManagementEntries;
     }
 
+    public Set<IchEntry> getIchEntries() {
+        return ichEntries;
+    }
+
+    public void setIchEntries(Set<IchEntry> ichEntries) {
+        this.ichEntries = ichEntries;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -574,7 +585,7 @@ public class PatientDTO implements Serializable {
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
             ", administerBeriplexWhenAnticoagulantUnknown='" + administerBeriplexWhenAnticoagulantUnknown + "'" +
-            ", selectedPCCType='" + selectedPCCType + "'" +
+            ", selectedPccType='" + selectedPccType + "'" +
     		", reversalAgentAdministeredAtExternalHospital='" + reversalAgentAdministeredAtExternalHospital + "'" +
     		", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +

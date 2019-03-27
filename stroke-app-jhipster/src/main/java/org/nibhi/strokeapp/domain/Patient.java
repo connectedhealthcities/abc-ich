@@ -18,7 +18,7 @@ import org.nibhi.strokeapp.domain.enumeration.ReversalAgentType;
 
 import org.nibhi.strokeapp.domain.enumeration.InrType;
 
-import org.nibhi.strokeapp.domain.enumeration.PCCType;
+import org.nibhi.strokeapp.domain.enumeration.PccType;
 
 /**
  * A Patient.
@@ -356,7 +356,7 @@ public class Patient implements Serializable {
     // calculate-beriplex-dose ////////////////////////////////////////////////////////////////////
     
     @Column(name = "selected_pcc_type")
-    private PCCType selectedPCCType;
+    private PccType selectedPccType;
 
     @Column(name = "reversal_agent_administered_at_external_hospital")
     private Boolean reversalAgentAdministeredAtExternalHospital;
@@ -388,17 +388,17 @@ public class Patient implements Serializable {
     @Column(name = "administer_beriplex_when_anticoagulant_unknown")
     private Boolean administerBeriplexWhenAnticoagulantUnknown;
 
-    public PCCType getSelectedPCCType() {
-        return selectedPCCType;
+    public PccType getSelectedPccType() {
+        return selectedPccType;
     }
 
-    public Patient selectedPCCType(PCCType pccType) {
-        this.selectedPCCType = pccType;
+    public Patient selectedPccType(PccType pccType) {
+        this.selectedPccType = pccType;
         return this;
     }
 
-    public void setSelectedPCCType(PCCType pccType) {
-        this.selectedPCCType = pccType;
+    public void setSelectedPccType(PccType pccType) {
+        this.selectedPccType = pccType;
     }
 
     public Boolean isReversalAgentAdministeredAtExternalHospital() {
@@ -745,6 +745,10 @@ public class Patient implements Serializable {
 
     @Column(name = "ventricle_obstructed")
     private Boolean ventricleObstructed;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "patient")
+    @JsonIgnore
+    private Set<IchEntry> ichEntries = new HashSet<>();
  
     public Float getIchVolume() {
         return ichVolume;
@@ -783,6 +787,31 @@ public class Patient implements Serializable {
 
     public void setVentricleObstructed(Boolean ventricleObstructed) {
         this.ventricleObstructed = ventricleObstructed;
+    }
+
+    public Set<IchEntry> getIchEntries() {
+        return ichEntries;
+    }
+
+    public Patient ichEntries(Set<IchEntry> ichEntries) {
+        this.ichEntries = ichEntries;
+        return this;
+    }
+
+    public Patient addIchEntries(IchEntry ichEntry) {
+        ichEntries.add(ichEntry);
+        ichEntry.setPatient(this);
+        return this;
+    }
+
+    public Patient removeIchEntries(IchEntry ichEntry) {
+        ichEntries.remove(ichEntry);
+        ichEntry.setPatient(null);
+        return this;
+    }
+
+    public void setIchEntries(Set<IchEntry> ichEntries) {
+        this.ichEntries = ichEntries;
     }
 
     
@@ -879,7 +908,7 @@ public class Patient implements Serializable {
             ", gcsScoreMotor='" + gcsScoreMotor + "'" +
             ", anticoagulantType='" + anticoagulantType + "'" +
             ", anticoagulantName='" + anticoagulantName + "'" +  
-            ", selectedPCCType='" + selectedPCCType + "'" +                      
+            ", selectedPccType='" + selectedPccType + "'" +                      
             ", reversalAgentAdministeredAtExternalHospital='" + reversalAgentAdministeredAtExternalHospital + "'" +
             ", reversalAgentAdministeredTimeKnown='" + reversalAgentAdministeredTimeKnown + "'" +
             ", administerBeriplexWithoutInr='" + administerBeriplexWithoutInr + "'" +

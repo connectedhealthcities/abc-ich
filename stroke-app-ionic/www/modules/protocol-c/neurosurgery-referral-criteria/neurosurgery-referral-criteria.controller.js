@@ -19,11 +19,12 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
         // initialise vm parameters for page content   
         vm.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
         vm.isObstruction = PatientCacheService.getIsVentricleObstructed();
-        vm.longestAxis = PatientCacheService.getIchLongestAxis();
-        vm.perpendicularAxis = PatientCacheService.getIchPerpendicularAxis();
-        vm.numSlices = PatientCacheService.getIchNumSlices();
-        vm.sliceThickness = PatientCacheService.getIchSliceThickness();
-        vm.ichVolume = NeurosurgeryReferralCriteriaControllerService.calculateVolume(vm.longestAxis, vm.perpendicularAxis, vm.numSlices, vm.sliceThickness);
+        vm.longestAxis = null;
+        vm.perpendicularAxis = null;
+        vm.numSlices = null;
+        vm.sliceThickness = null;
+        vm.ichVolume = null;
+        vm.entries = PatientCacheService.getIchEntries();
 
         // initialise vm parameters for page logic 
         vm.gcsScore = PatientCacheService.getGcsScore();
@@ -36,12 +37,14 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
 
         // Setup click handlers
         vm.onNext = onNext;
+        vm.onAddEntry = onAddEntry;
 
         // Setup change handlers
         vm.onVolumeFieldChanged = onVolumeFieldChanged;
 
         // Set up enable/disable handlers
         vm.isNextButtonEnabled = isNextButtonEnabled;
+        vm.isAddEntryButtonEnabled = isAddEntryButtonEnabled;
 
         // Set up show/hide handlers
         vm.showIchVolumeField = showIchVolumeField;
@@ -58,7 +61,11 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
 
     // Click handlers
     function onNext() {
-       showDataValidationPopup(handleDataValid); 
+       showDataValidationPopup(handleDataValid);
+    }
+
+    function onAddEntry(){
+        showEntryDataValidationPopup(saveEntryData);
     }
 
     // Change handlers
@@ -68,7 +75,11 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
 
     // Enable/disable handlers
     function isNextButtonEnabled() {
-        return NeurosurgeryReferralCriteriaControllerService.isNextButtonEnabled(vm.ichVolume, vm.isPosteriorFossaIch, vm.isObstruction);
+        return NeurosurgeryReferralCriteriaControllerService.isNextButtonEnabled(vm.entries, vm.isPosteriorFossaIch, vm.isObstruction);
+    }
+
+    function isAddEntryButtonEnabled(){
+        return NeurosurgeryReferralCriteriaControllerService.isAddEntryButtonEnabled(vm.ichVolume);
     }
 
     // Set up show/hide handlers
@@ -105,6 +116,23 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
     function showDataValidationPopup(okHandler) {
         var popupTemplate = {
             templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria-data-validation-popup.html',
+            title: 'Data validation',
+            subTitle: 'Please confirm data entered is correct',
+            cssClass: 'chi-wide-popup',
+            scope: $scope
+        };
+        var popup = $ionicPopup.confirm(popupTemplate);
+
+        popup.then(function (res) {
+            if (res) {
+                okHandler();
+            }
+        });
+    }
+
+    function showEntryDataValidationPopup(okHandler) {
+        var popupTemplate = {
+            templateUrl: 'modules/protocol-c/neurosurgery-referral-criteria/neurosurgery-referral-criteria-entry-data-validation-popup.html',
             title: 'Data validation',
             subTitle: 'Please confirm data entered is correct',
             cssClass: 'chi-wide-popup',
@@ -161,19 +189,19 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
         saveData();
 
         if (!isNeuroReferralRequired()) {
-            showReferralNotRequiredPopup(goNextState);
+            showReferralNotRequiredPopup(goToNextState);
         }
         else {
             if (vm.premorbidMrsScore < MRS_THRESHOLD) {
-                showReferToNeurosurgeryPopup(goNextState);
+                showReferToNeurosurgeryPopup(goToNextState);
             }
             else {
-                showConsiderReferralPopup(goNextState);
+                showConsiderReferralPopup(goToNextState);
             }
         }
     }
 
-    function goNextState() {
+    function goToNextState() {
         if (!isNeuroReferralRequired()) {
             $state.go(STATE_PATIENT_END);
         }
@@ -182,17 +210,30 @@ function NeurosurgeryReferralCriteriaController($scope, $state, $ionicPopup, Pat
         }
     }
 
-    function saveData() {
+    function saveData(){
         PatientCacheService.setIsPosteriorFossaIch(vm.isPosteriorFossaIch);
         PatientCacheService.setIsVentricleObstructed(vm.isObstruction);
-        PatientCacheService.setIchVolume(vm.ichVolume); 
-        PatientCacheService.setIchLongestAxis(vm.longestAxis);
-        PatientCacheService.setIchPerpendicularAxis(vm.perpendicularAxis);
-        PatientCacheService.setIchNumSlices(vm.numSlices);
-        PatientCacheService.SetIchSliceThickness(vm.sliceThickness);
+    }
+
+    function clearEntryFields() {
+        vm.longestAxis = null;
+        vm.perpendicularAxis = null;
+        vm.numSlices = null;
+        vm.sliceThickness = null;
+        vm.ichVolume = null;
+    }
+
+    function saveEntryData() {
+        var entry = NeurosurgeryReferralCriteriaControllerService.getEntry(
+            vm.longestAxis, vm.perpendicularAxis, vm.numSlices, 
+            vm.sliceThickness, vm.ichVolume);
+        PatientCacheService.addIchEntry(entry);
+        vm.entries = PatientCacheService.getIchEntries();
+
+        clearEntryFields();
     } 
     
     function isNeuroReferralRequired() {
-        return NeurosurgeryReferralCriteriaControllerService.isNeuroReferralRequired(vm.gcsScore, vm.ichVolume, vm.isPosteriorFossaIch, vm.isObstruction, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD);
+        return NeurosurgeryReferralCriteriaControllerService.isNeuroReferralRequired(vm.gcsScore, vm.entries, vm.isPosteriorFossaIch, vm.isObstruction, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD);
     }
 }

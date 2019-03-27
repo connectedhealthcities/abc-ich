@@ -35,7 +35,7 @@
       <ion-item class="card-header-green chi-info">
         <div class="item-text-wrap">3. <strong>ICH volume greater than 30 ml</strong>, as measured by ABC/2 method</div>        
       </ion-item>
-    </div>
+    </div> 
 
     <div class="list card">
       <form class="list">
@@ -104,6 +104,66 @@
       <div class="col-50 col-offset-50 text-right">
         <button ng-click="vm.showVolumeMeasurementPopup()" class="button button-energized  button-block icon-left ion-information-circled">View volume measurement</button>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-33 col-offset-67 text-right">
+        <button ng-disabled="!vm.isAddEntryButtonEnabled()" ng-click="vm.onAddEntry()" class="button button-positive button-block icon-right ion-clipboard">Add Ich entry</button>
+      </div>
+    </div>
+
+    <div class="list card chi-info">
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-ios-pulse-strong"></i>Measurements
+      </ion-item>
+
+      <div class="row">
+        <div class="col table-header">
+          <h4 class="text-center">A - longest axis (cm)</h4>
+        </div>
+        <div class="col table-header">
+          <h4 class="text-center">B - longest axis perpendicular to A (cm)</h4>
+        </div>
+        <div class="col table-header">
+          <h4 class="text-center">Number of slices</h4>
+        </div>
+        <div class="col table-header">
+          <h4 class="text-center">Slice thickness (cm)</h4>
+        </div>
+        <div class="col table-header">
+          <h4 class="text-center">ICH volume (ml)</h4>
+        </div>
+      </div>
+
+      <ion-scroll class="scroller">
+        <div class="row" ng-repeat="entry in vm.entries">
+          <div class="col">
+            <div class="text-center">
+              {{entry.longestAxis}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+              {{entry.longestAxisPerpendicular}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+              {{entry.numberOfSlices}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+              {{entry.sliceThickness}}
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center">
+              {{entry.ichVolume}}
+            </div>
+          </div>
+        </div>
+      </ion-scroll>
     </div>
 
     <!--Next button-->

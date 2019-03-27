@@ -66,9 +66,10 @@ function PatientEndControllerService(PatientCacheService, EnumService) {
  
         patient.premorbidMrsScore = PatientCacheService.getPremorbidMrsScore();    
 
-        patient.ichVolume = PatientCacheService.getIchVolume();
         patient.posteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
         patient.ventricleObstructed = PatientCacheService.getIsVentricleObstructed();
+        patient.ichEntries = PatientCacheService.getIchEntries();
+        patient.ichVolume = PatientCacheService.getTotalIchVolume();
 
         patient.referralToNeurosurgeryDateTime = PatientCacheService.getReferralToNeurosurgeryDateTime();
         patient.neurosurgeonName = PatientCacheService.getNeurosurgeonName();

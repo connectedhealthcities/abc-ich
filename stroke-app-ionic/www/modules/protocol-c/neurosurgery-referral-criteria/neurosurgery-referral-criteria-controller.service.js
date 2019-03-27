@@ -9,10 +9,12 @@ function NeurosurgeryReferralCriteriaControllerService() {
     var service = {
         isIchVolumeWithinRange: isIchVolumeWithinRange,
         isNextButtonEnabled: isNextButtonEnabled,
+        isAddEntryButtonEnabled: isAddEntryButtonEnabled,
         calculateVolume: calculateVolume,
         isNeuroReferralRequired: isNeuroReferralRequired,
         getSliderConfig: getSliderConfig,
-        showIchVolumeField: showIchVolumeField
+        showIchVolumeField: showIchVolumeField,
+        getEntry: getEntry
     };
 
     return service
@@ -27,12 +29,20 @@ function NeurosurgeryReferralCriteriaControllerService() {
         return isIchVolumeWithinRange;
     }
 
-    function isNextButtonEnabled(ichVolume, isPosteriorFossaIch, isObstruction ) {
+    function isAddEntryButtonEnabled(ichVolume) {
         var isEnabled = false;
 
-        if (ichVolume != null && isIchVolumeWithinRange(ichVolume) &&
-            isPosteriorFossaIch != null &&
-            isObstruction != null) {
+        if (ichVolume != null && isIchVolumeWithinRange(ichVolume)) {
+            isEnabled = true;
+        }
+
+        return isEnabled;
+    }
+
+    function isNextButtonEnabled(ichEntries, posteriorFossaIch, isObstruction) {
+        var isEnabled = false;
+
+        if (ichEntries != null && posteriorFossaIch != null && isObstruction != null && ichEntries.length > 0) {
             isEnabled = true;
         }
 
@@ -53,11 +63,12 @@ function NeurosurgeryReferralCriteriaControllerService() {
         return ichvolume;
     }
 
-    function isNeuroReferralRequired(gcsScore, ichVolume, isPosteriorFossaIch, isVentricleObstructed, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD) {
+    function isNeuroReferralRequired(gcsScore, ichEntries, isPosteriorFossaIch, isVentricleObstructed, GCS_THRESHOLD, ICH_VOLUME_THRESHOLD) {
         var isNeuroReferralRequired = true;
 
+        var totalIchVolume = getTotalIchVolume(ichEntries);
         if (gcsScore >= GCS_THRESHOLD
-            && ichVolume < ICH_VOLUME_THRESHOLD
+            && totalIchVolume < ICH_VOLUME_THRESHOLD
             && !isPosteriorFossaIch
             && !isVentricleObstructed) {
 
@@ -65,6 +76,15 @@ function NeurosurgeryReferralCriteriaControllerService() {
         }
 
         return isNeuroReferralRequired;
+    }
+
+    function getTotalIchVolume(ichEntries){
+        var totalVolume = 0.0;
+        for(var i = 0; i < ichEntries.length; i++){
+            totalVolume += parseFloat(ichEntries[i].ichVolume);
+        }
+
+        return totalVolume.toFixed(2);
     }
 
     function getSliderConfig() {
@@ -98,5 +118,18 @@ function NeurosurgeryReferralCriteriaControllerService() {
     function showIchVolumeField(ichVolume) {
         var showIchVolume = ichVolume != null;
         return showIchVolume;
+    }
+
+    function getEntry(longestAxis, longestAxisPerpendicular, numberOfSlices, sliceThickness, ichVolume) {
+ 
+         var entry = {
+            "longestAxis": longestAxis,
+            "longestAxisPerpendicular": longestAxisPerpendicular,
+            "numberOfSlices": numberOfSlices,
+            "sliceThickness": sliceThickness,
+            "ichVolume": ichVolume
+        };
+
+        return entry;
     }
 }

@@ -90,7 +90,7 @@
         		</dd>
         		<dt><span>Selected PCC Type</span></dt>
         		<dd>
-        			<span>{{vm.patient.selectedPCCType}}</span>
+        			<span>{{vm.patient.selectedPccType}}</span>
         		</dd>
         		<dt><span>Administer PCC without waiting for INR</span></dt>
         		<dd>
@@ -206,7 +206,7 @@
 		        <dd>
 		            <span>{{vm.patient.premorbidMrsScore}}</span>
 		        </dd>
-		        <dt><span>Ich Volume</span></dt>
+		        <dt><span>Total Ich Volume</span></dt>
 		        <dd>
 		            <span>{{vm.patient.ichVolume}}</span>
 		        </dd>
@@ -231,6 +231,33 @@
 		            <span>{{vm.patient.referralToNeurosurgeryAccepted}}</span>
 		        </dd>
 		    </dl>
+
+		    <h4>Ich Entries</h4>
+
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+				    	<tr>
+							<th><span>A - Longest axis (cm)</span></th>
+							<th><span>B - Longest axis perpendicular to A (cm)</span></th>
+				            <th><span>Number of slices</span></th>
+				            <th><span>Slice thickness</span></th>
+				            <th><span>ichVolume</span></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr ng-repeat="ichEntry in vm.ichEntries track by ichEntry.id">
+				            <td>{{ichEntry.longestAxis}}</td>
+				            <td>{{ichEntry.longestAxisPerpendicular}}</td>
+				            <td>{{ichEntry.numberOfSlices}}</td>
+				            <td>{{ichEntry.sliceThickness}}</td>
+				            <td>{{ichEntry.ichVolume}}</td>
+				        </tr>
+				    </tbody>
+				</table>
+				
+			</div>
+
         </uib-tab>
 
     </uib-tabset>

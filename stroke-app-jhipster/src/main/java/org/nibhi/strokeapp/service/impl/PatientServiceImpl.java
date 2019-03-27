@@ -3,6 +3,7 @@ package org.nibhi.strokeapp.service.impl;
 import org.nibhi.strokeapp.service.PatientService;
 import org.nibhi.strokeapp.service.UserService;
 import org.nibhi.strokeapp.domain.BpManagementEntry;
+import org.nibhi.strokeapp.domain.IchEntry;
 import org.nibhi.strokeapp.domain.Hospital;
 import org.nibhi.strokeapp.domain.Patient;
 import org.nibhi.strokeapp.domain.User;
@@ -143,6 +144,10 @@ public class PatientServiceImpl implements PatientService{
         
         for(BpManagementEntry bpManagementEntry : patient.getBpManagementEntries()) {
         	bpManagementEntry.setPatient(patient);
+        }
+
+        for(IchEntry ichEntry : patient.getIchEntries()){
+            ichEntry.setPatient(patient);
         }
         
         patient = patientRepository.save(patient);

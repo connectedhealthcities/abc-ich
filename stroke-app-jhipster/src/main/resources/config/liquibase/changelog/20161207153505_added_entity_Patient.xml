@@ -129,6 +129,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="selected_pcc_type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
             <column name="reversal_agent_administered_at_external_hospital" type="bit">
                 <constraints nullable="true" />
             </column>

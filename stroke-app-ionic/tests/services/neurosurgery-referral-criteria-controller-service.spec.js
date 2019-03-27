@@ -16,28 +16,54 @@ describe('NeurosurgeryReferralCriteriaControllerService', function() {
     });
 
     describe("isNextButtonEnabled", function () {
-        it("should return true if ichVolume, isPosteriorFossaIch and isObstruction are not null and ichVolume is within the allowed range", function () {
-            var isEnabled = service.isNextButtonEnabled(30, "not-null", "not-null");
+        it("should return true if ichEntries, isPosteriorFossaIch and isObstruction are not null and ichEntries.length > 0", function () {
+            var isEnabled = service.isNextButtonEnabled(['entry'], "not-null", "not-null");
             expect(isEnabled).toBe(true);
         });
 
-        it("should return false if ichVolume, isPosteriorFossaIch and isObstruction are not null and ichVolume is not within the allowed range", function () {
-            var isEnabled = service.isNextButtonEnabled(501, "not-null", "not-null");
-            expect(isEnabled).toBe(false);
-        });
-
-        it("should return false if isPosteriorFossaIch and isObstruction are not null and ichVolume is null", function () {
+        it("should return false if isObstruction and isPosteriorFossaIch are not null and ichEntries is null", function () {
             var isEnabled = service.isNextButtonEnabled(null, "not-null", "not-null");
             expect(isEnabled).toBe(false);
         });
 
-        it("should return false if ichVolume and isObstruction are not null and isPosteriorFossaIch  is null", function () {
-            var isEnabled = service.isNextButtonEnabled(30, null, "not-null");
+        it("should return false if ichEntries and isObstruction are not null and isPosteriorFossaIch  is null", function () {
+            var isEnabled = service.isNextButtonEnabled("not-null", null, "not-null");
             expect(isEnabled).toBe(false);
         });
 
-        it("should return false if ichVolume and isPosteriorFossaIch are not null and isObstruction is null", function () {
-            var isEnabled = service.isNextButtonEnabled(30, "not-null", null);
+        it("should return false if ichEntries and isPosteriorFossaIch are not null and isObstruction is null", function () {
+            var isEnabled = service.isNextButtonEnabled("not-null", "not-null", null);
+            expect(isEnabled).toBe(false);
+        });
+
+        it("should return false if ichEntries, isObstruction, and isPosteriorFossaIch are not null and ichEntries.length == 0", function () {
+            var isEnabled = service.isNextButtonEnabled([], "not-null", "not-null");
+            expect(isEnabled).toBe(false);
+        });
+    });
+
+    describe("isAddEntryButtonEnabled", function(){
+        it("should return true if ichVolume is not null and ichVolume is in valid range", function(){
+            var ichVolume = 10;
+            var isEnabled = service.isAddEntryButtonEnabled(ichVolume);
+            expect(isEnabled).toBe(true);
+        });
+
+        it("should return false if ichVolume is not null and ichVolume is greater than the maximum range bound", function(){
+            var ichVolume = 501;
+            var isEnabled = service.isAddEntryButtonEnabled(ichVolume);
+            expect(isEnabled).toBe(false);
+        });
+
+        it("should return false if ichVolume is not null and ichVolume is smaller than the minimum range bound", function(){
+            var ichVolume = -10;
+            var isEnabled = service.isAddEntryButtonEnabled(ichVolume);
+            expect(isEnabled).toBe(false);
+        });
+
+        it("should return false if ichVolume is null", function(){
+            var ichVolume = null;
+            var isEnabled = service.isAddEntryButtonEnabled(ichVolume);
             expect(isEnabled).toBe(false);
         });
     });
@@ -88,40 +114,56 @@ describe('NeurosurgeryReferralCriteriaControllerService', function() {
     });
 
     describe("isNeuroReferralRequired", function () {
-        it("should return false if GCS score is >= GCS threshold (9) and ICH volume < ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed is false", function () {
-            var isNeuroReferralRequired = service.isNeuroReferralRequired(9, 2, false, false, 9, 3);
+        it("should return false if GCS score is >= GCS threshold (9) and Total ICH volume < ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed is false", function () {
+            var ichEntries = [{
+                'ichVolume':2
+            }];
+            var isNeuroReferralRequired = service.isNeuroReferralRequired(9, ichEntries, false, false, 9, 3);
             expect(isNeuroReferralRequired).toBe(false);
 
-            isNeuroReferralRequired = service.isNeuroReferralRequired(10, 2, false, false, 9, 3);
+            isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, false, false, 9, 3);
             expect(isNeuroReferralRequired).toBe(false);
         });
 
-        it("should return true if GCS score is < GCS threshold (9) and ICH volume < ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed false", function () {
-            var isNeuroReferralRequired = service.isNeuroReferralRequired(8, 2, false, false, 9, 3);
+        it("should return true if GCS score is < GCS threshold (9) and Total ICH volume < ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed false", function () {
+            var ichEntries = [{
+                'ichVolume':2
+            }];
+            var isNeuroReferralRequired = service.isNeuroReferralRequired(8, ichEntries, false, false, 9, 3);
             expect(isNeuroReferralRequired).toBe(true);
         });
 
-        it("should return true if GCS score is > GCS threshold (9) and ICH volume >= ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed false", function () {
-            var isNeuroReferralRequired = service.isNeuroReferralRequired(10, 3, false, false, 9, 3);
+        it("should return true if GCS score is > GCS threshold (9) and Total ICH volume >= ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed false", function () {
+            var ichEntries = [
+                {'ichVolume':2},
+                {'ichVolume':3}
+            ];
+            var isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, false, false, 9, 3);
             expect(isNeuroReferralRequired).toBe(true);
 
-            isNeuroReferralRequired = service.isNeuroReferralRequired(10, 4, false, false, 9, 3);
-            expect(isNeuroReferralRequired).toBe(true);
-        });
-
-        it("should return true if GCS score is >= GCS threshold (9) and ICH volume < ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed true", function () {
-            var isNeuroReferralRequired = service.isNeuroReferralRequired(10, 2, false, true, 9, 3);
-            expect(isNeuroReferralRequired).toBe(true);
-
-            isNeuroReferralRequired = service.isNeuroReferralRequired(10, 2, false, true, 9, 3);
+            isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, false, false, 9, 3);
             expect(isNeuroReferralRequired).toBe(true);
         });
 
-        it("should return true if GCS score is >= GCS threshold (9) and ICH volume < ICH threshold (3) and there is no Ventricle obstructed and posterior fossa ICH is true ", function () {
-            var isNeuroReferralRequired = service.isNeuroReferralRequired(10, 2, true, false, 9, 3);
+        it("should return true if GCS score is >= GCS threshold (9) and Total ICH volume < ICH threshold (3) and there is no posterior fossa ICH and Ventricle obstructed true", function () {
+            var ichEntries = [{
+                'ichVolume':2
+            }];
+            var isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, false, true, 9, 3);
             expect(isNeuroReferralRequired).toBe(true);
 
-            isNeuroReferralRequired = service.isNeuroReferralRequired(10, 2, true, false, 9, 3);
+            isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, false, true, 9, 3);
+            expect(isNeuroReferralRequired).toBe(true);
+        });
+
+        it("should return true if GCS score is >= GCS threshold (9) and Total ICH volume < ICH threshold (3) and there is no Ventricle obstructed and posterior fossa ICH is true ", function () {
+            var ichEntries = [{
+                'ichVolume':2
+            }];
+            var isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, true, false, 9, 3);
+            expect(isNeuroReferralRequired).toBe(true);
+
+            isNeuroReferralRequired = service.isNeuroReferralRequired(10, ichEntries, true, false, 9, 3);
             expect(isNeuroReferralRequired).toBe(true);
         });
     });

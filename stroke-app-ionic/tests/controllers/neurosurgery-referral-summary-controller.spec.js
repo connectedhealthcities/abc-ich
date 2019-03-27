@@ -33,7 +33,6 @@ describe('NeurosurgeryReferralSummaryController', function() {
                 'getGcsScore',
                 'getIsPosteriorFossaIch',
                 'getIsVentricleObstructed',
-                'getIchVolume',
                 'getPremorbidMrsScore',
 				'getIsReferredToNeurosurgery',
                 'getReferralToNeurosurgeryDateTime',
@@ -42,7 +41,9 @@ describe('NeurosurgeryReferralSummaryController', function() {
 				'setIsReferredToNeurosurgery',
                 'setReferralToNeurosurgeryDateTime',
                 'setNeurosurgeonName',
-                'setIsReferralToNeurosurgeryAccepted'
+                'setIsReferralToNeurosurgeryAccepted',
+                'getTotalIchVolume',
+                'getIchEntries'
             ]);
 			stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState']);
  			demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);

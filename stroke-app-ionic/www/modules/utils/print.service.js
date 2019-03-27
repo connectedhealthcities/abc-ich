@@ -58,6 +58,9 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
     html += '<h2>BP Management Entries:</h2>';
     html += bloodPressureEntriesToHtml(printData.bpDisplayLabelsAndValues);
 
+    html += '<h2>ICH Entries:</h2>';
+    html += ichEntriesToHtml(printData.ichDisplayLabelsAndValues);
+
     return html;
   }
 
@@ -105,6 +108,35 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
 
       var heartRateStr = bloodPressureEntry.heartRate !== null ? "" + bloodPressureEntry.heartRate : "";
       row += tdTag + heartRateStr + '</td>';
+
+      row += '</tr>';
+
+      html += row;
+    }
+
+    html += '</table>';
+
+    return html;
+  }
+
+  function ichEntriesToHtml(ichDisplayLabelsAndValues){
+    var tableTag = "<table style='width:100%; border: 1px solid black; border-collapse: collapse;'>";
+    var thTag = "<th style='border: 1px solid black; border-collapse: collapse;'>";
+    var tdTag = "<td style='border: 1px solid black; border-collapse: collapse;'>";
+
+    var html = tableTag + '<tr align="center">' + thTag + 'A - longest axis (cm)</th>' + thTag + 'B - longest axis perpendicular to A (cm)</th>' + thTag + 'Number of slices</th>' + thTag + 'Slice thickness (cm)</th>' + thTag + 'ICH volume (ml)</th></tr>';
+
+    var ichEntries = ichDisplayLabelsAndValues.value;
+
+    for (var i = 0; i < ichEntries.length; i++) {
+      var ichEntry = ichEntries[i];
+
+      var row = '<tr align="center">'
+      + tdTag + ichEntry.longestAxis + '</td>'
+      + tdTag + ichEntry.longestAxisPerpendicular + '</td>'
+      + tdTag + ichEntry.numberOfSlices + '</td>'
+      + tdTag + ichEntry.sliceThickness + '</td>'
+      + tdTag + ichEntry.ichVolume + '</td>'
 
       row += '</tr>';
 
@@ -174,13 +206,8 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
       {"label": "BP Measurement Entries", "value": PatientCacheService.getBpMeasurementEntries()},
       {"label": "Is Referred to Critical Care", "value": PatientCacheService.getIsReferredToCriticalCare()},
       {"label": "Premorbid mRS Score", "value": PatientCacheService.getPremorbidMrsScore()},
-      {"label": "ICH Volume", "value": PatientCacheService.getIchVolume()},
       {"label": "Is Posterior Fossa ICH", "value": PatientCacheService.getIsPosteriorFossaIch()},
       {"label": "Is Ventricle Obstructed", "value": PatientCacheService.getIsVentricleObstructed()},
-      {"label": "ICH Longest Axis", "value": PatientCacheService.getIchLongestAxis()},
-      {"label": "ICH Perpendicular Axis", "value": PatientCacheService.getIchPerpendicularAxis()},
-      {"label": "ICH Num Slices", "value": PatientCacheService.getIchNumSlices()},
-      {"label": "ICH Slice Thickness", "value": PatientCacheService.getIchSliceThickness()},
       {
         "label": "Referral to Neurosurgery Date Time",
         "value": PatientCacheService.getReferralToNeurosurgeryDateTime(),
@@ -198,11 +225,16 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
       "label": "BP Measurement Entries",
       "value": PatientCacheService.getBpMeasurementEntries()
     };
+    var ichDisplayLabelsAndValues = {
+      "labels": "ICH Entries",
+      "value": PatientCacheService.getIchEntries()
+    };
 
     var printData = {
       "patientDisplayLabelsAndValues": patientDisplayLabelsAndValues,
       "patientUniqueId": patientUniqueId,
-      "bpDisplayLabelsAndValues": bpDisplayLabelsAndValues
+      "bpDisplayLabelsAndValues": bpDisplayLabelsAndValues,
+      "ichDisplayLabelsAndValues": ichDisplayLabelsAndValues
     };
 
     return printData;

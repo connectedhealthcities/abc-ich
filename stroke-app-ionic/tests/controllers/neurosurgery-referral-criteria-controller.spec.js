@@ -26,7 +26,7 @@ describe('NeurosurgeryReferralCriteriaController', function() {
             stateMock = jasmine.createSpyObj("$state spy", ["go"]);
             ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm', 'alert']);
             neurosurgeryReferralCriteriaControllerServiceMock = jasmine.createSpyObj('NeurosurgeryReferralCriteriaControllerService spy', ['isNextButtonEnabled', 'isIchVolumeWithinRange', 'calculateVolume', 'isNeuroReferralRequired', "getSliderConfig", 'showIchVolumeField']);
-            patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ["getUniqueId", "getGcsScore", "getIchVolume", "getIsPosteriorFossaIch", "getIsVentricleObstructed", "getIchLongestAxis", "getIchPerpendicularAxis", "getIchNumSlices", "getIchSliceThickness", "getPremorbidMrsScore", "setIsPosteriorFossaIch", "setIsVentricleObstructed", "setIchVolume", "setIchLongestAxis", "setIchPerpendicularAxis", "setIchNumSlices", "SetIchSliceThickness"]);
+            patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', ["getUniqueId", "getGcsScore", "getIchVolume", "getIsPosteriorFossaIch", "getIsVentricleObstructed", "getPremorbidMrsScore", "setIsPosteriorFossaIch", "setIsVentricleObstructed", "setIchVolume", "getIchEntries"]);
             
             stateCacheServiceMock = jasmine.createSpyObj('StateCacheService spy', ['setCurrentState', 'goLatestStateTabC']);
             demoModeCacheServiceMock = jasmine.createSpyObj('DemoModeCacheService spy', ['getIsDemoMode']);
@@ -64,11 +64,7 @@ describe('NeurosurgeryReferralCriteriaController', function() {
 
         expect(patientCacheServiceMock.getIsPosteriorFossaIch).toHaveBeenCalled();
         expect(patientCacheServiceMock.getIsVentricleObstructed).toHaveBeenCalled();
-        expect(patientCacheServiceMock.getIchLongestAxis).toHaveBeenCalled();
-        expect(patientCacheServiceMock.getIchPerpendicularAxis).toHaveBeenCalled();
-        expect(patientCacheServiceMock.getIchNumSlices).toHaveBeenCalled();
-        expect(patientCacheServiceMock.getIchSliceThickness).toHaveBeenCalled();
-        expect(neurosurgeryReferralCriteriaControllerServiceMock.calculateVolume).toHaveBeenCalled();
+        expect(patientCacheServiceMock.getIchEntries).toHaveBeenCalled();
 
         expect(patientCacheServiceMock.getGcsScore).toHaveBeenCalled();
         expect(patientCacheServiceMock.getPremorbidMrsScore).toHaveBeenCalled();
@@ -92,7 +88,7 @@ describe('NeurosurgeryReferralCriteriaController', function() {
 
     it("should delegate isNextButtonEnabled to controller.service", function () {
 
-        vm.ichVolume = 1;
+        vm.entries = 1;
         vm.isPosteriorFossaIch = 2;
         vm.isObstruction = 3;
         vm.isNextButtonEnabled();
@@ -254,11 +250,6 @@ describe('NeurosurgeryReferralCriteriaController', function() {
 
         expect(patientCacheServiceMock.setIsPosteriorFossaIch).toHaveBeenCalled();
         expect(patientCacheServiceMock.setIsVentricleObstructed).toHaveBeenCalled();
-        expect(patientCacheServiceMock.setIchVolume).toHaveBeenCalled();
-        expect(patientCacheServiceMock.setIchLongestAxis).toHaveBeenCalled();
-        expect(patientCacheServiceMock.setIchPerpendicularAxis).toHaveBeenCalled();
-        expect(patientCacheServiceMock.setIchNumSlices).toHaveBeenCalled();
-        expect(patientCacheServiceMock.SetIchSliceThickness).toHaveBeenCalled();
     });
 
     it("should dismiss popup and not change state when user selects 'Cancel' on validation popup", function () {

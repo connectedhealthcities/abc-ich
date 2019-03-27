@@ -5,9 +5,9 @@
         .module('strokeApp')
         .controller('PatientDetailController', PatientDetailController);
 
-    PatientDetailController.$inject = ['$scope', '$rootScope', 'previousState', 'entity', 'Patient', 'bpManagementEntries', 'DateUtils'];
+    PatientDetailController.$inject = ['$scope', '$rootScope', 'previousState', 'entity', 'Patient', 'bpManagementEntries', 'ichEntries', 'DateUtils'];
 
-    function PatientDetailController($scope, $rootScope, previousState, entity, Patient, bpManagementEntries, DateUtils) {
+    function PatientDetailController($scope, $rootScope, previousState, entity, Patient, bpManagementEntries, ichEntries, DateUtils) {
         var vm = this;
 
         vm.patient = entity;
@@ -15,7 +15,7 @@
         vm.chart = null;
         vm.previousState = previousState.name;
         vm.bpTabClicked = bpTabClicked;
-        
+        vm.ichEntries = ichEntries;
 
         var unsubscribe = $rootScope.$on('strokeApp:patientUpdate', function(event, result) {
             vm.patient = result;

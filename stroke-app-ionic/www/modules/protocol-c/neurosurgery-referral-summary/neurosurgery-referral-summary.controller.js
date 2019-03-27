@@ -29,7 +29,7 @@ function NeurosurgeryReferralSummaryController($scope, $state, $ionicPopup, Neur
         vm.summary.gcsTotal = PatientCacheService.getGcsScore();
         vm.summary.isPosteriorFossaIch = PatientCacheService.getIsPosteriorFossaIch();
         vm.summary.isVentricleObstructed = PatientCacheService.getIsVentricleObstructed();
-        vm.summary.ichVolume = PatientCacheService.getIchVolume();
+        vm.summary.ichVolume = PatientCacheService.getTotalIchVolume();
         vm.summary.premorbidMrs = PatientCacheService.getPremorbidMrsScore();
 
        // initialise vm parameters for page content       

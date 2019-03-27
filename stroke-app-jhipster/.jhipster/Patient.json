@@ -139,10 +139,10 @@
             "fieldValues": "DOAC,VITK,NONE,UNKNOWN"
         },
         {
-            "fieldName": "selectedPCCType",
-            "fieldType": "PCCType",
+            "fieldName": "selectedPccType",
+            "fieldType": "PccType",
             "fieldValues": "BERIPLEX,OCTAPLEX"
-        }
+        },
         {
             "fieldName": "administerBeriplexWhenAnticoagulantUnknown",
             "fieldType": "Boolean"

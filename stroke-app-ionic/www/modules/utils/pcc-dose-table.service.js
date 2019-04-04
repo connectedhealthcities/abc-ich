@@ -29,7 +29,7 @@ function PCCDoseTableService() {
 	}
 
 	function getDose(pccType, weight, inr, doacTaken){
-		var pccDose = 0;
+		var pccDose = null;
 
 		if(weight > 100){
 			weight = 100;

@@ -68,8 +68,8 @@ jhipster:
         authentication:
             jwt:
                 secret: f991d2bcbe6744228b02e131bcc2088935a6f65e                        
-                # Token is valid 1 hour
-                tokenValidityInSeconds: 3600
+                tokenValidityInSeconds: 900 # fifteen minutes
+                tokenValidityInSecondsForRememberMe: 900 # fifteen minutes
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: support@mhealthherc.com
         baseUrl: # keep empty to use the server's default URL

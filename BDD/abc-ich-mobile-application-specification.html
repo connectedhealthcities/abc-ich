@@ -966,3 +966,21 @@ Template
 			between 0 and 500 (inclusive)
 	</Note>
 </Story>
+
+<Story> Web client login timeout
+	<Scenario> #1 The user logs into the web client and does not select "remember me".
+		Given: The user has logged into the web interface.
+		And: The user did not select "remember me".
+		When: 15 minutes have elapsed.
+		Then: The client's login will no longer be authenticated.
+		And: Refreshing the page will display the user with the login page.
+	</Scenario>
+
+	<Scenario> #2 The user logs into the web client and selects "remember me".
+		Given: The user has logged into the web interface.
+		And: The user selected "remember me".
+		When: 30 minutes have elapsed.
+		Then: The client's login will no longer be authenticated.
+		And: Refreshing the page will display the user with the login page.
+	</Scenario>
+</Story>

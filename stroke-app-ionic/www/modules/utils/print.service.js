@@ -29,6 +29,7 @@ function PrintService(PatientCacheService, DateTimeService, $ionicLoading) {
     } else {
       // output to console when running in desktop browser.
       console.log(html);
+      callback();
     }
   }
 

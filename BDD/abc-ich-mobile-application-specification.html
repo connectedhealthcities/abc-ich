@@ -75,25 +75,25 @@ Template
 	</Scenario>
 	<Scenario> #2: Test login button enabled
 		Given: the user is viewing the "Configure user credentials" view
-		When: both the username and password fields are not empty
+		When: the username, password, and server address fields are not empty
 		Then: the test login button is enabled
 	</Scenario>
 	<Scenario> #3: Test login button disabled
 		Given: the user is viewing the "Configure user credentials" view
-		When: Either the username or password fields are empty
+		When: Either the username, password, or server address fields are empty
 		Then: the test login button is disabled
 	</Scenario>
 	<Scenario> #4: Test login - success 
 		Given: the user is viewing the "Configure user credentials" page
 		And: comms is enabled on the device
 		And: the server is available
-		And: the user has entered a valid username and password
+		And: the user has entered a valid username, password, and server address
 		When: they select the "Test login" button 
 		Then: the "Test login - success" popup is displayed
 	</Scenario>
 	<Scenario> #5: Test login - failure 
 		Given: the user is viewing the "Configure user credentials" page
-		And: comms is not enabled on the device OR the server is unavailable OR the user has NOT entered a valid username and password
+		And: comms is not enabled on the device OR the server is unavailable OR the user has NOT entered a valid username, password, and server address
 		When: they select the "Test login" button 
 		Then: the "Test login - failure" popup is displayed
 	</Scenario>
@@ -547,52 +547,52 @@ Template
 		Then: the control updates to show this is selected.
 		And: the control allowing the user to enter an override value appears.
 	</Scenario>
-	<Scenario> #8: The user selects 'confirm' after choosing to not override the topup dose.
+	<Scenario> #9: The user selects 'confirm' after choosing to not override the topup dose.
 		Given: has opened the topup dose control.
 		And: the user has entered an inr value.
 		And: the user has chosen not to override the calculated topup dose.
 		When: the user selects 'confirm'.
 		Then: a confirmation popup appears.
 	</Scenario>
-	<Scenario> #8: The user selects 'confirm' after choosing to override the topup dose.
+	<Scenario> #10: The user selects 'confirm' after choosing to override the topup dose.
 		Given: has opened the topup dose control.
 		And: the user has entered an inr value.
-		And: the user has chosen not override the calculated topup dose.
+		And: the user has chosen to override the calculated topup dose.
 		And: the user has entered an override dosage.
 		When: the user selects 'confirm'.
 		Then: a confirmation popup appears.
 	</Scenario>
-	<Scenario> #9: The user selects 'confirm' after failing to enter an inr value.
+	<Scenario> #11: The user selects 'confirm' after failing to enter an inr value.
 		Given: has opened the topup dose control.
 		And: the user has not entered an inr value
 		When: the user selects 'confirm'.
 		Then: a invalid information popup appears.
 	</Scenario>
-	<Scenario> #10: The user selects 'confirm' after failing to choose if they wish to override the topup dose.
+	<Scenario> #12: The user selects 'confirm' after failing to choose if they wish to override the topup dose.
 		Given: has opened the topup dose control.
 		And: the user has not selected whether they should override the topup dose.
 		When: the user selects 'confirm'.
 		Then: a invalid information popup appears.
 	</Scenario>
-	<Scenario> #11: The user selects 'confirm' after failing to add an alternative topup dose.
+	<Scenario> #13: The user selects 'confirm' after failing to add an alternative topup dose.
 		Given: has opened the topup dose control.
 		And: the user has not entered an alternate topup dose after selecting to override the calculated dose.
 		When: the user selects 'confirm'.
 		Then: a invalid information popup appears.
 	</Scenario>
-	<Scenario> #12: The user selects 'okay' on the invalidation control.
+	<Scenario> #14: The user selects 'okay' on the invalidation control.
 		Given: the invalid information popup has appeared.
 		When: the user selects 'okay'.
 		Then: a invalid information popup disappears.
 		And: the topup dose control reappears.
 	</Scenario>
-	<Scenario> #13: The user selects 'cancel' on the confirmation popup control.
+	<Scenario> #15: The user selects 'cancel' on the confirmation popup control.
 		Given: the confirmation popup has appeared.
 		When: the user selects 'cancel'.
 		Then: a confirmation popup disappears.
 		And: the topup dose control reappears.
 	</Scenario>
-	<Scenario> #14: The user selects 'confirm' on the confirmation popup control.
+	<Scenario> #16: The user selects 'confirm' on the confirmation popup control.
 		Given: the confirmation popup has appeared.
 		When: the user selects 'confirm'.
 		Then: a confirmation popup disappears.
@@ -613,6 +613,9 @@ Template
 		If a reading is above threshold then the user is prompted to repeat the reading after 2 mins.
 		If this reading is also above threshold then threshold breach is confirmed and treatment begins.
 		It's possible during the hour that the threshold breach is confirmed more than once!
+
+		Once a reading has been taken, if that reading is above the treatment threshold, the app will prompt 
+			a clinician every five minutes on what steps should be taken next.
 	</Note>			
 	<Scenario> #1: User selects Next - Target not reached
 		Given: the user has entered a series of readings on the "BP Management" view
@@ -684,7 +687,7 @@ Template
 <Story> Neurosurgery referral criteria - view navigation
 	<Note> #9
 		Referral criteria:
-			- ichVolume > 30 ml
+			- Total Ich Volume > 30 ml
 			- Posterior fossa ICH
 			- Obstruction of the third and/or fourth ventricle
 
@@ -964,6 +967,9 @@ Template
 		Neurosurgery Referral Criteria view - ICH volume
 			This value is not visible until all fields are completed in the "ICH volume calculation" card.
 			between 0 and 500 (inclusive)
+
+		Neurosurgery Referral Criteria view - ICH entry
+			There must be at least one ICH entry stored before the next button on this page is enabled.
 	</Note>
 </Story>
 

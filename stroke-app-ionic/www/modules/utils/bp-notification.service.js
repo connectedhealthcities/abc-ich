@@ -37,7 +37,10 @@ function BpNotificationService() {
             cordova.plugins.notification.local.schedule({
                 title: "Test notification",
                 text: "This is a test notification.",
-                trigger: { at: inFiveSeconds }
+                trigger: { at: inFiveSeconds },
+                foreground: true,
+                priority: 1,
+                sound: true
             });
         }
     }
@@ -95,7 +98,9 @@ function BpNotificationService() {
             title: "SBP is above the treatment threshold.",
             text: "Repeat reading after 5 mins.",
             trigger: { at: new Date() },
-            foreground: true
+            foreground: true,
+            priority: 1,
+            sound: true
         });
     }
 
@@ -108,7 +113,9 @@ function BpNotificationService() {
             title: alertInfo.title,
             text: alertInfo.text,
             trigger: { at: inFiveMinutes },
-            foreground: true
+            foreground: true,
+            priority: 1,
+            sound: true
         });
     }
 

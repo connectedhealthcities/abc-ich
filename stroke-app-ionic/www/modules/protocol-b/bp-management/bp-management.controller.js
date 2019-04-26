@@ -163,6 +163,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
         var bpState = BpStateCacheService.getCurrentState();
         if (bpState === BpStateCacheService.STATE_START || bpState === BpStateCacheService.STATE_TARGET_ACHIEVED) { //Edd the or condition needs to be confirmed
             if (vm.entrySbp > vm.treatmentThreshold) {
+                showRepeatBpReadingPopup();
                 BpStateCacheService.setCurrentState(BpStateCacheService.STATE_ABOVE_THRESHOLD);
             }
         }
@@ -188,7 +189,7 @@ function BpManagementController($scope, $state, $ionicPopup, PatientCacheService
 
     function processBpMonitoring(){
         var bpState = BpStateCacheService.getCurrentState();
-        if(bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD){
+        if(bpState === BpStateCacheService.STATE_ABOVE_THRESHOLD_CONFIRMED){
             BpNotificationService.beginBpMeasurementPrompts(onBpNotificationClick);
         } else if(bpState === BpStateCacheService.STATE_TARGET_ACHIEVED) {
             BpNotificationService.stopBpMeasurementPrompts();

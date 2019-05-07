@@ -7211,6 +7211,32 @@ button.swiper-pagination-bullet {
   z-index: 0; }
 
 /* Scrollbar */
+
+/* Scrollbar does not show up on android without this */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 5px;
+    margin: 0;
+    margin-right: 5px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0);
+    border-radius: 8px;
+}
+
 .swiper-scrollbar {
   border-radius: 10px;
   position: relative;

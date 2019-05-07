@@ -99,11 +99,11 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
     }
 
     function hideReversalAgentOptionIdarucizumab(){
-        return ReversalAgentDetailsControllerService.hideReversalAgentOptionIdarucizumab(vm.anticoagulantName);
+        return ReversalAgentDetailsControllerService.hideReversalAgentOptionIdarucizumab(vm.anticoagulantName, vm.hasDoacBeenTaken);
     }
 
     function hideReversalAgentOptionPCC(){
-        return ReversalAgentDetailsControllerService.hideReversalAgentOptionPCC(vm.anticoagulantName);
+        return ReversalAgentDetailsControllerService.hideReversalAgentOptionPCC(vm.anticoagulantName, vm.hasDoacBeenTaken);
     }
 
     function hideReversalAgentCard(){

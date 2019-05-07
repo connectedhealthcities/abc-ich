@@ -80,23 +80,24 @@ function ReversalAgentDetailsControllerService() {
         return isHide;
     }
 
-    function hideReversalAgentOptionIdarucizumab(anticoagulantName){
-        var isShow = true;
+    function hideReversalAgentOptionIdarucizumab(anticoagulantName, hasDoacBeenTaken){
+        var isHide = true;
 
-        if(anticoagulantName === "Dabigatran"){
-            isShow = false;
+        if(anticoagulantName === "Dabigatran" || !hasDoacBeenTaken){
+            isHide = false;
         }
 
-        return isShow;
+        return isHide;
     }
 
-    function hideReversalAgentOptionPCC(anticoagulantName){
-        var isShow = true;
-        if(anticoagulantName === "Apixaban" || anticoagulantName === "Rivoroxaban" || anticoagulantName === "Edoxaban"){
-            isShow = false;
+    function hideReversalAgentOptionPCC(anticoagulantName, hasDoacBeenTaken){
+        var isHide = true;
+        if(anticoagulantName === "Apixaban" || anticoagulantName === "Rivoroxaban" || anticoagulantName === "Edoxaban"
+            || !hasDoacBeenTaken){
+            isHide = false;
         }
 
-        return isShow;
+        return isHide;
     }
     
     function hideReversalAgentCard(hasDoacBeenTaken){

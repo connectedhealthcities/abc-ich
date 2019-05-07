@@ -249,7 +249,7 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
             templateUrl: 'modules/protocol-a/administer-beriplex/administer-topup-dose-popup.html',
             title: 'Administer topup dose',
             subTitle: 'Administer the remaining topup dose.',
-            cssClass: 'chi-wide-popup',
+            cssClass: 'chi-extra-wide-popup',
             scope: $scope
         };
         var popup = $ionicPopup.confirm(popupTemplate);

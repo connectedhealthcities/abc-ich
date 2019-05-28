@@ -16,6 +16,7 @@ angular.module('utils').constant('STATE_PATIENT_END', 'patient-end');
 angular.module('utils').constant('STATE_PATIENT_START', 'patient-start');
 angular.module('utils').constant('STATE_REGISTER_PATIENT', 'register-patient');
 angular.module('utils').constant('STATE_ADMINISTER_BERIPLEX', 'tabs.administer-beriplex');
+angular.module('utils').constant('STATE_ADMINISTER_TOPUP_DOSE', 'tabs.administer-topup-dose');
 angular.module('utils').constant('STATE_ANTICOAGULANT_IDENTIFICATION', 'tabs.anticoagulant-identification');
 angular.module('utils').constant('STATE_CALCULATE_BERIPLEX_DOSE', 'tabs.calculate-beriplex-dose');
 angular.module('utils').constant('STATE_CONFIRM_BERIPLEX_DOSE', 'tabs.confirm-beriplex-dose');

@@ -4,7 +4,7 @@ describe('AdministerBeriplexController', function() {
 
     var vm;
 	var $q, $window;
-	var STATE_ADMINISTER_BERIPLEX_MOCK, STATE_BP_MANAGEMENT_MOCK;
+	var STATE_ADMINISTER_BERIPLEX_MOCK, STATE_BP_MANAGEMENT_MOCK, STATE_ADMINISTER_TOPUP_DOSE;
     var GCS_THRESHOLD_MOCK;
     var scopeMock, stateMock, ionicPopupMock, administerBeriplexControllerServiceMock; 
     var patientCacheServiceMock, stateCacheServiceMock, dateTimeServiceMock, demoModeCacheServiceMock;
@@ -19,11 +19,12 @@ describe('AdministerBeriplexController', function() {
             $window = _$window_;
 			STATE_ADMINISTER_BERIPLEX_MOCK = "state-administer-beriplex-mock";
             STATE_BP_MANAGEMENT_MOCK = "state-bp-managemwnt-mock";
+            STATE_ADMINISTER_TOPUP_DOSE = "state-administer-topup-mock";
             GCS_THRESHOLD_MOCK = 9;
 			scopeMock = $rootScope.$new();
 			stateMock = jasmine.createSpyObj('$state spy', ['go']);
 			ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['confirm']);
-			administerBeriplexControllerServiceMock = jasmine.createSpyObj('AdministerBeriplexControllerService spy', ['isNextButtonEnabled', 'showBeriplexDateTimeCard', 'showVitaminkDateTimeCard', 'showVitaminKCards']);
+			administerBeriplexControllerServiceMock = jasmine.createSpyObj('AdministerBeriplexControllerService spy', ['isNextButtonEnabled', 'showBeriplexDateTimeCard', 'showVitaminkDateTimeCard', 'showVitaminKCards', 'isPCCTopupButtonEnabled']);
 			patientCacheServiceMock = jasmine.createSpyObj('PatientCacheService spy', [
                 'getUniqueId',
 				'getCalculatedBeriplexDose',
@@ -67,6 +68,7 @@ describe('AdministerBeriplexController', function() {
                 'GCS_THRESHOLD': GCS_THRESHOLD_MOCK,
 				'STATE_ADMINISTER_BERIPLEX': STATE_ADMINISTER_BERIPLEX_MOCK,
 				'STATE_BP_MANAGEMENT': STATE_BP_MANAGEMENT_MOCK,
+				'STATE_ADMINISTER_TOPUP_DOSE':STATE_ADMINISTER_TOPUP_DOSE,
 				'PCCDoseTableService': pccDoseTableServiceMock                
 			});
 		});				
@@ -142,6 +144,13 @@ describe('AdministerBeriplexController', function() {
 		vm.anticoagulantType = "anticoagulant-type";
 		vm.showVitaminKCards();
 		expect(administerBeriplexControllerServiceMock.showVitaminKCards).toHaveBeenCalledWith("anticoagulant-type");
+	});
+
+	it("should delegate isPCCTopupButtonEnabled to controller.service", function(){
+		vm.inrValue = "inr-value";
+		vm.hasDoacBeenTaken = "has-doac-been-taken";
+		vm.isPCCTopupButtonEnabled();
+		expect(administerBeriplexControllerServiceMock.isPCCTopupButtonEnabled).toHaveBeenCalledWith("inr-value", "has-doac-been-taken");
 	});
 
 	it("should reset view model parameters appropriately when isBeriplexAdministeredChanged is called", function() {

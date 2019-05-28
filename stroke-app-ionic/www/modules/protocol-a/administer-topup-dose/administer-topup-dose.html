@@ -1,0 +1,108 @@
+<ion-view title="Administer topup dose" hide-nav-bar="true">
+  <ion-content padding="true">
+
+    <!--<div>Administer topup dose view</div>-->
+
+    <!-- Patient id-->
+    <div class="row chi-header-row">
+      <div ng-show="vm.isDemoMode" class="col-50 chi-demo-mode">
+        <p><strong>Demo mode</strong></p>
+      </div>
+
+      <div ng-show="vm.isDemoMode" class="col-50 chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
+      <div ng-show="!vm.isDemoMode" class="col-50 col-offset-50 chi-patient-id">
+        <p><strong>Patient Id: </strong>{{vm.patientId}}</p>
+      </div>
+    </div>
+    <hr>
+
+    <div class="list card chi-info">
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Dosing guide</ion-item>
+      <div class="table-container">
+        <table class="table-style">
+          <tr class="text-center">
+            <td class="text-center"><strong>INR</strong></td>
+            <td class="text-center"><strong>Dosing</strong></td>
+            <td class="text-center"><strong>30kg</strong></td>
+            <td class="text-center"><strong>40kg</strong></td>
+            <td class="text-center"><strong>50kg</strong></td>
+            <td class="text-center"><strong>60kg</strong></td>
+            <td class="text-center"><strong>70kg</strong></td>
+            <td class="text-center"><strong>80kg</strong></td>
+            <td class="text-center"><strong>90kg</strong></td>
+            <td class="text-center"><strong>100+</strong></td>
+          </tr>
+          <tr ng-repeat="row in vm.dosingTable" class="text-center">
+            <td class="text-center"><strong>{{row.inr}}</strong></td>
+            <td class="text-center">{{row.dosing}}</td>
+            <td class="text-center">{{row.kg30}}</td>
+            <td class="text-center">{{row.kg40}}</td>
+            <td class="text-center">{{row.kg50}}</td>
+            <td class="text-center">{{row.kg60}}</td>
+            <td class="text-center">{{row.kg70}}</td>
+            <td class="text-center">{{row.kg80}}</td>
+            <td class="text-center">{{row.kg90}}</td>
+            <td class="text-center">{{row.kg100}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="list card" >
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>INR value
+      </ion-item>
+      <label class="item item-input">
+        <input type="number" ng-model="vm.unconfirmedInrValue" ng-change="vm.onInrValueChanged()" placeholder="Enter INR value here">
+      </label>
+      <ion-item class="item-icon-left card-header chi-data-validation-warning" ng-show="vm.showInrInvalidMessage()">
+        <i class="icon ion-alert-circled"></i>INR value is outside the allowed range: 1.3 - 10.0
+      </ion-item>  
+    </div>
+
+    <div class="list card" ng-show="vm.showCalculatedDoseCard()">
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Calculated Dose is: {{vm.topupCalculatedDose}} IU
+      </ion-item>
+      <ion-item class="item-icon-left card-header chi-data-validation-warning" ng-show="vm.showCalculatedDoseInvalidMessage()">
+        <i class="icon ion-alert-circled"></i>Calculated dose is invalid.
+      </ion-item> 
+    </div>
+
+    <div class="list card" ng-show="vm.showCalculatedDoseCard()">
+      <ion-item class="item-icon-left card-header card-header-green chi-info">
+        <i class="icon ion-information-circled"></i>Override calculated dose?
+      </ion-item>
+      <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="true">
+        <span class="input-blue">Yes</span>
+      </ion-radio>
+      <ion-radio ng-model="vm.overrideCalculatedDose" ng-change="vm.onOverrideCalculatedDoseChanged()" name="override-calc" ng-value="false">
+        <span class="input-blue">No</span>
+      </ion-radio>
+    </div>
+
+    <div class="list card" ng-show="vm.showActualDoseCard()">
+      <ion-item class="item-icon-left card-header card-header-green">
+        <i class="icon ion-information-circled"></i>Actual dose
+      </ion-item>
+      <label class="item item-input">
+        <input type="number" ng-model="vm.topupActualDose" placeholder="Enter actual dose here">
+      </label>
+      <ion-item class="item-icon-left card-header chi-data-validation-warning" ng-show="vm.showActualDoseInvalidMessage()">
+        <i class="icon ion-alert-circled"></i>Actual dose is invalid.
+      </ion-item> 
+    </div>
+
+    <!--Next button-->
+    <div class="chi-spacer"></div>
+    <div class="col-offset-50 col-50">
+      <button ng-click="vm.onCancel()" class="button button-calm  button-block icon-left ion-chevron-left">Cancel</button>
+    </div>
+    <div class="col-offset-50 col-50">
+      <button ng-disabled="!vm.isNextButtonEnabled()" ng-click="vm.onNext()" class="button button-calm  button-block icon-right ion-chevron-right">Next</button>
+    </div>
+  </ion-content>
+</ion-view>

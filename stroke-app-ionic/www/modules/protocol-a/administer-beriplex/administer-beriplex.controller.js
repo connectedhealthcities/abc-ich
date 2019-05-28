@@ -2,9 +2,9 @@
 
 angular.module('app.protocolA').controller('AdministerBeriplexController', AdministerBeriplexController);
 
-AdministerBeriplexController.$inject = ['$window', '$scope', '$state', '$ionicPopup', 'AdministerBeriplexControllerService', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_ADMINISTER_BERIPLEX', 'STATE_BP_MANAGEMENT', 'PCCDoseTableService'];
+AdministerBeriplexController.$inject = ['$window', '$scope', '$state', '$ionicPopup', 'AdministerBeriplexControllerService', 'PatientCacheService', 'StateCacheService', 'DateTimeService', 'DemoModeCacheService', 'GCS_THRESHOLD', 'STATE_ADMINISTER_BERIPLEX', 'STATE_BP_MANAGEMENT', 'STATE_ADMINISTER_TOPUP_DOSE', 'PCCDoseTableService'];
 
-function AdministerBeriplexController($window, $scope, $state, $ionicPopup, AdministerBeriplexControllerService, PatientCacheService, StateCacheService, DateTimeService, DemoModeCacheService, GCS_THRESHOLD, STATE_ADMINISTER_BERIPLEX, STATE_BP_MANAGEMENT, PCCDoseTableService) {
+function AdministerBeriplexController($window, $scope, $state, $ionicPopup, AdministerBeriplexControllerService, PatientCacheService, StateCacheService, DateTimeService, DemoModeCacheService, GCS_THRESHOLD, STATE_ADMINISTER_BERIPLEX, STATE_BP_MANAGEMENT, STATE_ADMINISTER_TOPUP_DOSE, PCCDoseTableService) {
 
     var vm = this;
 
@@ -44,10 +44,7 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         vm.anticoagulantType = PatientCacheService.getAnticoagulantType();
         vm.selectedPCCType = PatientCacheService.getSelectedPCCType();
 
-        vm.estimatedWeightInKg = PatientCacheService.getEstimatedWeightInKg();
         vm.inrValue = PatientCacheService.getInrValue();
-        vm.administerBeriplexWithoutInr = PatientCacheService.getAdministerBeriplexWithoutInr();
-        vm.dosingTable = PCCDoseTableService.getDosingRecords(vm.selectedPCCType);
         vm.topupDose = PatientCacheService.getTopupDose();
 
         vm.hasDoacBeenTaken = PatientCacheService.getHasDoacBeenTaken();
@@ -60,12 +57,10 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         vm.onNext = onNext;
         vm.onBeriplexNow = onBeriplexNow;
         vm.onVitkNow = onVitkNow;
-        vm.onShowTopupDosePopup = onShowTopupDosePopup;
 
         // Setup change handlers
         vm.isBeriplexAdministeredChanged = isBeriplexAdministeredChanged;
         vm.isVitkAdministeredChanged = isVitkAdministeredChanged;
-        vm.onInrValueChanged = onInrValueChanged;
  
         // Setup enable/disable handlers
         vm.isNextButtonEnabled = isNextButtonEnabled;
@@ -75,12 +70,12 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         vm.showVitaminkDateTimeCard = showVitaminkDateTimeCard;
         vm.showVitaminKCards = showVitaminKCards;
         vm.isPCCTopupButtonEnabled = isPCCTopupButtonEnabled;
-        vm.showCalculatedDose = showCalculatedDose;
-        vm.showActualDose = showActualDose;
-        vm.showCalculatedDoseToAdminister = showCalculatedDoseToAdminister;
 
         // Setup 'View Infusion Instructions' handler 
-        vm.onViewInfusionInstructions = onViewInfusionInstructions;       
+        vm.onViewInfusionInstructions = onViewInfusionInstructions;     
+
+        // Navigation handler
+        vm.goToAdministerTopupDose = goToAdministerTopupDose;  
     }
 
     init();
@@ -102,13 +97,6 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         vm.vitkTime = now;
     }
 
-    function onShowTopupDosePopup(){
-        vm.inrValue = null;
-        vm.topupActualDose = null;
-        vm.topupCalculatedDose = null;
-        showAdministerTopupDosePopup(); 
-    }
-
     // Change handlers
     function isBeriplexAdministeredChanged() {
         vm.beriplexDate = null;
@@ -118,11 +106,6 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
     function isVitkAdministeredChanged() {
         vm.vitkDate = null;
         vm.vitkTime = null;
-    }
-
-    function onInrValueChanged(){
-        var topupDose = PCCDoseTableService.getDose(vm.selectedPCCType, vm.estimatedWeightInKg, vm.unconfirmedInrValue, vm.hasDoacBeenTaken);
-        vm.topupCalculatedDose = topupDose - vm.pccDose;
     }
 
     // Enable/disable handlers
@@ -145,18 +128,6 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
 
     function isPCCTopupButtonEnabled(){
         return AdministerBeriplexControllerService.isPCCTopupButtonEnabled(vm.inrValue, vm.hasDoacBeenTaken);
-    }
-
-    function showCalculatedDose(){
-        return AdministerBeriplexControllerService.showCalculatedDose(vm.unconfirmedInrValue);
-    }
-
-    function showActualDose(){
-        return AdministerBeriplexControllerService.showActualDose(vm.overrideCalculatedDose, vm.unconfirmedInrValue);
-    }
-
-    function showCalculatedDoseToAdminister(){
-        return AdministerBeriplexControllerService.showCalculatedDoseToAdminister(vm.overrideCalculatedDose);
     }
 
     // 'View Infusion Instructions' handler 
@@ -202,28 +173,8 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         PatientCacheService.setIsInfusionInstructionsViewed(vm.isInfusionInstructionsViewed);
     }
 
-    function updatePCCDose(){
-        var topupDose = vm.topupActualDose ? vm.topupActualDose : vm.topupCalculatedDose;
-        var totalDose = vm.pccDose + topupDose;
-        if(vm.actualDose){
-            PatientCacheService.setActualBeriplexDose(totalDose);
-        } else if(vm.calculatedDose) {
-            PatientCacheService.setCalculatedBeriplexDose(totalDose);
-        }
-
-        PatientCacheService.setTopupDose(topupDose);
-        vm.inrValue = vm.unconfirmedInrValue
-        PatientCacheService.setInrValue(vm.inrValue);
-
-        vm.topupDose = topupDose;
-    }
-
-    function validateTopupDosePopup(){
-        if(AdministerBeriplexControllerService.isTopupDosePopupValid(vm.unconfirmedInrValue, vm.overrideCalculatedDose, vm.topupActualDose)){
-            showTopupDoseConfirmationPopup();
-        } else {
-            showTopupDoseInvalidDataPopup();
-        }
+    function goToAdministerTopupDose(){
+        $state.go(STATE_ADMINISTER_TOPUP_DOSE);
     }
 
     // Popups
@@ -244,48 +195,6 @@ function AdministerBeriplexController($window, $scope, $state, $ionicPopup, Admi
         });
     }
 
-    function showAdministerTopupDosePopup(){
-        var popupTemplate = {
-            templateUrl: 'modules/protocol-a/administer-beriplex/administer-topup-dose-popup.html',
-            title: 'Administer topup dose',
-            subTitle: 'Administer the remaining topup dose.',
-            cssClass: 'chi-extra-wide-popup',
-            scope: $scope
-        };
-        var popup = $ionicPopup.confirm(popupTemplate);
-        popup.then(function(confirm){
-            if(confirm) validateTopupDosePopup();
-        });
-    }
-
-    function showTopupDoseConfirmationPopup(){
-        var popupTemplate = {
-            templateUrl: 'modules/protocol-a/administer-beriplex/administer-topup-dose-confirmation-popup.html',
-            title: 'Data validation',
-            subTitle: 'Please confirm data entered is correct',
-            cssClass: 'chi-wide-popup',
-            scope: $scope
-        }
-        var popup = $ionicPopup.confirm(popupTemplate);
-        popup.then(function(confirm){
-            if(confirm) updatePCCDose();
-            else showAdministerTopupDosePopup();
-        });
-    }
-
-    function showTopupDoseInvalidDataPopup(){
-        var popupTemplate = {
-            templateUrl: 'modules/protocol-a/administer-beriplex/administer-topup-dose-invalid-data-popup.html',
-            title: 'Invalid data',
-            subTitle: 'The information you have entered was invalid.',
-            cssClass: 'chi-wide-popup',
-            scope: $scope
-        }
-        var popup = $ionicPopup.alert(popupTemplate);
-        popup.then(function(confirm){
-            showAdministerTopupDosePopup();
-        });
-    }
 }
 
  

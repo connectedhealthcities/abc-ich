@@ -53,6 +53,10 @@
 
     <div class="chi-spacer"></div>
 
+    <div>
+        <button ng-disabled="!vm.isPCCTopupButtonEnabled()" ng-click="vm.goToAdministerTopupDose()" class="button button-calm  button-block icon-right ion-chevron-right">Administer {{vm.selectedPCCType}} topup dose</button>
+    </div>
+
     <div class="list card">
         <ion-item class="item-icon-left card-header card-header-green">
           <i class="icon ion-ionic"></i>{{vm.selectedPCCType}} administered?
@@ -125,10 +129,6 @@
           </div>
         </div>
       </form>
-    </div>
-
-    <div>
-        <button ng-disabled="!vm.isPCCTopupButtonEnabled()" ng-click="vm.onShowTopupDosePopup()" class="button button-calm  button-block icon-right ion-chevron-right">Administer {{vm.selectedPCCType}} topup dose</button>
     </div>
 
     <!--Next button-->

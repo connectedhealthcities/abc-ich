@@ -12,10 +12,6 @@ function AdministerBeriplexControllerService() {
         showVitaminkDateTimeCard: showVitaminkDateTimeCard,
         showVitaminKCards: showVitaminKCards,
         isPCCTopupButtonEnabled: isPCCTopupButtonEnabled,
-        showCalculatedDose: showCalculatedDose,
-        showActualDose: showActualDose,
-        showCalculatedDoseToAdminister: showCalculatedDoseToAdminister,
-        isTopupDosePopupValid: isTopupDosePopupValid
     };
 
     return service;
@@ -95,47 +91,5 @@ function AdministerBeriplexControllerService() {
         }
 
         return enabled;
-    }
-
-    function showCalculatedDose(inrValue){
-        var isShow = false;
-
-        if(inrValue){
-            isShow = true;
-        }
-
-        return isShow;
-    }
-
-    function showActualDose(overrideCalculatedDose, inrValue){
-        var isShow = false;
-
-        if(overrideCalculatedDose && inrValue){
-            isShow = true;
-        }
-
-        return isShow;
-    }
-
-    function showCalculatedDoseToAdminister(overrideCalculatedDose){
-        var isShow = true;
-
-        if(overrideCalculatedDose){
-            isShow = false;
-        }
-
-        return isShow;
-    }
-
-    function isTopupDosePopupValid(inrValue, overrideCalculatedDose, topupActualDose){
-        var isValid = false;
-
-        if(inrValue && inrValue >= 1.3){
-            if(!overrideCalculatedDose || topupActualDose){
-                isValid = true;
-            }
-        }
-
-        return isValid;
     }
 }

@@ -523,81 +523,65 @@ Template
 		And: the ABC tabs are visible
 		And: the selected tab is C
 	</Scenario>
-	<Scenario> #5: The user opens the topup control.
+	<Scenario> #5: The user opens the 'Administer Topup Dose' view.
 		Given: the user has previously selected to calculate the PCC dose without an INR.
 		When: the user has selected the "Administer topup dose" button.
-		Then: the topup dose control appears.
+		Then: the 'Administer Topup Dose' view appears.
 	</Scenario>
-	<Scenario> #6: The user enters an inr value into the topup control.
-		Given: has opened the topup dose control.
+	<Scenario> #6: The user navigates back to the 'Administer Beriplex/Octaplex' view from the 'Administer Topup Dose' view after topup.
+		Given: the user confirmed a topup dose from the "Administer topup dose" view.
+		When: the user navigates back to the 'Administer Beriplex/Octaplex' view from the 'Administer Topup Dose' view.
+		Then: a label showing the topup dose will be visible at the top of the view.
+	</Scenario>
+	<Scenario> #7: The user navigates back to the 'Administer Beriplex/Octaplex' view from the 'Administer Topup Dose' view without topup.
+		Given: the user selected cancel on the "Administer topup dose" view.
+		When: the user navigates back to the 'Administer Beriplex/Octaplex' view from the 'Administer Topup Dose' view.
+		Then: a label showing the topup dose will not be visible at the top of the view.
+	</Scenario>
+</Story>
+
+<Story> Administer topup dose - view navigation
+	<Scenario> #1: The user enters an inr value into the inr control.
+		Given: has navigated to the 'Administer Topup Dose' view.
 		When: the user enters an inr value.
-		Then: the calculated topup dose based on the inr value and previous dose appears.
+		Then: the calculated topup dose control, based on the inr value and previous dose, appears.
 		And: the control allowing the user to override this topup dose value appears.
 	</Scenario>
-	<Scenario> #7: The user selects not to override the topup dose.
-		Given: has opened the topup dose control.
+	<Scenario> #2: The user selects not to override the topup dose.
+		Given: has navigated to the 'Administer Topup Dose' view.
 		And: the user has entered an inr value.
 		When: selects to not override the topup dose.
 		Then: the control updates to show this is selected.
 	</Scenario>
-	<Scenario> #8: The user selects to override the topup dose.
-		Given: has opened the topup dose control.
+	<Scenario> #3: The user selects to override the topup dose.
+		Given: has navigated to the 'Administer Topup Dose' view.
 		And: the user has entered an inr value.
 		When: selects to override the topup dose.
 		Then: the control updates to show this is selected.
 		And: the control allowing the user to enter an override value appears.
 	</Scenario>
-	<Scenario> #9: The user selects 'confirm' after choosing to not override the topup dose.
-		Given: has opened the topup dose control.
-		And: the user has entered an inr value.
-		And: the user has chosen not to override the calculated topup dose.
-		When: the user selects 'confirm'.
+	<Scenario> #4: The user selects 'Next' from the 'Administer Topup Dose' view.
+		Given: has navigated to the 'Administer Topup Dose' view.
+		And: the next button is enabled.
+		When: the user selects 'Next'.
 		Then: a confirmation popup appears.
 	</Scenario>
-	<Scenario> #10: The user selects 'confirm' after choosing to override the topup dose.
-		Given: has opened the topup dose control.
-		And: the user has entered an inr value.
-		And: the user has chosen to override the calculated topup dose.
-		And: the user has entered an override dosage.
-		When: the user selects 'confirm'.
-		Then: a confirmation popup appears.
+	<Scenario> #5: The user selects 'Cancel' from the 'Administer Topup Dose' view.
+		Given: has navigated to the 'Administer Topup Dose' view.
+		And: the next button is enabled.
+		When: the user selects 'Cancel'.
+		Then: the user is navigated back to the "Administer Beriplex/Octaplex" view.
 	</Scenario>
-	<Scenario> #11: The user selects 'confirm' after failing to enter an inr value.
-		Given: has opened the topup dose control.
-		And: the user has not entered an inr value
-		When: the user selects 'confirm'.
-		Then: a invalid information popup appears.
-	</Scenario>
-	<Scenario> #12: The user selects 'confirm' after failing to choose if they wish to override the topup dose.
-		Given: has opened the topup dose control.
-		And: the user has not selected whether they should override the topup dose.
-		When: the user selects 'confirm'.
-		Then: a invalid information popup appears.
-	</Scenario>
-	<Scenario> #13: The user selects 'confirm' after failing to add an alternative topup dose.
-		Given: has opened the topup dose control.
-		And: the user has not entered an alternate topup dose after selecting to override the calculated dose.
-		When: the user selects 'confirm'.
-		Then: a invalid information popup appears.
-	</Scenario>
-	<Scenario> #14: The user selects 'okay' on the invalidation control.
-		Given: the invalid information popup has appeared.
-		When: the user selects 'okay'.
-		Then: a invalid information popup disappears.
-		And: the topup dose control reappears.
-	</Scenario>
-	<Scenario> #15: The user selects 'cancel' on the confirmation popup control.
+	<Scenario> #6: The user selects 'cancel' on the confirmation popup control.
 		Given: the confirmation popup has appeared.
 		When: the user selects 'cancel'.
 		Then: a confirmation popup disappears.
-		And: the topup dose control reappears.
 	</Scenario>
-	<Scenario> #16: The user selects 'confirm' on the confirmation popup control.
+	<Scenario> #7: The user selects 'confirm' on the confirmation popup control.
 		Given: the confirmation popup has appeared.
 		When: the user selects 'confirm'.
 		Then: a confirmation popup disappears.
-		And: the topup dose control disappears.
-		And: the PCC dose is updated with the topup dose on the page.
+		And: the user is navigated back to the "Administer Beriplex/Octaplex" view.
 	</Scenario>
 </Story>
 

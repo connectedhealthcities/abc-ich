@@ -21,10 +21,10 @@
     <div ng-hide="vm.hideReversalAgentCard()" class="list card">
       <ion-item class="item-icon-left  card-header card-header-green">
         <i class="icon ion-ionic"></i>Reversal agent administered</ion-item>
-        <ion-radio ng-hide="vm.hideReversalAgentOptionIdarucizumab()" ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'Idarucizumab'">
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'Idarucizumab'">
             <span class="input-blue">Idarucizumab</span>
         </ion-radio>
-        <ion-radio ng-hide="vm.hideReversalAgentOptionPCC()" ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'PCC'">
+        <ion-radio ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'PCC'">
             <span class="input-blue">PCC</span>
         </ion-radio>
         <ion-radio ng-hide="vm.hideReversalAgentOptionNone()" ng-model="vm.reversalAgent" ng-change="vm.onReversalAgentChanged()" name="reversal-agent" ng-value="'None'">

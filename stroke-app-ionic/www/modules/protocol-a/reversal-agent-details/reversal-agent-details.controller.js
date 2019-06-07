@@ -44,8 +44,6 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
         vm.showIsReversalTimeKnownCard = showIsReversalTimeKnownCard;
         vm.showReversalTimeCard = showReversalTimeCard;
         vm.hideReversalAgentOptionNone = hideReversalAgentOptionNone;
-        vm.hideReversalAgentOptionIdarucizumab = hideReversalAgentOptionIdarucizumab;
-        vm.hideReversalAgentOptionPCC = hideReversalAgentOptionPCC;
         vm.hideReversalAgentCard = hideReversalAgentCard;
     }
 
@@ -98,14 +96,6 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
         return ReversalAgentDetailsControllerService.hideReversalAgentOptionNone(vm.reversalAgentAdministeredAtExternalHospital);
     }
 
-    function hideReversalAgentOptionIdarucizumab(){
-        return ReversalAgentDetailsControllerService.hideReversalAgentOptionIdarucizumab(vm.anticoagulantName, vm.hasDoacBeenTaken);
-    }
-
-    function hideReversalAgentOptionPCC(){
-        return ReversalAgentDetailsControllerService.hideReversalAgentOptionPCC(vm.anticoagulantName, vm.hasDoacBeenTaken);
-    }
-
     function hideReversalAgentCard(){
         return ReversalAgentDetailsControllerService.hideReversalAgentCard(vm.hasDoacBeenTaken);
     }
@@ -114,7 +104,7 @@ function ReversalAgentDetailsController($scope, $state, $ionicPopup, ReversalAge
     function handleDataValid() {
         saveData();
 
-        if (vm.gcsScore < GCS_THRESHOLD || vm.hasDoacBeenTaken) {
+        if (vm.gcsScore < GCS_THRESHOLD) {
             StateCacheService.goLatestStateTabC();
         } else {
             $state.go(STATE_BP_MANAGEMENT);

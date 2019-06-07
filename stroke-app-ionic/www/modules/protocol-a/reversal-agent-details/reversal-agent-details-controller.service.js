@@ -11,8 +11,6 @@ function ReversalAgentDetailsControllerService() {
         showIsReversalTimeKnownCard: showIsReversalTimeKnownCard,
         showReversalTimeCard: showReversalTimeCard,
         hideReversalAgentOptionNone: hideReversalAgentOptionNone,
-        hideReversalAgentOptionIdarucizumab: hideReversalAgentOptionIdarucizumab,
-        hideReversalAgentOptionPCC: hideReversalAgentOptionPCC,
         hideReversalAgentCard: hideReversalAgentCard
     };
 
@@ -77,26 +75,6 @@ function ReversalAgentDetailsControllerService() {
         if (reversalAgentAdministeredAtExternalHospital) {
             isHide = true;
         }
-        return isHide;
-    }
-
-    function hideReversalAgentOptionIdarucizumab(anticoagulantName, hasDoacBeenTaken){
-        var isHide = true;
-
-        if(anticoagulantName === "Dabigatran" || !hasDoacBeenTaken){
-            isHide = false;
-        }
-
-        return isHide;
-    }
-
-    function hideReversalAgentOptionPCC(anticoagulantName, hasDoacBeenTaken){
-        var isHide = true;
-        if(anticoagulantName === "Apixaban" || anticoagulantName === "Rivoroxaban" || anticoagulantName === "Edoxaban"
-            || !hasDoacBeenTaken){
-            isHide = false;
-        }
-
         return isHide;
     }
     
